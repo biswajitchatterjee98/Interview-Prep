@@ -202,3 +202,22 @@ function mcqTopicSectionProgress(slug, catalog) {
   }
   return { done, total: sizes.length, left: Math.max(0, sizes.length - done) };
 }
+
+/** Per-topic MCQ progress by question count (answered, or full section if submitted). */
+function mcqTopicQuestionProgress(slug, catalog) {
+  const sizes = catalog.mcqSectionSizes || [20, 20, 10];
+  let done = 0;
+  let total = 0;
+  for (let i = 0; i < sizes.length; i++) {
+    const n = sizes[i];
+    total += n;
+    const attempt = loadAttempt("mcq", slug, i + 1);
+    if (!attempt) continue;
+    if (attempt.submitted) {
+      done += n;
+      continue;
+    }
+    done += Math.min(Object.keys(attempt.answers || {}).length, n);
+  }
+  return { done: Math.min(done, total), total, left: Math.max(0, total - done) };
+}

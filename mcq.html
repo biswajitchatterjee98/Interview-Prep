@@ -73,7 +73,7 @@
       app.innerHTML = `
         <p class="kicker">MCQs</p>
         <h1>Topics</h1>
-        <p class="lede">Finish a section, then review. Each card shows how many of the three sections you have completed.</p>
+        <p class="lede">Finish a section, then review. Each card shows how many of the 50 questions you have completed.</p>
         <div class="stats-row">
           <span><strong>${mcqTopics.length}</strong> topics</span>
           <span><strong>${readySlugs.length}</strong> banks ready</span>
@@ -89,17 +89,17 @@
           const cards = group.topics
             .map((t) => {
               const ready = readySet.has(t.slug);
-              const prog = mcqTopicSectionProgress(t.slug, catalog);
-              const ring = ready
-                ? renderRingMini(prog.done, prog.total, { unit: "sections" })
-                : renderRingMini(0, prog.total, { unit: "sections" });
+              const prog = mcqTopicQuestionProgress(t.slug, catalog);
+              const ring = renderRingMini(ready ? prog.done : 0, prog.total, {
+                unit: "questions",
+              });
               const meta = !ready
                 ? "Coming soon"
-                : prog.done >= prog.total
-                  ? "All sections done"
+                : prog.done >= prog.total && prog.total
+                  ? "All questions done"
                   : prog.done > 0
-                    ? `${prog.left} section${prog.left === 1 ? "" : "s"} left`
-                    : "50 questions · not started";
+                    ? `${prog.done}/${prog.total} questions`
+                    : `${prog.total} questions · not started`;
               return `<a class="topic-card" href="mcq.html?topic=${encodeURIComponent(t.slug)}">
                 <span class="topic-card-top">
                   <span class="topic-card-title">${escapeHtml(t.title)}</span>

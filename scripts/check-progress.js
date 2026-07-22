@@ -30,6 +30,7 @@ const {
   summarizeCodingSections,
   summarizeTestSections,
   mcqTopicSectionProgress,
+  mcqTopicQuestionProgress,
   codingTopicProblemProgress,
 } = context;
 
@@ -68,6 +69,8 @@ saveAttempt("mcq", "arrays", 1, {
 mcq = summarizeMcqSections(catalog);
 assert.strictEqual(mcq.done, 1);
 assert.strictEqual(mcqTopicSectionProgress("arrays", catalog).done, 1);
+assert.strictEqual(mcqTopicQuestionProgress("arrays", catalog).done, 20);
+assert.strictEqual(mcqTopicQuestionProgress("arrays", catalog).total, 50);
 
 let coding = summarizeCodingSections(catalog);
 assert.strictEqual(coding.total, 12 * 3 + 3); // 12 DSA × 3 + SQL × 3
