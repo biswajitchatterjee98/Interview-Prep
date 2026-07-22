@@ -97,20 +97,27 @@
           const cards = group.topics
             .map((t) => {
               const isReady = readySet.has(t.slug);
-              const dot = isReady ? `<span class="ready-dot"></span>` : "";
               const prog = codingTopicProblemProgress(t.slug, catalog);
+              const ring = renderRingMini(
+                isReady ? prog.sectionsDone : 0,
+                prog.sectionsTotal,
+                { unit: "sections" }
+              );
               let meta = "Coming soon";
               if (isReady) {
-                meta =
-                  prog.done > 0
-                    ? `<span class="prog">${prog.sectionsDone}/${prog.sectionsTotal} sections · ${prog.done}/${prog.total} problems</span>`
-                    : t.slug === "sql"
-                      ? "25 problems · not started"
-                      : "8 problems · not started";
+                if (prog.sectionsDone >= prog.sectionsTotal) meta = "All sections done";
+                else if (prog.done > 0) {
+                  meta = `${prog.sectionsDone}/${prog.sectionsTotal} sections · ${prog.done}/${prog.total} problems`;
+                } else {
+                  meta = t.slug === "sql" ? "25 problems · not started" : "8 problems · not started";
+                }
               }
               return `<a class="topic-card" href="coding.html?topic=${encodeURIComponent(t.slug)}">
-                <span class="topic-card-title">${dot}${escapeHtml(t.title)}</span>
-                <span class="topic-card-meta">${meta}</span>
+                <span class="topic-card-top">
+                  <span class="topic-card-title">${escapeHtml(t.title)}</span>
+                  ${ring}
+                </span>
+                <span class="topic-card-meta">${escapeHtml(meta)}</span>
               </a>`;
             })
             .join("");

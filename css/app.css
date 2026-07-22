@@ -180,6 +180,10 @@ h1 {
   margin-top: 1.25rem;
   padding-top: 1.1rem;
 }
+.card-tracker:empty {
+  min-height: 4.75rem;
+  margin-top: 1.25rem;
+}
 .wrap > .ring-tracker {
   margin: -0.5rem 0 1.75rem;
 }
@@ -312,7 +316,7 @@ h1 {
 .topic-card {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   padding: 1rem 1rem 0.9rem;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -326,16 +330,64 @@ h1 {
   text-decoration: none;
   background: #fcfbf9;
 }
+.topic-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
 .topic-card-title {
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.2;
+  min-width: 0;
 }
 .topic-card-meta {
   font-size: 0.7rem;
   letter-spacing: 0.06em;
   color: var(--faint);
+}
+
+/* Light-theme mini rings (topic cards) */
+.ring-mini {
+  position: relative;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+}
+.ring-mini svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ring-mini .ring-bg {
+  stroke: var(--line);
+  stroke-width: 2.6;
+}
+.ring-mini .ring-fg {
+  stroke: var(--accent);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+.ring-mini.is-new .ring-fg { stroke: var(--line-strong); }
+.ring-mini.is-complete .ring-fg { stroke: var(--accent); }
+.ring-mini-label {
+  position: relative;
+  z-index: 1;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.ring-mini.is-active .ring-mini-label,
+.ring-mini.is-complete .ring-mini-label {
+  color: var(--ink);
 }
 
 .section-grid {

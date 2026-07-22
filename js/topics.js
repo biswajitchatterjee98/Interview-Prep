@@ -87,15 +87,16 @@ function renderTracker({ done, total, unit }) {
   </div>`;
 }
 
-/** Tiny sidebar ring for topic progress (e.g. 4/10). */
-function renderRingMini(done, total) {
+/** Tiny ring for topic cards / sidebar (always shows done/total). */
+function renderRingMini(done, total, opts) {
   const safeTotal = Math.max(0, Number(total) || 0);
   const safeDone = Math.min(Math.max(0, Number(done) || 0), safeTotal);
   const pct = safeTotal ? Math.round((safeDone / safeTotal) * 100) : 0;
   const { filled, gap } = ringDash(pct, 14);
-  const state = safeDone <= 0 ? "is-new" : safeDone >= safeTotal ? "is-complete" : "is-active";
-  const label = safeDone > 0 ? `${safeDone}/${safeTotal}` : String(safeTotal);
-  return `<span class="ring-mini ${state}" title="${safeDone} of ${safeTotal} studied" aria-label="${safeDone} of ${safeTotal} studied">
+  const state = safeDone <= 0 ? "is-new" : safeDone >= safeTotal && safeTotal > 0 ? "is-complete" : "is-active";
+  const label = `${safeDone}/${safeTotal || 0}`;
+  const noun = (opts && opts.unit) || "done";
+  return `<span class="ring-mini ${state}" title="${safeDone} of ${safeTotal} ${noun}" aria-label="${safeDone} of ${safeTotal} ${noun}">
     <svg viewBox="0 0 32 32" aria-hidden="true">
       <circle class="ring-bg" cx="16" cy="16" r="14" fill="none" />
       <circle class="ring-fg" cx="16" cy="16" r="14" fill="none"

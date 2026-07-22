@@ -46,37 +46,41 @@
     </div>
   </div>
   <script src="js/auth.js"></script>
-  <script src="js/topics.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/topics.js"></script>
   <script>
     requireAuth();
     bindLogout();
 
-    (async function loadTrackers() {
-      try {
-        const [catalog, studyMeta] = await Promise.all([loadTopics(), loadStudyMeta()]);
+    function paintHubTrackers(study, test) {
+      document.getElementById("studyTracker").innerHTML = renderTracker({
+        done: study.done,
+        total: study.total,
+        unit: "questions",
+      });
+      document.getElementById("testTracker").innerHTML = renderTracker({
+        done: test.done,
+        total: test.total,
+        unit: "sections",
+      });
+    }
+
+    paintHubTrackers(
+      { done: 0, total: 1080 },
+      { done: 0, total: 135, mcq: { done: 0, total: 96 }, coding: { done: 0, total: 39 } }
+    );
+
+    Promise.all([loadTopics(), loadStudyMeta()])
+      .then(([catalog, studyMeta]) => {
         const study = summarizeStudyProgress(studyMeta);
         const test = summarizeTestSections(catalog);
-
-        document.getElementById("studyTracker").innerHTML = renderTracker({
-          done: study.done,
-          total: study.total,
-          unit: "questions",
-        });
-        document.getElementById("testTracker").innerHTML = renderTracker({
-          done: test.done,
-          total: test.total,
-          unit: "sections",
-        });
-
+        paintHubTrackers(study, test);
         document.getElementById("hubStats").innerHTML = `
           <span><strong>${study.topicsDone}</strong> / ${study.topicsTotal} study topics done</span>
           <span><strong>${test.mcq.done}</strong> / ${test.mcq.total} MCQ sections</span>
           <span><strong>${test.coding.done}</strong> / ${test.coding.total} coding sections</span>`;
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+      })
+      .catch((err) => console.error(err));
   </script>
 </body>
 </html>
