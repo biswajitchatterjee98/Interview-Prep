@@ -1,0 +1,624 @@
+{
+  "slug": "cloud",
+  "title": "Cloud",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "cloud-s1-q01",
+          "stem": "In a cloud interview, how do you crisply distinguish IaaS from PaaS for a hiring manager?",
+          "options": [
+            "IaaS rents VMs/networks/storage you manage; PaaS provides a managed runtime so you ship app code",
+            "IaaS only means SaaS billing dashboards; PaaS means bare-metal colo leases",
+            "PaaS always includes physical rack ownership; IaaS never exposes networking",
+            "IaaS and PaaS are synonyms for object storage buckets only"
+          ],
+          "correctIndex": 0,
+          "explanation": "IaaS gives infrastructure primitives; PaaS abstracts OS/runtime so teams focus on application code."
+        },
+        {
+          "id": "cloud-s1-q02",
+          "stem": "Which example best illustrates SaaS when an interviewer asks for a concrete everyday product?",
+          "options": [
+            "A managed Kubernetes control plane you fully administer yourself",
+            "Gmail or Salesforce where users consume the app without managing servers",
+            "Renting EC2 instances and installing your own OS packages",
+            "Building a VPC subnet layout from scratch in Terraform"
+          ],
+          "correctIndex": 1,
+          "explanation": "SaaS delivers a finished application over the network; the provider runs the stack underneath."
+        },
+        {
+          "id": "cloud-s1-q03",
+          "stem": "Public versus private cloud — what distinction should you lead with in an interview answer?",
+          "options": [
+            "Public is always free; private always costs more per CPU cycle",
+            "Private cloud never uses virtualization; public cloud never uses regions",
+            "Public shares provider multi-tenant capacity; private is dedicated to one organization",
+            "They differ only by which programming language the APIs use"
+          ],
+          "correctIndex": 2,
+          "explanation": "Public clouds are multi-tenant provider platforms; private clouds dedicate resources to one org."
+        },
+        {
+          "id": "cloud-s1-q04",
+          "stem": "Hybrid cloud — which interview definition is most accurate and useful for follow-ups?",
+          "options": [
+            "Using two public clouds without any private or on-prem systems ever",
+            "Storing only CDN edge caches while compute stays forever offline",
+            "Replacing all databases with browser localStorage for compliance",
+            "Running workloads across on-prem/private capacity and public cloud with intentional integration"
+          ],
+          "correctIndex": 3,
+          "explanation": "Hybrid combines on-prem/private environments with public cloud under coordinated architecture."
+        },
+        {
+          "id": "cloud-s1-q05",
+          "stem": "Regions and availability zones — how should you explain why architects care about both?",
+          "options": [
+            "Regions group geographic locales; AZs are isolated failure domains inside a region",
+            "Regions are only billing labels; AZs never affect latency or failure isolation",
+            "AZs are continents; regions are single racks with no redundancy options",
+            "You pick either a region or an AZ, never both, for every deployment"
+          ],
+          "correctIndex": 0,
+          "explanation": "Regions provide geo placement; AZs isolate failures so multi-AZ designs survive datacenter loss."
+        },
+        {
+          "id": "cloud-s1-q06",
+          "stem": "Elasticity in cloud computing — what interview-ready definition separates it from mere capacity?",
+          "options": [
+            "Buying a fixed rack once and never changing instance counts afterward",
+            "Automatically scaling resources up/down with demand instead of static overprovisioning",
+            "Encrypting every disk so capacity cannot grow under load",
+            "Pinning one VM forever so traffic spikes always time out"
+          ],
+          "correctIndex": 1,
+          "explanation": "Elasticity means capacity tracks demand dynamically, improving cost and availability under load."
+        },
+        {
+          "id": "cloud-s1-q07",
+          "stem": "Shared responsibility model — what should you say the customer typically still owns?",
+          "options": [
+            "Physical datacenter power and facility security guards only",
+            "Nothing once a managed service is selected; the provider owns all security",
+            "Data classification, identity, access policies, and correct service configuration",
+            "Only the CDN edge certificate rotation on the provider's side"
+          ],
+          "correctIndex": 2,
+          "explanation": "Providers secure the cloud; customers secure data, identities, and how they configure services."
+        },
+        {
+          "id": "cloud-s1-q08",
+          "stem": "Object storage versus block storage — which contrast is interview-correct?",
+          "options": [
+            "Object storage only works offline; block storage is HTTP-only JSON documents",
+            "Block storage cannot be snapshotted; object storage has no durability story",
+            "They are identical APIs with different marketing names only",
+            "Object: durable blobs via API/keys; block: raw volumes attached like disks to compute"
+          ],
+          "correctIndex": 3,
+          "explanation": "Object stores files/blobs; block presents disk-like volumes for filesystems and databases."
+        },
+        {
+          "id": "cloud-s1-q09",
+          "stem": "At a high level, what is a VPC when an interviewer asks for the networking building block?",
+          "options": [
+            "A globally shared public Wi-Fi network every tenant must join",
+            "An isolated virtual network in the cloud with subnets, routing, and security controls",
+            "A physical switch you mail to the provider for colo installation",
+            "A serverless function runtime that replaces all TCP networking"
+          ],
+          "correctIndex": 1,
+          "explanation": "A VPC is your logically isolated cloud network for placing resources and controlling traffic."
+        },
+        {
+          "id": "cloud-s1-q10",
+          "stem": "Serverless (e.g., functions) — which tradeoff should you acknowledge honestly in interviews?",
+          "options": [
+            "Always cheaper and lower latency than every always-on service with zero caveats",
+            "It permanently removes all networking, auth, and observability concerns forever",
+            "Great for event-driven scale and ops simplicity, but cold starts and limits can matter",
+            "It only runs on bare metal you own and never scales automatically"
+          ],
+          "correctIndex": 2,
+          "explanation": "Serverless reduces ops burden and scales with events, but cold starts and constraints are real."
+        },
+        {
+          "id": "cloud-s1-q11",
+          "stem": "Why do cloud providers expose multiple regions rather than one mega datacenter globally?",
+          "options": [
+            "To force customers to rewrite apps every quarter for compliance theater",
+            "Only for marketing maps on websites with no latency or resilience benefit",
+            "Because a single region cannot host object storage buckets at all",
+            "For lower latency to users, data residency, and disaster recovery options"
+          ],
+          "correctIndex": 3,
+          "explanation": "Multi-region design improves latency, meets residency rules, and enables geographic DR."
+        },
+        {
+          "id": "cloud-s1-q12",
+          "stem": "Which statement correctly frames 'lift and shift' versus cloud-native modernization?",
+          "options": [
+            "Lift and shift rehosts VMs/apps with minimal change; cloud-native redesigns for cloud services",
+            "Lift and shift always requires rewriting every microservice first",
+            "Cloud-native means never using managed databases or autoscaling groups",
+            "They are identical migration strategies with different slide titles"
+          ],
+          "correctIndex": 0,
+          "explanation": "Lift-and-shift moves workloads as-is; cloud-native embraces managed services and elasticity."
+        },
+        {
+          "id": "cloud-s1-q13",
+          "stem": "What is the primary reason interviewers ask about multi-AZ deployments for stateful services?",
+          "options": [
+            "Because AZs share one power circuit and fail together by design always",
+            "To disable backups since multi-AZ replaces all durability mechanisms",
+            "To ensure a single AZ outage does not take down the entire application footprint",
+            "Only to reduce the number of IAM users required for SSH access"
+          ],
+          "correctIndex": 2,
+          "explanation": "Spreading across AZs improves availability when one datacenter/facility fails."
+        },
+        {
+          "id": "cloud-s1-q14",
+          "stem": "Horizontal scaling versus vertical scaling — which interview distinction is cleanest?",
+          "options": [
+            "Horizontal only works on mainframes; vertical only works in browsers",
+            "Vertical always means adding regions; horizontal means deleting AZs",
+            "They are interchangeable terms for CDN cache sizing only",
+            "Horizontal adds more instances; vertical makes a single instance larger/more powerful"
+          ],
+          "correctIndex": 3,
+          "explanation": "Scale out adds nodes; scale up upsizes a node — different cost and failure characteristics."
+        },
+        {
+          "id": "cloud-s1-q15",
+          "stem": "When explaining cloud CAPEX vs OPEX to interviewers, which framing is most accurate?",
+          "options": [
+            "On-prem often means large upfront CAPEX; cloud shifts many costs to pay-as-you-go OPEX",
+            "Cloud always eliminates all spending and replaces it with volunteer compute",
+            "OPEX only applies to hardware purchases; CAPEX only applies to electricity bills",
+            "Cloud billing is always fixed CAPEX with no usage-based components"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cloud converts many capital purchases into operational, usage-based spending."
+        },
+        {
+          "id": "cloud-s1-q16",
+          "stem": "What does 'high availability' typically imply in a cloud interview context?",
+          "options": [
+            "Guaranteeing zero bugs and infinite throughput with one single VM",
+            "Designing so the service remains usable through expected component failures",
+            "Turning off monitoring so on-call never gets paged during outages",
+            "Storing all state only in process memory without replication"
+          ],
+          "correctIndex": 1,
+          "explanation": "HA designs tolerate failures via redundancy, health checks, and failover paths."
+        },
+        {
+          "id": "cloud-s1-q17",
+          "stem": "CDN (content delivery network) — what problem should you say it primarily solves?",
+          "options": [
+            "Transactional ACID writes for every OLTP database worldwide",
+            "Replacing IAM roles with anonymous public write access to buckets",
+            "Eliminating the need for TLS certificates on any public website",
+            "Caching and serving static/edge content closer to users to cut latency"
+          ],
+          "correctIndex": 3,
+          "explanation": "CDNs push content to edge locations so users fetch from nearby POPs faster."
+        },
+        {
+          "id": "cloud-s1-q18",
+          "stem": "Managed vs self-managed databases in the cloud — what tradeoff should you articulate?",
+          "options": [
+            "Managed reduces ops toil (patches/backups) but may constrain deep engine control",
+            "Self-managed always costs less and never requires patching or backups",
+            "Managed databases forbid encryption and multi-AZ by cloud policy",
+            "There is no operational difference; only the logo on the console changes"
+          ],
+          "correctIndex": 0,
+          "explanation": "Managed DBs trade some control for provider-handled patching, HA, and backups."
+        },
+        {
+          "id": "cloud-s1-q19",
+          "stem": "What is a sensible first answer when asked why companies adopt cloud instead of only on-prem?",
+          "options": [
+            "Cloud removes all compliance obligations and audit requirements forever",
+            "Faster provisioning, elasticity, global reach, and shifting undifferentiated ops to providers",
+            "Cloud compute is always slower and more expensive than any on-prem option",
+            "On-prem cannot run Linux or containers under any circumstances"
+          ],
+          "correctIndex": 1,
+          "explanation": "Speed, elasticity, geographic reach, and managed services drive most cloud adoption."
+        },
+        {
+          "id": "cloud-s1-q20",
+          "stem": "Identity and access management (IAM) in cloud — what core idea must you nail in interviews?",
+          "options": [
+            "Share one root password across the company for simpler password resets",
+            "Disable MFA everywhere to reduce login friction for contractors",
+            "Grant least-privilege identities/roles to people and services instead of shared root keys",
+            "Put all resources in public buckets so IAM policies become unnecessary"
+          ],
+          "correctIndex": 2,
+          "explanation": "IAM enforces who/what can do which actions; least privilege and no shared roots are baseline."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "cloud-s2-q01",
+          "stem": "An interviewer asks when you'd choose object storage over a block volume for app assets. Best answer?",
+          "options": [
+            "Large unstructured blobs, backups, and static assets accessed via object APIs/URLs",
+            "Always for the primary filesystem of a latency-sensitive relational database engine",
+            "Only when you need POSIX locks identical to a local EXT4 mount under heavy writes",
+            "Never — object storage cannot store images, logs, or backup archives"
+          ],
+          "correctIndex": 0,
+          "explanation": "Object storage fits durable blobs and assets; databases often need block/file semantics."
+        },
+        {
+          "id": "cloud-s2-q02",
+          "stem": "Designing a VPC: which high-level pattern shows solid mid-level cloud judgment?",
+          "options": [
+            "Put databases in public subnets with 0.0.0.0/0 SSH for easier debugging",
+            "Public subnets for internet-facing load balancers; private subnets for app/DB tiers",
+            "One flat public subnet for every resource including secrets managers",
+            "Disable route tables so packets never leave an instance's loopback interface"
+          ],
+          "correctIndex": 1,
+          "explanation": "Tiered subnets separate internet exposure from private application and data tiers."
+        },
+        {
+          "id": "cloud-s2-q03",
+          "stem": "Cold start concerns with serverless functions — when should you raise them in design talks?",
+          "options": [
+            "Batch jobs that run for hours after a single warm invocation with no user waiting",
+            "Only when using VMs; functions never experience initialization delay",
+            "Latency-sensitive synchronous paths where infrequent invocations may pay init delays",
+            "Cold starts only affect DNS TTL and never function runtime performance"
+          ],
+          "correctIndex": 2,
+          "explanation": "Infrequent, user-facing calls can feel cold-start latency; long warm workers less so."
+        },
+        {
+          "id": "cloud-s2-q04",
+          "stem": "Shared responsibility for a managed database service — what remains on the customer?",
+          "options": [
+            "Physical disk replacement inside the provider's rack",
+            "Cooling the datacenter aisle where the primary replica sits",
+            "Firmware updates on the storage controllers under the hypervisors",
+            "Choosing schemas, queries, access control, and encrypting sensitive application data"
+          ],
+          "correctIndex": 3,
+          "explanation": "Even managed DBs leave data, authz, query design, and many config choices to you."
+        },
+        {
+          "id": "cloud-s2-q05",
+          "stem": "You need RPO near zero across AZs for a critical store. Which direction is most appropriate?",
+          "options": [
+            "Multi-AZ synchronous or near-sync replication with automated failover tested regularly",
+            "Single AZ with nightly tar backups uploaded manually via USB",
+            "Disable replication to maximize write throughput without durability tradeoffs",
+            "Store only in browser cache on employee laptops as the system of record"
+          ],
+          "correctIndex": 0,
+          "explanation": "Multi-AZ replication plus tested failover is the standard path to tight RPO/RTO."
+        },
+        {
+          "id": "cloud-s2-q06",
+          "stem": "When is a hybrid cloud approach often justified in mid-level interviews?",
+          "options": [
+            "You want to avoid networking, identity federation, and operational complexity entirely",
+            "Regulated data must stay on-prem while burst/compute uses public cloud elastically",
+            "Public cloud forbids encryption so private cloud is the only legal option always",
+            "Hybrid means deleting all on-prem systems before the first cloud pilot"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hybrid fits data residency, legacy systems, and burst capacity without full relocation."
+        },
+        {
+          "id": "cloud-s2-q07",
+          "stem": "Autoscaling groups — what signal and safeguard should you mention when discussing elasticity?",
+          "options": [
+            "Scale randomly every minute regardless of load to keep instance counts interesting",
+            "Never set max capacity so the fleet can grow without any cost or quota bounds",
+            "Scale on meaningful metrics (CPU/RPS/queue depth) with cooldowns to avoid thrash",
+            "Disable health checks so unhealthy nodes stay in the load balancer forever"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metric-driven scaling with limits/cooldowns prevents oscillation and runaway spend."
+        },
+        {
+          "id": "cloud-s2-q08",
+          "stem": "Choosing between containers on VMs versus serverless for a steady 24/7 API — mid-level take?",
+          "options": [
+            "Serverless is mandatory for every long-lived WebSocket-heavy platform always",
+            "VMs cannot run HTTP APIs; only functions can accept TLS connections",
+            "Containers forbid horizontal scaling while functions require fixed instance counts",
+            "Steady traffic often favors always-on containers/services; serverless shines for spiky events"
+          ],
+          "correctIndex": 3,
+          "explanation": "Baseline load often fits long-running services; bursty/event work fits serverless well."
+        },
+        {
+          "id": "cloud-s2-q09",
+          "stem": "What does placing resources in private subnets without public IPs typically achieve?",
+          "options": [
+            "Removes the need for any security groups or IAM policies forever",
+            "Reduces direct internet exposure; egress often via NAT/gateways you control",
+            "Guarantees zero latency to end users browsing from home networks",
+            "Makes the resources unreachable from load balancers in the same VPC always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Private placement limits inbound internet attack surface; controlled egress remains."
+        },
+        {
+          "id": "cloud-s2-q10",
+          "stem": "Interview scenario: object storage is publicly readable by accident. What control gap failed?",
+          "options": [
+            "CDN compression algorithms only",
+            "CPU autoscaling thresholds on unrelated compute fleets",
+            "Access policies/ACLs/IAM and public-access blockers that should default to deny",
+            "Timezone settings on the billing account currency"
+          ],
+          "correctIndex": 2,
+          "explanation": "Public exposure is an access-policy failure; least privilege and block-public defaults matter."
+        },
+        {
+          "id": "cloud-s2-q11",
+          "stem": "Why might you replicate critical data across regions, not only across AZs?",
+          "options": [
+            "AZ failures never happen; only continent-wide disasters matter for RTO",
+            "Cross-region copies are free and have zero consistency tradeoffs always",
+            "Regions share power and networking so replication adds no resilience value",
+            "Regional disasters, compliance, or serving users on another continent with local copies"
+          ],
+          "correctIndex": 3,
+          "explanation": "Regions survive broader disasters and support geo latency/residency requirements."
+        },
+        {
+          "id": "cloud-s2-q12",
+          "stem": "Ephemeral vs persistent disks for a database VM — which choice and why?",
+          "options": [
+            "Persistent block volumes (and backups) so data survives instance stop/replace",
+            "Ephemeral only — databases never need durable volumes across instance replacement",
+            "Object storage mounted as swap is the preferred primary DB store",
+            "RAM disks exclusively for all production OLTP systems"
+          ],
+          "correctIndex": 0,
+          "explanation": "Databases need durable volumes plus backups; ephemeral disks vanish with the instance."
+        },
+        {
+          "id": "cloud-s2-q13",
+          "stem": "What is a sound mid-level answer for reducing cloud spend without wrecking availability?",
+          "options": [
+            "Delete all multi-AZ replicas and backups to cut the bill immediately",
+            "Turn off monitoring and logging so you never pay for observability again",
+            "Right-size instances, use autoscaling, reserved/savings plans, and delete idle resources",
+            "Give every developer AdministratorAccess to accelerate informal cleanup"
+          ],
+          "correctIndex": 2,
+          "explanation": "Cost hygiene is right-sizing, elasticity, commitments, and killing idle waste — not gutting HA."
+        },
+        {
+          "id": "cloud-s2-q14",
+          "stem": "Infrastructure as Code for cloud networks — why do interviewers prefer it over click-ops?",
+          "options": [
+            "Click-ops produces perfect audit trails and identical multi-env reproducibility always",
+            "IaC cannot represent security groups or route tables in any major cloud",
+            "Manual console changes are required by compliance frameworks worldwide",
+            "IaC versions, reviews, and reproduces VPC/security changes across environments reliably"
+          ],
+          "correctIndex": 3,
+          "explanation": "IaC makes network/security changes reviewable, repeatable, and recoverable."
+        },
+        {
+          "id": "cloud-s2-q15",
+          "stem": "Stateful workloads in the cloud — what mid-level design concern should you call out?",
+          "options": [
+            "Data durability, backup/restore drills, and careful placement/replication strategy",
+            "State should live only in load balancer sticky cookies with no backend store",
+            "Cloud forbids persistent disks so all state must be recomputed every request",
+            "Stateful services never need monitoring because storage never fails"
+          ],
+          "correctIndex": 0,
+          "explanation": "State needs durability planning: replication, backups, restores, and placement."
+        },
+        {
+          "id": "cloud-s2-q16",
+          "stem": "When explaining NAT gateways in a VPC interview answer, what purpose do you emphasize?",
+          "options": [
+            "Terminate TLS for every public website without certificates",
+            "Allow private-subnet workloads outbound internet without assigning public IPs to each host",
+            "Replace security groups entirely as the only firewall mechanism",
+            "Provide inbound SSH from the internet to private instances by default"
+          ],
+          "correctIndex": 1,
+          "explanation": "NAT enables controlled egress from private subnets while keeping instances non-public."
+        },
+        {
+          "id": "cloud-s2-q17",
+          "stem": "Blue/green style cutovers on cloud load balancers — what risk do they primarily reduce?",
+          "options": [
+            "Need for any health checks or rollback plans during releases",
+            "DNS propagation delays by deleting all CDN caches permanently",
+            "IAM permission errors by deploying with the root account only",
+            "Long overlapping downtime from in-place risky upgrades by shifting traffic to a new fleet"
+          ],
+          "correctIndex": 3,
+          "explanation": "A parallel healthy environment lets you shift traffic and roll back quickly if needed."
+        },
+        {
+          "id": "cloud-s2-q18",
+          "stem": "What mid-level guidance fits encrypting data at rest in cloud storage services?",
+          "options": [
+            "Enable provider encryption (often KMS-backed) and manage key access carefully",
+            "Encryption at rest is unnecessary if the bucket name is hard to guess",
+            "Customer-managed keys are illegal in all public clouds by regulation",
+            "Only encrypt data in transit; disks never need encryption in multi-tenant clouds"
+          ],
+          "correctIndex": 0,
+          "explanation": "At-rest encryption plus careful key/IAM policy is standard cloud data protection."
+        },
+        {
+          "id": "cloud-s2-q19",
+          "stem": "Spot/preemptible instances — when is recommending them interview-appropriate?",
+          "options": [
+            "The only acceptable compute for primary latency-critical payment APIs",
+            "Fault-tolerant batch/CI workloads that can checkpoint and tolerate interruption",
+            "Never, because clouds do not offer discounted interruptible capacity",
+            "Only for the writer nodes of a strongly consistent leader-based database"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interruptible capacity suits flexible work; keep critical single-writer paths on stable capacity."
+        },
+        {
+          "id": "cloud-s2-q20",
+          "stem": "Observability in cloud systems — which triad should you mention without overclaiming tools?",
+          "options": [
+            "Only CPU temperature graphs; logs and traces are obsolete in cloud-native systems",
+            "Screenshots of the console billing page as the sole production signal",
+            "Logs for events, metrics for trends/SLIs, traces for request paths across services",
+            "Ping one bastion host weekly and ignore application-level SLIs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Logs, metrics, and traces together support debugging, alerting, and performance analysis."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "cloud-s3-q01",
+          "stem": "Senior interview: multi-region active-active vs active-passive — what tradeoff do you surface first?",
+          "options": [
+            "Active-active raises consistency/conflict complexity; active-passive simplifies failover with higher idle cost/RTO nuances",
+            "Active-active always has zero consistency issues and zero operational cost",
+            "Active-passive cannot meet any RPO targets even with continuous replication",
+            "Regions cannot host the same application binary in more than one place"
+          ],
+          "correctIndex": 0,
+          "explanation": "Active-active needs conflict/consistency design; passive is simpler but failover/cost differ."
+        },
+        {
+          "id": "cloud-s3-q02",
+          "stem": "How should a senior frame blast-radius reduction for IAM and cloud accounts?",
+          "options": [
+            "One shared production account with wildcard AdministratorAccess for velocity",
+            "Separate accounts/environments, least privilege, SCPs/guardrails, and scoped roles per workload",
+            "Disable CloudTrail so auditors cannot slow down incident response",
+            "Embed long-lived access keys in mobile apps for simpler customer auth"
+          ],
+          "correctIndex": 1,
+          "explanation": "Account isolation, least privilege, and org guardrails limit how far a compromise spreads."
+        },
+        {
+          "id": "cloud-s3-q03",
+          "stem": "Designing for AZ failure of a stateful service: which senior checklist item is non-negotiable?",
+          "options": [
+            "Rely on a single writer AZ forever because multi-AZ doubles software bugs",
+            "Store WAL only in instance store without snapshots to maximize IOPS",
+            "Proven failover, data replication strategy, and regular restore/failover game days",
+            "Disable health checks so traffic keeps hitting the failed AZ's endpoints"
+          ],
+          "correctIndex": 2,
+          "explanation": "Replication plus practiced failover/restore separates paper HA from real resilience."
+        },
+        {
+          "id": "cloud-s3-q04",
+          "stem": "Senior take on serverless for a complex long-running workflow with heavy local state?",
+          "options": [
+            "Always ideal because functions have unlimited execution time and local disk guarantees",
+            "Serverless removes the need to design idempotency or retries for any workflow",
+            "Convert the workflow into a single synchronous Lambda with no queues ever",
+            "Often a poor fit; prefer containers/VMs or Step-style orchestration with externalized state"
+          ],
+          "correctIndex": 3,
+          "explanation": "Long-running stateful workflows usually need orchestration and durable external state."
+        },
+        {
+          "id": "cloud-s3-q05",
+          "stem": "Cost and reliability conflict: leadership wants to drop multi-AZ 'to save money'. Senior response?",
+          "options": [
+            "Agree immediately; availability is not a product concern for paying customers",
+            "Quantify availability risk, error budget/SLO impact, and cheaper right-sizing alternatives first",
+            "Delete backups next because they are pure waste in regulated industries",
+            "Move the database to a laptop under someone's desk as a cost-saving HA plan"
+          ],
+          "correctIndex": 1,
+          "explanation": "Seniors translate HA cuts into SLO risk and propose cost levers that preserve resilience."
+        },
+        {
+          "id": "cloud-s3-q06",
+          "stem": "Network segmentation at senior level: what pattern shows mature VPC design judgment?",
+          "options": [
+            "Flat network with all ports open between every service for easier packet captures",
+            "Public IPs on every pod/VM so SSH debugging never needs bastions or SSM",
+            "Micro-segmentation via subnets/SGs/NACLs, private data tiers, and controlled egress inspection",
+            "One security group allowing 0.0.0.0/0 to all ports 'temporarily' for years"
+          ],
+          "correctIndex": 2,
+          "explanation": "Defense in depth limits lateral movement and internet exposure for sensitive tiers."
+        },
+        {
+          "id": "cloud-s3-q07",
+          "stem": "When would a senior recommend private connectivity (e.g., Direct Connect/VPN) over pure Internet?",
+          "options": [
+            "Loading a single public marketing image once from a CDN edge cache",
+            "Replacing TLS entirely because private links make encryption unnecessary",
+            "Only when the public Internet has lower latency than dedicated links always",
+            "Steady high-volume, predictable, or compliance-sensitive hybrid traffic to on-prem systems"
+          ],
+          "correctIndex": 3,
+          "explanation": "Private links fit hybrid bandwidth, predictability, and compliance-sensitive paths."
+        },
+        {
+          "id": "cloud-s3-q08",
+          "stem": "Data residency and sovereignty — how should a senior answer a regulated-industry cloud question?",
+          "options": [
+            "Pin workloads/storage to approved regions, control replication, and document lawful transfer paths",
+            "Replicate everywhere by default; residency laws never apply to cloud object stores",
+            "Residency is solved solely by turning on CDN caching in every country",
+            "Use personal Dropbox accounts for regulated customer PII to bypass cloud regions"
+          ],
+          "correctIndex": 0,
+          "explanation": "Residency requires regional placement controls, replication policy, and legal transfer design."
+        },
+        {
+          "id": "cloud-s3-q09",
+          "stem": "Senior incident: noisy neighbor or quota exhaustion in a multi-tenant cloud. First principles?",
+          "options": [
+            "Ignore provider limits because soft quotas never become hard failures in production",
+            "Disable autoscaling so the fleet cannot request more capacity during incidents",
+            "Isolate critical workloads, set quotas/alerts, and design graceful degradation under limits",
+            "Delete metrics dashboards to reduce the volume of confusing operational signals"
+          ],
+          "correctIndex": 2,
+          "explanation": "Expect limits; isolate, alert, and degrade gracefully rather than assuming infinite capacity."
+        },
+        {
+          "id": "cloud-s3-q10",
+          "stem": "How does a senior discuss 'well-architected' tradeoffs among security, cost, and performance?",
+          "options": [
+            "Optimize only for lowest monthly bill regardless of breach or latency impact",
+            "Security and performance never conflict, so tradeoff discussions are interview fluff",
+            "Pick one pillar forever and refuse to revisit architecture after launch",
+            "Make explicit priority calls per workload, measure SLOs/cost, and revisit as product risk changes"
+          ],
+          "correctIndex": 3,
+          "explanation": "Mature answers treat pillars as explicit, measured tradeoffs that evolve with risk."
+        }
+      ]
+    }
+  ]
+}

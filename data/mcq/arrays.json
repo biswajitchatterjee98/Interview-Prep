@@ -1,0 +1,624 @@
+{
+  "slug": "arrays",
+  "title": "Arrays",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "arrays-s1-q01",
+          "stem": "In an interview you must pick a structure for frequent random access by index. What do you choose and why?",
+          "options": [
+            "Array — contiguous memory gives O(1) index access",
+            "Linked list — pointer chasing is faster for random access",
+            "Hash map — always O(1) regardless of key type",
+            "Stack — LIFO makes indexing natural"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arrays (and array-backed lists) offer true O(1) index access via contiguous layout."
+        },
+        {
+          "id": "arrays-s1-q02",
+          "stem": "In a coding interview, you are asked: Why do interviewers care that arrays are contiguous in memory? Which answer should you give?",
+          "options": [
+            "Only to confuse candidates about malloc",
+            "Cache locality: sequential scans hit fewer cache lines than pointer-chasing lists",
+            "Contiguity makes hashing automatically collision-free",
+            "It guarantees O(1) insert at the front"
+          ],
+          "correctIndex": 1,
+          "explanation": "Spatial locality: adjacent indices share cache lines, so linear scans are cache-friendly."
+        },
+        {
+          "id": "arrays-s1-q03",
+          "stem": "In a coding interview, you are asked: Java ArrayList / C++ vector growth: what do you say about append cost? Which answer is best?",
+          "options": [
+            "Every append is strictly O(1) forever",
+            "Always O(n) because length is recomputed each time",
+            "Amortized O(1): occasional resize copies all elements, average stays constant",
+            "O(log n) because capacity doubles logarithmically per insert"
+          ],
+          "correctIndex": 2,
+          "explanation": "Doubling (or geometric growth) makes total copy cost O(n) over n inserts → amortized O(1) per append."
+        },
+        {
+          "id": "arrays-s1-q04",
+          "stem": "You need to insert at index 0 repeatedly in an ArrayList. What's the honest complexity story?",
+          "options": [
+            "O(1) like a deque",
+            "O(log n) via binary search of the hole",
+            "Amortized O(1) because capacity doubles",
+            "O(n) per insert — elements must shift right"
+          ],
+          "correctIndex": 3,
+          "explanation": "Front insert shifts every existing element; capacity growth does not fix that."
+        },
+        {
+          "id": "arrays-s1-q05",
+          "stem": "Fixed-size array vs dynamic list — when do you prefer a raw fixed array in an interview solution?",
+          "options": [
+            "When the max size is known up front and you want zero resize overhead / simpler indexing",
+            "Never; dynamic lists are always better",
+            "Only when sorting is required",
+            "Only for string characters"
+          ],
+          "correctIndex": 0,
+          "explanation": "Known bound + no resizing = simpler code and predictable memory; common in interview constraints."
+        },
+        {
+          "id": "arrays-s1-q06",
+          "stem": "Two pointers on a sorted array to find a pair summing to target — why does it work?",
+          "options": [
+            "Because hash maps are illegal on sorted input",
+            "Moving left/right based on sum vs target exploits monotonicity of sorted order",
+            "It randomly samples until luck finds the pair",
+            "It requires the array to be strictly decreasing"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sorted order lets you decide deterministically whether to increase or decrease the current sum."
+        },
+        {
+          "id": "arrays-s1-q07",
+          "stem": "What is the classic space/time tradeoff for finding a duplicate in an unsorted array of integers?",
+          "options": [
+            "Only O(n²) nested loops is acceptable",
+            "Binary search without sorting always works in O(log n)",
+            "Sort in-place O(n log n) time, O(1) extra — or hash set O(n) time, O(n) space",
+            "A stack always finds duplicates in O(1) space and O(1) time"
+          ],
+          "correctIndex": 2,
+          "explanation": "Sort vs hash set is the standard interview tradeoff discussion."
+        },
+        {
+          "id": "arrays-s1-q08",
+          "stem": "In a coding interview, you are asked: Prefix sums: what problem class do they accelerate? Which answer should you give?",
+          "options": [
+            "Only finding the maximum element",
+            "Sorting subarrays in O(1)",
+            "Deleting middle elements without shifting",
+            "Range sum queries (and related range aggregates) after O(n) preprocess"
+          ],
+          "correctIndex": 3,
+          "explanation": "prefix[i] = sum(a[0..i]); range sum becomes two lookups."
+        },
+        {
+          "id": "arrays-s1-q09",
+          "stem": "You say 'sliding window' in an interview. What invariant should you be ready to state?",
+          "options": [
+            "A contiguous subarray whose endpoints move monotonically while maintaining a property (sum, uniqueness, etc.)",
+            "The window always covers the entire array",
+            "Any subsequence, contiguous or not",
+            "A window that only shrinks, never expands"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sliding window = contiguous segment with advancing L/R pointers under an invariant."
+        },
+        {
+          "id": "arrays-s1-q10",
+          "stem": "In a coding interview, you are asked: Kadane's algorithm — what's the one-sentence intuition you'd give? Which answer should you give?",
+          "options": [
+            "Always take the whole array sum",
+            "At each index, decide whether to extend the previous best subarray or start fresh at that index",
+            "Use two heaps to track medians of subarrays",
+            "Binary search the maximum subarray sum directly"
+          ],
+          "correctIndex": 1,
+          "explanation": "Local decision: extend vs reset; track the best seen ending-here and global best."
+        },
+        {
+          "id": "arrays-s1-q11",
+          "stem": "In a coding interview, you are asked: In-place reverse of an array: which approach do you sketch first? Which answer should you give?",
+          "options": [
+            "Allocate a new array and copy backwards — claim O(1) space",
+            "Sort descending then claim it's reversed",
+            "Two pointers from ends swapping toward the center",
+            "Use a hash map from index to value"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic O(n) time, O(1) extra space swap-from-ends."
+        },
+        {
+          "id": "arrays-s1-q12",
+          "stem": "Dutch National Flag (3-way partition) — when does an interviewer expect it?",
+          "options": [
+            "Any 2-sum problem",
+            "Only when the array is already sorted",
+            "Finding the median in O(n log n)",
+            "Sorting an array of only a few distinct values (e.g. 0/1/2) in one pass"
+          ],
+          "correctIndex": 3,
+          "explanation": "Three pointers partition into <pivot / =pivot / >pivot regions in linear time."
+        },
+        {
+          "id": "arrays-s1-q13",
+          "stem": "In a coding interview, you are asked: You need the k-th largest element. What do you say before coding? Which answer should you give?",
+          "options": [
+            "Full sort O(n log n), or heap/selection (Quickselect) for expected O(n) / O(n log k)",
+            "Must fully sort every time — no alternatives",
+            "Hashing always gives exact k-th in O(1)",
+            "Binary search on indices without values works"
+          ],
+          "correctIndex": 0,
+          "explanation": "Show you know selection vs sorting tradeoffs."
+        },
+        {
+          "id": "arrays-s1-q14",
+          "stem": "In a coding interview, you are asked: Sparse array of size 10^9 with few filled cells — what do you propose? Which answer is best?",
+          "options": [
+            "Allocate the full 10^9 int array anyway",
+            "Hash map (or compressed sparse structures) keyed by index",
+            "Linked list of every integer from 0 to 10^9",
+            "A boolean bitset of size 10^9 is always fine in interviews"
+          ],
+          "correctIndex": 1,
+          "explanation": "Store only occupied indices; dense array blows memory."
+        },
+        {
+          "id": "arrays-s1-q15",
+          "stem": "In a coding interview, you are asked: Removing an element from the middle of an ArrayList — complexity? Which answer should you give?",
+          "options": [
+            "O(1) always",
+            "O(log n) via tree rebalance",
+            "O(n) due to shifting subsequent elements",
+            "Amortized O(1) like append"
+          ],
+          "correctIndex": 2,
+          "explanation": "Middle delete shifts the tail left by one each time."
+        },
+        {
+          "id": "arrays-s1-q16",
+          "stem": "Interview tip: when is an array better than a hash map for membership of integers in [0, n]?",
+          "options": [
+            "Never — hash maps dominate",
+            "Only for floating-point keys",
+            "Only when order must be preserved by hashing",
+            "When the universe is small/dense: a boolean/mark array is O(1) and simpler"
+          ],
+          "correctIndex": 3,
+          "explanation": "Dense small universe → direct indexing beats hashing overhead."
+        },
+        {
+          "id": "arrays-s1-q17",
+          "stem": "In a coding interview, you are asked: What does 'stable sort of an array' mean in an interview? Which answer should you give?",
+          "options": [
+            "Equal elements keep their relative input order",
+            "The sort never crashes",
+            "The array length stays constant",
+            "It runs in O(n) worst case always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Stability preserves relative order of ties — matters for multi-key sorts."
+        },
+        {
+          "id": "arrays-s1-q18",
+          "stem": "You rotate an array left by k. What's a clean O(n) time O(1) extra approach?",
+          "options": [
+            "Insert front k times",
+            "Reverse whole array, then reverse the two segments defined by k (or three-reverse variant)",
+            "Use a hash map of new positions only",
+            "Sort then claim rotation happened"
+          ],
+          "correctIndex": 1,
+          "explanation": "Reversal trick (or juggling) achieves in-place rotation."
+        },
+        {
+          "id": "arrays-s1-q19",
+          "stem": "In a coding interview, you are asked: Why might copying an array of objects be 'shallow' in languages like Java? Which answer is best?",
+          "options": [
+            "Primitive ints are always deep-copied twice",
+            "Shallow means the array length is halved",
+            "The new array holds the same object references — mutating an element object is visible via both arrays",
+            "It implies serialization to disk"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clone/copy of reference arrays duplicates references, not deep object graphs."
+        },
+        {
+          "id": "arrays-s1-q20",
+          "stem": "In a coding interview, you are asked: Screening: time to access a[i] in a contiguous array? Which answer should you give?",
+          "options": [
+            "Option claiming: O(i)",
+            "O(log n)",
+            "Option claiming: O(n)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Address = base + i * stride → constant time."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "arrays-s2-q01",
+          "stem": "In a coding interview, you are asked: Maximum sum of a contiguous subarray of length exactly k — best approach? Which answer is best?",
+          "options": [
+            "Sliding window of size k: maintain running sum, slide in O(n)",
+            "Kadane without modification",
+            "Nested loops only — O(nk) is required",
+            "Sort the array then take first k"
+          ],
+          "correctIndex": 0,
+          "explanation": "Fixed-size window: add right, drop left; O(n) after one pass."
+        },
+        {
+          "id": "arrays-s2-q02",
+          "stem": "In a coding interview, you are asked: Longest subarray with sum ≤ target (positives only). Pattern? Which answer should you give?",
+          "options": [
+            "Binary search each index independently without window",
+            "Expand/shrink sliding window; when sum exceeds target, advance left",
+            "Must use segment tree",
+            "Dutch flag partition"
+          ],
+          "correctIndex": 1,
+          "explanation": "Monotonic window works when all values are non-negative."
+        },
+        {
+          "id": "arrays-s2-q03",
+          "stem": "In a coding interview, you are asked: Two Sum on unsorted array — interview-preferred linear solution? Which answer should you give?",
+          "options": [
+            "Sort then two pointers only — destroys original indices if needed",
+            "Triple nested loop",
+            "One-pass hash map: value → index while scanning",
+            "Build a BST of all prefixes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Hash complement lookup is the classic O(n) expected approach."
+        },
+        {
+          "id": "arrays-s2-q04",
+          "stem": "In a coding interview, you are asked: 3Sum: after sorting, what's the usual next step? Which answer should you give?",
+          "options": [
+            "Three nested binary searches only",
+            "Hash every triple into a set without sorting",
+            "Convert to linked list first",
+            "Fix one index, two-pointer the remaining pair; skip duplicates"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sort + fix + two pointers is the standard O(n²) interview solution."
+        },
+        {
+          "id": "arrays-s2-q05",
+          "stem": "In a coding interview, you are asked: Product of array except self without division — key trick? Which answer should you give?",
+          "options": [
+            "Prefix products from left and suffix from right, multiply at each index",
+            "Sort then multiply neighbors",
+            "Use XOR of all elements",
+            "Kadane on logarithms"
+          ],
+          "correctIndex": 0,
+          "explanation": "Left and right cumulative products avoid division and give O(n)."
+        },
+        {
+          "id": "arrays-s2-q06",
+          "stem": "In a coding interview, you are asked: Find minimum in rotated sorted array (distinct). Approach? Which answer should you give?",
+          "options": [
+            "Linear scan only is the expected answer",
+            "Modified binary search comparing mid to high/low to discard a half",
+            "Hash the array then take min key",
+            "Two pointers from both ends until they meet at max"
+          ],
+          "correctIndex": 1,
+          "explanation": "Rotated sorted still allows log-time search with careful half discard."
+        },
+        {
+          "id": "arrays-s2-q07",
+          "stem": "In a coding interview, you are asked: Merge two sorted arrays into one sorted array — complexity you state? Which answer should you give?",
+          "options": [
+            "O(n log n) mandatory merge sort of concatenation",
+            "O(1) because both are sorted",
+            "O(n+m) two-pointer merge",
+            "O(nm) nested compare"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic merge step of mergesort: linear in combined length."
+        },
+        {
+          "id": "arrays-s2-q08",
+          "stem": "In a coding interview, you are asked: Container With Most Water — why two pointers from ends? Which answer should you give?",
+          "options": [
+            "Because height is always bitonic",
+            "You must always move both pointers each step",
+            "It only works if the array is sorted ascending",
+            "Area limited by min height × width; move the shorter line inward seeking a taller wall"
+          ],
+          "correctIndex": 3,
+          "explanation": "Greedy: width shrinks, so only improving the bottleneck height can help."
+        },
+        {
+          "id": "arrays-s2-q09",
+          "stem": "In a coding interview, you are asked: Next permutation in-place — high-level steps? Which answer should you give?",
+          "options": [
+            "Find rightmost ascent, swap with next greater from the right, reverse the suffix",
+            "Fully reverse then sort randomly",
+            "Use a stack of all permutations",
+            "Binary search the entire permutation space"
+          ],
+          "correctIndex": 0,
+          "explanation": "Standard next_permutation algorithm interviewers expect."
+        },
+        {
+          "id": "arrays-s2-q10",
+          "stem": "In a coding interview, you are asked: Subarray sum equals k (integers may be negative) — which tool? Which answer should you give?",
+          "options": [
+            "Simple two pointers always",
+            "Prefix sums + hash map of prefix frequencies",
+            "Dutch flag",
+            "Only Kadane"
+          ],
+          "correctIndex": 1,
+          "explanation": "Negatives break sliding window; prefix + hashmap is the go-to."
+        },
+        {
+          "id": "arrays-s2-q11",
+          "stem": "In a coding interview, you are asked: Move zeros to end while preserving order of non-zeros — clean approach? Which answer is best?",
+          "options": [
+            "Sort the array",
+            "Hash set of zero indices",
+            "Two pointers / write-index: compact non-zeros forward, fill rest with zero",
+            "Recursion on halves"
+          ],
+          "correctIndex": 2,
+          "explanation": "Single pass compact is O(n) time O(1) extra."
+        },
+        {
+          "id": "arrays-s2-q12",
+          "stem": "In a coding interview, you are asked: Find the majority element (> n/2). Boyer–Moore vote — what's the claim? Which answer is best?",
+          "options": [
+            "Needs O(n) extra space always",
+            "Only works after sorting",
+            "Returns all elements that appear twice",
+            "O(n) time O(1) space candidate tracking; verify if problem allows non-guaranteed majority"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pairwise cancellation leaves the majority candidate."
+        },
+        {
+          "id": "arrays-s2-q13",
+          "stem": "In a coding interview, you are asked: Trapping rain water — interview shape of solution? Which answer should you give?",
+          "options": [
+            "Precompute left/right max height per index, water = min(L,R)−height; or two pointers",
+            "Only Monte Carlo simulation",
+            "Sort heights then sum differences",
+            "DFS on a graph of bars"
+          ],
+          "correctIndex": 0,
+          "explanation": "Water at i bounded by shorter of tallest bars to left and right."
+        },
+        {
+          "id": "arrays-s2-q14",
+          "stem": "In a coding interview, you are asked: Maximum product subarray — why is it trickier than Kadane for sums? Which answer should you give?",
+          "options": [
+            "Products never need tracking",
+            "Negatives flip min/max; track both best min and max ending here",
+            "You must use O(n²) DP only",
+            "Sorting fixes products"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sign flips mean the previous minimum can become the new maximum."
+        },
+        {
+          "id": "arrays-s2-q15",
+          "stem": "In a coding interview, you are asked: Search a 2D matrix treated as sorted row-wise. Efficient approach? Which answer should you give?",
+          "options": [
+            "Always DFS from (0,0)",
+            "Hash every cell into a set first (needed for sorted search)",
+            "Flatten mentally and binary search as 1D",
+            "Sort each query"
+          ],
+          "correctIndex": 2,
+          "explanation": "Map mid index to (r,c); binary search over the virtual 1D range."
+        },
+        {
+          "id": "arrays-s2-q16",
+          "stem": "In a coding interview, you are asked: Spiral matrix traversal — what do you maintain? Which answer should you give?",
+          "options": [
+            "A priority queue of coordinates",
+            "Only a single index i",
+            "Union-find of visited rows",
+            "Boundaries (top/bottom/left/right) shrinking after each layer"
+          ],
+          "correctIndex": 3,
+          "explanation": "Layer-by-layer with four bounds is the clear interview sketch."
+        },
+        {
+          "id": "arrays-s2-q17",
+          "stem": "In a coding interview, you are asked: Find first missing positive in O(n) time O(1) extra — idea? Which answer should you give?",
+          "options": [
+            "Index-as-hash: place each value v at index v−1 via swaps, then scan for mismatch",
+            "Sort then scan",
+            "Hash set only (violates O(1) extra if counted)",
+            "Binary search without mutating"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cycle-sort style placement uses the array as a presence map."
+        },
+        {
+          "id": "arrays-s2-q18",
+          "stem": "In a coding interview, you are asked: Longest consecutive sequence — O(n) expected approach? Which answer should you give?",
+          "options": [
+            "Sort always O(n log n) is required for O(n) claim",
+            "Put nums in a hash set; only start streaks from numbers with no predecessor",
+            "Sliding window on the unsorted array directly",
+            "Segment tree of gaps"
+          ],
+          "correctIndex": 1,
+          "explanation": "Set membership + start-of-run check yields amortized O(n)."
+        },
+        {
+          "id": "arrays-s2-q19",
+          "stem": "In a coding interview, you are asked: Merge intervals — steps you recite? Which answer should you give?",
+          "options": [
+            "Hash each interval endpoint randomly",
+            "Dutch flag on interval lengths",
+            "Sort by start, then sweep merging overlaps into the current open interval",
+            "Two pointers without sorting"
+          ],
+          "correctIndex": 2,
+          "explanation": "Sort then linear merge of overlapping ranges."
+        },
+        {
+          "id": "arrays-s2-q20",
+          "stem": "In a coding interview, you are asked: Stock buy/sell once — array of prices. Best linear idea? Which answer should you give?",
+          "options": [
+            "Nested compare every pair only",
+            "Sort prices ascending then subtract first from last",
+            "Prefix XOR",
+            "Track min price so far; max of price−minPrice"
+          ],
+          "correctIndex": 3,
+          "explanation": "One pass: valley so far vs sell today."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "arrays-s3-q01",
+          "stem": "In a coding interview, you are asked: Senior: ArrayList capacity doubles vs +10 each resize — why doubling? Which answer should you give?",
+          "options": [
+            "Geometric growth keeps total copy cost O(n); fixed +k makes append amortized O(n)",
+            "Doubling looks cooler in diagrams",
+            "Doubling uses less peak memory than +10",
+            "Language runtimes forbid additive growth"
+          ],
+          "correctIndex": 0,
+          "explanation": "Amortization requires geometric capacity growth; additive growth is quadratic overall."
+        },
+        {
+          "id": "arrays-s3-q02",
+          "stem": "Cache-aware: why might iterating row-major beat column-major on a C-style 2D array?",
+          "options": [
+            "CPUs reverse columns automatically",
+            "Row-major layout places row neighbors in consecutive addresses → better prefetch/cache",
+            "Column-major always faults less",
+            "It only matters for linked lists"
+          ],
+          "correctIndex": 1,
+          "explanation": "Match access order to physical layout for locality."
+        },
+        {
+          "id": "arrays-s3-q03",
+          "stem": "In a coding interview, you are asked: Pitfall: sliding window for 'sum = k' with negatives — why does it break? Which answer is best?",
+          "options": [
+            "Windows cannot contain negatives by definition",
+            "Hash maps cannot store negative keys",
+            "Sum is no longer monotonic when expanding/shrinking, so the usual left-move rule is invalid",
+            "Two pointers require the array to be a palindrome"
+          ],
+          "correctIndex": 2,
+          "explanation": "Monotonicity of the window sum is the hidden assumption."
+        },
+        {
+          "id": "arrays-s3-q04",
+          "stem": "In-place vs extra array for rotate/reverse — what do you discuss with interviewer?",
+          "options": [
+            "In-place always wins on time complexity asymptotically",
+            "Extra space is always slower by Θ(n)",
+            "Interviewers never care about mutating input",
+            "In-place saves memory and can be cache-friendlier, but mutates input (side effects, concurrency, reuse)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Correctness of mutation, API contract, and memory — not just Big-O."
+        },
+        {
+          "id": "arrays-s3-q05",
+          "stem": "In a coding interview, you are asked: Quickselect for k-th: what's the honest worst-case story? Which answer should you give?",
+          "options": [
+            "Expected O(n) with random pivots; adversarial pivots can degrade to O(n²) unless mitigated",
+            "Always O(n) worst case like mergesort",
+            "Always O(n log n)",
+            "Worse than full sort in every case"
+          ],
+          "correctIndex": 0,
+          "explanation": "Average great; worst-case needs care (randomization / median-of-medians)."
+        },
+        {
+          "id": "arrays-s3-q06",
+          "stem": "In a coding interview, you are asked: False friend: 'O(1) index access' on a Java List — when is that wrong? Which answer is best?",
+          "options": [
+            "Never; List guarantees it",
+            "LinkedList implements List but get(i) is O(n); ArrayList is O(1)",
+            "Only ArrayList is O(n)",
+            "HashMap.get is O(n) for integers"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interface ≠ implementation cost; know the concrete class."
+        },
+        {
+          "id": "arrays-s3-q07",
+          "stem": "Integer overflow when computing mid = (lo+hi)/2 in binary search on arrays — fix?",
+          "options": [
+            "Use floating point mid",
+            "Always start lo at 1",
+            "mid = lo + (hi−lo)/2 (or language-safe alternatives)",
+            "Disable bounds checks"
+          ],
+          "correctIndex": 2,
+          "explanation": "Avoid lo+hi overflow; classic interview footgun."
+        },
+        {
+          "id": "arrays-s3-q08",
+          "stem": "In a coding interview, you are asked: When does prefix-sum of ints become a correctness hazard? Which answer should you give?",
+          "options": [
+            "Never for 32-bit arrays under size 10",
+            "Prefix sums cannot represent negative numbers",
+            "They only fail on even lengths",
+            "Large n / large values: partial sums overflow; use wider type or modular arithmetic as required"
+          ],
+          "correctIndex": 3,
+          "explanation": "Silent overflow breaks range-sum answers."
+        },
+        {
+          "id": "arrays-s3-q09",
+          "stem": "Off-by-one in sliding window 'at most k distinct' — what do seniors double-check?",
+          "options": [
+            "Inclusive bounds, when to advance left, and whether answer uses length r−l+1 vs r−l",
+            "Whether k is prime",
+            "Only the hash map load factor",
+            "Endianness of array indices"
+          ],
+          "correctIndex": 0,
+          "explanation": "Window length and move-left timing are the usual bugs."
+        },
+        {
+          "id": "arrays-s3-q10",
+          "stem": "Tradeoff: sort+two-pointers vs hash for Two Sum when you also need original indices?",
+          "options": [
+            "Sort always preserves indices",
+            "Hashing keeps indices naturally; sorting needs index pairs and careful tie handling",
+            "Neither can recover indices",
+            "Two pointers without sort recover indices in O(1)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sorting permutes positions — track indices explicitly or prefer a map."
+        }
+      ]
+    }
+  ]
+}

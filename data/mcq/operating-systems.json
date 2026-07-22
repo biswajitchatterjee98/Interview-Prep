@@ -1,0 +1,624 @@
+{
+  "slug": "operating-systems",
+  "title": "Operating Systems",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "operating-systems-s1-q01",
+          "stem": "Screening: how do you distinguish a process from a thread when the interviewer asks what shares what?",
+          "options": [
+            "Threads in a process share address space; processes usually do not",
+            "Processes share one address space; threads each get a private heap",
+            "Threads and processes are identical isolation units",
+            "Only processes can run concurrently on multicore CPUs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Threads share the process address space; separate processes get isolated spaces."
+        },
+        {
+          "id": "operating-systems-s1-q02",
+          "stem": "What does a PCB primarily hold that the kernel needs on every context switch?",
+          "options": [
+            "Only the executable path string of the program",
+            "Register set, PID, scheduling state, memory maps, open files",
+            "Only open socket buffers for networking",
+            "Only the user-facing process name for ps"
+          ],
+          "correctIndex": 1,
+          "explanation": "The PCB is the kernel's bookkeeping for execution state and resources."
+        },
+        {
+          "id": "operating-systems-s1-q03",
+          "stem": "FCFS scheduling: what tradeoff do you call out in a screening interview?",
+          "options": [
+            "Always optimal average wait with no starvation risk ever",
+            "Preempts long jobs every fixed quantum automatically",
+            "Simple and fair by arrival, but convoy effect can hurt short jobs",
+            "Requires priority numbers from the user at submit time"
+          ],
+          "correctIndex": 2,
+          "explanation": "FCFS is easy but a long first job delays everyone behind it."
+        },
+        {
+          "id": "operating-systems-s1-q04",
+          "stem": "SJF vs FCFS: when would you argue SJF wins on average waiting time in an interview?",
+          "options": [
+            "Never; FCFS always has lower average wait",
+            "Only when all jobs have identical burst lengths",
+            "Only on single-core machines with no I/O",
+            "When short jobs can run before long ones, cutting average wait"
+          ],
+          "correctIndex": 3,
+          "explanation": "Preferring shorter bursts reduces mean wait; needs burst estimates."
+        },
+        {
+          "id": "operating-systems-s1-q05",
+          "stem": "Round-robin: what does the time quantum control that you should explain clearly?",
+          "options": [
+            "Disk block size for the file system only",
+            "Responsiveness vs context-switch overhead balance",
+            "Maximum number of processes allowed in memory",
+            "Nothing; RR ignores quantum and runs to completion"
+          ],
+          "correctIndex": 1,
+          "explanation": "Small quantum feels interactive; too small wastes CPU on switches."
+        },
+        {
+          "id": "operating-systems-s1-q06",
+          "stem": "Priority scheduling: which starvation issue do you mention and how is it often fixed?",
+          "options": [
+            "Low-priority jobs may wait forever; aging raises priority over time",
+            "High-priority jobs always starve; fix by disabling priorities",
+            "Starvation only happens with FCFS, never with priorities",
+            "Aging lowers priority of interactive jobs to favor batch"
+          ],
+          "correctIndex": 0,
+          "explanation": "Without aging, low-priority work can be postponed indefinitely."
+        },
+        {
+          "id": "operating-systems-s1-q07",
+          "stem": "Mutex vs semaphore: how do you explain the everyday distinction in one line?",
+          "options": [
+            "They are identical; names differ only by language",
+            "Semaphores only protect disk I/O; mutexes only protect network",
+            "Mutex is binary ownership lock; semaphore counts permits (can be >1)",
+            "Mutexes allow multiple holders; semaphores allow exactly one"
+          ],
+          "correctIndex": 2,
+          "explanation": "Mutex is typically exclusive ownership; counting semaphores gate N slots."
+        },
+        {
+          "id": "operating-systems-s1-q08",
+          "stem": "What is a monitor in the classic sync sense when you contrast it with raw locks?",
+          "options": [
+            "A hardware performance counter for CPU utilization",
+            "A kernel thread that only polls disk interrupts",
+            "A page-replacement algorithm related to LRU",
+            "A language/runtime construct bundling shared data with condition waits"
+          ],
+          "correctIndex": 3,
+          "explanation": "Monitors encapsulate mutual exclusion and condition variables together."
+        },
+        {
+          "id": "operating-systems-s1-q09",
+          "stem": "Name the four Coffman conditions for deadlock that interviewers expect.",
+          "options": [
+            "Paging, segmentation, thrashing, and TLB miss",
+            "Mutual exclusion, hold-and-wait, no preemption, circular wait",
+            "FCFS, SJF, RR, and multilevel feedback",
+            "Polling, interrupt, DMA, and context switch"
+          ],
+          "correctIndex": 1,
+          "explanation": "All four must hold simultaneously for classic resource deadlock."
+        },
+        {
+          "id": "operating-systems-s1-q10",
+          "stem": "Banker's algorithm at a high level: what problem is it trying to avoid?",
+          "options": [
+            "Disk fragmentation by compacting every allocation",
+            "Cache thrashing by pinning all pages in RAM",
+            "Unsafe resource grants that could lead to deadlock",
+            "Priority inversion by boosting every waiter"
+          ],
+          "correctIndex": 2,
+          "explanation": "It admits requests only if a safe sequence still exists afterward."
+        },
+        {
+          "id": "operating-systems-s1-q11",
+          "stem": "Paging vs segmentation: what contrast should you lead with in a systems interview?",
+          "options": [
+            "Paging uses fixed-size frames; segmentation uses variable logical parts",
+            "Segmentation always uses fixed 4KB units like pages",
+            "Paging and segmentation are the same address translation",
+            "Only segmentation needs a page table walk"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pages are uniform blocks; segments follow program structure sizes."
+        },
+        {
+          "id": "operating-systems-s1-q12",
+          "stem": "What does a TLB do, and why do interviewers care so much about its hit rate?",
+          "options": [
+            "Caches disk sectors to avoid reading from SSD",
+            "Caches recent VPN→PFN translations to skip slow page-table walks",
+            "Stores the full process image so context switches are free",
+            "Schedules threads across cores using work stealing"
+          ],
+          "correctIndex": 1,
+          "explanation": "Misses force expensive page-table lookups; locality keeps hit rate high."
+        },
+        {
+          "id": "operating-systems-s1-q13",
+          "stem": "Thrashing: how do you describe the symptom and the root cause briefly?",
+          "options": [
+            "CPU idle because no runnable processes exist",
+            "Network congestion from too many TCP connections",
+            "Excessive paging so little useful work runs between page faults",
+            "Deadlock from circular wait on mutexes only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Working sets exceed RAM; the system spends time swapping, not computing."
+        },
+        {
+          "id": "operating-systems-s1-q14",
+          "stem": "Virtual memory: what promise do you articulate to a screening interviewer?",
+          "options": [
+            "RAM is unused; everything always lives only on disk",
+            "Each process gets physical addresses with no translation",
+            "Virtual memory removes the need for a page table",
+            "Programs see a large contiguous address space backed by RAM+disk"
+          ],
+          "correctIndex": 3,
+          "explanation": "VM abstracts physical limits via mapping and demand paging."
+        },
+        {
+          "id": "operating-systems-s1-q15",
+          "stem": "Interrupts vs polling: when do you prefer interrupts in a systems discussion?",
+          "options": [
+            "Always poll; interrupts are never used on modern CPUs",
+            "When devices are rare/idle and you want CPU free until an event",
+            "Only for keyboard input; disks must always poll",
+            "Polling is always lower latency than interrupts"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interrupts avoid busy-waiting; polling can win for very high event rates."
+        },
+        {
+          "id": "operating-systems-s1-q16",
+          "stem": "User mode vs kernel mode: what security boundary are you protecting in practice?",
+          "options": [
+            "Privileged instructions and hardware so apps cannot corrupt the system",
+            "Only the color theme of the desktop UI",
+            "Whether a process may open a text file for reading",
+            "The difference between TCP and UDP sockets only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Kernel mode can touch privileged ops; user mode traps via syscalls."
+        },
+        {
+          "id": "operating-systems-s1-q17",
+          "stem": "Why is a context switch expensive enough that interviewers expect you to mention it?",
+          "options": [
+            "It is free; modern CPUs never save registers",
+            "Only network packets are flushed; CPU state is untouched",
+            "Saving/restoring registers, switching address spaces/TLB, and cache effects",
+            "It only renames the process without touching hardware state"
+          ],
+          "correctIndex": 2,
+          "explanation": "State save/restore plus MMU and cache disruption cost real cycles."
+        },
+        {
+          "id": "operating-systems-s1-q18",
+          "stem": "Demand paging: what happens on a first reference to a non-resident page?",
+          "options": [
+            "The CPU invents zeros without involving the OS",
+            "The process is killed immediately with no recovery",
+            "The TLB is disabled permanently for that process",
+            "A page fault loads the page (or allocates) then resumes the process"
+          ],
+          "correctIndex": 3,
+          "explanation": "Fault handler brings the page in (or COW/zero-fill) then restarts."
+        },
+        {
+          "id": "operating-systems-s1-q19",
+          "stem": "What is the working set, and why does it matter so much under memory pressure?",
+          "options": [
+            "All files currently open across the entire machine",
+            "The set of pages a process actively uses over a recent window",
+            "The list of ready queues in the scheduler only",
+            "Every page ever touched since boot, never shrinking"
+          ],
+          "correctIndex": 1,
+          "explanation": "If working sets do not fit in RAM, thrashing becomes likely."
+        },
+        {
+          "id": "operating-systems-s1-q20",
+          "stem": "Syscall path: why must user code enter the kernel instead of calling drivers directly?",
+          "options": [
+            "User code can freely execute privileged I/O instructions",
+            "Syscalls exist only for debugging and are optional on production",
+            "Isolation and mediation: the kernel validates and performs privileged work",
+            "Drivers live entirely in user space with no kernel gate"
+          ],
+          "correctIndex": 2,
+          "explanation": "Syscalls are the controlled trap into privileged, audited kernel paths."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "operating-systems-s2-q01",
+          "stem": "You design a lock-free single-producer queue; interviewer asks when a mutex is still the better interview answer—what do you say?",
+          "options": [
+            "When correctness under contention and simplicity beat micro-optimizing atomics",
+            "Mutexes are obsolete; always prefer lock-free atomics",
+            "Mutexes only work on single-core machines",
+            "Lock-free code never needs memory ordering concerns"
+          ],
+          "correctIndex": 0,
+          "explanation": "Mutexes are clearer and often fast enough; lock-free is harder to get right."
+        },
+        {
+          "id": "operating-systems-s2-q02",
+          "stem": "Priority inversion appears in a RT discussion: how do you explain the classic failure mode?",
+          "options": [
+            "High-priority threads always run immediately regardless of locks",
+            "A low-priority holder of a lock blocks a high-priority waiter while medium work runs",
+            "Inversion only happens with RR scheduling, never with priorities",
+            "It means the TLB flushed the wrong address space"
+          ],
+          "correctIndex": 1,
+          "explanation": "Medium work preempts the low holder, delaying the high waiter; priority inheritance helps."
+        },
+        {
+          "id": "operating-systems-s2-q03",
+          "stem": "Multilevel feedback queue: what policy intuition should you convey to the interviewer?",
+          "options": [
+            "One fixed priority forever based on arrival order only",
+            "All queues always use FCFS with infinite quantum",
+            "Jobs start interactive-friendly; CPU hogs demote to lower queues",
+            "Feedback queues ignore I/O-bound behavior completely"
+          ],
+          "correctIndex": 2,
+          "explanation": "MLFQ adapts: short/interactive stay responsive; long jobs get lower priority."
+        },
+        {
+          "id": "operating-systems-s2-q04",
+          "stem": "You hold lock A then try lock B; another thread holds B then tries A—what do you diagnose?",
+          "options": [
+            "Normal lock elision with no risk",
+            "A livelock that always resolves within one quantum",
+            "Only a TLB shootdown race, not a lock issue",
+            "Classic deadlock via circular wait on two locks"
+          ],
+          "correctIndex": 3,
+          "explanation": "Opposite lock orders create circular wait; fix with a global lock order."
+        },
+        {
+          "id": "operating-systems-s2-q05",
+          "stem": "Condition variable misuse: why must you recheck the predicate after wait returns?",
+          "options": [
+            "Wait never returns spuriously; the predicate is always true",
+            "Spurious wakes and races mean the condition may still be false",
+            "Predicates are checked only by the kernel scheduler",
+            "Rechecking is needed only for semaphores, never CVs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Always wait in a loop on the invariant; wakes are not a proof of readiness."
+        },
+        {
+          "id": "operating-systems-s2-q06",
+          "stem": "Copy-on-write after fork: what do you say happens to pages until a write?",
+          "options": [
+            "Parent and child share read-only mappings; write faults create private copies",
+            "Fork always deep-copies the entire address space immediately",
+            "Child gets an empty address space with no shared pages",
+            "COW only applies to kernel stacks, never user pages"
+          ],
+          "correctIndex": 0,
+          "explanation": "COW defers copying until mutation, making fork cheap for exec-heavy paths."
+        },
+        {
+          "id": "operating-systems-s2-q07",
+          "stem": "Page replacement: when is LRU approximated rather than exact, and why?",
+          "options": [
+            "Exact LRU is free in hardware for every access",
+            "LRU is never approximated on any modern OS",
+            "True LRU per access is expensive; hardware/OS use reference bits or CLOCK",
+            "Only FIFO needs approximation; LRU is exact always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Tracking every reference perfectly is costly; CLOCK/aging are common stand-ins."
+        },
+        {
+          "id": "operating-systems-s2-q08",
+          "stem": "Belady's anomaly: which algorithm can fault more with more frames, and what do you contrast?",
+          "options": [
+            "LRU always faults more when frames increase",
+            "Only SJF scheduling exhibits Belady's anomaly",
+            "Belady means deadlock when page tables grow",
+            "FIFO can show Belady; stack algorithms like LRU do not"
+          ],
+          "correctIndex": 3,
+          "explanation": "FIFO is not a stack algorithm; adding frames can raise faults in some traces."
+        },
+        {
+          "id": "operating-systems-s2-q09",
+          "stem": "TLB shootdown on multicore: why mention it when discussing address-space changes?",
+          "options": [
+            "Shootdown only clears L1 data cache, never TLBs",
+            "Other cores may cache stale translations; they must invalidate",
+            "Single-core systems need shootdowns for every syscall",
+            "Shootdown replaces page tables with segmentation only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Remote TLB invalidation is part of the cost of unmap/remap on SMP."
+        },
+        {
+          "id": "operating-systems-s2-q10",
+          "stem": "Kernel preemption vs non-preemptive kernel: what tradeoff do you articulate?",
+          "options": [
+            "Preemptive kernels never need locks in kernel code",
+            "Non-preemptive kernels always have lower interrupt latency",
+            "Preemption improves responsiveness but needs careful kernel locking",
+            "They are identical for latency and concurrency design"
+          ],
+          "correctIndex": 2,
+          "explanation": "Preemptible kernels raise concurrency complexity to cut long kernel-path stalls."
+        },
+        {
+          "id": "operating-systems-s2-q11",
+          "stem": "Spinlock vs mutex: when is spinning the interview-correct choice on multiprocessors?",
+          "options": [
+            "Short critical sections on multiprocessors where blocking costs more",
+            "Always; spinning never wastes CPU cycles",
+            "Only on uniprocessors for long I/O waits",
+            "Spinlocks sleep the thread until the lock is free"
+          ],
+          "correctIndex": 0,
+          "explanation": "Spin if hold time is tiny vs context-switch cost; otherwise block/sleep."
+        },
+        {
+          "id": "operating-systems-s2-q12",
+          "stem": "Reader-writer lock: what pitfall do you flag for write-heavy or fairness-sensitive code?",
+          "options": [
+            "Readers always serialize behind a single global mutex forever",
+            "Writers may starve if readers keep arriving without fairness policy",
+            "RW locks forbid concurrent readers by design",
+            "They eliminate all cache-line contention automatically"
+          ],
+          "correctIndex": 1,
+          "explanation": "Unbounded shared locks can starve writers; need writer preference or aging."
+        },
+        {
+          "id": "operating-systems-s2-q13",
+          "stem": "Memory-mapped files vs read/write syscalls: what concurrency/consistency point matters?",
+          "options": [
+            "mmap never shares pages with the page cache",
+            "read/write cannot update file contents on disk",
+            "Writes via mmap may need explicit msync for durability visibility",
+            "mmap removes the need for any page faults ever"
+          ],
+          "correctIndex": 2,
+          "explanation": "Mapped dirty pages are not always flushed; durability needs sync discipline."
+        },
+        {
+          "id": "operating-systems-s2-q14",
+          "stem": "Soft IRQ / bottom half idea: why split interrupt handling this way on busy devices?",
+          "options": [
+            "Move all device work into the hard IRQ with no deferral",
+            "Eliminate the need for any driver locking",
+            "Replace the scheduler with interrupt-only execution",
+            "Keep hard IRQ short; defer heavier work so interrupts stay responsive"
+          ],
+          "correctIndex": 3,
+          "explanation": "Top half acknowledges hardware quickly; bottom half does the bulk later."
+        },
+        {
+          "id": "operating-systems-s2-q15",
+          "stem": "OOM killer vs overcommit: how do you frame the Linux-ish tradeoff in an interview?",
+          "options": [
+            "Overcommit means every malloc is physically pinned immediately",
+            "Overcommit can delay failure until touch time; OOM may kill to reclaim",
+            "OOM killer only runs when swap is completely disabled forever",
+            "Virtual memory forbids any form of overcommit by definition"
+          ],
+          "correctIndex": 1,
+          "explanation": "Optimistic allocation can fail later under pressure; policy decides who dies."
+        },
+        {
+          "id": "operating-systems-s2-q16",
+          "stem": "Two-level page tables: what problem do they solve versus a giant flat table?",
+          "options": [
+            "Sparse address spaces avoid allocating unused upper-level entries",
+            "They remove the need for a TLB completely",
+            "They waste more memory than a dense flat table always",
+            "They make page faults impossible by design"
+          ],
+          "correctIndex": 0,
+          "explanation": "Hierarchical tables allocate only for used regions of a sparse VA space."
+        },
+        {
+          "id": "operating-systems-s2-q17",
+          "stem": "Futex-style user-space locking: what is the key performance idea behind the design?",
+          "options": [
+            "Always trap to the kernel on every lock acquire and release",
+            "Locks live only in kernel and never touch atomics",
+            "Fast path in user space; kernel wait only on contention",
+            "User space cannot use atomic compare-and-swap"
+          ],
+          "correctIndex": 2,
+          "explanation": "Uncontended locks avoid syscalls; contended threads sleep in the kernel."
+        },
+        {
+          "id": "operating-systems-s2-q18",
+          "stem": "I/O-bound vs CPU-bound scheduling: what adjustment do you propose in words?",
+          "options": [
+            "Always run CPU-bound before any I/O-bound job",
+            "Ignore burst behavior; only arrival time matters",
+            "Disable preemption for all interactive workloads",
+            "Favor I/O-bound for interactivity; give CPU-bound longer when fair"
+          ],
+          "correctIndex": 3,
+          "explanation": "I/O waiters need quick CPU slices to issue next I/O and stay responsive."
+        },
+        {
+          "id": "operating-systems-s2-q19",
+          "stem": "Deadlock prevention vs avoidance: how do you cleanly separate the two strategies?",
+          "options": [
+            "Avoidance deletes locks; prevention only uses Banker's algorithm",
+            "Prevention breaks a Coffman condition; avoidance checks safe states (e.g., Banker)",
+            "They are synonyms with identical mechanisms",
+            "Prevention requires knowing future requests; avoidance never does"
+          ],
+          "correctIndex": 1,
+          "explanation": "Prevention redesigns resource rules; avoidance admits only safe allocations."
+        },
+        {
+          "id": "operating-systems-s2-q20",
+          "stem": "Huge pages: what benefit and cost do you mention when tuning a large heap?",
+          "options": [
+            "Huge pages always increase TLB misses dramatically",
+            "They disable virtual memory for the process entirely",
+            "Fewer TLB misses from larger mappings; cost is fragmentation and setup complexity",
+            "Only useful for files under one kilobyte in size"
+          ],
+          "correctIndex": 2,
+          "explanation": "Larger pages cover more VA per TLB entry but are harder to allocate densely."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "operating-systems-s3-q01",
+          "stem": "Senior pitfall: after a fork+exec failure path, why is leaking file descriptors across the child a production landmine?",
+          "options": [
+            "Inherited FDs can keep sockets/files open, blocking restarts and exhausting limits",
+            "Children never inherit descriptors; leaks are impossible",
+            "Only stdin can leak; sockets are never inherited",
+            "FD inheritance is disabled unless you call mmap"
+          ],
+          "correctIndex": 0,
+          "explanation": "Close-on-exec and careful FD hygiene prevent accidental inheritance bugs."
+        },
+        {
+          "id": "operating-systems-s3-q02",
+          "stem": "Tradeoff talk: why might a senior reject naive global locking around a hot shared structure?",
+          "options": [
+            "Global locks always scale linearly with cores",
+            "They serialize throughput and create cache-line ping-pong under contention",
+            "Lock-free is always simpler than a mutex for every team",
+            "Kernel schedulers ignore blocked threads on contended locks"
+          ],
+          "correctIndex": 1,
+          "explanation": "Coarse locks limit parallelism; sharding or finer locks may be needed."
+        },
+        {
+          "id": "operating-systems-s3-q03",
+          "stem": "You see rising major faults under load: what senior diagnosis steps do you outline?",
+          "options": [
+            "Assume CPU scheduler bug only; ignore memory metrics",
+            "Disable the TLB permanently to reduce faults",
+            "Check RSS vs working set, swap activity, and whether thrashing explains latency",
+            "Major faults always mean deadlock, never memory pressure"
+          ],
+          "correctIndex": 2,
+          "explanation": "Correlate paging/swap with latency before blaming application logic alone."
+        },
+        {
+          "id": "operating-systems-s3-q04",
+          "stem": "ABA and lock-free stacks: what do you warn the interviewer you must handle?",
+          "options": [
+            "ABA cannot happen with compare-and-swap on any architecture",
+            "ABA only affects mutexes, never lock-free structures",
+            "Hazard pointers are unused in real systems",
+            "A recycled pointer can make CAS succeed incorrectly without tags/epochs"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pointer reuse fools CAS; versions, hazard pointers, or epochs mitigate ABA."
+        },
+        {
+          "id": "operating-systems-s3-q05",
+          "stem": "NUMA-aware allocation: what tradeoff do you state for a memory-heavy service?",
+          "options": [
+            "NUMA is irrelevant once you have a TLB",
+            "Remote memory access can add latency; bind threads/memory to local nodes when possible",
+            "Always allocate only on the farthest node for fairness",
+            "Page migration never helps locality under NUMA"
+          ],
+          "correctIndex": 1,
+          "explanation": "Cross-node hops cost; locality-aware placement can cut tail latency."
+        },
+        {
+          "id": "operating-systems-s3-q06",
+          "stem": "False sharing: how do you explain the performance bug to a senior interviewer?",
+          "options": [
+            "Independent variables on one cache line bounce between cores under writes",
+            "Sharing a mutex always eliminates cache traffic",
+            "False sharing only occurs with read-only data",
+            "It means two processes mapped the same file incorrectly"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pad/align hot fields so writers do not invalidate each other's lines."
+        },
+        {
+          "id": "operating-systems-s3-q07",
+          "stem": "Async signal safety: why is malloc/printf inside a signal handler a senior red flag?",
+          "options": [
+            "They are always async-signal-safe on every libc",
+            "Signals never interrupt threads holding locks",
+            "They may reenter non-reentrant state and deadlock or corrupt the heap",
+            "Only network syscalls are unsafe; allocators are fine"
+          ],
+          "correctIndex": 2,
+          "explanation": "Handlers must stick to async-signal-safe APIs or set flags for later work."
+        },
+        {
+          "id": "operating-systems-s3-q08",
+          "stem": "Thundering herd on a contended futex/accept: what mitigation narrative do you give?",
+          "options": [
+            "Always wake all waiters; herds improve throughput",
+            "Disable interrupts to avoid wakeups entirely",
+            "Herds only happen with spinlocks, never blocking waits",
+            "Wake one waiter or shard the wait queue instead of waking everyone"
+          ],
+          "correctIndex": 3,
+          "explanation": "Broadcast wakes waste CPU; targeted wake or load distribution scales better."
+        },
+        {
+          "id": "operating-systems-s3-q09",
+          "stem": "Container memory limits vs host overcommit: what surprising failure mode do you call out?",
+          "options": [
+            "cgroup limits never interact with the OOM killer",
+            "A container can be OOM-killed while the host still looks fine overall",
+            "Limits only affect disk IOPS, never RSS",
+            "Virtual memory ignores cgroup constraints completely"
+          ],
+          "correctIndex": 1,
+          "explanation": "Per-cgroup pressure can kill the workload despite spare host RAM."
+        },
+        {
+          "id": "operating-systems-s3-q10",
+          "stem": "Design tradeoff: blocking I/O thread pool vs evented loop—what do you say is the real decision?",
+          "options": [
+            "Event loops always win for CPU-bound number crunching",
+            "They are identical under the kernel scheduler always",
+            "Thread pools simplify blocking calls; evented scales connections with careful nonblocking design",
+            "Blocking I/O cannot use a thread pool by definition"
+          ],
+          "correctIndex": 2,
+          "explanation": "Match model to workload: many idle connections favor events; blocking libs favor pools."
+        }
+      ]
+    }
+  ]
+}

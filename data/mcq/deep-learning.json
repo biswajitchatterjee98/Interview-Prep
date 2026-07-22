@@ -1,0 +1,624 @@
+{
+  "slug": "deep-learning",
+  "title": "Deep Learning",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "deep-learning-s1-q01",
+          "stem": "In a deep learning interview, why is ReLU often preferred over sigmoid in hidden layers?",
+          "options": [
+            "ReLU reduces vanishing gradients and is cheap; sigmoid saturates for large |z|",
+            "ReLU outputs probabilities in [0,1] while sigmoid is unbounded and unstable",
+            "Sigmoid cannot be differentiated anywhere; ReLU is smooth everywhere",
+            "ReLU is mandatory for output layers of every multiclass classifier"
+          ],
+          "correctIndex": 0,
+          "explanation": "ReLU’s non-saturating positive side helps deep nets train more reliably."
+        },
+        {
+          "id": "deep-learning-s1-q02",
+          "stem": "Backpropagation at a high level: what computation does it efficiently perform?",
+          "options": [
+            "A forward-only search for the global minimum without using any derivatives",
+            "Chain-rule gradients of the loss w.r.t. each parameter via reverse-mode AD",
+            "Random perturbation of weights until train accuracy hits one hundred percent",
+            "Exact closed-form solutions for every nonlinear deep architecture"
+          ],
+          "correctIndex": 1,
+          "explanation": "Backprop applies the chain rule layer-by-layer to obtain parameter gradients."
+        },
+        {
+          "id": "deep-learning-s1-q03",
+          "stem": "Vanishing gradients: which symptom and cause pairing is most accurate to describe?",
+          "options": [
+            "Gradients explode only in the last layer when learning rates are too small",
+            "Vanishing means the loss becomes NaN because the batch size is one",
+            "Early layers get tiny updates when saturated activations or deep products shrink grads",
+            "It only occurs with ReLU and never with sigmoid or tanh activations"
+          ],
+          "correctIndex": 2,
+          "explanation": "Products of small derivatives through depth can starve early layers of signal."
+        },
+        {
+          "id": "deep-learning-s1-q04",
+          "stem": "CNN versus fully connected for images: what inductive bias should you highlight?",
+          "options": [
+            "CNNs ignore locality and treat every pixel as an independent global feature",
+            "Fully connected nets always beat CNNs on images when data is scarce",
+            "CNNs require sequential tokens; RNNs are the default for grid images",
+            "Local connectivity and weight sharing exploit spatial locality and translation structure"
+          ],
+          "correctIndex": 3,
+          "explanation": "Convolutions reuse filters across space, matching image structure efficiently."
+        },
+        {
+          "id": "deep-learning-s1-q05",
+          "stem": "RNN high-level idea: what problem setting are they classically designed to handle?",
+          "options": [
+            "Sequential data where order matters and hidden state carries temporal context",
+            "I.i.d. tabular rows with no notion of order or temporal dependence",
+            "Only static image classification without any sequence structure",
+            "Unsupervised clustering of unordered sets with permutation invariance only"
+          ],
+          "correctIndex": 0,
+          "explanation": "RNNs maintain state across time steps for sequence modeling tasks."
+        },
+        {
+          "id": "deep-learning-s1-q06",
+          "stem": "Transformer attention (high level): what core capability should you state in interviews?",
+          "options": [
+            "Attention forces strictly left-to-right recurrence with no parallelism",
+            "Tokens can attend to any other positions, modeling long-range dependencies in parallel",
+            "Transformers cannot use positional information of any kind by design",
+            "Attention replaces loss functions so gradient descent becomes unnecessary"
+          ],
+          "correctIndex": 1,
+          "explanation": "Self-attention mixes information across positions without sequential bottlenecks."
+        },
+        {
+          "id": "deep-learning-s1-q07",
+          "stem": "Dropout as regularization: what does it do during training versus inference?",
+          "options": [
+            "Drops units only at inference to make predictions intentionally noisy",
+            "Deletes layers permanently after the first epoch they underperform",
+            "Randomly drops units in training; at inference uses full net with scaled weights/identity",
+            "Guarantees zero train loss by removing the hardest examples each batch"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dropout averages thinned networks implicitly; eval uses the full network."
+        },
+        {
+          "id": "deep-learning-s1-q08",
+          "stem": "Batch normalization: what primary training benefit do practitioners usually cite?",
+          "options": [
+            "Removes the need for any nonlinearity in deep networks entirely",
+            "Guarantees global optima for non-convex deep loss landscapes",
+            "Converts unsupervised pretraining into supervised labels automatically",
+            "Stabilizes activations’ distributions, often enabling higher LRs and faster convergence"
+          ],
+          "correctIndex": 3,
+          "explanation": "BN reduces internal covariate shift-like instability and eases optimization."
+        },
+        {
+          "id": "deep-learning-s1-q09",
+          "stem": "SGD versus Adam: what concise contrast should you give in an optimizer interview?",
+          "options": [
+            "SGD uses raw gradients (often with momentum); Adam adapts per-parameter step sizes",
+            "Adam never uses gradients; SGD is a second-order Newton method only",
+            "They are identical updates with different names across frameworks",
+            "SGD is only for transformers; Adam is only for linear regression"
+          ],
+          "correctIndex": 0,
+          "explanation": "Adam’s adaptive moments often train faster; SGD+momentum can generalize well."
+        },
+        {
+          "id": "deep-learning-s1-q10",
+          "stem": "Softmax at the output: what does it produce for multiclass classification heads?",
+          "options": [
+            "Unbounded real scores with no probabilistic interpretation ever",
+            "A probability distribution over classes that sums to one",
+            "Binary labels that are hard 0/1 without any temperature or logits",
+            "A single regression value for continuous targets only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Softmax turns logits into a categorical probability simplex."
+        },
+        {
+          "id": "deep-learning-s1-q11",
+          "stem": "Exploding gradients: what practical mitigations should you mention quickly?",
+          "options": [
+            "Always decrease depth until the network has a single linear layer",
+            "Remove the loss function so gradients cannot grow by definition",
+            "Gradient clipping, careful init, residual connections, and stable architectures",
+            "Exploding gradients only affect inference and never training updates"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clipping and architectural fixes keep update magnitudes under control."
+        },
+        {
+          "id": "deep-learning-s1-q12",
+          "stem": "Why do residual (skip) connections help train very deep networks in practice?",
+          "options": [
+            "They delete nonlinearities so every deep net becomes a linear map",
+            "They force each layer to reset weights to zero after every epoch",
+            "They replace backpropagation with evolutionary random search",
+            "They provide gradient highways and let layers learn residual corrections"
+          ],
+          "correctIndex": 3,
+          "explanation": "Skip connections ease optimization by improving gradient flow through depth."
+        },
+        {
+          "id": "deep-learning-s1-q13",
+          "stem": "Cross-entropy loss with softmax: why is it a default for classification interviews?",
+          "options": [
+            "It penalizes confident wrong class probabilities and pairs naturally with softmax",
+            "It is only valid for regression and cannot use class labels",
+            "It ignores probabilities and only counts hard 0/1 mistakes",
+            "It requires unsupervised clustering before any supervised training"
+          ],
+          "correctIndex": 0,
+          "explanation": "CE drives predicted distributions toward the true one-hot (or soft) labels."
+        },
+        {
+          "id": "deep-learning-s1-q14",
+          "stem": "Learning rate too high versus too low: what failure modes should you describe?",
+          "options": [
+            "Too high always finds better minima; too low always overfits instantly",
+            "Too high: divergence/oscillation; too low: painfully slow or stuck progress",
+            "Learning rate only affects inference latency, never training dynamics",
+            "Any nonzero learning rate guarantees convergence for deep nets"
+          ],
+          "correctIndex": 1,
+          "explanation": "LR scale controls step size stability versus training speed."
+        },
+        {
+          "id": "deep-learning-s1-q15",
+          "stem": "Weight initialization: why does poor init matter more as networks get deeper?",
+          "options": [
+            "Initialization is irrelevant because batch norm deletes all scale effects forever",
+            "Deep nets ignore init and sample new random weights every forward pass",
+            "Bad scales cause activations/gradients to explode or vanish through many layers",
+            "Only the last layer’s init matters; hidden layers can start at zeros always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Signal propagation through depth is sensitive to initial variance choices."
+        },
+        {
+          "id": "deep-learning-s1-q16",
+          "stem": "Max pooling in CNNs: what role does it typically play in the architecture?",
+          "options": [
+            "Increases spatial resolution to recover finer pixel-level details always",
+            "Replaces convolutions entirely so filters are never learned",
+            "Converts classification logits into regression targets automatically",
+            "Downsamples feature maps, providing local invariance and reducing compute"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pooling aggregates local neighborhoods and shrinks spatial dimensions."
+        },
+        {
+          "id": "deep-learning-s1-q17",
+          "stem": "Epoch versus iteration versus batch: how do you define them crisply in interviews?",
+          "options": [
+            "Batch: one update’s samples; iteration: one update; epoch: one pass over the data",
+            "Epoch means one gradient step; batch means the entire dataset always",
+            "Iteration equals epoch; batch size must equal the full training set",
+            "These terms are interchangeable slang with no standard meanings"
+          ],
+          "correctIndex": 0,
+          "explanation": "Clear terminology: batch→step→epoch as nested training units."
+        },
+        {
+          "id": "deep-learning-s1-q18",
+          "stem": "Why is tanh sometimes preferred over sigmoid in hidden layers historically?",
+          "options": [
+            "Tanh cannot saturate; sigmoid never saturates for large magnitudes",
+            "Zero-centered outputs can ease optimization versus sigmoid’s strictly positive range",
+            "Tanh outputs are probabilities summing to one across the layer",
+            "Sigmoid is undefined for negative inputs while tanh always is"
+          ],
+          "correctIndex": 1,
+          "explanation": "Zero-mean-ish activations historically helped compared with sigmoid’s bias."
+        },
+        {
+          "id": "deep-learning-s1-q19",
+          "stem": "Data augmentation for vision: what is the interview-level purpose you should state?",
+          "options": [
+            "Replace labels with random noise to regularize via label smoothing only",
+            "Guarantee that train accuracy becomes one hundred percent every epoch",
+            "Synthetically expand diversity so models generalize beyond the raw training images",
+            "Remove the need for any convolutional inductive bias in the model"
+          ],
+          "correctIndex": 2,
+          "explanation": "Augmentation fights overfitting by exposing varied views of the same labels."
+        },
+        {
+          "id": "deep-learning-s1-q20",
+          "stem": "Transfer learning with pretrained CNNs: what practical advantage do you emphasize?",
+          "options": [
+            "Pretraining always forbids fine-tuning of any layer by definition",
+            "It only works for language and cannot help image tasks at all",
+            "Transfer learning deletes the need for a validation set permanently",
+            "Reuse features learned on large data when your labeled set is smaller"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pretrained features bootstrap performance when target data is limited."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "deep-learning-s2-q01",
+          "stem": "LSTM/GRU motivation: what RNN failure mode do gated units primarily address?",
+          "options": [
+            "Difficulty learning long-range dependencies due to vanishing gradients through time",
+            "Inability to process any sequential input shorter than two tokens",
+            "The requirement that all sequences must share identical lengths forever",
+            "Transformers’ quadratic attention cost on very long documents"
+          ],
+          "correctIndex": 0,
+          "explanation": "Gates improve gradient flow across many time steps versus vanilla RNNs."
+        },
+        {
+          "id": "deep-learning-s2-q02",
+          "stem": "Layer normalization vs batch normalization: when is LayerNorm often preferred?",
+          "options": [
+            "Only when batch size is millions and sequence length is one",
+            "Variable-length sequences / small batches / Transformers where batch stats are awkward",
+            "LayerNorm requires identical batch sizes at train and serve always",
+            "BN is illegal in CNNs; LayerNorm is illegal in language models"
+          ],
+          "correctIndex": 1,
+          "explanation": "LayerNorm normalizes across features per example, fitting sequence models well."
+        },
+        {
+          "id": "deep-learning-s2-q03",
+          "stem": "Adam’s β1/β2 moments: what do they roughly track in the optimizer state?",
+          "options": [
+            "Exact Hessian eigenvalues computed every step via second-order AD",
+            "The learning rate schedule milestones encoded as binary flags",
+            "Exponential moving averages of gradients and squared gradients per parameter",
+            "Dropout masks that must be identical across training and inference"
+          ],
+          "correctIndex": 2,
+          "explanation": "First and second moment estimates adapt step sizes per parameter."
+        },
+        {
+          "id": "deep-learning-s2-q04",
+          "stem": "Warmup + decay learning-rate schedules: why are they common for Transformers?",
+          "options": [
+            "Force the model to ignore positional encodings during the first epoch",
+            "Replace Adam with SGD automatically after a fixed number of steps",
+            "Guarantee that validation loss decreases monotonically every update",
+            "Stabilize early training then anneal steps for finer convergence later"
+          ],
+          "correctIndex": 3,
+          "explanation": "Warmup avoids huge early adaptive steps; decay refines late training."
+        },
+        {
+          "id": "deep-learning-s2-q05",
+          "stem": "Multi-head attention: what benefit does using multiple heads provide conceptually?",
+          "options": [
+            "Different heads can specialize in different relation/subspace patterns",
+            "It reduces attention to a single token so context is ignored",
+            "Heads delete the need for any feed-forward layers in Transformers",
+            "Multiple heads force the model to be strictly recurrent again"
+          ],
+          "correctIndex": 0,
+          "explanation": "Heads increase representational diversity of attention patterns."
+        },
+        {
+          "id": "deep-learning-s2-q06",
+          "stem": "Positional encodings: why do Transformers need them unlike classic RNNs?",
+          "options": [
+            "Transformers store absolute positions in the optimizer state automatically",
+            "Self-attention is permutation-equivariant without explicit position signals",
+            "RNNs cannot represent order while Transformers natively know indices",
+            "Positional encodings replace token embeddings entirely in modern LLMs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Without positions, attention treats bags of tokens as unordered."
+        },
+        {
+          "id": "deep-learning-s2-q07",
+          "stem": "Dying ReLU problem: what happens and what mitigations might you mention?",
+          "options": [
+            "ReLU always dies after one epoch regardless of architecture choices",
+            "Dying ReLU means softmax outputs become uniform and untrainable",
+            "Units stuck outputting zero get zero gradients; Leaky/GELU/init/LR fixes help",
+            "It only occurs when using batch sizes greater than the dataset size"
+          ],
+          "correctIndex": 2,
+          "explanation": "Zero-gradient regions can kill units; smoother/leaky variants mitigate."
+        },
+        {
+          "id": "deep-learning-s2-q08",
+          "stem": "Teacher forcing in sequence models: what practice does the term refer to?",
+          "options": [
+            "Forcing the learning rate to increase whenever validation improves",
+            "Replacing the decoder with a rule-based template system at inference",
+            "Labeling data automatically using a larger teacher model’s gradients",
+            "Training with ground-truth previous tokens rather than model predictions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Teacher forcing stabilizes training by feeding correct history tokens."
+        },
+        {
+          "id": "deep-learning-s2-q09",
+          "stem": "Autoregressive generation: what does it mean for decoding at inference time?",
+          "options": [
+            "Predict the next token conditioned on previously generated tokens iteratively",
+            "Emit the entire sequence in one non-sequential parallel shot always",
+            "Sample labels independently of any previous context or prompt",
+            "Optimize the encoder only while freezing the decoder forever"
+          ],
+          "correctIndex": 0,
+          "explanation": "AR decoding builds the output token-by-token from its own history."
+        },
+        {
+          "id": "deep-learning-s2-q10",
+          "stem": "Weight decay vs L2 penalty subtleties: what interview-level point is fair?",
+          "options": [
+            "Weight decay always increases model capacity to fit noise better",
+            "In adaptive optimizers, decoupled weight decay can differ from naive L2 loss terms",
+            "L2 and weight decay are illegal to combine with dropout in any framework",
+            "They only apply to biases and never to weight matrices"
+          ],
+          "correctIndex": 1,
+          "explanation": "Implementation details matter: AdamW-style decay is not always identical to L2."
+        },
+        {
+          "id": "deep-learning-s2-q11",
+          "stem": "Skip-gram / Word2Vec era vs contextual embeddings: what changed conceptually?",
+          "options": [
+            "Contextual models assign one vector per word type forever globally",
+            "Word2Vec requires Transformers; BERT forbids any co-occurrence statistics",
+            "Static word vectors vs context-dependent representations from deep encoders",
+            "Embeddings became unnecessary once one-hot encodings returned"
+          ],
+          "correctIndex": 2,
+          "explanation": "Modern encoders produce vectors that depend on surrounding tokens."
+        },
+        {
+          "id": "deep-learning-s2-q12",
+          "stem": "Convolution receptive field: why do deeper/stacked convs matter for vision tasks?",
+          "options": [
+            "Deeper convs always shrink receptive fields toward single pixels",
+            "Receptive field size is fixed by the optimizer, not the architecture",
+            "Only the first layer’s receptive field matters for classification heads",
+            "Stacking expands the effective region of the image each unit can see"
+          ],
+          "correctIndex": 3,
+          "explanation": "Effective receptive field grows with depth, kernel size, and dilation."
+        },
+        {
+          "id": "deep-learning-s2-q13",
+          "stem": "Mixed precision training: what is the main practical motivation in interviews?",
+          "options": [
+            "Faster throughput and lower memory using FP16/BF16 while keeping stable masters",
+            "It guarantees better generalization than FP32 for every architecture",
+            "Mixed precision deletes the need for gradient clipping permanently",
+            "It converts classification into regression by changing numeric types"
+          ],
+          "correctIndex": 0,
+          "explanation": "Lower precision speeds training/inference with careful loss scaling."
+        },
+        {
+          "id": "deep-learning-s2-q14",
+          "stem": "Mode collapse is usually discussed for GANs — what does the phrase mean?",
+          "options": [
+            "The discriminator accuracy becomes exactly fifty percent forever",
+            "Generator produces limited varieties of outputs instead of covering modes",
+            "All batch norm running stats freeze and cannot update again",
+            "The latent space dimensionality collapses to one by mathematical law"
+          ],
+          "correctIndex": 1,
+          "explanation": "Collapsed generators fail to capture the full data distribution diversity."
+        },
+        {
+          "id": "deep-learning-s2-q15",
+          "stem": "Encoder–decoder vs encoder-only vs decoder-only: quick Transformer taxonomy?",
+          "options": [
+            "All three are identical graphs with different marketing names only",
+            "Encoder-only models cannot use attention of any kind by definition",
+            "Enc-dec for seq2seq; encoder-only for understanding; decoder-only for generation",
+            "Decoder-only models forbid autoregressive next-token training objectives"
+          ],
+          "correctIndex": 2,
+          "explanation": "Architecture choice matches NLU, NMT-style, or LM-style task families."
+        },
+        {
+          "id": "deep-learning-s2-q16",
+          "stem": "Gradient accumulation: when do engineers use it during deep learning training?",
+          "options": [
+            "Delete gradients every microstep so updates never happen",
+            "Accumulate validation metrics into the training loss automatically",
+            "Force the learning rate to equal the batch size at every step",
+            "Simulate larger batches when GPU memory cannot hold the desired batch size"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sum micro-batch gradients before stepping to emulate big-batch training."
+        },
+        {
+          "id": "deep-learning-s2-q17",
+          "stem": "Label smoothing: what regularization effect should you describe accurately?",
+          "options": [
+            "Softens hard one-hots to discourage overconfident softmax peaks",
+            "Replaces all labels with random classes each epoch for exploration",
+            "Smooths input images with Gaussian blur before every convolution",
+            "Forces train accuracy to match validation accuracy exactly"
+          ],
+          "correctIndex": 0,
+          "explanation": "Smoothing targets reduces overconfidence and can improve calibration."
+        },
+        {
+          "id": "deep-learning-s2-q18",
+          "stem": "Depthwise separable convolutions: what efficiency idea are you expected to know?",
+          "options": [
+            "Remove all convolutions and use only fully connected layers",
+            "Factor spatial filtering per channel then mix channels with 1×1 convs",
+            "Apply one giant dense kernel across the entire image without sharing",
+            "Separable convs require RNNs inside each spatial location"
+          ],
+          "correctIndex": 1,
+          "explanation": "Factorization cuts parameters/FLOPs versus standard dense convolutions."
+        },
+        {
+          "id": "deep-learning-s2-q19",
+          "stem": "Curriculum learning: what training strategy does the term refer to in DL?",
+          "options": [
+            "Train only on the hardest 1% of data from the first step always",
+            "Freeze the dataset order alphabetically and never shuffle again",
+            "Present easier examples first, then gradually harder ones as capability grows",
+            "Replace the loss with human letter grades instead of numeric losses"
+          ],
+          "correctIndex": 2,
+          "explanation": "Ordered difficulty schedules can stabilize learning on complex tasks."
+        },
+        {
+          "id": "deep-learning-s2-q20",
+          "stem": "Inductive bias: how do CNNs, RNNs, and Transformers differ at a design level?",
+          "options": [
+            "All three share identical inductive biases and differ only in logos",
+            "Transformers cannot model sequences; RNNs cannot model any dependency",
+            "Inductive bias only matters for unsupervised clustering algorithms",
+            "CNNs bake locality; RNNs bake sequence state; Transformers bake flexible attention"
+          ],
+          "correctIndex": 3,
+          "explanation": "Architecture priors encode assumptions that help sample efficiency."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "deep-learning-s3-q01",
+          "stem": "Senior DL: how do you diagnose whether a net underfits versus a data/label problem?",
+          "options": [
+            "Check train metrics, capacity sweeps, label audits, and simple baselines before blaming depth",
+            "Always add more layers first because underfitting never comes from bad labels",
+            "If val beats train, the model is underfitting and needs heavier dropout",
+            "Underfitting is impossible for networks with more than three layers"
+          ],
+          "correctIndex": 0,
+          "explanation": "Separate capacity issues from data quality with controlled experiments."
+        },
+        {
+          "id": "deep-learning-s3-q02",
+          "stem": "When might plain SGD with momentum beat Adam on the final generalization gap?",
+          "options": [
+            "Adam always generalizes best; SGD is obsolete for every modern benchmark",
+            "Some vision settings show SGD generalizes better after careful tuning/schedules",
+            "Momentum forbids using weight decay, so Adam cannot be compared fairly",
+            "SGD wins only when the dataset has fewer than ten examples"
+          ],
+          "correctIndex": 1,
+          "explanation": "Optimizer choice can affect generalization; don’t assume Adam is universally best."
+        },
+        {
+          "id": "deep-learning-s3-q03",
+          "stem": "Attention complexity: what scaling concern do interviewers expect you to mention?",
+          "options": [
+            "Attention is always O(1) regardless of how long the context grows",
+            "Complexity is linear in n² parameters but constant in sequence length",
+            "Standard self-attention is O(n²) in sequence length for compute and memory",
+            "Only RNNs have quadratic cost; attention is strictly sublinear"
+          ],
+          "correctIndex": 2,
+          "explanation": "Quadratic attention motivates efficient variants and context limits."
+        },
+        {
+          "id": "deep-learning-s3-q04",
+          "stem": "BatchNorm at inference: what running statistics behavior should you explain?",
+          "options": [
+            "Recompute batch stats from a single test example as if training",
+            "Disable all normalization layers completely at serving time always",
+            "Replace BN with dropout masks frozen from the last training batch",
+            "Use population mean/variance estimated during training, not per-batch test stats"
+          ],
+          "correctIndex": 3,
+          "explanation": "Eval mode applies learned/estimated global stats for stable serving."
+        },
+        {
+          "id": "deep-learning-s3-q05",
+          "stem": "Residual learning vs highway nets (high level): what shared idea connects them?",
+          "options": [
+            "Give layers shortcut paths so deep stacks remain optimizable",
+            "Remove all skip connections to force each layer to be invertible",
+            "Replace gradient descent with closed-form least squares each block",
+            "Force every layer output to be a probability simplex"
+          ],
+          "correctIndex": 0,
+          "explanation": "Shortcut pathways are a recurring solution to deep optimization."
+        },
+        {
+          "id": "deep-learning-s3-q06",
+          "stem": "How would you explain the lottery ticket hypothesis in one interview paragraph?",
+          "options": [
+            "It claims every random init fails and training is impossible without pretraining",
+            "Dense nets contain sparse subnetworks that can match accuracy when trained in isolation",
+            "It states dropout must equal exactly 0.5 for any network to converge",
+            "It proves Adam finds global minima for all non-convex deep losses"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sparse winning tickets suggest overparameterized nets hide good subnets."
+        },
+        {
+          "id": "deep-learning-s3-q07",
+          "stem": "Feature collapse / representation collapse risks: where do they commonly appear?",
+          "options": [
+            "Only in linear regression with two features and Gaussian noise",
+            "Never in deep learning because cross-entropy forbids constant features",
+            "Self-supervised contrastive/BYOL-style setups if invariance is poorly constrained",
+            "Only when using max pooling without any convolution layers"
+          ],
+          "correctIndex": 2,
+          "explanation": "Without proper objectives, encoders may map inputs to near-identical vectors."
+        },
+        {
+          "id": "deep-learning-s3-q08",
+          "stem": "Choosing activation functions today: what pragmatic guidance is interview-solid?",
+          "options": [
+            "Always use sigmoid hidden layers for state-of-the-art Transformers",
+            "Activation choice never matters once batch norm is present anywhere",
+            "Only tanh is valid for language models by architectural law",
+            "ReLU/GELU/SiLU variants are common; match task norms and watch dying units"
+          ],
+          "correctIndex": 3,
+          "explanation": "Modern defaults favor smooth ReLU-family activations with empiricism."
+        },
+        {
+          "id": "deep-learning-s3-q09",
+          "stem": "Distributed data-parallel training: what synchronization idea should you mention?",
+          "options": [
+            "Each GPU computes grads on a shard; all-reduce averages grads before the step",
+            "Each GPU trains a different architecture and never shares gradients",
+            "Only the rank-0 GPU sees data; others idle to save energy",
+            "All-reduce is replaced by writing checkpoints after every micro-batch only"
+          ],
+          "correctIndex": 0,
+          "explanation": "DDP keeps replicas in sync by averaging gradients across workers."
+        },
+        {
+          "id": "deep-learning-s3-q10",
+          "stem": "When is a smaller distilled student model preferable to the large teacher in prod?",
+          "options": [
+            "Teachers are always cheaper to serve than students by definition",
+            "Latency, cost, and edge constraints dominate if accuracy drop is acceptable",
+            "Distillation only works offline and cannot produce deployable models",
+            "Students must have more parameters than teachers to retain knowledge"
+          ],
+          "correctIndex": 1,
+          "explanation": "Distillation trades a little quality for deployability and efficiency."
+        }
+      ]
+    }
+  ]
+}

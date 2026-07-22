@@ -1,0 +1,624 @@
+{
+  "slug": "large-language-models",
+  "title": "Large Language Models",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "large-language-models-s1-q01",
+          "stem": "In an LLM interview, what is a token and why does tokenization matter in practice?",
+          "options": [
+            "Tokens are subword/char pieces models consume; they affect cost, length, and splitting",
+            "Tokens are entire PDF files ingested as a single embedding vector always",
+            "Tokenization only matters for images and is unused in text Transformers",
+            "A token is always exactly one English word with spaces preserved"
+          ],
+          "correctIndex": 0,
+          "explanation": "Models operate on token IDs; vocabulary choices change length and meaning boundaries."
+        },
+        {
+          "id": "large-language-models-s1-q02",
+          "stem": "Context window: what constraint should you explain clearly to interviewers about LLMs?",
+          "options": [
+            "The number of GPUs required to host the model weights in memory",
+            "Max tokens of prompt+generation the model can attend to in one forward pass",
+            "How many users can call the API concurrently before rate limits",
+            "The count of fine-tuning epochs allowed before catastrophic forgetting"
+          ],
+          "correctIndex": 1,
+          "explanation": "Context length caps how much text the model can condition on at once."
+        },
+        {
+          "id": "large-language-models-s1-q03",
+          "stem": "Pretraining versus fine-tuning: how do you distinguish the two stages cleanly?",
+          "options": [
+            "Fine-tuning always uses more data than pretraining by definition",
+            "Pretraining requires labeled instructions only; fine-tuning is unsupervised only",
+            "Pretrain on broad data for general skills; fine-tune adapts to a narrower task/domain",
+            "They are identical stages with different cloud product marketing names"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pretraining builds foundations; fine-tuning specializes behavior or knowledge."
+        },
+        {
+          "id": "large-language-models-s1-q04",
+          "stem": "RLHF at a high level: what problem is it trying to solve for assistant models?",
+          "options": [
+            "Replace all human feedback with purely unsupervised clustering of prompts",
+            "Guarantee factual correctness on every knowledge question without retrieval",
+            "Compress model weights to INT4 without changing any behavior",
+            "Align model outputs with human preference judgments beyond next-token likelihood"
+          ],
+          "correctIndex": 3,
+          "explanation": "Preference optimization steers models toward helpful/harmless preferred answers."
+        },
+        {
+          "id": "large-language-models-s1-q05",
+          "stem": "LoRA fine-tuning: what efficiency idea should you state in an interview answer?",
+          "options": [
+            "Train low-rank adapter matrices while keeping most base weights frozen",
+            "Retrain every parameter from scratch on a tiny dataset only",
+            "Delete attention layers and fine-tune only the tokenizer vocabulary",
+            "LoRA quantizes gradients to 1-bit and freezes the optimizer state"
+          ],
+          "correctIndex": 0,
+          "explanation": "LoRA adds small trainable ranks, cutting fine-tune cost and storage."
+        },
+        {
+          "id": "large-language-models-s1-q06",
+          "stem": "Temperature in decoding: what happens as you increase it, conceptually speaking?",
+          "options": [
+            "It always selects the single argmax token regardless of probabilities",
+            "Distribution flattens so sampling becomes more random/diverse (and riskier)",
+            "Temperature only changes GPU clock speed during inference serving",
+            "Higher temperature guarantees higher factual accuracy on closed quizzes"
+          ],
+          "correctIndex": 1,
+          "explanation": "Temperature scales logits before softmax, controlling randomness."
+        },
+        {
+          "id": "large-language-models-s1-q07",
+          "stem": "Top-p (nucleus) sampling: what does the method keep when sampling next tokens?",
+          "options": [
+            "Exactly the top p tokens by count, ignoring their probability masses",
+            "Only tokens that appear in the prompt verbatim at least p times",
+            "The smallest set of top tokens whose cumulative probability mass exceeds p",
+            "All tokens equally after truncating the vocabulary to size p"
+          ],
+          "correctIndex": 2,
+          "explanation": "Nucleus sampling truncates the tail while adapting to distribution shape."
+        },
+        {
+          "id": "large-language-models-s1-q08",
+          "stem": "Hallucination in LLMs: what definition and mitigation angle should you give?",
+          "options": [
+            "Any output that uses a rare word not seen in the pretraining corpus",
+            "Only syntax errors produced when temperature is set to zero",
+            "Hallucinations are impossible once RLHF is applied to any model",
+            "Fluent but unfounded content; mitigate via grounding, refusal, and evals"
+          ],
+          "correctIndex": 3,
+          "explanation": "Models can invent facts; retrieval and verification reduce risk."
+        },
+        {
+          "id": "large-language-models-s1-q09",
+          "stem": "Prompt injection: what attack pattern should you describe in security interviews?",
+          "options": [
+            "Malicious instructions in content try to override system/developer policies",
+            "Injecting SQL into a database through the tokenizer vocabulary file",
+            "Increasing temperature until the model refuses all user requests",
+            "Fine-tuning on public Common Crawl to improve factuality only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Untrusted text can hijack instruction-following if not isolated/filtered."
+        },
+        {
+          "id": "large-language-models-s1-q10",
+          "stem": "Quantization for LLMs: what tradeoff are interviewers usually probing for here?",
+          "options": [
+            "Quantization increases parameter count while improving perplexity always",
+            "Lower bit-width weights cut memory/latency with some quality risk",
+            "It only changes tokenizer BPE merges and never touches weight tensors",
+            "INT8 models cannot run on GPUs and require CPUs exclusively"
+          ],
+          "correctIndex": 1,
+          "explanation": "Compressing numeric precision enables cheaper serving with quality checks."
+        },
+        {
+          "id": "large-language-models-s1-q11",
+          "stem": "System prompt versus user prompt: why does the distinction matter in products?",
+          "options": [
+            "User prompts always outrank system prompts by Transformer architecture law",
+            "System prompts are only used for image models, not text LLMs",
+            "System/developer messages set policy; user content should not freely override it",
+            "There is no operational difference; both strings are concatenated identically"
+          ],
+          "correctIndex": 2,
+          "explanation": "Privilege separation in prompting supports safety and product behavior."
+        },
+        {
+          "id": "large-language-models-s1-q12",
+          "stem": "Perplexity as an LM metric: what does lower perplexity generally indicate about fit?",
+          "options": [
+            "The model hallucinates less on every open-domain fact question",
+            "Latency is lower because fewer tokens are generated per second",
+            "The context window has grown without changing model weights",
+            "The model assigns higher probability to the evaluation text (better fit)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Perplexity summarizes how surprised the model is by held-out text."
+        },
+        {
+          "id": "large-language-models-s1-q13",
+          "stem": "Instruction tuning: what data and objective shift does it typically involve?",
+          "options": [
+            "Supervised examples of instructions→helpful responses to improve following",
+            "Only continuing unsupervised next-token training on raw web text",
+            "Replacing the tokenizer with character-level encoding exclusively",
+            "Maximizing temperature during training to increase entropy forever"
+          ],
+          "correctIndex": 0,
+          "explanation": "Instruction data teaches models to respond to directives more reliably."
+        },
+        {
+          "id": "large-language-models-s1-q14",
+          "stem": "Few-shot prompting: what mechanism are you relying on without weight updates?",
+          "options": [
+            "Automatically downloading and fine-tuning a LoRA from the examples",
+            "In-context examples steer the model’s next-token behavior for the task",
+            "Updating embeddings of every vocabulary item using the shots",
+            "Few-shot requires RLHF reward models to be retrained online"
+          ],
+          "correctIndex": 1,
+          "explanation": "Demonstrations in the prompt exploit in-context learning abilities."
+        },
+        {
+          "id": "large-language-models-s1-q15",
+          "stem": "KV cache during autoregressive decoding: why do serving stacks keep it around?",
+          "options": [
+            "Store the entire training dataset in GPU RAM for nearest-neighbor lookup",
+            "Cache gradient checkpoints so training can resume mid-epoch only",
+            "Reuse key/value attention states for past tokens to avoid recomputing them",
+            "Memorize user passwords for personalized decoding without prompts"
+          ],
+          "correctIndex": 2,
+          "explanation": "KV caching makes incremental token generation computationally feasible."
+        },
+        {
+          "id": "large-language-models-s1-q16",
+          "stem": "Beam search versus sampling: when might you choose each at decode time?",
+          "options": [
+            "Beam search always maximizes creativity better than any sampler",
+            "Sampling cannot be used for chat; beam is required for all LLMs",
+            "They produce identical outputs given the same random seed always",
+            "Beam for more deterministic high-likelihood text; sampling for diversity"
+          ],
+          "correctIndex": 3,
+          "explanation": "Search vs stochastic decoding trades mode-seeking against variety."
+        },
+        {
+          "id": "large-language-models-s1-q17",
+          "stem": "Tokenizer fertility / multilingual issues: what practical failure can occur?",
+          "options": [
+            "Some languages/scripts consume many more tokens for the same text length",
+            "Tokenizers always allocate exactly one token per Unicode code point",
+            "Multilingual text cannot be tokenized by any BPE vocabulary",
+            "Fertility only affects image patch embeddings, not text models"
+          ],
+          "correctIndex": 0,
+          "explanation": "Uneven tokenization changes cost and effective context per language."
+        },
+        {
+          "id": "large-language-models-s1-q18",
+          "stem": "Catastrophic forgetting in fine-tuning: what risk should you call out clearly?",
+          "options": [
+            "Forgetting only happens when learning rates are exactly zero",
+            "Narrow fine-tuning can degrade broad capabilities the base model had",
+            "LoRA mathematically prevents any change to model behavior forever",
+            "Pretrained models cannot forget because attention is immutable"
+          ],
+          "correctIndex": 1,
+          "explanation": "Task adaptation may overwrite useful prior skills without care."
+        },
+        {
+          "id": "large-language-models-s1-q19",
+          "stem": "Base model versus chat model: what difference do product interviews expect?",
+          "options": [
+            "Base models refuse all prompts; chat models only complete code",
+            "They share identical post-training and differ only in API URL paths",
+            "Chat/instruct models are aligned to dialogue; base models continue raw text",
+            "Chat models cannot use tools; base models must use tools always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Post-training changes interaction style and safety behavior substantially."
+        },
+        {
+          "id": "large-language-models-s1-q20",
+          "stem": "Why does greedy decoding (temp≈0 / argmax) still sometimes look wrong in answers?",
+          "options": [
+            "Greedy decoding ignores the prompt and samples uniformly from vocab",
+            "Argmax is undefined for softmax outputs in modern frameworks",
+            "Temperature zero always triggers prompt injection by mathematical law",
+            "Highest next-token probability ≠ globally best sequence or factual truth"
+          ],
+          "correctIndex": 3,
+          "explanation": "Locally optimal tokens can yield globally suboptimal or false answers."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "large-language-models-s2-q01",
+          "stem": "SFT then preference optimization: why is this pipeline common for assistants?",
+          "options": [
+            "SFT teaches format/skills; preference methods refine choices among responses",
+            "Preference optimization must precede any supervised instruction tuning always",
+            "SFT deletes the need for evaluation because loss equals user satisfaction",
+            "The pipeline only applies to encoder-only BERT-style classifiers"
+          ],
+          "correctIndex": 0,
+          "explanation": "Stage training first imitates demos, then ranks better answers via feedback."
+        },
+        {
+          "id": "large-language-models-s2-q02",
+          "stem": "DPO versus classic RLHF with a separate reward model — key conceptual difference?",
+          "options": [
+            "DPO requires a live human rater on every token during decoding",
+            "DPO can optimize preferences directly from pairs without an explicit reward model loop",
+            "Classic RLHF forbids any preference data and uses only next-token loss",
+            "They are bitwise identical algorithms with different paper titles"
+          ],
+          "correctIndex": 1,
+          "explanation": "DPO simplifies preference learning relative to full RL with RM+PPO-style loops."
+        },
+        {
+          "id": "large-language-models-s2-q03",
+          "stem": "QLoRA: what combination makes fine-tuning large models more accessible in practice?",
+          "options": [
+            "Full FP32 fine-tuning of all layers on a single laptop CPU overnight",
+            "Deleting half the layers randomly before each training step",
+            "Quantized frozen base weights plus low-rank adapters trained in higher precision",
+            "Training only the tokenizer while freezing embeddings and attention"
+          ],
+          "correctIndex": 2,
+          "explanation": "4-bit bases + LoRA cut memory so larger models fit consumer GPUs."
+        },
+        {
+          "id": "large-language-models-s2-q04",
+          "stem": "Speculative decoding: what latency idea should you explain at a high level?",
+          "options": [
+            "Speculate user intent without reading the prompt to skip attention",
+            "Generate the entire answer offline before the user sends a message",
+            "Replace sampling with hashing into a fixed FAQ database",
+            "A cheap draft model proposes tokens; the large model verifies them in bulk"
+          ],
+          "correctIndex": 3,
+          "explanation": "Draft-then-verify can reduce wall-clock time for autoregressive decoding."
+        },
+        {
+          "id": "large-language-models-s2-q05",
+          "stem": "Rope / relative position schemes: why do long-context models care about them?",
+          "options": [
+            "Position methods affect how well attention extrapolates beyond train lengths",
+            "They replace the need for any attention mechanism in long documents",
+            "Relative positions only matter for vision CNNs, not language models",
+            "They guarantee perfect retrieval of facts from pretraining memorization"
+          ],
+          "correctIndex": 0,
+          "explanation": "Positional inductive biases influence long-context generalization."
+        },
+        {
+          "id": "large-language-models-s2-q06",
+          "stem": "Constitutional AI / principle-based critique: what alignment idea does it capture?",
+          "options": [
+            "Hard-code a legal constitution into GPU microcode for every inference",
+            "Use written principles and model self-critique to improve harmlessness/helpfulness",
+            "Ban all system prompts so only user messages can set policy",
+            "Replace tokenization with rule-based keyword filters exclusively"
+          ],
+          "correctIndex": 1,
+          "explanation": "Principle-guided feedback reduces reliance on exhaustive human labeling."
+        },
+        {
+          "id": "large-language-models-s2-q07",
+          "stem": "Eval harness pitfalls: why can leaderboard gains fail to transfer to your app?",
+          "options": [
+            "All public evals are adversarially encrypted against commercial models",
+            "Leaderboards measure only FLOPs and never measure accuracy",
+            "Benchmark overfitting, contamination, and mismatched task distributions",
+            "App metrics are illegal to define differently from MMLU by policy"
+          ],
+          "correctIndex": 2,
+          "explanation": "Good public scores may not match your domain, prompts, or risk profile."
+        },
+        {
+          "id": "large-language-models-s2-q08",
+          "stem": "Tool-calling / function calling: what does the model output to invoke tools?",
+          "options": [
+            "Raw GPU assembly that directly mutates production databases",
+            "Only natural language with no machine-parseable structure allowed",
+            "A full fine-tune checkpoint uploaded mid-conversation automatically",
+            "Structured call intents (name+args) that a runtime executes and returns"
+          ],
+          "correctIndex": 3,
+          "explanation": "The model proposes calls; orchestration runs tools and feeds results back."
+        },
+        {
+          "id": "large-language-models-s2-q09",
+          "stem": "Prompt caching: what is being reused to save cost/latency on long prefixes?",
+          "options": [
+            "Precomputed KV (or equivalent) state for a repeated system/prompt prefix",
+            "Cached gradient descent steps from a previous fine-tune job",
+            "Browser cookies storing the model’s private training data shards",
+            "A permanent freeze of temperature and top-p across all users"
+          ],
+          "correctIndex": 0,
+          "explanation": "Reusable prompt prefixes avoid recomputing attention over static context."
+        },
+        {
+          "id": "large-language-models-s2-q10",
+          "stem": "Mixture-of-Experts (MoE) LLMs: what scaling idea should you mention in interviews?",
+          "options": [
+            "Every token activates every parameter on every layer without routing",
+            "Route tokens to sparse expert FFNs so total params grow with less compute/token",
+            "MoE replaces attention with a single linear layer shared globally",
+            "Experts are human specialists who edit outputs before returning"
+          ],
+          "correctIndex": 1,
+          "explanation": "Conditional computation increases capacity without full dense cost."
+        },
+        {
+          "id": "large-language-models-s2-q11",
+          "stem": "Safety refusal vs over-refusal: what product tension should you articulate clearly?",
+          "options": [
+            "Refuse all user questions to guarantee zero safety incidents forever",
+            "Never refuse because helpfulness always outranks safety policies",
+            "Block harmful requests without needlessly refusing benign edge queries",
+            "Over-refusal only occurs when quantization bits drop below eight"
+          ],
+          "correctIndex": 2,
+          "explanation": "Calibration of refusal boundaries is a core alignment/product tradeoff."
+        },
+        {
+          "id": "large-language-models-s2-q12",
+          "stem": "Embedding models vs generative LLMs: how do their jobs differ in ML stacks?",
+          "options": [
+            "Embedders always decode full paragraphs; generators only output vectors",
+            "They are the same checkpoint used with different API path names",
+            "Generators cannot be instruction-tuned; embedders must use RLHF",
+            "Embedders map text to vectors for retrieval/similarity; generators produce text"
+          ],
+          "correctIndex": 3,
+          "explanation": "Different objectives: similarity spaces versus next-token generation."
+        },
+        {
+          "id": "large-language-models-s2-q13",
+          "stem": "Context stuffing limits: besides token caps, what quality issue appears in long prompts?",
+          "options": [
+            "Lost-in-the-middle and distraction; more tokens ≠ better use of evidence",
+            "Longer prompts always monotonically improve factual accuracy",
+            "Models ignore the beginning of prompts and only read the final token",
+            "Context stuffing removes the need for any retrieval system forever"
+          ],
+          "correctIndex": 0,
+          "explanation": "Attention allocation can fail to utilize long noisy contexts well."
+        },
+        {
+          "id": "large-language-models-s2-q14",
+          "stem": "Continuous pretraining / domain adaptive pretraining: when is it justified?",
+          "options": [
+            "When you have only ten labeled chat turns and no unlabeled text",
+            "Large domain corpora where specialized distribution shift hurts a base model",
+            "Only to increase temperature defaults for creative writing modes",
+            "Whenever you want to avoid evaluation on domain-specific test sets"
+          ],
+          "correctIndex": 1,
+          "explanation": "More in-domain tokens can shift the base distribution before SFT."
+        },
+        {
+          "id": "large-language-models-s2-q15",
+          "stem": "Jailbreaks: how do they relate to prompt injection and safety training goals?",
+          "options": [
+            "Physical break-ins to GPU datacenters to steal model weights only",
+            "Automatic fixes that permanently patch all vulnerabilities after one try",
+            "Adversarial prompts that try to bypass refusals and safety policies",
+            "A decoding mode that sets top-p to zero and temperature to one"
+          ],
+          "correctIndex": 2,
+          "explanation": "Jailbreaks probe alignment robustness against policy circumvention."
+        },
+        {
+          "id": "large-language-models-s2-q16",
+          "stem": "Logprobs / constrained decoding: when are they useful in production LLM APIs?",
+          "options": [
+            "Logprobs replace the need for any tokenizer in modern serving stacks",
+            "Constrained decoding forbids JSON and only allows free-form poetry",
+            "They only apply during pretraining and cannot be used at inference",
+            "Enforce schemas, grammar, or candidate sets; score alternatives with logprobs"
+          ],
+          "correctIndex": 3,
+          "explanation": "Structure constraints and token scores improve reliability of outputs."
+        },
+        {
+          "id": "large-language-models-s2-q17",
+          "stem": "Multimodal LLMs: what extra challenge appears beyond text-only Transformers?",
+          "options": [
+            "Aligning vision/audio encoders with text spaces and cross-modal grounding",
+            "Multimodal models cannot use attention and must rely on RNNs only",
+            "Images tokenize to fewer tokens than text for the same information",
+            "Safety issues disappear because pixels cannot encode instructions"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cross-modal fusion and grounding add alignment and eval complexity."
+        },
+        {
+          "id": "large-language-models-s2-q18",
+          "stem": "Synthetic data for post-training: what risk and benefit should you balance?",
+          "options": [
+            "Synthetic data is always superior to human data with zero downsides",
+            "Scale diverse supervision cheaply but watch for artifacts and bias amplification",
+            "Models cannot learn from synthetic data by information-theoretic law",
+            "Synthetic data only works for embeddings and never for chat models"
+          ],
+          "correctIndex": 1,
+          "explanation": "Generated data helps coverage but needs filtering and quality controls."
+        },
+        {
+          "id": "large-language-models-s2-q19",
+          "stem": "PII leakage from models: what mitigation themes belong in an interview answer?",
+          "options": [
+            "PII cannot leak because Transformers encrypt all memorized strings",
+            "Only increase temperature to make memorized PII unreadable",
+            "Training data governance, output filters, minimization, and red-team evals",
+            "Deleting the system prompt removes all memorization risks forever"
+          ],
+          "correctIndex": 2,
+          "explanation": "Privacy requires data controls plus runtime and evaluation defenses."
+        },
+        {
+          "id": "large-language-models-s2-q20",
+          "stem": "Why might RAG beat fine-tuning for frequently changing enterprise knowledge bases?",
+          "options": [
+            "Fine-tuning always reflects new docs instantly without any retrain cost",
+            "RAG cannot cite sources while fine-tuning always provides URLs",
+            "Enterprise knowledge is illegal to place in vector indexes by definition",
+            "Update documents in the index without retraining weights for each change"
+          ],
+          "correctIndex": 3,
+          "explanation": "Retrieval keeps knowledge fresh and auditable outside frozen weights."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "large-language-models-s3-q01",
+          "stem": "Senior LLM: how do you structure an evaluation plan beyond a single accuracy number?",
+          "options": [
+            "Task suites, safety, latency/cost, contamination checks, and human spot reviews",
+            "Only report training loss because it equals production user satisfaction",
+            "One MMLU run replaces all domain and safety evaluations forever",
+            "Evaluation is unnecessary after RLHF because preferences guarantee quality"
+          ],
+          "correctIndex": 0,
+          "explanation": "Multi-axis evals catch capability, risk, and operational regressions."
+        },
+        {
+          "id": "large-language-models-s3-q02",
+          "stem": "When would you choose full fine-tuning over LoRA despite higher cost and complexity?",
+          "options": [
+            "Always — LoRA is obsolete and never matches full fine-tune quality",
+            "Large domain shift needing broad capacity changes LoRA ranks cannot express",
+            "Only when the dataset has fewer than fifty examples total",
+            "When you must keep the base weights bit-identical after training"
+          ],
+          "correctIndex": 1,
+          "explanation": "Full updates help when adapters underfit severe distribution shifts."
+        },
+        {
+          "id": "large-language-models-s3-q03",
+          "stem": "Inference-time compute (search/debate/self-consistency): what is the core bet?",
+          "options": [
+            "Delete the model and replace it with a rules engine for hard queries",
+            "Reduce context to one token so attention becomes unnecessary",
+            "Spend more tokens/compute at decode to raise reliability on hard queries",
+            "Inference compute cannot affect quality once weights are frozen"
+          ],
+          "correctIndex": 2,
+          "explanation": "Test-time scaling trades latency/cost for better reasoned answers."
+        },
+        {
+          "id": "large-language-models-s3-q04",
+          "stem": "How should you talk about memorization versus generalization in modern LLMs?",
+          "options": [
+            "LLMs never memorize; every string is recomputed from first principles",
+            "Generalization means the model only outputs training set excerpts",
+            "Memorization is solved completely by setting temperature above one",
+            "Models can regurgitate training strings and also compose novel useful text"
+          ],
+          "correctIndex": 3,
+          "explanation": "Both verbatim recall and compositional generalization can coexist."
+        },
+        {
+          "id": "large-language-models-s3-q05",
+          "stem": "Agentic tool loops vs single-shot completion: when is the multi-step loop justified?",
+          "options": [
+            "When tasks need multi-step gather/act/verify beyond one forward generation",
+            "Always, because single-shot completions cannot answer any factual query",
+            "Never, because tool use always increases hallucination rates only",
+            "Only when the context window is smaller than eight tokens"
+          ],
+          "correctIndex": 0,
+          "explanation": "Iterative tool use helps tasks that require external state and checks."
+        },
+        {
+          "id": "large-language-models-s3-q06",
+          "stem": "Quantization-aware pitfalls: what failure modes should you watch in LLM serving?",
+          "options": [
+            "Quantized models cannot hallucinate by numeric precision limits",
+            "Quality cliffs on hard tasks, outlier features, and unstable long generations",
+            "INT4 always matches FP16 quality if the tokenizer stays unchanged",
+            "Quantization only affects training and never changes inference outputs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Validate quantized models on realistic prompts, not only perplexity."
+        },
+        {
+          "id": "large-language-models-s3-q07",
+          "stem": "Cross-lingual transfer in multilingual LLMs: what caveat belongs in strong answers?",
+          "options": [
+            "All languages always get identical accuracy by architectural symmetry",
+            "Multilingual models forbid English prompts by training objective",
+            "Performance varies by language resource level and tokenization fertility",
+            "Transfer only works for stopwords and not for semantic tasks"
+          ],
+          "correctIndex": 2,
+          "explanation": "Capability is uneven; evaluate per language rather than assuming parity."
+        },
+        {
+          "id": "large-language-models-s3-q08",
+          "stem": "How do you reduce prompt injection risk when tools can take irreversible actions?",
+          "options": [
+            "Put all tool credentials inside the system prompt for convenience",
+            "Trust any model-proposed SQL because RLHF prevents harmful queries",
+            "Disable logging so injections cannot be detected by attackers",
+            "Hard allowlists, confirmations, sandboxing, and separating untrusted content"
+          ],
+          "correctIndex": 3,
+          "explanation": "Least privilege and human approval gates limit blast radius."
+        },
+        {
+          "id": "large-language-models-s3-q09",
+          "stem": "Knowledge cutoff: what product implication must you communicate to stakeholders?",
+          "options": [
+            "Parametric knowledge may be stale; retrieve or browse for fresh facts",
+            "Cutoff dates reset automatically every night without engineering work",
+            "Fine-tuning once removes cutoff limits for all future world events",
+            "Chat models cannot have cutoffs because dialogue is real-time by nature"
+          ],
+          "correctIndex": 0,
+          "explanation": "Users need grounding strategies when world state changes after training."
+        },
+        {
+          "id": "large-language-models-s3-q10",
+          "stem": "Choosing open weights vs hosted API: what decision factors should you list clearly?",
+          "options": [
+            "Open weights always win on safety without any operational tradeoffs",
+            "Control, privacy, cost at scale, latency, ops burden, and capability needs",
+            "Hosted APIs forbid RAG and tool use by contractual limitation always",
+            "The choice depends only on which logo looks better in a pitch deck"
+          ],
+          "correctIndex": 1,
+          "explanation": "Deployment mode is a systems/product tradeoff, not a single metric."
+        }
+      ]
+    }
+  ]
+}

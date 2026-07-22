@@ -1,0 +1,624 @@
+{
+  "slug": "git",
+  "title": "Git",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "git-s1-q01",
+          "stem": "In an interview, you are asked: What does git clone do? Which answer is best?",
+          "options": [
+            "Only downloads the README without history",
+            "Deletes the remote repository",
+            "Copies a remote repository (history and files) to your machine",
+            "Creates an empty GitHub org"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clone fetches a full working copy of the remote repo by default."
+        },
+        {
+          "id": "git-s1-q02",
+          "stem": "In an interview, you are asked: git status — primary use? Which answer is best?",
+          "options": [
+            "Push all branches forcibly",
+            "Show working tree and staging area state vs HEAD",
+            "Start the Git GUI exclusively",
+            "Rewrite author emails"
+          ],
+          "correctIndex": 1,
+          "explanation": "Status reports modified/staged/untracked relative to HEAD."
+        },
+        {
+          "id": "git-s1-q03",
+          "stem": "In an interview, you are asked: Staging area (index) — why does Git have it? Which answer is best?",
+          "options": [
+            "It replaces the working directory",
+            "Lets you craft commits from selected hunks/files before recording a snapshot",
+            "It stores remote passwords",
+            "It is only for binary files"
+          ],
+          "correctIndex": 1,
+          "explanation": "The index builds the next commit deliberately."
+        },
+        {
+          "id": "git-s1-q04",
+          "stem": "In an interview setting, consider this question: git add -p — interview-useful meaning?? Pick the strongest answer.",
+          "options": [
+            "Delete the patch history",
+            "Interactively stage hunks so commits stay focused",
+            "Ignore all whitespace forever",
+            "Push patches to origin automatically"
+          ],
+          "correctIndex": 1,
+          "explanation": "Patch mode stages logical chunks for cleaner commits."
+        },
+        {
+          "id": "git-s1-q05",
+          "stem": "In an interview, you are asked: git commit — what does it record? Which answer is best?",
+          "options": [
+            "Only a diff without tree objects",
+            "GitHub Actions YAML exclusively",
+            "A remote branch lock",
+            "A snapshot of the index with metadata (author, message, parents)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Commits point to trees and parents forming history."
+        },
+        {
+          "id": "git-s1-q06",
+          "stem": "In an interview, you are asked: HEAD in Git — concise definition? Which answer is best?",
+          "options": [
+            "The staging area blob store",
+            "Pointer to the current commit (usually via current branch)",
+            "The remote named origin always",
+            "A detached tag only"
+          ],
+          "correctIndex": 1,
+          "explanation": "HEAD names where you are in the commit graph."
+        },
+        {
+          "id": "git-s1-q07",
+          "stem": "In an interview, you are asked: Detached HEAD — what does it mean? Which answer is best?",
+          "options": [
+            "Merge conflicts are impossible",
+            "Your laptop battery is low",
+            "HEAD points directly at a commit, not a branch tip — new commits can be orphaned",
+            "The remote is offline"
+          ],
+          "correctIndex": 2,
+          "explanation": "Detached HEAD is fine for inspect/build; create a branch to keep new work."
+        },
+        {
+          "id": "git-s1-q08",
+          "stem": "In an interview, you are asked: git branch -d vs -D? Which answer is best?",
+          "options": [
+            "They are identical aliases",
+            "-d is safe delete (merged); -D force deletes even if unmerged",
+            "-D is safer than -d",
+            "-d deletes remotes only"
+          ],
+          "correctIndex": 1,
+          "explanation": "-d protects unmerged work; -D forces local branch deletion."
+        },
+        {
+          "id": "git-s1-q09",
+          "stem": "In an interview, you are asked: git checkout vs git switch — modern guidance? Which answer is best?",
+          "options": [
+            "restore pushes to origin",
+            "switch deletes history",
+            "checkout is removed from Git",
+            "Prefer switch/restore for branch/file intent; checkout historically did both"
+          ],
+          "correctIndex": 3,
+          "explanation": "Newer commands split checkout's dual roles for clarity."
+        },
+        {
+          "id": "git-s1-q10",
+          "stem": "In an interview, you are asked: git restore — typical job? Which answer is best?",
+          "options": [
+            "Create annotated tags",
+            "Open a pull request",
+            "Discard or unstage working tree/index changes for paths",
+            "Rebase onto main"
+          ],
+          "correctIndex": 2,
+          "explanation": "Restore manipulates working tree/index content without the old checkout overload."
+        },
+        {
+          "id": "git-s1-q11",
+          "stem": "In an interview, you are asked: git log --oneline --graph — why use it? Which answer is best?",
+          "options": [
+            "Configure credential helpers",
+            "Rewrite all author dates",
+            "Compact visual history of commits and merges",
+            "Delete reflogs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Graph log helps reason about branch topology."
+        },
+        {
+          "id": "git-s1-q12",
+          "stem": "In an interview, you are asked: git diff vs git diff --staged? Which answer is best?",
+          "options": [
+            "Unstaged working changes vs staged index vs HEAD differences",
+            "diff never shows file modes",
+            "--staged diffs remotes only",
+            "They always show identical output"
+          ],
+          "correctIndex": 0,
+          "explanation": "Know which tree pair you are comparing: worktree, index, HEAD."
+        },
+        {
+          "id": "git-s1-q13",
+          "stem": "In an interview, you are asked: git fetch vs git pull? Which answer is best?",
+          "options": [
+            "Pull never fetches",
+            "Fetch updates remote-tracking refs; pull fetch+integrates into current branch",
+            "Fetch always merges",
+            "They are banned in corporate Git"
+          ],
+          "correctIndex": 1,
+          "explanation": "Fetch is safe update of remotes; pull also merges/rebases locally."
+        },
+        {
+          "id": "git-s1-q14",
+          "stem": "In an interview, you are asked: origin typically means? Which answer is best?",
+          "options": [
+            "Your only local branch",
+            "A Git built-in command",
+            "The staging area",
+            "The default remote name created by clone"
+          ],
+          "correctIndex": 3,
+          "explanation": "origin is conventional remote name, not magic."
+        },
+        {
+          "id": "git-s1-q15",
+          "stem": "In an interview, you are asked: git push -u origin HEAD — useful effect? Which answer is best?",
+          "options": [
+            "Force pushes main without asking",
+            "Creates a bare repo locally",
+            "Deletes origin",
+            "Publishes current branch and sets upstream tracking"
+          ],
+          "correctIndex": 3,
+          "explanation": "-u sets upstream so future push/pull know the remote branch."
+        },
+        {
+          "id": "git-s1-q16",
+          "stem": "In an interview, you are asked: Tracking branch — what does it enable? Which answer is best?",
+          "options": [
+            "Automatic force pushes",
+            "Skipping authentication forever",
+            "Convenient push/pull/status relative to a remote branch",
+            "Disabling hooks"
+          ],
+          "correctIndex": 2,
+          "explanation": "Upstream tracking links local and remote branches."
+        },
+        {
+          "id": "git-s1-q17",
+          "stem": "In an interview, you are asked: git remote -v — shows what? Which answer is best?",
+          "options": [
+            "GPG keys",
+            "Configured remotes and their fetch/push URLs",
+            "All commit SHAs",
+            "Stash list only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lists remote names and URLs. Give the interview-safe rationale clearly."
+        },
+        {
+          "id": "git-s1-q18",
+          "stem": "In an interview, you are asked: Fast-forward merge — when does it happen? Which answer is best?",
+          "options": [
+            "Only when there are conflicts",
+            "Only with rebase",
+            "When the target branch tip is ancestor of the source — pointer just moves",
+            "Never on GitHub"
+          ],
+          "correctIndex": 2,
+          "explanation": "FF updates the branch ref without a merge commit when history allows."
+        },
+        {
+          "id": "git-s1-q19",
+          "stem": "In an interview, you are asked: Three-way merge — conceptual inputs? Which answer is best?",
+          "options": [
+            "The index without commits",
+            "Four unrelated repos",
+            "Only the remote HEAD",
+            "Two branch tips plus their common ancestor to produce a merge commit"
+          ],
+          "correctIndex": 3,
+          "explanation": "Merge uses base + two tips; conflicts when both changed same hunks."
+        },
+        {
+          "id": "git-s1-q20",
+          "stem": "In an interview, you are asked: Merge conflict — correct next steps? Which answer is best?",
+          "options": [
+            "Run git clean -fdx immediately as first step",
+            "Force push and ignore markers",
+            "Edit conflicted files, git add, then commit (or continue rebase/merge)",
+            "Delete the .git directory"
+          ],
+          "correctIndex": 2,
+          "explanation": "Resolve markers, stage, complete the merge/rebase."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "git-s2-q01",
+          "stem": "In an interview, you are asked: git rebase — primary purpose? Which answer is best?",
+          "options": [
+            "Delete the remote",
+            "Replay commits onto another base for a linear history",
+            "Encrypt the object database",
+            "Create a merge commit always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Rebase rewrites commit parentage onto a new tip."
+        },
+        {
+          "id": "git-s2-q02",
+          "stem": "In an interview, you are asked: Golden rule of rebase? Which answer is best?",
+          "options": [
+            "Do not rebase commits already pushed and shared unless team agrees",
+            "Never rebase local feature branches",
+            "Rebase only tags",
+            "Always rebase main publicly without coordination"
+          ],
+          "correctIndex": 0,
+          "explanation": "Rewriting published history confuses collaborators."
+        },
+        {
+          "id": "git-s2-q03",
+          "stem": "In an interview, you are asked: git rebase -i — common uses? Which answer is best?",
+          "options": [
+            "Interactive push to all remotes",
+            "Squash, reorder, edit, or drop commits before sharing",
+            "Delete remotes",
+            "Initialize submodules only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interactive rebase cleans local history."
+        },
+        {
+          "id": "git-s2-q04",
+          "stem": "In an interview, you are asked: git pull --rebase — why prefer sometimes? Which answer is best?",
+          "options": [
+            "Deletes remote commits",
+            "Force pushes automatically",
+            "Keeps local commits on top of updated remote tip without merge bubbles",
+            "Skips fetching"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pull-rebase integrates with linear local history."
+        },
+        {
+          "id": "git-s2-q05",
+          "stem": "In an interview, you are asked: Cherry-pick — what does it do? Which answer is best?",
+          "options": [
+            "Deletes the commit from all history",
+            "Moves a branch pointer only",
+            "Applies a given commit's changes onto current branch as a new commit",
+            "Creates a tag"
+          ],
+          "correctIndex": 2,
+          "explanation": "Cherry-pick copies a change set to another line of history."
+        },
+        {
+          "id": "git-s2-q06",
+          "stem": "In an interview, you are asked: git revert — why safer than reset on shared main? Which answer is best?",
+          "options": [
+            "It removes the working tree",
+            "It disables hooks",
+            "It adds a new commit that undoes a prior change without rewriting history",
+            "It force-deletes commits from remotes silently"
+          ],
+          "correctIndex": 2,
+          "explanation": "Revert is additive and collaboration-friendly."
+        },
+        {
+          "id": "git-s2-q07",
+          "stem": "In an interview, you are asked: git reset --soft vs --mixed vs --hard? Which answer is best?",
+          "options": [
+            "Mixed rewrites remote history",
+            "Soft keeps index+worktree; mixed unstages; hard discards worktree changes too",
+            "Hard is safest for uncommitted work you need",
+            "Soft deletes files from disk always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Know what each mode does to index and working tree."
+        },
+        {
+          "id": "git-s2-q08",
+          "stem": "In an interview, you are asked: Reflog — why is it a lifesaver? Which answer is best?",
+          "options": [
+            "Is permanent forever on all remotes",
+            "Replaces remote backups",
+            "Records recent HEAD movements so you can recover 'lost' commits",
+            "Stores passwords"
+          ],
+          "correctIndex": 2,
+          "explanation": "Reflog helps recover from bad reset/rebase locally (time-limited)."
+        },
+        {
+          "id": "git-s2-q09",
+          "stem": "In an interview, you are asked: git stash — typical workflow? Which answer is best?",
+          "options": [
+            "Temporarily shelve dirty work to switch tasks, then stash pop/apply",
+            "Push binaries to LFS automatically",
+            "Create permanent tags",
+            "Rewrite author names"
+          ],
+          "correctIndex": 0,
+          "explanation": "Stash parks uncommitted changes briefly."
+        },
+        {
+          "id": "git-s2-q10",
+          "stem": "In an interview, you are asked: Annotated vs lightweight tags? Which answer is best?",
+          "options": [
+            "They behave identically in all tools",
+            "Annotated cannot be pushed",
+            "Lightweight are always signed",
+            "Annotated store tagger/message/date objects; lightweight are plain refs"
+          ],
+          "correctIndex": 3,
+          "explanation": "Prefer annotated tags for releases."
+        },
+        {
+          "id": "git-s2-q11",
+          "stem": "In an interview, you are asked: git tag -a v1.0 && git push --tags — intent? Which answer is best?",
+          "options": [
+            "Mark a release commit and publish tags to remote",
+            "Delete all branches",
+            "Start a rebase",
+            "Create a worktree"
+          ],
+          "correctIndex": 0,
+          "explanation": "Annotated release tags are pushed explicitly."
+        },
+        {
+          "id": "git-s2-q12",
+          "stem": "In an interview, you are asked: Signed commits/tags — why in secure orgs? Which answer is best?",
+          "options": [
+            "Automatic conflict resolution",
+            "Faster clones",
+            "Free CI minutes",
+            "Cryptographic proof of author identity and integrity of the object"
+          ],
+          "correctIndex": 3,
+          "explanation": "Signatures support verify and compliance workflows."
+        },
+        {
+          "id": "git-s2-q13",
+          "stem": "In an interview, you are asked: .gitignore — correct mental model? Which answer is best?",
+          "options": [
+            "Patterns exclude untracked files from status/add; tracked files stay tracked",
+            "It encrypts ignored files",
+            "It deletes remote history",
+            "It untracks already committed secrets automatically"
+          ],
+          "correctIndex": 0,
+          "explanation": "Ignoring does not remove already-tracked paths."
+        },
+        {
+          "id": "git-s2-q14",
+          "stem": "In an interview, you are asked: Removing a secret committed by mistake — realistic advice? Which answer is best?",
+          "options": [
+            "git reset --soft fixes remotes for everyone",
+            "Only add to .gitignore and you are done",
+            "Secrets expire if you amend once",
+            "Rotate the secret; history rewrite/BFG/filter-repo if needed; assume leak"
+          ],
+          "correctIndex": 3,
+          "explanation": "Treat leaked secrets as compromised; rotate and purge history if required."
+        },
+        {
+          "id": "git-s2-q15",
+          "stem": "In an interview, you are asked: git submodule — what problem/trade-off? Which answer is best?",
+          "options": [
+            "Embed another repo at a pinned commit; adds complexity for clones/updates",
+            "Automatic vendor merges without pins",
+            "Deletes nested repos",
+            "Replacement for packages always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Submodules pin external repos; teams often prefer packages instead."
+        },
+        {
+          "id": "git-s2-q16",
+          "stem": "In an interview, you are asked: git worktree — useful for? Which answer is best?",
+          "options": [
+            "Compressing objects",
+            "Multiple working directories attached to one repo (e.g., parallel branches)",
+            "Hosting GitHub",
+            "Signing tags only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Worktrees avoid multiple full clones for concurrent branch work."
+        },
+        {
+          "id": "git-s2-q17",
+          "stem": "In an interview, you are asked: Sparse checkout — when helpful? Which answer is best?",
+          "options": [
+            "Deleting history",
+            "Working on a subset of a monorepo without populating every path",
+            "Force pushing safer",
+            "Replacing LFS"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sparse checkout limits working tree paths."
+        },
+        {
+          "id": "git-s2-q18",
+          "stem": "In an interview, you are asked: Partial clone / blobless clone — benefit? Which answer is best?",
+          "options": [
+            "Makes rebase impossible",
+            "Removes need for authentication",
+            "Faster initial clone by delaying blob download until needed",
+            "Disables fetch"
+          ],
+          "correctIndex": 2,
+          "explanation": "Partial clones optimize large repo network cost."
+        },
+        {
+          "id": "git-s2-q19",
+          "stem": "In an interview, you are asked: hooks (pre-commit, pre-push) — purpose? Which answer is best?",
+          "options": [
+            "Run on the remote only by default",
+            "Encrypt the entire .git",
+            "Replace CI entirely for teams",
+            "Automate local policy checks before commit/push"
+          ],
+          "correctIndex": 3,
+          "explanation": "Client hooks enforce local guardrails; CI remains source of truth for shared policy."
+        },
+        {
+          "id": "git-s2-q20",
+          "stem": "Conventional commits / good messages — interview expectation?",
+          "options": [
+            "Only emoji subjects",
+            "Imperative, why-focused subject; optional body; consistent style for history/tooling",
+            "Empty messages for speed",
+            "Paste entire diffs in the subject"
+          ],
+          "correctIndex": 1,
+          "explanation": "Clear messages aid review, bisect, and changelog tooling."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "git-s3-q01",
+          "stem": "In an interview, you are asked: git bisect — classic use case? Which answer is best?",
+          "options": [
+            "Binary search history to find the commit that introduced a bug",
+            "Split a repo into two remotes",
+            "Merge without a base",
+            "Create two indexes"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bisect isolates the first bad commit efficiently."
+        },
+        {
+          "id": "git-s3-q02",
+          "stem": "In an interview, you are asked: git blame / annotate — what does it show? Which answer is best?",
+          "options": [
+            "Remote disk usage",
+            "Who to fire",
+            "Network latency",
+            "Per-line last modifying commit/author for archaeology"
+          ],
+          "correctIndex": 3,
+          "explanation": "Blame maps lines to responsible commits for debugging."
+        },
+        {
+          "id": "git-s3-q03",
+          "stem": "In an interview, you are asked: octopus merge — meaning? Which answer is best?",
+          "options": [
+            "A merge with more than two parents",
+            "A rebase strategy",
+            "A sparse pattern",
+            "A hook type"
+          ],
+          "correctIndex": 0,
+          "explanation": "Octopus merges combine multiple heads (uncommon in apps)."
+        },
+        {
+          "id": "git-s3-q04",
+          "stem": "In an interview, you are asked: ort / recursive merge strategies — practical takeaway? Which answer is best?",
+          "options": [
+            "Modern Git defaults to capable strategies that handle renames; conflicts still need humans",
+            "Strategies rewrite remotes",
+            "Strategies eliminate all conflicts always",
+            "Only octopus is default"
+          ],
+          "correctIndex": 0,
+          "explanation": "Strategy choice affects rename/detection behavior; conflicts remain possible."
+        },
+        {
+          "id": "git-s3-q05",
+          "stem": "In an interview, you are asked: rerere — what does it do? Which answer is best?",
+          "options": [
+            "Signs tags",
+            "Creates worktrees",
+            "Reuses recorded conflict resolutions on repeated merges/rebases",
+            "Deletes remotes named origin"
+          ],
+          "correctIndex": 2,
+          "explanation": "rerere caches conflict resolutions for recurring merges."
+        },
+        {
+          "id": "git-s3-q06",
+          "stem": "In an interview, you are asked: git replace / grafts (historical) — advanced purpose? Which answer is best?",
+          "options": [
+            "Faster push by default",
+            "Locally overlay alternative object relationships for history viewing without full rewrite",
+            "Replace HTTPS with SSH only",
+            "Disable GC"
+          ],
+          "correctIndex": 1,
+          "explanation": "Replace lets you view alternate history links locally."
+        },
+        {
+          "id": "git-s3-q07",
+          "stem": "In an interview, you are asked: Garbage collection (git gc) — why run? Which answer is best?",
+          "options": [
+            "Bypass hooks",
+            "Pack loose objects and prune unreachable ones to keep the repo efficient",
+            "Delete all branches",
+            "Reset remotes"
+          ],
+          "correctIndex": 1,
+          "explanation": "GC maintains object database health."
+        },
+        {
+          "id": "git-s3-q08",
+          "stem": "In an interview, you are asked: Packfiles and deltas — performance idea? Which answer is best?",
+          "options": [
+            "Deltas disable fetch",
+            "Git stores objects efficiently packed with delta compression",
+            "Every file is always full plaintext copies only",
+            "Packfiles replace commits"
+          ],
+          "correctIndex": 1,
+          "explanation": "Packs compress object storage and transfer."
+        },
+        {
+          "id": "git-s3-q09",
+          "stem": "In an interview, you are asked: Git LFS — when do you reach for it? Which answer is best?",
+          "options": [
+            "Large binary assets that would bloat the normal object store",
+            "All source .js files",
+            "Commit messages",
+            "Branch names"
+          ],
+          "correctIndex": 0,
+          "explanation": "LFS stores large blobs outside the main Git object graph."
+        },
+        {
+          "id": "git-s3-q10",
+          "stem": "In an interview, you are asked: Monorepo vs multi-repo — Git-centric trade-off to state? Which answer is best?",
+          "options": [
+            "Monorepos simplify atomic cross-project changes but need tooling for scale; multi-repo isolates ownership",
+            "Multi-repos cannot use PRs",
+            "Monorepos forbid branching",
+            "Git cannot host either"
+          ],
+          "correctIndex": 0,
+          "explanation": "Choose based on ownership, CI, and cross-cutting change frequency."
+        }
+      ]
+    }
+  ]
+}

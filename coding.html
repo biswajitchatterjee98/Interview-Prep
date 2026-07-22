@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Coding — Software Engineer Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="wrap wide">
+    <header class="topbar">
+      <div class="brand">Software Engineer Concepts</div>
+      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+    </header>
+    <nav class="crumb" aria-label="Breadcrumb" id="crumb"></nav>
+    <div id="app"><div class="placeholder">Loading…</div></div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/topics.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/coding.js"></script>
+  <script>
+    requireAuth();
+    bindLogout();
+
+    const params = new URLSearchParams(location.search);
+    const slug = params.get("topic");
+    const sectionId = Number(params.get("section") || 0);
+    const problemId = params.get("problem");
+    const app = document.getElementById("app");
+    const crumb = document.getElementById("crumb");
+
+    function setCrumb(parts) {
+      crumb.innerHTML = parts
+        .map((p, i) => {
+          if (i === parts.length - 1) {
+            return `<span aria-current="page">${escapeHtml(p.label)}</span>`;
+          }
+          return `<a href="${p.href}">${escapeHtml(p.label)}</a><span>/</span>`;
+        })
+        .join("");
+    }
+
+    function examplesHtml(problem) {
+      const list = problem.examples || [];
+      if (!list.length) return "";
+      return `<div class="example-block"><strong>Examples</strong>${list
+        .map(
+          (ex, i) =>
+            `<div style="margin-top:0.55rem">Example ${i + 1}<pre>Input: ${escapeHtml(ex.input)}\nOutput: ${escapeHtml(ex.output)}</pre></div>`
+        )
+        .join("")}</div>`;
+    }
+
+    function constraintsHtml(problem) {
+      const list = problem.constraints || [];
+      if (!list.length) return "";
+      return `<div class="constraint-list"><strong>Constraints</strong><ul style="margin:0.4rem 0 0;padding-left:1.1rem">${list
+        .map((c) => `<li>${escapeHtml(c)}</li>`)
+        .join("")}</ul></div>`;
+    }
+
+    async function showTopicList(catalog) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "Coding", href: "coding.html" },
+      ]);
+      const codingTopics = catalog.topics.filter((t) => t.hasCoding);
+      const ready = [];
+      for (const t of codingTopics) {
+        if (await codingBankExists(t.slug)) ready.push(t.slug);
+      }
+      const readySet = new Set(ready);
+
+      app.innerHTML = `
+        <p class="kicker">Coding</p>
+        <h1>Topics</h1>
+        <p class="lede">Pick a topic, open a difficulty section, then solve in the editor. Submit saves your code; reveal shows reference solutions.</p>
+        <div class="stats-row">
+          <span><strong>${codingTopics.length}</strong> topics</span>
+          <span><strong>${ready.length}</strong> banks ready</span>
+        </div>
+        <div id="topicList"></div>`;
+
+      const list = document.getElementById("topicList");
+      list.innerHTML = topicsByBand(codingTopics, () => true)
+        .map((group) => {
+          const cards = group.topics
+            .map((t) => {
+              const isReady = readySet.has(t.slug);
+              const dot = isReady ? `<span class="ready-dot"></span>` : "";
+              const meta = isReady
+                ? t.slug === "sql"
+                  ? "25 problems"
+                  : "8 problems"
+                : "Coming soon";
+              return `<a class="topic-card" href="coding.html?topic=${encodeURIComponent(t.slug)}">
+                <span class="topic-card-title">${dot}${escapeHtml(t.title)}</span>
+                <span class="topic-card-meta">${escapeHtml(meta)}</span>
+              </a>`;
+            })
+            .join("");
+          return `<section class="band-block">
+            <h2 class="band-title">${escapeHtml(group.band)}</h2>
+            <div class="topic-grid">${cards}</div>
+          </section>`;
+        })
+        .join("");
+    }
+
+    async function showSections(topicMeta) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "Coding", href: "coding.html" },
+        { label: topicMeta.title, href: `coding.html?topic=${topicMeta.slug}` },
+      ]);
+      document.title = `${topicMeta.title} Coding`;
+
+      let bank;
+      try {
+        bank = await loadCodingBank(topicMeta.slug);
+      } catch {
+        app.innerHTML = `<div class="placeholder">Coding bank not available.</div>
+          <p><a href="coding.html">← Topics</a></p>`;
+        return;
+      }
+
+      const cards = bank.sections
+        .map((sec) => {
+          const prog = codingSectionProgress(topicMeta.slug, sec);
+          const status =
+            prog.done === prog.total && prog.total
+              ? `Completed · ${prog.done}/${prog.total}`
+              : prog.done || prog.draft
+                ? `In progress · ${prog.done} submitted · ${prog.draft} drafts`
+                : "Not started";
+          const stateClass =
+            prog.done === prog.total && prog.total
+              ? "is-done"
+              : prog.done || prog.draft
+                ? "is-draft"
+                : "";
+          return `<div class="section-card ${stateClass}">
+            <h3>${escapeHtml(sec.label)}</h3>
+            <p>${sec.problems.length} problems · ${isSqlTopic(topicMeta.slug) ? "SQL" : "Java & Python"}</p>
+            <span class="status ${stateClass ? (stateClass === "is-done" ? "done" : "draft") : ""}">${escapeHtml(status)}</span>
+            <div class="actions">
+              <a class="section-start" href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${sec.id}">Open section →</a>
+            </div>
+          </div>`;
+        })
+        .join("");
+
+      app.innerHTML = `
+        <p class="kicker">Coding · ${escapeHtml(topicMeta.band)}</p>
+        <h1>${escapeHtml(topicMeta.title)}</h1>
+        <p class="lede">Choose a difficulty. Solve problems in the editor, submit to save, and reveal answers when stuck.</p>
+        <div class="section-grid">${cards}</div>
+        <p style="margin-top:1.5rem"><a href="coding.html">← All coding topics</a></p>`;
+    }
+
+    function showProblemList(topicMeta, bank, section) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "Coding", href: "coding.html" },
+        { label: topicMeta.title, href: `coding.html?topic=${topicMeta.slug}` },
+        { label: section.label, href: `#` },
+      ]);
+      document.title = `${topicMeta.title} · ${section.label}`;
+
+      const rows = section.problems
+        .map((p, index) => {
+          const st = codingProblemStatus(topicMeta.slug, section.id, p.id);
+          return `<a class="problem-row" href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}&problem=${encodeURIComponent(p.id)}">
+            <div>
+              <h3>${index + 1}. ${escapeHtml(p.title)}</h3>
+              <div class="meta">${escapeHtml(p.id)}</div>
+            </div>
+            <span class="badge ${st.state}">${escapeHtml(st.label)}</span>
+          </a>`;
+        })
+        .join("");
+
+      app.innerHTML = `
+        <p class="kicker">${escapeHtml(topicMeta.title)}</p>
+        <h1>${escapeHtml(section.label)}</h1>
+        <p class="lede">${section.problems.length} problems in this section.</p>
+        <div class="problem-list">${rows}</div>
+        <p style="margin-top:1.5rem"><a href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}">← Sections</a></p>`;
+    }
+
+    function showEditor(topicMeta, bank, section, problem) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "Coding", href: "coding.html" },
+        { label: topicMeta.title, href: `coding.html?topic=${topicMeta.slug}` },
+        { label: section.label, href: `coding.html?topic=${topicMeta.slug}&section=${section.id}` },
+        { label: problem.title, href: `#` },
+      ]);
+      document.title = problem.title;
+
+      const langs = codingLanguages(topicMeta.slug);
+      const draft = loadCodingDraft(topicMeta.slug, section.id, problem.id);
+      let language = (draft && draft.language && langs.includes(draft.language))
+        ? draft.language
+        : defaultLanguage(topicMeta.slug);
+      let revealed = !!(draft && draft.revealed);
+
+      const idx = section.problems.findIndex((p) => p.id === problem.id);
+      const prev = idx > 0 ? section.problems[idx - 1] : null;
+      const next = idx < section.problems.length - 1 ? section.problems[idx + 1] : null;
+
+      function sourceFor(lang) {
+        if (draft && draft.language === lang && draft.source != null) return draft.source;
+        // if draft has sources map
+        if (draft && draft.sources && draft.sources[lang] != null) return draft.sources[lang];
+        return starterFor(problem, lang);
+      }
+
+      // keep per-language buffers in memory
+      const buffers = {};
+      for (const lang of langs) buffers[lang] = sourceFor(lang);
+
+      app.innerHTML = `
+        <p class="kicker">${escapeHtml(topicMeta.title)} · ${escapeHtml(section.label)}</p>
+        <h1>${escapeHtml(problem.title)}</h1>
+        <div class="coding-layout">
+          <section class="prompt-panel">
+            <h2>Problem</h2>
+            <div class="prompt-body">${escapeHtml(problem.prompt)}</div>
+            ${examplesHtml(problem)}
+            ${constraintsHtml(problem)}
+          </section>
+          <section class="editor-panel">
+            <h2>Editor</h2>
+            <div class="lang-tabs" id="langTabs">
+              ${langs
+                .map(
+                  (lang) =>
+                    `<button type="button" class="lang-tab ${lang === language ? "is-on" : ""}" data-lang="${lang}">${lang}</button>`
+                )
+                .join("")}
+            </div>
+            <textarea class="code-editor" id="codeEditor" spellcheck="false" aria-label="Code editor">${escapeHtml(buffers[language])}</textarea>
+            <div class="editor-actions">
+              <button type="button" class="btn-primary" id="submitBtn">Submit</button>
+              <button type="button" class="btn-ghost" id="revealBtn">${revealed ? "Hide answer" : "Show answer"}</button>
+              <button type="button" class="btn-ghost" id="resetBtn">Reset starter</button>
+            </div>
+            <p class="save-note" id="saveNote">Autosaves as you type. Submit stores your attempt.</p>
+            <div class="solution-box ${revealed ? "is-open" : ""}" id="solutionBox">
+              <h3>Reference solution</h3>
+              <div id="solutionContent"></div>
+            </div>
+          </section>
+        </div>
+        <div class="quiz-toolbar" style="position:static;margin-top:1.5rem">
+          <a href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}">← Problem list</a>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            ${
+              prev
+                ? `<a class="btn-ghost" style="text-decoration:none" href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}&problem=${encodeURIComponent(prev.id)}">Previous</a>`
+                : ""
+            }
+            ${
+              next
+                ? `<a class="btn-primary" style="text-decoration:none;display:inline-block" href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}&problem=${encodeURIComponent(next.id)}">Next →</a>`
+                : ""
+            }
+          </div>
+        </div>`;
+
+      const editor = document.getElementById("codeEditor");
+      const saveNote = document.getElementById("saveNote");
+      const solutionBox = document.getElementById("solutionBox");
+      const solutionContent = document.getElementById("solutionContent");
+
+      function renderSolutions() {
+        solutionContent.innerHTML = langs
+          .map((lang) => {
+            const sol = solutionFor(problem, lang);
+            return `<h3 style="margin-top:0.75rem">${escapeHtml(lang)}</h3><pre>${escapeHtml(sol || "// no solution")}</pre>`;
+          })
+          .join("");
+      }
+      renderSolutions();
+
+      function persist(extra) {
+        buffers[language] = editor.value;
+        saveCodingDraft(topicMeta.slug, section.id, problem.id, {
+          language,
+          source: editor.value,
+          sources: { ...buffers },
+          revealed,
+          ...extra,
+        });
+      }
+
+      let saveTimer = null;
+      editor.addEventListener("input", () => {
+        buffers[language] = editor.value;
+        saveNote.textContent = "Saving…";
+        saveNote.classList.remove("ok");
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => {
+          persist({ submitted: false });
+          saveNote.textContent = "Draft saved.";
+          saveNote.classList.add("ok");
+        }, 350);
+      });
+
+      document.getElementById("langTabs").addEventListener("click", (event) => {
+        const btn = event.target.closest("[data-lang]");
+        if (!btn) return;
+        buffers[language] = editor.value;
+        language = btn.getAttribute("data-lang");
+        editor.value = buffers[language] || starterFor(problem, language);
+        document.querySelectorAll(".lang-tab").forEach((t) => {
+          t.classList.toggle("is-on", t.getAttribute("data-lang") === language);
+        });
+        persist({ submitted: !!(draft && draft.submitted) });
+      });
+
+      document.getElementById("submitBtn").addEventListener("click", () => {
+        buffers[language] = editor.value;
+        persist({ submitted: true });
+        saveNote.textContent = "Submitted and saved for this problem.";
+        saveNote.classList.add("ok");
+      });
+
+      document.getElementById("revealBtn").addEventListener("click", () => {
+        revealed = !revealed;
+        solutionBox.classList.toggle("is-open", revealed);
+        document.getElementById("revealBtn").textContent = revealed ? "Hide answer" : "Show answer";
+        persist({});
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        if (!confirm("Reset editor to the starter template for this language?")) return;
+        editor.value = starterFor(problem, language);
+        buffers[language] = editor.value;
+        persist({ submitted: false });
+        saveNote.textContent = "Reset to starter.";
+      });
+    }
+
+    loadTopics()
+      .then(async (catalog) => {
+        if (!slug) return showTopicList(catalog);
+        const topicMeta = catalog.topics.find((t) => t.slug === slug && t.hasCoding);
+        if (!topicMeta) {
+          app.innerHTML = `<div class="placeholder">Unknown coding topic.</div>`;
+          return;
+        }
+        if (!sectionId) return showSections(topicMeta);
+
+        const bank = await loadCodingBank(topicMeta.slug);
+        const section = findCodingSection(bank, sectionId);
+        if (!section) {
+          app.innerHTML = `<div class="placeholder">Unknown section.</div>`;
+          return;
+        }
+        if (!problemId) return showProblemList(topicMeta, bank, section);
+
+        const problem = findCodingProblem(section, problemId);
+        if (!problem) {
+          app.innerHTML = `<div class="placeholder">Unknown problem.</div>`;
+          return;
+        }
+        showEditor(topicMeta, bank, section, problem);
+      })
+      .catch((err) => {
+        app.innerHTML = `<div class="placeholder">Failed to load: ${escapeHtml(err.message)}</div>`;
+      });
+  </script>
+</body>
+</html>

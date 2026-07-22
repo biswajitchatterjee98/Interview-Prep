@@ -1,0 +1,624 @@
+{
+  "slug": "rag",
+  "title": "RAG",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "rag-s1-q01",
+          "stem": "In a RAG interview, what is the core idea that distinguishes RAG from pure generation?",
+          "options": [
+            "Retrieve external evidence and condition the LLM on it before answering",
+            "Fine-tune the LLM nightly on every new document in the enterprise",
+            "Replace embeddings with random vectors to increase answer diversity",
+            "Disable the context window so the model must memorize all facts"
+          ],
+          "correctIndex": 0,
+          "explanation": "RAG grounds answers in fetched passages rather than parameters alone."
+        },
+        {
+          "id": "rag-s1-q02",
+          "stem": "Chunking strategy: why does naive fixed-size splitting often underperform in RAG?",
+          "options": [
+            "Fixed sizes guarantee optimal recall for every query distribution",
+            "It can break semantic units so retrieval returns incomplete or split context",
+            "Chunking is unnecessary because models read entire corpora per request",
+            "Only overlapping chunks are illegal in vector databases by design"
+          ],
+          "correctIndex": 1,
+          "explanation": "Meaningful boundaries (sections/paragraphs) usually beat blind character cuts."
+        },
+        {
+          "id": "rag-s1-q03",
+          "stem": "Embeddings in RAG: what role do they play in the retrieval pipeline primarily?",
+          "options": [
+            "Replace the generator LLM so answers are nearest-neighbor strings only",
+            "Compress PDFs into a single scalar relevance score without vectors",
+            "Map queries and chunks into a vector space for similarity search",
+            "Train the reranker using next-token prediction exclusively"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dense vectors enable semantic matching beyond exact keyword overlap."
+        },
+        {
+          "id": "rag-s1-q04",
+          "stem": "Dense versus sparse retrieval: how should you contrast them in an interview?",
+          "options": [
+            "Sparse always needs GPUs; dense only needs inverted indexes on CPU",
+            "They produce identical rankings for every query by construction",
+            "Dense retrieval cannot handle multilingual text while BM25 can only",
+            "Dense uses embeddings/semantics; sparse uses term statistics like BM25"
+          ],
+          "correctIndex": 3,
+          "explanation": "Different matching signals: meaning similarity versus lexical overlap."
+        },
+        {
+          "id": "rag-s1-q05",
+          "stem": "Hybrid search: what combination and benefit should you articulate clearly for RAG?",
+          "options": [
+            "Fuse dense and sparse scores to catch both semantic and exact matches",
+            "Run two generators and average their tokens without any retrieval",
+            "Hybrid means storing vectors only and deleting the keyword index",
+            "It forbids reranking because fusion already yields perfect order"
+          ],
+          "correctIndex": 0,
+          "explanation": "Lexical + semantic retrieval often improves robustness on mixed queries."
+        },
+        {
+          "id": "rag-s1-q06",
+          "stem": "Reranking in RAG: where does it sit in the pipeline and why do teams use it?",
+          "options": [
+            "Before indexing, to delete all documents that mention numbers",
+            "After cheap retrieval, a stronger model reorders top candidates more accurately",
+            "Instead of generation, returning the top reranked chunk as the final answer",
+            "Only during fine-tuning and never at query time in production"
+          ],
+          "correctIndex": 1,
+          "explanation": "Cross-encoders/rerankers trade compute for better precision@k."
+        },
+        {
+          "id": "rag-s1-q07",
+          "stem": "Faithfulness metrics: what are they trying to measure in RAG system evaluation?",
+          "options": [
+            "How fast the vector index returns the first candidate document",
+            "Whether the embedding model was trained with contrastive loss",
+            "Whether the generated answer is supported by the retrieved context",
+            "The BLEU score between two random chunks in the corpus"
+          ],
+          "correctIndex": 2,
+          "explanation": "Faithfulness checks grounding: claims should be entailed by evidence."
+        },
+        {
+          "id": "rag-s1-q08",
+          "stem": "RAG versus fine-tuning for knowledge: which decision heuristic is interview-solid?",
+          "options": [
+            "Always fine-tune because RAG cannot cite sources by definition",
+            "Always RAG because fine-tuning cannot change model behavior at all",
+            "They are mutually exclusive and cannot be combined in one system",
+            "Prefer RAG for mutable/citable facts; fine-tune for style/skills/format"
+          ],
+          "correctIndex": 3,
+          "explanation": "Knowledge freshness and attribution favor RAG; behavior shaping favors FT."
+        },
+        {
+          "id": "rag-s1-q09",
+          "stem": "Metadata filters with vector search: when do they matter in enterprise RAG?",
+          "options": [
+            "Restrict retrieval by tenant, time, ACL, or doc type before/after ANN search",
+            "Metadata replaces embeddings so vectors become unnecessary forever",
+            "Filters only apply to BM25 and cannot combine with dense retrieval",
+            "ACLs should be enforced only in the LLM prompt, never in the index"
+          ],
+          "correctIndex": 0,
+          "explanation": "Security and relevance often require structured constraints plus vectors."
+        },
+        {
+          "id": "rag-s1-q10",
+          "stem": "Query rewriting / HyDE-style tricks: what problem are they trying to fix in RAG?",
+          "options": [
+            "They delete the need for an embedding model in the RAG stack",
+            "User queries may be short/ambiguous; expanded queries retrieve better chunks",
+            "Rewriting guarantees zero hallucinations without any citations",
+            "HyDE only works for SQL databases and not document corpora"
+          ],
+          "correctIndex": 1,
+          "explanation": "Better queries improve recall when raw user text mismatches corpus style."
+        },
+        {
+          "id": "rag-s1-q11",
+          "stem": "Top-k retrieval: what tradeoff should you mention when choosing k for RAG context?",
+          "options": [
+            "k must equal the embedding dimension for mathematical correctness",
+            "k=1 is always optimal because rerankers cannot use more candidates",
+            "Larger k raises recall but adds noise/cost and may distract the LLM",
+            "Top-k only applies to sparse search and not to dense ANN indexes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Context quality vs coverage is the central top-k design tension."
+        },
+        {
+          "id": "rag-s1-q12",
+          "stem": "Indexing freshness: how do you keep RAG answers current as documents change?",
+          "options": [
+            "Fine-tune the generator nightly instead of updating the vector store",
+            "Never update the index; rely on the LLM’s parametric knowledge only",
+            "Freshness is automatic because cosine similarity tracks wall-clock time",
+            "Re-embed/upsert changed chunks and delete stale IDs on a reliable pipeline"
+          ],
+          "correctIndex": 3,
+          "explanation": "Document lifecycle must sync into the retrieval index continuously."
+        },
+        {
+          "id": "rag-s1-q13",
+          "stem": "Citation / attribution UX: why do interviewers care about grounded citations in RAG?",
+          "options": [
+            "Users and auditors need to verify which passages support each claim",
+            "Citations replace the generator so retrieval alone answers every query",
+            "Showing sources always increases hallucination rates by construction",
+            "Attribution is only required for BM25 and never for dense RAG"
+          ],
+          "correctIndex": 0,
+          "explanation": "Traceability builds trust and enables error analysis of bad retrievals."
+        },
+        {
+          "id": "rag-s1-q14",
+          "stem": "Embedding model choice: what properties should you evaluate for RAG retrieval quality?",
+          "options": [
+            "Only the parameter count of the generator LLM matters for retrieval",
+            "Domain fit, chunk length behavior, multilingual support, and retrieval benchmarks",
+            "Any random projection matches SOTA embedders on MTEB-style tasks",
+            "Embedders trained only on images are best for pure text corpora"
+          ],
+          "correctIndex": 1,
+          "explanation": "Retrieval quality hinges on the embedding space matching your content."
+        },
+        {
+          "id": "rag-s1-q15",
+          "stem": "Overlap between chunks: what is the usual motivation for overlapping windows in RAG?",
+          "options": [
+            "Guarantee that every token appears in exactly one chunk globally",
+            "Overlap forces BM25 scores to become identical to dense scores",
+            "Preserve sentences/entities that would otherwise be split across boundaries",
+            "It reduces index size by storing each span multiple times less often"
+          ],
+          "correctIndex": 2,
+          "explanation": "Overlaps reduce edge artifacts when evidence straddles chunk cuts."
+        },
+        {
+          "id": "rag-s1-q16",
+          "stem": "ANN indexes (HNSW/IVF): what compromise do approximate indexes introduce for search?",
+          "options": [
+            "Exact search at lower latency than brute force without any tradeoff",
+            "ANN indexes only store keywords and cannot store dense vectors",
+            "They require rewriting the LLM architecture to include HNSW layers",
+            "Faster/cheaper search with possible recall loss versus exact nearest neighbors"
+          ],
+          "correctIndex": 3,
+          "explanation": "Approximation trades a bit of recall for scalable vector search."
+        },
+        {
+          "id": "rag-s1-q17",
+          "stem": "Context compression / map-reduce RAG: when do these patterns become useful?",
+          "options": [
+            "When retrieved text exceeds the window or is too noisy for one shot",
+            "Only when the corpus has fewer than ten documents total",
+            "Compression deletes the need for embeddings by hashing queries",
+            "Map-reduce RAG forbids citations and multi-document synthesis"
+          ],
+          "correctIndex": 0,
+          "explanation": "Summarize/select evidence so generation sees high-signal context."
+        },
+        {
+          "id": "rag-s1-q18",
+          "stem": "Evaluation of retrieval: which metrics belong in a solid RAG interview answer?",
+          "options": [
+            "Only train loss of the generator without looking at retrieved docs",
+            "Recall@k, MRR/nDCG, and downstream answer faithfulness/correctness",
+            "Silhouette score of embedding clusters as the sole RAG KPI",
+            "GPU utilization percentage during ANN search exclusively"
+          ],
+          "correctIndex": 1,
+          "explanation": "Measure both retrieval ranking quality and end-to-end answer quality."
+        },
+        {
+          "id": "rag-s1-q19",
+          "stem": "Multi-hop questions in RAG: why do single-shot top-k pipelines often fail?",
+          "options": [
+            "Multi-hop is impossible for Transformers even with perfect retrieval",
+            "Increasing k to corpus size always solves multi-hop without iteration",
+            "Evidence is split across docs; needs iterative retrieval or decomposition",
+            "BM25 cannot return more than one document per query by design"
+          ],
+          "correctIndex": 2,
+          "explanation": "Complex questions require chaining retrieval steps over partial answers."
+        },
+        {
+          "id": "rag-s1-q20",
+          "stem": "Prompting the generator with retrieved docs: what failure mode should you watch?",
+          "options": [
+            "Models always quote retrieved text verbatim with perfect attribution",
+            "Retrieved context cannot influence decoding once temperature is set",
+            "Prompt order never affects which passages the model attends to",
+            "Ignoring context, contradicting sources, or blending unsourced parametric knowledge"
+          ],
+          "correctIndex": 3,
+          "explanation": "Grounding instructions and citations reduce unsupported generations."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "rag-s2-q01",
+          "stem": "Graph RAG at a high level: what extra structure does it exploit beyond text chunks?",
+          "options": [
+            "Entities/relations graphs to traverse connected facts for multi-hop reasoning",
+            "Only pixel graphs from screenshots of PDFs without text extraction",
+            "Replacing vector search with random walks that ignore the user query",
+            "Graphs delete the need for an LLM generator in the answering stage"
+          ],
+          "correctIndex": 0,
+          "explanation": "Knowledge graphs help assemble evidence paths sparse chunk search misses."
+        },
+        {
+          "id": "rag-s2-q02",
+          "stem": "Parent-document / small-to-big retrieval: what idea improves generation context?",
+          "options": [
+            "Always embed entire books as one vector for maximum precision@1",
+            "Retrieve small chunks for precision, then expand to larger parent context",
+            "Delete parent documents so only orphan sentences remain searchable",
+            "Small-to-big means training a smaller LLM to replace the larger one"
+          ],
+          "correctIndex": 1,
+          "explanation": "Fine-grained matching plus broader context often improves answers."
+        },
+        {
+          "id": "rag-s2-q03",
+          "stem": "Late chunking / contextualized chunk embeddings: what problem do they target?",
+          "options": [
+            "They remove positional information so all chunks share one embedding",
+            "Late chunking forbids hybrid search by architectural constraint",
+            "Chunks lose document context; contextualization enriches chunk vectors",
+            "It only applies to image patches and not to text corpora"
+          ],
+          "correctIndex": 2,
+          "explanation": "Better chunk vectors reduce ambiguity from isolated spans."
+        },
+        {
+          "id": "rag-s2-q04",
+          "stem": "ACL-aware RAG: how should retrieval respect document permissions correctly?",
+          "options": [
+            "Put all secret docs in the prompt and ask the model not to leak them",
+            "Encrypt vectors but allow any authenticated user to retrieve any ID",
+            "ACLs are unnecessary if the LLM was RLHF’d for confidentiality",
+            "Filter candidates by the user’s entitlements before returning context"
+          ],
+          "correctIndex": 3,
+          "explanation": "Authorization must be enforced in the retrieval layer, not by hope."
+        },
+        {
+          "id": "rag-s2-q05",
+          "stem": "Reranker distillation / cheaper rerankers: why might teams train a student model?",
+          "options": [
+            "Retain most quality of a cross-encoder at lower latency and cost",
+            "Students always beat teachers on nDCG without any labeled pairs",
+            "Distillation removes the first-stage retriever from the pipeline",
+            "Rerankers cannot be distilled because ranking is not differentiable"
+          ],
+          "correctIndex": 0,
+          "explanation": "Latency budgets often require lighter second-stage rankers."
+        },
+        {
+          "id": "rag-s2-q06",
+          "stem": "Negative sampling for embedding training: why do hard negatives matter for retrieval?",
+          "options": [
+            "Negatives must be random noise vectors with zero text content only",
+            "They teach the model to separate near-miss distractors from true hits",
+            "Hard negatives reduce the need for any positive query-doc pairs",
+            "Embedding models cannot use negatives because loss is unsupervised only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Informative negatives sharpen the retrieval decision boundary."
+        },
+        {
+          "id": "rag-s2-q07",
+          "stem": "Routing between RAG and parametric answers: when might you skip retrieval?",
+          "options": [
+            "Never retrieve because parametric memory is always fresher than indexes",
+            "Always retrieve the entire corpus for every greeting message",
+            "Chitchat/skills tasks where docs add noise; retrieve for knowledge questions",
+            "Routing is impossible without fine-tuning a new tokenizer"
+          ],
+          "correctIndex": 2,
+          "explanation": "Query classification avoids unnecessary retrieval latency and distraction."
+        },
+        {
+          "id": "rag-s2-q08",
+          "stem": "Table/PDF parsing quality: how does it affect downstream RAG system performance?",
+          "options": [
+            "Parsing quality is irrelevant if the generator is large enough",
+            "Vector search repairs OCR errors via cosine similarity automatically",
+            "PDFs cannot be chunked; only plain .txt files are valid RAG sources",
+            "Broken extraction yields junk chunks that embeddings cannot magically fix"
+          ],
+          "correctIndex": 3,
+          "explanation": "Garbage-in retrieval starts at ingestion/layout understanding."
+        },
+        {
+          "id": "rag-s2-q09",
+          "stem": "Self-reflective / corrective RAG loops: what do they attempt after first retrieval?",
+          "options": [
+            "Critique relevance/support and retrieve again if evidence is insufficient",
+            "Delete the index and fine-tune whenever a user downvotes an answer",
+            "Always accept the first top-1 chunk without checking support",
+            "Reflection replaces embeddings with reinforcement learning policies only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Iterative critique can recover from weak initial retrievals."
+        },
+        {
+          "id": "rag-s2-q10",
+          "stem": "Chunk size vs embedding model context: what mismatch should you carefully avoid?",
+          "options": [
+            "Larger chunks always embed better regardless of model limits",
+            "Chunks longer than the embedder’s useful window get truncated/poor vectors",
+            "Embedders ignore length and hash all text to a 32-bit integer",
+            "Chunk size must equal the generator’s context window exactly"
+          ],
+          "correctIndex": 1,
+          "explanation": "Align chunking with the embedding model’s effective input limits."
+        },
+        {
+          "id": "rag-s2-q11",
+          "stem": "MMR (maximal marginal relevance): what retrieval issue does diversification address?",
+          "options": [
+            "Maximizes only lexical overlap while ignoring semantic diversity",
+            "Forces all retrieved chunks to come from the same parent document",
+            "Diversifies results so top-k is not near-duplicate redundant passages",
+            "MMR replaces generation with extractive QA without an LLM"
+          ],
+          "correctIndex": 2,
+          "explanation": "Redundancy reduction improves information coverage in the prompt."
+        },
+        {
+          "id": "rag-s2-q12",
+          "stem": "Online evaluation for RAG: what signals complement offline nDCG/faithfulness?",
+          "options": [
+            "Only GPU temperature and fan speed during ANN queries",
+            "Offline metrics fully determine production quality with zero drift",
+            "A/B tests are illegal for retrieval systems in enterprise settings",
+            "User thumbs, escalation rates, citation clicks, and grounded answer audits"
+          ],
+          "correctIndex": 3,
+          "explanation": "Production feedback catches failures offline golden sets miss."
+        },
+        {
+          "id": "rag-s2-q13",
+          "stem": "Multi-vector / ColBERT-style late interaction: what idea improves matching quality?",
+          "options": [
+            "Keep token-level vectors and interact late for finer relevance scoring",
+            "Collapse each document to one bit and rank by Hamming distance only",
+            "Forbid dense features and use only unigram BM25 forever",
+            "Late interaction means running the generator before retrieval"
+          ],
+          "correctIndex": 0,
+          "explanation": "Fine-grained interactions can beat single-vector similarity on tough queries."
+        },
+        {
+          "id": "rag-s2-q14",
+          "stem": "Knowledge base versioning: why version documents and embeddings together in RAG?",
+          "options": [
+            "Versioning is optional because cosine similarity is deterministic forever",
+            "Reproduce answers, roll back bad ingestions, and audit what was retrievable",
+            "Only version the LLM weights and never the document store",
+            "Embeddings cannot be versioned because vectors are continuous"
+          ],
+          "correctIndex": 1,
+          "explanation": "Reproducibility and ops safety need pinned corpus+index snapshots."
+        },
+        {
+          "id": "rag-s2-q15",
+          "stem": "Prompt injection via retrieved documents: what defense themes should you list?",
+          "options": [
+            "Trust all indexed text because indexing implies safety review",
+            "Disable citations so injected instructions cannot be traced",
+            "Treat docs as untrusted data, sanitize, and isolate tool permissions",
+            "Injection only affects chat UIs and never RAG pipelines"
+          ],
+          "correctIndex": 2,
+          "explanation": "Retrieved content can contain hostile instructions; bound their power."
+        },
+        {
+          "id": "rag-s2-q16",
+          "stem": "Synthetic query generation for eval/training: what caution should you raise?",
+          "options": [
+            "Synthetic queries always perfectly mirror production traffic by theory",
+            "You cannot evaluate RAG without synthetic queries exclusively",
+            "Generated queries make faithfulness metrics mathematically undefined",
+            "Synthetics boost coverage but may not match real user query distributions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Validate that synthetic distributions don’t create illusory gains."
+        },
+        {
+          "id": "rag-s2-q17",
+          "stem": "Agentic RAG versus classic single-shot RAG: what capability is added by agents?",
+          "options": [
+            "The system can plan, call tools, and retrieve iteratively toward a goal",
+            "Agentic RAG removes the LLM and answers with SQL only",
+            "Single-shot RAG already plans multi-step tool use by definition",
+            "Agentic means storing graphs instead of vectors with no LLM calls"
+          ],
+          "correctIndex": 0,
+          "explanation": "Autonomy and multi-step control extend beyond one retrieve-then-read."
+        },
+        {
+          "id": "rag-s2-q18",
+          "stem": "When do you add a knowledge graph on top of vector RAG in production practice?",
+          "options": [
+            "Always, because graphs strictly dominate vectors for every query type",
+            "When relations, hierarchies, or multi-hop entity paths dominate the workload",
+            "Never, because graphs cannot store textual evidence for citations",
+            "Only when the corpus is smaller than the embedding dimension"
+          ],
+          "correctIndex": 1,
+          "explanation": "Graph structure helps when connectivity matters more than bag similarity."
+        },
+        {
+          "id": "rag-s2-q19",
+          "stem": "Reranking features beyond cross-encoders: what else might score RAG candidates?",
+          "options": [
+            "Only the document ID alphabetical order is a valid production signal",
+            "Reranking forbids using any signal other than raw BM25",
+            "Metadata boosts, freshness, click models, and LLM-as-judge relevance scores",
+            "Features must be identical to the embedding dimensions always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Production rankers often blend learned and business relevance signals."
+        },
+        {
+          "id": "rag-s2-q20",
+          "stem": "Failure analysis playbook: an answer is wrong — how do you triage RAG bugs?",
+          "options": [
+            "Always retrain the LLM first because retrieval cannot be the cause",
+            "Increase temperature until the wrong answer becomes a right answer",
+            "Delete faithfulness metrics so wrong answers no longer fail evals",
+            "Check retrieval miss vs bad chunking vs generator ignoring good context"
+          ],
+          "correctIndex": 3,
+          "explanation": "Localize errors to retrieve, rank, or generate stages systematically."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "rag-s3-q01",
+          "stem": "Senior RAG design: how do you set SLOs that balance quality, latency, and cost?",
+          "options": [
+            "Define answer quality gates, p95 latency, and $/query budgets with tradeoff knobs",
+            "Optimize only for maximum k and largest models without latency caps",
+            "SLOs are unnecessary if offline nDCG looks strong on a tiny golden set",
+            "Cost is minimized by retrieving the entire corpus on every request"
+          ],
+          "correctIndex": 0,
+          "explanation": "Product SLOs force explicit tradeoffs among the three axes."
+        },
+        {
+          "id": "rag-s3-q02",
+          "stem": "When is fine-tuning an embedding model worth it versus a strong off-the-shelf one?",
+          "options": [
+            "Always — general embedders cannot work on any specialized corpus",
+            "Domain jargon/query style mismatches where labeled pairs show clear gains",
+            "Never — fine-tuned embedders always overfit and lose all recall",
+            "Only when you lack any documents to index in the vector store"
+          ],
+          "correctIndex": 1,
+          "explanation": "Domain adaptation helps when generic similarity spaces misrank."
+        },
+        {
+          "id": "rag-s3-q03",
+          "stem": "Cross-encoder everywhere vs retrieve-then-rerank: why not score the full corpus?",
+          "options": [
+            "Cross-encoders are faster than ANN and should replace indexes always",
+            "Rerankers cannot improve precision@k after a weak first stage",
+            "Cross-encoders are too slow/expensive to score millions of docs online",
+            "Full-corpus cross-encoding is required for ACLs to work correctly"
+          ],
+          "correctIndex": 2,
+          "explanation": "Two-stage pipelines exist because expressive scorers don’t scale alone."
+        },
+        {
+          "id": "rag-s3-q04",
+          "stem": "How should you evaluate Graph RAG differently from vanilla chunk-based RAG?",
+          "options": [
+            "Only measure BM25 on node labels and ignore graph edges completely",
+            "Graph RAG cannot be evaluated because graphs lack textual evidence",
+            "Use image classification accuracy as the primary Graph RAG metric",
+            "Measure path correctness, entity linking quality, and multi-hop answer support"
+          ],
+          "correctIndex": 3,
+          "explanation": "Graph-specific failure modes need entity/relation-aware metrics."
+        },
+        {
+          "id": "rag-s3-q05",
+          "stem": "Tenant isolation in multi-tenant vector DBs: what must never happen in RAG?",
+          "options": [
+            "One tenant’s query retrieving another tenant’s chunks via shared indexes",
+            "Each tenant having a separate namespace or hard filter on tenant_id",
+            "Encrypting payloads at rest while still filtering by tenant metadata",
+            "Auditing retrieval logs tagged with tenant and user identifiers"
+          ],
+          "correctIndex": 0,
+          "explanation": "Hard isolation/filtering is mandatory for secure multi-tenant RAG."
+        },
+        {
+          "id": "rag-s3-q06",
+          "stem": "Long-context models vs RAG: does a huge window make retrieval obsolete entirely?",
+          "options": [
+            "Yes — any context window over 100k tokens removes all need for indexes",
+            "No — ranking/cost/freshness/ACLs still favor selective retrieval for large corpora",
+            "Yes — long context guarantees perfect attention over millions of tokens",
+            "No — because long-context models cannot read retrieved passages at all"
+          ],
+          "correctIndex": 1,
+          "explanation": "Windows help, but corpora and constraints still need retrieval systems."
+        },
+        {
+          "id": "rag-s3-q07",
+          "stem": "Calibration of retrieval confidence: how can low-confidence handling help UX?",
+          "options": [
+            "Always answer confidently even when no document scores above noise",
+            "Hide uncertainty because users cannot understand confidence concepts",
+            "Abstain, ask clarifying questions, or broaden search when scores are weak",
+            "Confidence is undefined for hybrid search by mathematical law"
+          ],
+          "correctIndex": 2,
+          "explanation": "Knowing when you don’t know prevents fluent but ungrounded answers."
+        },
+        {
+          "id": "rag-s3-q08",
+          "stem": "Build vs buy for vector DB + pipelines: what decision factors matter most for RAG?",
+          "options": [
+            "Always build because managed services cannot store embeddings legally",
+            "Always buy because open-source indexes cannot do ANN search",
+            "The choice depends only on which vendor has the flashiest demo",
+            "Scale, ops skill, SLA, features (hybrid/ACL), and lock-in versus control"
+          ],
+          "correctIndex": 3,
+          "explanation": "Infrastructure decisions should follow workload and team constraints."
+        },
+        {
+          "id": "rag-s3-q09",
+          "stem": "How do you prevent eval contamination when using LLMs as faithfulness judges?",
+          "options": [
+            "Blind studies, diverse judges, gold human labels, and adversarial checks",
+            "Use the same generator as the only judge without any human audits",
+            "Judges should see the gold answer key inside the system prompt always",
+            "Faithfulness judges are immune to bias if temperature is zero"
+          ],
+          "correctIndex": 0,
+          "explanation": "LLM judges help at scale but need calibration against humans."
+        },
+        {
+          "id": "rag-s3-q10",
+          "stem": "Personalization in RAG: what privacy and quality tensions should you call out?",
+          "options": [
+            "Personalization requires storing plaintext passwords in the vector index",
+            "User history can improve ranking but raises privacy, leakage, and bias risks",
+            "Privacy is unaffected because embeddings cannot reconstruct text ever",
+            "Personalized RAG forbids ACLs because profiles override permissions"
+          ],
+          "correctIndex": 1,
+          "explanation": "Use minimal necessary profile signals with strong isolation controls."
+        }
+      ]
+    }
+  ]
+}

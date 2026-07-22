@@ -1,0 +1,624 @@
+{
+  "slug": "graphs",
+  "title": "Graphs",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "graphs-s1-q01",
+          "stem": "In a coding interview, you are asked: Adjacency list vs matrix: which is usually better for a sparse graph? Which response is most accurate?",
+          "options": [
+            "Matrix — always uses less memory",
+            "Adjacency list — space Θ(V+E), iterate neighbors efficiently",
+            "Matrix — O(1) neighbor iteration for all V",
+            "List — cannot represent directed edges"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sparse graphs waste Θ(V²) space in a matrix; lists scale with edges."
+        },
+        {
+          "id": "graphs-s1-q02",
+          "stem": "In a coding interview, how should you answer this: Adjacency matrix edge lookup (u,v) is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(1)",
+            "O(degree(u))",
+            "Option claiming: O(V)",
+            "Option claiming: O(E)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Matrix[u][v] is direct access."
+        },
+        {
+          "id": "graphs-s1-q03",
+          "stem": "In a coding interview, how should you answer this: BFS from a source on an unweighted graph computes:? Choose the strongest option.",
+          "options": [
+            "Shortest path with negative weights",
+            "Minimum spanning tree",
+            "Topological order always",
+            "Shortest path in number of edges"
+          ],
+          "correctIndex": 3,
+          "explanation": "BFS layers explore by distance in edges."
+        },
+        {
+          "id": "graphs-s1-q04",
+          "stem": "In a coding interview, you are asked: DFS traversal primarily uses which mental model? Which response is most accurate?",
+          "options": [
+            "A FIFO queue only",
+            "Union-Find exclusively",
+            "A stack (explicit or call stack) exploring deep paths first",
+            "Priority queue by degree"
+          ],
+          "correctIndex": 2,
+          "explanation": "DFS = stack; BFS = queue. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "graphs-s1-q05",
+          "stem": "In an undirected graph, a back edge to a gray/visited ancestor during DFS indicates:",
+          "options": [
+            "A bipartite guarantee",
+            "Option claiming: A cycle",
+            "That the graph is a tree",
+            "Negative weights"
+          ],
+          "correctIndex": 1,
+          "explanation": "In undirected DFS, a back edge implies a cycle (careful with parent edges)."
+        },
+        {
+          "id": "graphs-s1-q06",
+          "stem": "In a coding interview, how should you answer this: Time complexity of BFS/DFS on an adjacency-list graph is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(V+E)",
+            "O(V²) always",
+            "O(E log V)",
+            "Option claiming: O(V)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Each vertex and edge is processed a constant number of times."
+        },
+        {
+          "id": "graphs-s1-q07",
+          "stem": "In a coding interview, how should you answer this: A topological order exists only if the directed graph is:? Choose the strongest option.",
+          "options": [
+            "Complete",
+            "Undirected",
+            "Bipartite",
+            "A DAG (directed acyclic graph)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Cycles prevent a valid linear extension of precedence."
+        },
+        {
+          "id": "graphs-s1-q08",
+          "stem": "In a coding interview, how should you answer this: Kahn's algorithm for topo sort uses:? Choose the strongest option.",
+          "options": [
+            "Only DFS finishing times",
+            "Bellman-Ford relaxations",
+            "Indegrees + a queue of zero-indegree nodes",
+            "Prim's key updates"
+          ],
+          "correctIndex": 2,
+          "explanation": "Repeatedly remove zero-indegree vertices; if leftovers remain, there's a cycle."
+        },
+        {
+          "id": "graphs-s1-q09",
+          "stem": "In a coding interview, how should you answer this: Dijkstra finds shortest paths when edge weights are:? Choose the strongest option.",
+          "options": [
+            "Arbitrary including negatives",
+            "Non-negative",
+            "Only zero",
+            "Option claiming: Only +∞"
+          ],
+          "correctIndex": 1,
+          "explanation": "Negative edges break Dijkstra's greedy choice; use Bellman-Ford/other."
+        },
+        {
+          "id": "graphs-s1-q10",
+          "stem": "In a coding interview, how should you answer this: Bellman-Ford can detect:? Choose the strongest option.",
+          "options": [
+            "Negative cycles reachable from the source",
+            "Only positive cycles",
+            "MST weight",
+            "Bipartiteness"
+          ],
+          "correctIndex": 0,
+          "explanation": "An improving relaxation on the V-th pass signals a negative cycle."
+        },
+        {
+          "id": "graphs-s1-q11",
+          "stem": "In a coding interview, how should you answer this: Kruskal's MST repeatedly:? Choose the strongest option.",
+          "options": [
+            "Grows a tree from one vertex via PQ",
+            "Runs BFS layers",
+            "Colors nodes red/blue",
+            "Adds the globally lightest edge that doesn't form a cycle (Union-Find)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sort edges by weight; Union-Find skips cycle-forming edges."
+        },
+        {
+          "id": "graphs-s1-q12",
+          "stem": "In a coding interview, how should you answer this: Prim's MST grows a tree by:? Choose the strongest option.",
+          "options": [
+            "Sorting all edges once only",
+            "Using DFS finishing times",
+            "Adding the lightest edge connecting the tree to an outside vertex",
+            "Counting SCCs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Cut property: repeatedly take min-weight edge across the cut."
+        },
+        {
+          "id": "graphs-s1-q13",
+          "stem": "In a coding interview, how should you answer this: A bipartite graph's vertices can be:? Choose the strongest option.",
+          "options": [
+            "Any graph without triangles",
+            "Split into two sets with all edges crossing the sets",
+            "Only trees",
+            "Only DAGs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Equivalent: 2-colorable; odd cycles forbid bipartiteness."
+        },
+        {
+          "id": "graphs-s1-q14",
+          "stem": "In a coding interview, you are asked: How do you test bipartite with BFS? Which response is most accurate?",
+          "options": [
+            "2-color layers; conflict if same color adjacent",
+            "Run Dijkstra",
+            "Compute MST weight parity",
+            "Topo sort twice"
+          ],
+          "correctIndex": 0,
+          "explanation": "Color neighbor opposite; fail on mono-chrome edge."
+        },
+        {
+          "id": "graphs-s1-q15",
+          "stem": "In a coding interview, how should you answer this: Connected components in an undirected graph can be found by:? Choose the strongest option.",
+          "options": [
+            "One Dijkstra only",
+            "Floyd-Warshall only",
+            "Heap sort of degrees",
+            "Repeated BFS/DFS from unvisited nodes"
+          ],
+          "correctIndex": 3,
+          "explanation": "Each search marks one component."
+        },
+        {
+          "id": "graphs-s1-q16",
+          "stem": "In a coding interview, how should you answer this: In a directed graph, a back edge to a gray node in DFS means:? Choose the strongest option.",
+          "options": [
+            "The graph is bipartite",
+            "An MST edge",
+            "A directed cycle",
+            "A bridge"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gray = ancestor on the current path → cycle in directed DFS."
+        },
+        {
+          "id": "graphs-s1-q17",
+          "stem": "In a coding interview, how should you answer this: Space for an adjacency matrix on V vertices is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: Θ(V+E)",
+            "Option claiming: Θ(V²)",
+            "Θ(E log V)",
+            "Option claiming: Θ(1)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Full VxV table regardless of sparsity."
+        },
+        {
+          "id": "graphs-s1-q18",
+          "stem": "Which representation makes 'iterate all edges' natural as for-each neighbor loops?",
+          "options": [
+            "Adjacency list",
+            "Only adjacency matrix diagonal",
+            "A single integer",
+            "Call stack"
+          ],
+          "correctIndex": 0,
+          "explanation": "Lists store exactly the edges you iterate."
+        },
+        {
+          "id": "graphs-s1-q19",
+          "stem": "An interviewer asks for the space complexity of an adjacency list for a simple undirected graph with n vertices and m edges. What do you answer?",
+          "options": [
+            "Θ(n) only — edges never affect space",
+            "Θ(2n) — two arrays of vertices regardless of edges",
+            "Θ(n²) — same as an adjacency matrix",
+            "Θ(n + m) — vertex list plus edge endpoint storage"
+          ],
+          "correctIndex": 3,
+          "explanation": "Adjacency lists store vertices plus a constant number of entries per edge, so space is Θ(n + m)."
+        },
+        {
+          "id": "graphs-s1-q20",
+          "stem": "In a coding interview, how should you answer this: Multi-source BFS is useful when:? Choose the strongest option.",
+          "options": [
+            "Weights are negative",
+            "You need MST",
+            "Several sources share the same unweighted distance metric (e.g., nearest gate)",
+            "Graph is complete only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Enqueue all sources at dist 0; classic grid/rotting oranges pattern."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "graphs-s2-q01",
+          "stem": "In a coding interview, how should you answer this: Dijkstra vs Bellman-Ford: pick Dijkstra when:? Choose the strongest option.",
+          "options": [
+            "Any negative edges exist",
+            "You only need reachability",
+            "Weights ≥ 0 and you want faster practical shortest paths with a PQ",
+            "Graph has a negative cycle you must ignore"
+          ],
+          "correctIndex": 2,
+          "explanation": "Non-negative → Dijkstra; negatives → Bellman-Ford/SPFA caveats."
+        },
+        {
+          "id": "graphs-s2-q02",
+          "stem": "In a coding interview, how should you answer this: 0-1 BFS (deque) applies when edge weights are only 0 or 1 because:? Choose the strongest option.",
+          "options": [
+            "It sorts edges randomly",
+            "Push 0-weight to front, 1-weight to back to mimic Dijkstra layers",
+            "Matrix exponentiation replaces BFS",
+            "Negative cycles disappear"
+          ],
+          "correctIndex": 1,
+          "explanation": "Deque maintains nondecreasing distances for {0,1} weights in O(V+E)."
+        },
+        {
+          "id": "graphs-s2-q03",
+          "stem": "Detecting a cycle in a directed graph via colors uses white/gray/black where gray means:",
+          "options": [
+            "On the current DFS path (active)",
+            "Fully finished",
+            "Unvisited",
+            "In the MST"
+          ],
+          "correctIndex": 0,
+          "explanation": "Back edge to gray ⇒ cycle. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "graphs-s2-q04",
+          "stem": "In a coding interview, you are asked: Union-Find in Kruskal needs path compression / union by rank primarily to:? Which answer is best?",
+          "options": [
+            "Sort edges faster",
+            "Compute shortest paths",
+            "2-color the graph",
+            "Get nearly O(1) find for cycle checks amortized"
+          ],
+          "correctIndex": 3,
+          "explanation": "Ackermann inverse amortized time keeps Kruskal efficient."
+        },
+        {
+          "id": "graphs-s2-q05",
+          "stem": "In a coding interview, how should you answer this: Cut property (MST) says a lightest edge across a cut:? Choose the strongest option.",
+          "options": [
+            "Must be the unique MST edge always",
+            "Creates a negative cycle",
+            "Is safe to include in some MST",
+            "Breaks bipartiteness"
+          ],
+          "correctIndex": 2,
+          "explanation": "Foundation of Prim/Kruskal correctness."
+        },
+        {
+          "id": "graphs-s2-q06",
+          "stem": "In a coding interview, how should you answer this: Strongly connected components (Kosaraju/Tarjan) answer:? Choose the strongest option.",
+          "options": [
+            "MST weight",
+            "Maximal sets where every node reaches every other in the component",
+            "Bipartite sets",
+            "Shortest paths"
+          ],
+          "correctIndex": 1,
+          "explanation": "SCCs partition a digraph by mutual reachability."
+        },
+        {
+          "id": "graphs-s2-q07",
+          "stem": "In a coding interview, how should you answer this: If topo sort leaves nodes unprocessed in Kahn's algorithm:? Choose the strongest option.",
+          "options": [
+            "A cycle exists",
+            "The graph is bipartite",
+            "All weights are negative",
+            "BFS failed"
+          ],
+          "correctIndex": 0,
+          "explanation": "Remaining positive indegrees imply a cyclic dependency."
+        },
+        {
+          "id": "graphs-s2-q08",
+          "stem": "In a coding interview, how should you answer this: Shortest path in an unweighted graph should use:? Choose the strongest option.",
+          "options": [
+            "Bellman-Ford always",
+            "Floyd-Warshall only",
+            "DFS finishing times",
+            "BFS, not Dijkstra"
+          ],
+          "correctIndex": 3,
+          "explanation": "Unweighted = unit weights; BFS is enough and simpler."
+        },
+        {
+          "id": "graphs-s2-q09",
+          "stem": "In a coding interview, you are asked: A bridge (critical edge) in an undirected graph is an edge whose removal:? Which answer is best?",
+          "options": [
+            "Creates a negative cycle",
+            "Makes the graph bipartite",
+            "Increases the number of connected components",
+            "Changes topological order"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic Tarjan/lowlink discovery during DFS."
+        },
+        {
+          "id": "graphs-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Articulation points are vertices whose removal:? Choose the strongest option.",
+          "options": [
+            "Shortens all paths",
+            "Increases connected components",
+            "Forces a heap",
+            "Implies an MST"
+          ],
+          "correctIndex": 1,
+          "explanation": "Related DFS discovery/low-link technique."
+        },
+        {
+          "id": "graphs-s2-q11",
+          "stem": "In a coding interview, how should you answer this: Floyd-Warshall computes all-pairs shortest paths in:? Choose the strongest option.",
+          "options": [
+            "O(V³) via DP over intermediate vertices",
+            "Option claiming: O(V+E)",
+            "O(E log V)",
+            "Option claiming: O(V)"
+          ],
+          "correctIndex": 0,
+          "explanation": "dp[k][i][j] style; great for dense graphs / small V."
+        },
+        {
+          "id": "graphs-s2-q12",
+          "stem": "In a coding interview, how should you answer this: When reconstructing a path after Dijkstra you typically store:? Choose the strongest option.",
+          "options": [
+            "Only distances",
+            "DFS discovery times",
+            "Union-Find parents only",
+            "Parent/predecessor pointers updated on successful relaxations"
+          ],
+          "correctIndex": 3,
+          "explanation": "Walk parents backward from target to source."
+        },
+        {
+          "id": "graphs-s2-q13",
+          "stem": "In a coding interview, how should you answer this: Grid graphs as implicit graphs mean:? Choose the strongest option.",
+          "options": [
+            "You must allocate VxV matrices always",
+            "BFS is illegal",
+            "Neighbors are derived from coordinates/moves without an explicit list",
+            "Weights must be negative"
+          ],
+          "correctIndex": 2,
+          "explanation": "Interview grids: 4/8-direction edges generated on the fly."
+        },
+        {
+          "id": "graphs-s2-q14",
+          "stem": "In a coding interview, how should you answer this: Bidirectional BFS helps when:? Choose the strongest option.",
+          "options": [
+            "The graph has negative cycles",
+            "You have explicit source and target and want fewer expansions",
+            "You need MST",
+            "Only one node exists"
+          ],
+          "correctIndex": 1,
+          "explanation": "Search from both ends until frontiers meet."
+        },
+        {
+          "id": "graphs-s2-q15",
+          "stem": "In a coding interview, how should you answer this: Prim with a binary heap on adjacency lists runs in:? Choose the strongest option.",
+          "options": [
+            "O(E log V) typically",
+            "Option claiming: O(V)",
+            "Option claiming: O(V³)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Similar PQ pattern to Dijkstra."
+        },
+        {
+          "id": "graphs-s2-q16",
+          "stem": "In a coding interview, how should you answer this: An Eulerian path in an undirected graph exists (roughly) when:? Choose the strongest option.",
+          "options": [
+            "All degrees are prime",
+            "The graph is a DAG",
+            "MST weight is even",
+            "0 or 2 vertices have odd degree (and the graph is connected enough)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Hierholzer's algorithm; degree parity conditions."
+        },
+        {
+          "id": "graphs-s2-q17",
+          "stem": "In a coding interview, how should you answer this: Difference between tree edge and cross edge in directed DFS:? Choose the strongest option.",
+          "options": [
+            "They are identical",
+            "Cross edges always create cycles",
+            "Tree edges discover new nodes; cross edges go to finished branches elsewhere",
+            "Tree edges are MST edges only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Edge classification matters for cycle detection and SCC algorithms."
+        },
+        {
+          "id": "graphs-s2-q18",
+          "stem": "In a coding interview, you are asked: Why might adjacency matrix beat lists for dense Floyd-Warshall-style work? Which answer is best?",
+          "options": [
+            "Lists use less memory on dense graphs",
+            "O(1) edge weight access and natural VxV DP tables",
+            "Matrix forbids DP",
+            "Interview ban on lists"
+          ],
+          "correctIndex": 1,
+          "explanation": "Dense ⇒ matrix is natural; Floyd already Θ(V³)/Θ(V²) memory."
+        },
+        {
+          "id": "graphs-s2-q19",
+          "stem": "In a coding interview, how should you answer this: Lexicographically smallest topo order can be obtained by:? Choose the strongest option.",
+          "options": [
+            "Kahn's algorithm with a min-heap/priority queue of zero-indegree nodes",
+            "DFS with random stack",
+            "Prim's algorithm",
+            "BFS coloring"
+          ],
+          "correctIndex": 0,
+          "explanation": "Always pick the smallest available label among ready nodes."
+        },
+        {
+          "id": "graphs-s2-q20",
+          "stem": "In a coding interview, how should you answer this: Negative cycle on a path to t means for shortest paths to t:? Choose the strongest option.",
+          "options": [
+            "Dijkstra still works",
+            "MST is unique",
+            "Graph is bipartite",
+            "No finite shortest path exists (can improve forever)"
+          ],
+          "correctIndex": 3,
+          "explanation": "If a neg cycle can reach t (from s), distance is −∞ conceptually."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "graphs-s3-q01",
+          "stem": "Senior trap: using Dijkstra on a graph with a negative edge but no negative cycle. Result?",
+          "options": [
+            "Always correct if no neg cycle",
+            "Equivalent to Bellman-Ford",
+            "Only fails on undirected graphs",
+            "May be incorrect — Dijkstra's proof needs non-negative weights even without neg cycles"
+          ],
+          "correctIndex": 3,
+          "explanation": "A single negative edge can violate the settled-node invariant; use Bellman-Ford."
+        },
+        {
+          "id": "graphs-s3-q02",
+          "stem": "In a coding interview, you are asked: Johnson's algorithm reweights edges to run Dijkstra from all sources by:? Which answer is best?",
+          "options": [
+            "Running Floyd only",
+            "Deleting negative edges",
+            "Bellman-Ford potentials from a super-source, then Dijkstra on non-negative adjusted weights",
+            "Using BFS twice"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic all-pairs for sparse graphs with negatives but no neg cycle."
+        },
+        {
+          "id": "graphs-s3-q03",
+          "stem": "In undirected graphs with negative weights, shortest paths are tricky because:",
+          "options": [
+            "Dijkstra always works",
+            "An undirected negative edge behaves like a tiny negative cycle if traversed both ways unless modeled carefully",
+            "MST equals shortest paths",
+            "BFS ignores signs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Model as two directed edges; negatives can create issues analogous to cycles."
+        },
+        {
+          "id": "graphs-s3-q04",
+          "stem": "In a coding interview, you are asked: Max-flow min-cut: residual graphs and augmenting paths matter because:? Which answer is best?",
+          "options": [
+            "You can push more flow while residual capacity exists; min-cut capacity equals max flow",
+            "Flow equals MST weight",
+            "Topo sort computes flow",
+            "Heaps replace residuals"
+          ],
+          "correctIndex": 0,
+          "explanation": "Ford-Fulkerson/Edmonds-Karp/Dinic intuition for interviews."
+        },
+        {
+          "id": "graphs-s3-q05",
+          "stem": "Dynamic connectivity offline vs online: Union-Find alone struggles with deletions because:",
+          "options": [
+            "UF cannot union",
+            "Find is O(n) always",
+            "Graphs cannot be undirected",
+            "UF is built for unions; fully dynamic edge deletions need more advanced structures"
+          ],
+          "correctIndex": 3,
+          "explanation": "Interview-level: UF great for Kruskal/union; deletions are a different problem."
+        },
+        {
+          "id": "graphs-s3-q06",
+          "stem": "In a coding interview, how should you answer this: A* improves Dijkstra when you have a heuristic h that is:? Choose the strongest option.",
+          "options": [
+            "Always larger than true distance",
+            "Option claiming: Random",
+            "Admissible (never overestimates) — then A* is optimal",
+            "Equal to degree"
+          ],
+          "correctIndex": 2,
+          "explanation": "Admissible heuristics preserve optimality; consistency helps practicality."
+        },
+        {
+          "id": "graphs-s3-q07",
+          "stem": "In a coding interview, you are asked: Why can recursive DFS blow the stack on large graphs in production? Which response is most accurate?",
+          "options": [
+            "DFS is O(V²) stack always",
+            "Call-stack depth can hit O(V); use explicit stack or increase limits carefully",
+            "JVM forbids iteration",
+            "Graphs store recursion"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interview + production: prefer iterative DFS for huge graphs."
+        },
+        {
+          "id": "graphs-s3-q08",
+          "stem": "In a coding interview, how should you answer this: Choosing between Kruskal and Prim in practice often depends on:? Choose the strongest option.",
+          "options": [
+            "Edge-list + sorting (Kruskal) vs adjacency + PQ growth (Prim); density and constants",
+            "Prim requiring negative weights",
+            "Kruskal needing a matrix",
+            "They differ in MST output weight always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Same MST weight (if unique weights, same tree); implementation shape differs."
+        },
+        {
+          "id": "graphs-s3-q09",
+          "stem": "2-SAT via implication graph uses SCCs to decide satisfiability by checking:",
+          "options": [
+            "That the graph is bipartite only",
+            "MST uniqueness",
+            "Dijkstra distances",
+            "For no variable x and ¬x in the same SCC"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic reduction: assign by reverse topo of SCCs."
+        },
+        {
+          "id": "graphs-s3-q10",
+          "stem": "Interview meta: 'shortest path with exactly k edges' is often solved by:",
+          "options": [
+            "Plain BFS ignoring k",
+            "Prim's algorithm",
+            "DP/Bellman-Ford-style relaxations limited to k rounds",
+            "Heap sort of nodes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Relaxation rounds correspond to edge counts — DP on graphs."
+        }
+      ]
+    }
+  ]
+}

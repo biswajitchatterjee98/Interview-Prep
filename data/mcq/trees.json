@@ -1,0 +1,624 @@
+{
+  "slug": "trees",
+  "title": "Trees",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "trees-s1-q01",
+          "stem": "In a coding interview, how should you answer this: A binary tree node typically stores:? Choose the strongest option.",
+          "options": [
+            "A value plus left and right child references (and optionally parent)",
+            "Only an array of unbounded children with no value",
+            "Exactly three children always",
+            "A hash table of all descendants"
+          ],
+          "correctIndex": 0,
+          "explanation": "Binary means at most two children; value + left/right is the standard shape."
+        },
+        {
+          "id": "trees-s1-q02",
+          "stem": "In a coding interview, you are asked: How does a Binary Search Tree (BST) constrain node ordering? Which response is most accurate?",
+          "options": [
+            "Children are always greater than the parent",
+            "Left subtree values ≤ node ≤ right subtree values (per the chosen invariant)",
+            "Level-order must be sorted",
+            "No ordering—BST means “balanced search tree” only"
+          ],
+          "correctIndex": 1,
+          "explanation": "BST search property orders left/right relative to the node (duplicates policy varies)."
+        },
+        {
+          "id": "trees-s1-q03",
+          "stem": "In a coding interview, how should you answer this: Inorder traversal of a binary tree visits:? Choose the strongest option.",
+          "options": [
+            "Root, then left, then right",
+            "Left, right, root",
+            "Left, root, right",
+            "Level by level left to right"
+          ],
+          "correctIndex": 2,
+          "explanation": "Inorder = left → node → right; on a BST this yields sorted order."
+        },
+        {
+          "id": "trees-s1-q04",
+          "stem": "In a coding interview, how should you answer this: Preorder traversal visits:? Choose the strongest option.",
+          "options": [
+            "Left, right, root",
+            "Left, root, right",
+            "Only leaves",
+            "Root, left, right"
+          ],
+          "correctIndex": 3,
+          "explanation": "Preorder processes the node before its subtrees—useful for prefix/serialization sketches."
+        },
+        {
+          "id": "trees-s1-q05",
+          "stem": "In a coding interview, how should you answer this: Postorder traversal visits:? Choose the strongest option.",
+          "options": [
+            "Left, right, then root",
+            "Root first",
+            "Root, right, left only",
+            "In sorted order on any binary tree"
+          ],
+          "correctIndex": 0,
+          "explanation": "Postorder finishes children before the node—natural for delete/free and some expression trees."
+        },
+        {
+          "id": "trees-s1-q06",
+          "stem": "In a coding interview, how should you answer this: Height of a tree is commonly defined as:? Choose the strongest option.",
+          "options": [
+            "The number of nodes in the tree",
+            "Length of the longest root-to-leaf path (edges or nodes—be consistent with the problem)",
+            "The width of the bottom level only",
+            "Always log₂(n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Height measures deepest path; confirm whether the site counts edges or nodes."
+        },
+        {
+          "id": "trees-s1-q07",
+          "stem": "In a coding interview, how should you answer this: Depth of a node is:? Choose the strongest option.",
+          "options": [
+            "Always equal to the tree height",
+            "The number of children it has",
+            "Its distance from the root along the unique path",
+            "Undefined for leaves"
+          ],
+          "correctIndex": 2,
+          "explanation": "Depth is root→node distance; height is often node→deepest leaf (definitions vary slightly by text)."
+        },
+        {
+          "id": "trees-s1-q08",
+          "stem": "In a coding interview, how should you answer this: A skewed binary tree (like a linked list) of n nodes has height:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(1)",
+            "O(log n)",
+            "O(n log n)",
+            "Option claiming: O(n)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Chain-shaped trees are linear height—BST ops degrade to O(n)."
+        },
+        {
+          "id": "trees-s1-q09",
+          "stem": "In a coding interview, how should you answer this: A perfectly balanced binary tree with n nodes has height:? Choose the strongest option.",
+          "options": [
+            "Θ(log n)",
+            "Option claiming: Θ(n)",
+            "Option claiming: Θ(√n)",
+            "Option claiming: Θ(1)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Balanced binary trees keep height logarithmic in n."
+        },
+        {
+          "id": "trees-s1-q10",
+          "stem": "In a coding interview, how should you answer this: Level-order traversal is implemented with:? Choose the strongest option.",
+          "options": [
+            "A stack only",
+            "A queue (BFS)",
+            "Inorder recursion exclusively",
+            "Hashing node values"
+          ],
+          "correctIndex": 1,
+          "explanation": "BFS with a queue emits nodes level by level."
+        },
+        {
+          "id": "trees-s1-q11",
+          "stem": "In a coding interview, how should you answer this: Searching for a key in a balanced BST is typically:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(1)",
+            "O(log n)",
+            "O(n log n)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Each step discards a side; height is O(log n) when balanced."
+        },
+        {
+          "id": "trees-s1-q12",
+          "stem": "In a coding interview, how should you answer this: Inserting into a BST (standard, no rebalancing) places the new key:? Choose the strongest option.",
+          "options": [
+            "Always as the new root",
+            "In sorted array order without pointers",
+            "Randomly among leaves",
+            "At a null child link found by BST search walk"
+          ],
+          "correctIndex": 3,
+          "explanation": "Walk like search until a null link; attach there—may unbalance over time."
+        },
+        {
+          "id": "trees-s1-q13",
+          "stem": "In a coding interview, you are asked: Which structure is a tree but not necessarily binary? Which response is most accurate?",
+          "options": [
+            "A file-system directory hierarchy with many children per folder",
+            "A binary heap array",
+            "A singly linked list node with one next only—wait, lists aren’t trees with branching",
+            "A BST node with left/right only"
+          ],
+          "correctIndex": 0,
+          "explanation": "General trees allow arbitrary arity; binary restricts to two children."
+        },
+        {
+          "id": "trees-s1-q14",
+          "stem": "In a coding interview, how should you answer this: A leaf node is defined as:? Choose the strongest option.",
+          "options": [
+            "The root always",
+            "A node with no children",
+            "Any node at depth 1",
+            "A node with two children"
+          ],
+          "correctIndex": 1,
+          "explanation": "Leaves have null/empty child links."
+        },
+        {
+          "id": "trees-s1-q15",
+          "stem": "In a coding interview, how should you answer this: Full binary tree (common definition) means:? Choose the strongest option.",
+          "options": [
+            "Every level is completely filled",
+            "The tree is a BST",
+            "Every node has 0 or 2 children",
+            "Height is exactly n/2"
+          ],
+          "correctIndex": 2,
+          "explanation": "Full: no one-child nodes. Complete/perfect are stronger level-filling notions."
+        },
+        {
+          "id": "trees-s1-q16",
+          "stem": "In a coding interview, how should you answer this: Complete binary tree (heap shape) means:? Choose the strongest option.",
+          "options": [
+            "Nodes may be scattered on the last level right-to-left",
+            "It must be a BST",
+            "It forbids leaves",
+            "All levels full except possibly the last, which fills left to right"
+          ],
+          "correctIndex": 3,
+          "explanation": "Completeness enables array-backed heaps with parent/child index math."
+        },
+        {
+          "id": "trees-s1-q17",
+          "stem": "In a coding interview, you are asked: Why is a tree different from a general directed graph? Which response is most accurate?",
+          "options": [
+            "A tree is an acyclic connected graph with one root path to each node (no cross edges in the rooted sense)",
+            "Trees may have cycles",
+            "Graphs cannot have nodes",
+            "Trees always have exactly two nodes"
+          ],
+          "correctIndex": 0,
+          "explanation": "No cycles and a unique path from root to each node in a rooted tree."
+        },
+        {
+          "id": "trees-s1-q18",
+          "stem": "In a coding interview, how should you answer this: Recursion is natural on trees because:? Choose the strongest option.",
+          "options": [
+            "Trees cannot be traversed iteratively",
+            "Subtrees are smaller instances of the same structure",
+            "Queues are illegal",
+            "Height is always 1"
+          ],
+          "correctIndex": 1,
+          "explanation": "Divide-and-conquer on left/right (or children) mirrors the data shape."
+        },
+        {
+          "id": "trees-s1-q19",
+          "stem": "In an interview you must state the height of a perfectly balanced binary tree with n nodes (order-of-magnitude). What is the right answer?",
+          "options": [
+            "Θ(h) where h is unrelated to n",
+            "Θ(2h) because each level doubles height cost",
+            "Θ(log n) — balanced trees have logarithmic height",
+            "Θ(h²) for any binary tree"
+          ],
+          "correctIndex": 2,
+          "explanation": "A perfectly balanced binary tree has height Θ(log n); skewed trees can be Θ(n)."
+        },
+        {
+          "id": "trees-s1-q20",
+          "stem": "In a coding interview, how should you answer this: BST vs hash table for ordered iteration of keys:? Choose the strongest option.",
+          "options": [
+            "Hash table wins with O(n) sorted iteration always without extra work",
+            "Neither can iterate",
+            "BST cannot search in O(log n) when balanced",
+            "BST (or tree map) can iterate in sorted order via inorder; hash tables need sorting"
+          ],
+          "correctIndex": 3,
+          "explanation": "Ordered views are a tree/skip-list strength; hashes are unordered."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "trees-s2-q01",
+          "stem": "In a coding interview, how should you answer this: Lowest Common Ancestor (LCA) of two nodes is:? Choose the strongest option.",
+          "options": [
+            "The deepest node that has both as descendants (including possibly one of them)",
+            "Always the root",
+            "The shallowest leaf",
+            "Their sum as integers"
+          ],
+          "correctIndex": 0,
+          "explanation": "LCA is the shared ancestor of greatest depth."
+        },
+        {
+          "id": "trees-s2-q02",
+          "stem": "In a BST, LCA of two keys can often be found by walking from the root until:",
+          "options": [
+            "You reach a leaf always",
+            "You split—one key left, one key right (or hit one of the keys)",
+            "You reverse the tree",
+            "You convert to a graph"
+          ],
+          "correctIndex": 1,
+          "explanation": "While both keys are on one side, go that way; the fork (or match) is the LCA."
+        },
+        {
+          "id": "trees-s2-q03",
+          "stem": "In a coding interview, how should you answer this: Serializing a binary tree for reconstruction typically must encode:? Choose the strongest option.",
+          "options": [
+            "Only non-null values in preorder without null markers",
+            "Only the root value",
+            "Structure, e.g. preorder with null sentinels, or level-order with nulls",
+            "Only inorder values"
+          ],
+          "correctIndex": 2,
+          "explanation": "You need enough information to place nulls; inorder alone is ambiguous without more."
+        },
+        {
+          "id": "trees-s2-q04",
+          "stem": "In a coding interview, you are asked: Why can’t you rebuild a unique binary tree from inorder alone? Which response is most accurate?",
+          "options": [
+            "Inorder is illegal on binary trees",
+            "Inorder always uniquely determines shape",
+            "Computers cannot store trees",
+            "Many shapes share the same inorder sequence"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic result: need another traversal (e.g. preorder+inorder) or explicit nulls."
+        },
+        {
+          "id": "trees-s2-q05",
+          "stem": "Given preorder and inorder of a binary tree with unique values, you rebuild by:",
+          "options": [
+            "Taking preorder’s first as root, splitting inorder into left/right ranges, recursing",
+            "Sorting both arrays",
+            "Using only postorder",
+            "BFS queue without maps"
+          ],
+          "correctIndex": 0,
+          "explanation": "Preorder root + inorder partition is the standard reconstruction."
+        },
+        {
+          "id": "trees-s2-q06",
+          "stem": "Validating a BST correctly requires more than “left < node < right” for children only because:",
+          "options": [
+            "That local check is sufficient always",
+            "All nodes in the left subtree must respect upper/lower bounds, not just the child",
+            "BSTs forbid recursion",
+            "Right children can be smaller if deep"
+          ],
+          "correctIndex": 1,
+          "explanation": "A grandchild can violate ancestor bounds if you only check immediate children."
+        },
+        {
+          "id": "trees-s2-q07",
+          "stem": "In a coding interview, how should you answer this: Diameter of a binary tree (longest path) is often computed by:? Choose the strongest option.",
+          "options": [
+            "Only the height of the root",
+            "Inorder traversal length",
+            "A DFS returning height while tracking max of leftHeight+rightHeight at each node",
+            "BFS level count alone"
+          ],
+          "correctIndex": 2,
+          "explanation": "The longest path may not pass through the root; update a global max during height DFS."
+        },
+        {
+          "id": "trees-s2-q08",
+          "stem": "Checking if a tree is height-balanced (AVL-style |left−right|≤1 everywhere) uses:",
+          "options": [
+            "Only comparing root’s two children heights",
+            "Sorting node depths",
+            "Converting to an array",
+            "A postorder that returns height or a failure sentinel"
+          ],
+          "correctIndex": 3,
+          "explanation": "Every subtree must be balanced—bottom-up height checks."
+        },
+        {
+          "id": "trees-s2-q09",
+          "stem": "In a coding interview, how should you answer this: Path sum problems (root to leaf equals target) typically:? Choose the strongest option.",
+          "options": [
+            "DFS subtracting or accumulating along the path, success at a leaf",
+            "Only BFS without path state",
+            "Sorting all root-to-leaf sums first in O(1)",
+            "Require a BST"
+          ],
+          "correctIndex": 0,
+          "explanation": "Explore paths with running sum; leaf check against target."
+        },
+        {
+          "id": "trees-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Morris traversal’s pitch is:? Choose the strongest option.",
+          "options": [
+            "O(1) time",
+            "O(n) time with O(1) extra space via temporary threaded links",
+            "Guaranteed no pointer mutation ever",
+            "Only works on BSTs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Thread predecessors temporarily to avoid a stack; restore links as you go."
+        },
+        {
+          "id": "trees-s2-q11",
+          "stem": "In a coding interview, how should you answer this: Kth smallest in a BST is efficiently found by:? Choose the strongest option.",
+          "options": [
+            "Preorder only",
+            "Sorting a hash set of all values after dumping",
+            "Inorder traversal counting until k (or augmented tree sizes)",
+            "Level-order until k nodes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Inorder of BST is sorted; stop at k, or use subtree counts for O(h)."
+        },
+        {
+          "id": "trees-s2-q12",
+          "stem": "In a coding interview, how should you answer this: Deleting a BST node with two children usually:? Choose the strongest option.",
+          "options": [
+            "Removes the root of the whole tree always",
+            "Is impossible",
+            "Converts the tree to a list first",
+            "Replaces with inorder successor or predecessor, then deletes that node"
+          ],
+          "correctIndex": 3,
+          "explanation": "Successor (min of right) preserves BST order when spliced in."
+        },
+        {
+          "id": "trees-s2-q13",
+          "stem": "In a coding interview, how should you answer this: Flatten binary tree to linked list (preorder) in place often:? Choose the strongest option.",
+          "options": [
+            "Uses right pointers as “next” after rearranging left into the right spine",
+            "Requires a new array of nodes only",
+            "Uses postorder as next links",
+            "Needs a queue of all leaves"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic problem: produce a right-skewed list following preorder."
+        },
+        {
+          "id": "trees-s2-q14",
+          "stem": "In a coding interview, how should you answer this: Symmetric tree check compares:? Choose the strongest option.",
+          "options": [
+            "Inorder sequence uniqueness only",
+            "Left subtree mirrored against right subtree",
+            "Only root children values",
+            "BST property"
+          ],
+          "correctIndex": 1,
+          "explanation": "Mirror equality: outer/inner pairs recursively or with a queue."
+        },
+        {
+          "id": "trees-s2-q15",
+          "stem": "Maximum path sum (any node to any node) differs from root-to-leaf path sum because:",
+          "options": [
+            "It is always smaller",
+            "It only uses BFS",
+            "It may bend at a node using both left and right gains, and path need not include root",
+            "Negative values are ignored by definition"
+          ],
+          "correctIndex": 2,
+          "explanation": "Harder DP-on-tree: track best downward gain vs best path through node."
+        },
+        {
+          "id": "trees-s2-q16",
+          "stem": "In a coding interview, how should you answer this: Trie (prefix tree) specializes trees for:? Choose the strongest option.",
+          "options": [
+            "Integer heaps only",
+            "Balancing BSTs with rotations",
+            "Graph SCC",
+            "String prefixes—edges/characters along paths for autocomplete/search"
+          ],
+          "correctIndex": 3,
+          "explanation": "Tries share prefixes; not the same as BSTs on whole strings necessarily."
+        },
+        {
+          "id": "trees-s2-q17",
+          "stem": "In a coding interview, how should you answer this: Segment trees / Fenwick are used when you need:? Choose the strongest option.",
+          "options": [
+            "Range queries and updates faster than naive O(n) scans",
+            "Only unordered hashing",
+            "Strict BST ordering of arbitrary objects",
+            "BFS shortest paths"
+          ],
+          "correctIndex": 0,
+          "explanation": "These trees accelerate range aggregates—different purpose than BSTs."
+        },
+        {
+          "id": "trees-s2-q18",
+          "stem": "In a coding interview, how should you answer this: Constructing a balanced BST from a sorted array is done by:? Choose the strongest option.",
+          "options": [
+            "Inserting left-to-right sequentially into an empty BST",
+            "Picking mid as root recursively (left/right halves as subtrees)",
+            "Shuffling then inserting",
+            "Using only preorder insertion order"
+          ],
+          "correctIndex": 1,
+          "explanation": "Mid-as-root yields logarithmic height from sorted unique keys."
+        },
+        {
+          "id": "trees-s2-q19",
+          "stem": "In a coding interview, how should you answer this: Vertical order / column traversal often needs:? Choose the strongest option.",
+          "options": [
+            "Only inorder",
+            "Postorder stack alone",
+            "Assigning x-coordinates and grouping (BFS with column index is common)",
+            "Option claiming: Heapify"
+          ],
+          "correctIndex": 2,
+          "explanation": "Track horizontal distance; BFS keeps upper nodes first within a column."
+        },
+        {
+          "id": "trees-s2-q20",
+          "stem": "Time complexity of search/insert in an unbalanced BST built from sorted ascending inserts is:",
+          "options": [
+            "O(log n) guaranteed",
+            "Option claiming: O(1)",
+            "O(n²) per search",
+            "O(n) — the tree skews into a list"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sorted inserts without rotations produce a stick—ops become linear."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "trees-s3-q01",
+          "stem": "In a coding interview, how should you answer this: Senior pitfall: recursive tree DFS on adversarial depth causes:? Choose the strongest option.",
+          "options": [
+            "Call-stack overflow; prefer iterative traversal or ensure balanced inputs/limits",
+            "Only slower Big-O, never crashes",
+            "Automatic AVL balancing by the JVM",
+            "Queue overflow only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Skewed trees + recursion depth = production crashes; iterate or bound."
+        },
+        {
+          "id": "trees-s3-q02",
+          "stem": "In a coding interview, how should you answer this: Claiming “BST search is always O(log n)” is wrong unless:? Choose the strongest option.",
+          "options": [
+            "Option claiming: n < 100",
+            "The tree’s height is logarithmic (balanced / self-balancing / random under assumptions)",
+            "You use postorder",
+            "Keys are strings"
+          ],
+          "correctIndex": 1,
+          "explanation": "BST time tracks height; balance is an extra guarantee (AVL/Red-Black/Treap…)."
+        },
+        {
+          "id": "trees-s3-q03",
+          "stem": "In a coding interview, you are asked: Parent pointers missing: LCA in a general binary tree still works via:? Which answer is best?",
+          "options": [
+            "Only climbing parents",
+            "Sorting node ids",
+            "Recursive divide-and-conquer returning found-left/found-right signals",
+            "Floyd cycle detection"
+          ],
+          "correctIndex": 2,
+          "explanation": "Standard LCA recursion doesn’t need parent links; parent-climb needs them."
+        },
+        {
+          "id": "trees-s3-q04",
+          "stem": "Serialization ambiguity: using only preorder values without nulls fails when:",
+          "options": [
+            "All trees are perfect",
+            "UTF-8 is used",
+            "The tree is a BST—preorder alone always rebuilds uniquely without rules",
+            "Different shapes can share the same preorder value sequence"
+          ],
+          "correctIndex": 3,
+          "explanation": "Null markers or a second traversal (plus uniqueness) are required for general binary trees."
+        },
+        {
+          "id": "trees-s3-q05",
+          "stem": "Mutable shared subtrees (DAGs sold as “trees”) break algorithms that assume:",
+          "options": [
+            "Each child link is an exclusive subtree—sharing causes double-counting / cycles of logic",
+            "Nothing special",
+            "BFS cannot run",
+            "Values must be unique"
+          ],
+          "correctIndex": 0,
+          "explanation": "If nodes are shared, it’s a DAG; naive recursion may explode or mis-count."
+        },
+        {
+          "id": "trees-s3-q06",
+          "stem": "In a coding interview, how should you answer this: AVL vs Red-Black in interviews: a fair distinction is:? Choose the strongest option.",
+          "options": [
+            "They are identical structures",
+            "AVL is more strictly balanced (faster lookups, more rotations on update); RB favors cheaper updates",
+            "RB trees cannot implement maps",
+            "AVL forbids deletions"
+          ],
+          "correctIndex": 1,
+          "explanation": "Both guarantee O(log n); rotation frequency vs lookup height is the usual trade-talk."
+        },
+        {
+          "id": "trees-s3-q07",
+          "stem": "In a coding interview, how should you answer this: Integer overflow when summing path values or heights sneaks in when:? Choose the strongest option.",
+          "options": [
+            "Using 64-bit types only",
+            "Trees have height 1",
+            "Problem constraints allow large sums but code uses narrow ints without care",
+            "BFS is used"
+          ],
+          "correctIndex": 2,
+          "explanation": "Path-sum and similar problems often need long / overflow-aware types."
+        },
+        {
+          "id": "trees-s3-q08",
+          "stem": "In a coding interview, how should you answer this: Thread-unsafe tree map mutated during iteration typically yields:? Choose the strongest option.",
+          "options": [
+            "Defined snapshot semantics always",
+            "Automatic deep copies",
+            "Improved balance",
+            "ConcurrentModificationException or silent corruption depending on language/structure"
+          ],
+          "correctIndex": 3,
+          "explanation": "Fail-fast iterators or data races—don’t mutate unsafely while traversing."
+        },
+        {
+          "id": "trees-s3-q09",
+          "stem": "In a coding interview, you are asked: Using floating-point keys in a BST for “equality” is hazardous because:? Which answer is best?",
+          "options": [
+            "Rounding/NaN make ordering and equality fragile—prefer exact types or careful tolerances outside BST invariants",
+            "Floats cannot be compared",
+            "BSTs require strings",
+            "Hash tables cannot store floats either"
+          ],
+          "correctIndex": 0,
+          "explanation": "Total orders and NaNs break search-tree assumptions; design keys carefully."
+        },
+        {
+          "id": "trees-s3-q10",
+          "stem": "In a coding interview, how should you answer this: Production “delete tree” in C without GC should prefer:? Choose the strongest option.",
+          "options": [
+            "Losing the root pointer only",
+            "Postorder free (children before parent) or iterative stack to avoid leaks and use-after-free",
+            "Preorder free of parent before children",
+            "Relying on the OS after exit only even for long-lived processes"
+          ],
+          "correctIndex": 1,
+          "explanation": "Free children first; postorder (or equivalent iterative) is the safe pattern."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,624 @@
+{
+  "slug": "oops",
+  "title": "OOPs",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "oops-s1-q01",
+          "stem": "In an OOPs interview, distinguish a class from an object. Which response is most accurate?",
+          "options": [
+            "A class is a blueprint/type; an object is a runtime instance of that type",
+            "A class is always mutable; an object is always a static method",
+            "Objects define fields; classes can only define interfaces",
+            "Classes exist only at runtime; objects exist only in source files"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classes describe structure and behavior; objects are concrete instances in memory."
+        },
+        {
+          "id": "oops-s1-q02",
+          "stem": "Encapsulation — what core idea should you state in one crisp interview line?",
+          "options": [
+            "Inherit every method from Object without overrides",
+            "Bundle state with behavior and hide internals behind a controlled interface",
+            "Make all fields public so serializers can access them",
+            "Replace classes with global functions exclusively"
+          ],
+          "correctIndex": 1,
+          "explanation": "Encapsulation hides representation and exposes a stable API for interaction."
+        },
+        {
+          "id": "oops-s1-q03",
+          "stem": "Abstraction versus encapsulation — how do interviewers often separate them?",
+          "options": [
+            "Abstraction only applies to interfaces; encapsulation only to structs",
+            "They are exact synonyms with no useful distinction",
+            "Abstraction highlights what; encapsulation hides how / protects state",
+            "Encapsulation deletes unused methods; abstraction adds logging"
+          ],
+          "correctIndex": 2,
+          "explanation": "Abstraction models essential concepts; encapsulation controls access to details."
+        },
+        {
+          "id": "oops-s1-q04",
+          "stem": "Inheritance in OOP: what relationship does it primarily express between two types?",
+          "options": [
+            "A runtime cast that always succeeds between any types",
+            "Two unrelated classes sharing a package name only",
+            "Composition where the child owns the parent exclusively",
+            "A subtype reuses and specializes a base type's contract and implementation"
+          ],
+          "correctIndex": 3,
+          "explanation": "Inheritance creates an is-a hierarchy for shared behavior and polymorphism."
+        },
+        {
+          "id": "oops-s1-q05",
+          "stem": "Polymorphism — what is the simplest correct definition you should give in an interview?",
+          "options": [
+            "Same message/interface, different concrete behavior depending on the receiver",
+            "Copying fields from one object into another by reflection",
+            "Compiling the same source file twice with different flags",
+            "Making every method static and final"
+          ],
+          "correctIndex": 0,
+          "explanation": "Callers depend on a common type; runtime (or generics) selects the right behavior."
+        },
+        {
+          "id": "oops-s1-q06",
+          "stem": "Method overloading versus overriding — which distinction is correct for interviews?",
+          "options": [
+            "Overriding changes parameter lists only; overloading replaces parent bodies only",
+            "Overloading: same name, different signatures; overriding: redefine inherited method",
+            "They are identical terms in Java and C++",
+            "Overloading requires inheritance; overriding forbids it"
+          ],
+          "correctIndex": 1,
+          "explanation": "Overload = compile-time signature variants; override = subtype replaces inherited method."
+        },
+        {
+          "id": "oops-s1-q07",
+          "stem": "Interface versus abstract class (Java-leaning): which guidance is most accurate?",
+          "options": [
+            "You can extend many abstract classes but implement only one interface",
+            "Abstract classes cannot declare methods; interfaces must have fields only",
+            "Interfaces define contracts (often multi); abstract classes share partial implementation",
+            "Interfaces are instantiated directly; abstract classes never have subclasses"
+          ],
+          "correctIndex": 2,
+          "explanation": "Prefer interfaces for capability contracts; abstract classes for shared base code."
+        },
+        {
+          "id": "oops-s1-q08",
+          "stem": "Composition versus inheritance — when do senior engineers typically prefer composition?",
+          "options": [
+            "When equals and hashCode must be identical for all types",
+            "When you must share protected fields across an entire hierarchy",
+            "When polymorphism is banned by the language",
+            "When you need has-a reuse without tight is-a coupling and fragile base classes"
+          ],
+          "correctIndex": 3,
+          "explanation": "Composition delegates to collaborators; it avoids deep brittle inheritance trees."
+        },
+        {
+          "id": "oops-s1-q09",
+          "stem": "Access modifiers (public/protected/private): what does private primarily protect?",
+          "options": [
+            "Members visible only inside the declaring class (typical Java/C# rule)",
+            "Members visible to every package in the JVM automatically",
+            "Members that subclasses must override",
+            "Members that serializers must always include"
+          ],
+          "correctIndex": 0,
+          "explanation": "private restricts access to the enclosing class, enforcing encapsulation."
+        },
+        {
+          "id": "oops-s1-q10",
+          "stem": "Constructor responsibility: what should a well-designed constructor guarantee?",
+          "options": [
+            "All static methods of the class are invoked once",
+            "The new object starts in a valid, usable state (invariants established)",
+            "The object is registered as a singleton globally",
+            "equals returns true when compared to null"
+          ],
+          "correctIndex": 1,
+          "explanation": "Construction should establish invariants so methods can assume a valid object."
+        },
+        {
+          "id": "oops-s1-q11",
+          "stem": "Immutable object benefits — which interview talking point is the strongest and clearest?",
+          "options": [
+            "Immutable objects cannot override equals ever",
+            "Immutability forbids implementing interfaces",
+            "Safer sharing across threads and simpler reasoning; great as map keys if hash stable",
+            "Immutability always uses less memory than mutables"
+          ],
+          "correctIndex": 2,
+          "explanation": "Immutable values avoid aliasing bugs and are naturally concurrency-friendly."
+        },
+        {
+          "id": "oops-s1-q12",
+          "stem": "Dynamic dispatch (virtual calls): what happens at a Shape.draw() call on a Circle?",
+          "options": [
+            "Dispatch picks a random subclass method for load balancing",
+            "The compiler always inlines Shape.draw and ignores Circle",
+            "Only static methods participate in dynamic dispatch",
+            "The runtime selects Circle.draw based on the actual object type"
+          ],
+          "correctIndex": 3,
+          "explanation": "Virtual dispatch uses the receiver's runtime type to pick the override."
+        },
+        {
+          "id": "oops-s1-q13",
+          "stem": "SOLID — how do you state the Single Responsibility Principle in one clear interview line?",
+          "options": [
+            "A class should have one reason to change — one cohesive responsibility",
+            "A class must have exactly one method and one field",
+            "Every class must inherit from a single God object",
+            "Responsibilities should be duplicated across layers freely"
+          ],
+          "correctIndex": 0,
+          "explanation": "SRP: cohesion around one axis of change, not a literal one-method rule."
+        },
+        {
+          "id": "oops-s1-q14",
+          "stem": "Open/Closed Principle — which phrasing is the interview-ready definition of OCP?",
+          "options": [
+            "Open source only; closed for unit tests",
+            "Open for extension, closed for modification of existing proven code",
+            "Never add new classes; only edit existing ones",
+            "Seal every class and forbid interfaces"
+          ],
+          "correctIndex": 1,
+          "explanation": "Extend via new types/strategies rather than constantly rewriting stable modules."
+        },
+        {
+          "id": "oops-s1-q15",
+          "stem": "Liskov Substitution Principle: what must remain true for subtypes of a base type?",
+          "options": [
+            "Subtypes must hide all parent methods as private",
+            "Subtypes may strengthen preconditions and weaken postconditions freely",
+            "Subtype instances must be usable wherever the base type is expected without breaking clients",
+            "Subtypes cannot override any method from the parent"
+          ],
+          "correctIndex": 2,
+          "explanation": "LSP: subtypes honor the base contract so polymorphic clients keep working."
+        },
+        {
+          "id": "oops-s1-q16",
+          "stem": "Interface Segregation Principle — what design problem does ISP primarily fight?",
+          "options": [
+            "Making value objects immutable",
+            "Having too many small focused interfaces",
+            "Using composition instead of inheritance",
+            "Fat interfaces forcing clients to depend on methods they do not use"
+          ],
+          "correctIndex": 3,
+          "explanation": "ISP: split broad interfaces so clients depend only on what they need."
+        },
+        {
+          "id": "oops-s1-q17",
+          "stem": "Dependency Inversion Principle — what is the core idea you should recite in interviews?",
+          "options": [
+            "High-level modules depend on abstractions, not concrete low-level details",
+            "Every class must new up its dependencies internally",
+            "UI layers should import database drivers directly",
+            "Abstractions must depend on concrete framework classes"
+          ],
+          "correctIndex": 0,
+          "explanation": "Both high- and low-level code depend on shared abstractions (often injected)."
+        },
+        {
+          "id": "oops-s1-q18",
+          "stem": "Java equals/hashCode contract — what essential rule must you be able to recite?",
+          "options": [
+            "equals can ignore hashCode with no rules",
+            "Equal objects must share hashCode; unequal may collide; mutate keys carefully",
+            "hashCode must be unique for every distinct object",
+            "hashCode may change freely after insert into a HashMap"
+          ],
+          "correctIndex": 1,
+          "explanation": "Consistency between equals and hashCode is mandatory for hash-based collections."
+        },
+        {
+          "id": "oops-s1-q19",
+          "stem": "static method versus instance method — what is the key behavioral difference to name?",
+          "options": [
+            "Instance methods cannot access private fields",
+            "Static methods always participate in dynamic dispatch on this",
+            "Static binds to the class; no receiver polymorphism via overriding in the usual sense",
+            "Static methods require a non-null this reference"
+          ],
+          "correctIndex": 2,
+          "explanation": "static is class-level; instance methods dispatch on the object identity/type."
+        },
+        {
+          "id": "oops-s1-q20",
+          "stem": "What is a pure abstract type or interface especially good for in public API design?",
+          "options": [
+            "Guaranteeing O(1) performance for all methods",
+            "Storing mutable global configuration for the whole process",
+            "Replacing the need for any concrete classes",
+            "Defining a capability contract so implementations can vary behind it"
+          ],
+          "correctIndex": 3,
+          "explanation": "Interfaces decouple callers from concrete implementations and enable mocking/testing."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "oops-s2-q01",
+          "stem": "Fragile base class problem: why can changing a parent method break distant subclasses?",
+          "options": [
+            "Subclasses couple to inherited behavior and overrides interact subtly with parent changes",
+            "Inheritance forbids method overriding by language rule",
+            "Parent classes cannot have protected members",
+            "Composition always creates the same fragility"
+          ],
+          "correctIndex": 0,
+          "explanation": "Deep inheritance makes subclasses brittle when base implementation evolves."
+        },
+        {
+          "id": "oops-s2-q02",
+          "stem": "Template Method pattern (behavioral inheritance): what does the base class fix?",
+          "options": [
+            "The concrete SQL dialect used by every repository",
+            "An algorithm skeleton with overridable hook steps in subclasses",
+            "That all methods must be static factories",
+            "A guarantee that equals ignores identity"
+          ],
+          "correctIndex": 1,
+          "explanation": "Base method orchestrates steps; subclasses supply varying primitive operations."
+        },
+        {
+          "id": "oops-s2-q03",
+          "stem": "Covariance of return types on overrides (Java): which statement is true?",
+          "options": [
+            "Return types cannot change in any override ever",
+            "Overrides must always return Object regardless of parent",
+            "An override may return a more specific subtype than the parent method",
+            "Covariant returns only apply to static methods"
+          ],
+          "correctIndex": 2,
+          "explanation": "Java allows covariant return types so overrides can narrow the result type."
+        },
+        {
+          "id": "oops-s2-q04",
+          "stem": "Why is implementing equals based only on mutable fields dangerous for HashSet membership?",
+          "options": [
+            "Mutable fields make hashCode final automatically",
+            "HashSet forbids custom equals entirely",
+            "equals is never called during HashSet.contains",
+            "Mutating fields after insert can lose the object in the wrong bucket"
+          ],
+          "correctIndex": 3,
+          "explanation": "If equals/hashCode inputs change, the collection cannot find the entry later."
+        },
+        {
+          "id": "oops-s2-q05",
+          "stem": "Composition root / dependency injection: what problem does constructor injection solve?",
+          "options": [
+            "Makes required collaborators explicit and avoids hidden service locators",
+            "Eliminates the need for interfaces in the codebase",
+            "Forces every class to be a singleton",
+            "Allows circular dependencies without any design cost"
+          ],
+          "correctIndex": 0,
+          "explanation": "Constructor injection surfaces dependencies and supports DIP/testability."
+        },
+        {
+          "id": "oops-s2-q06",
+          "stem": "Marker interface versus annotation (Java history): what is the modern preference?",
+          "options": [
+            "Marker interfaces are illegal after Java 8",
+            "Prefer annotations for metadata; marker interfaces still used for type constraints",
+            "Annotations replace the type system completely",
+            "Neither can influence instanceof checks"
+          ],
+          "correctIndex": 1,
+          "explanation": "Annotations carry metadata; marker interfaces still give compile-time type tokens."
+        },
+        {
+          "id": "oops-s2-q07",
+          "stem": "Law of Demeter / tell-don't-ask: which code smell violates it most clearly?",
+          "options": [
+            "Injecting a ShippingService into OrderService",
+            "order.ship() asking the order to perform shipping",
+            "order.getCustomer().getAddress().getZip() chaining through strangers",
+            "Using a local variable for an intermediate calculation"
+          ],
+          "correctIndex": 2,
+          "explanation": "Long getter chains couple you to alien object graphs; prefer asking collaborators."
+        },
+        {
+          "id": "oops-s2-q08",
+          "stem": "Value object versus entity (DDD-flavored OOP): what is the distinguishing trait?",
+          "options": [
+            "Entities cannot implement equals at all",
+            "Entities are always immutable; value objects are always mutable",
+            "Value objects must have database surrogate keys",
+            "Value objects compare by attributes; entities have identity over time"
+          ],
+          "correctIndex": 3,
+          "explanation": "Entities track identity; value objects are interchangeable when attributes match."
+        },
+        {
+          "id": "oops-s2-q09",
+          "stem": "Defensive copy on getters that return internal lists — why bother with the extra copy?",
+          "options": [
+            "Callers mutating the returned list would break the owner's encapsulation/invariants",
+            "Defensive copies make equals faster always",
+            "Java forbids returning List types without copying",
+            "It is required for every primitive int getter"
+          ],
+          "correctIndex": 0,
+          "explanation": "Exposing live mutable internals lets outsiders violate encapsulation."
+        },
+        {
+          "id": "oops-s2-q10",
+          "stem": "final class or sealed hierarchy — what design goal are you usually trying to achieve?",
+          "options": [
+            "Force every subclass to override equals and hashCode",
+            "Restrict extension so behavior and security assumptions stay closed",
+            "Disable polymorphism for interfaces",
+            "Make garbage collection run after every method"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sealing/final limits who can extend types, preserving invariants and exhaustive switches."
+        },
+        {
+          "id": "oops-s2-q11",
+          "stem": "Mixin / default interface methods: what benefit and risk should you mention together?",
+          "options": [
+            "Default methods cannot be overridden by implementors",
+            "They replace the need for any concrete classes safely forever",
+            "Share behavior across types; risk diamond conflicts and unclear state ownership",
+            "They make all implementing classes immutable automatically"
+          ],
+          "correctIndex": 2,
+          "explanation": "Defaults help evolution of interfaces but complicate multiple-inheritance conflicts."
+        },
+        {
+          "id": "oops-s2-q12",
+          "stem": "Covariance vs contravariance intuition for generics (PECS): which is right?",
+          "options": [
+            "Contravariance only applies to primitive arrays",
+            "All generic types are invariant and PECS never applies",
+            "List<Dog> is always a List<Animal> for writes and reads",
+            "Producers extend (out/? extends); consumers super (in/? super) for safe variance"
+          ],
+          "correctIndex": 3,
+          "explanation": "PECS guides wildcards so reads/writes stay type-safe under variance."
+        },
+        {
+          "id": "oops-s2-q13",
+          "stem": "Tell-don't-ask applied to a BankAccount: which API is more object-oriented?",
+          "options": [
+            "account.withdraw(amount) encapsulating balance checks inside",
+            "if (account.getBalance() >= amount) account.setBalance(balance - amount)",
+            "Reading balance via reflection then mutating the field",
+            "Making balance a public field updated by every caller"
+          ],
+          "correctIndex": 0,
+          "explanation": "Tell the object to withdraw; don't pull state out and decide externally."
+        },
+        {
+          "id": "oops-s2-q14",
+          "stem": "Copy constructor versus clone() — what preference do most interviewers expect to hear?",
+          "options": [
+            "clone() is always deep and never throws",
+            "Explicit copy constructors/factories are clearer and less error-prone than Object.clone",
+            "Copy constructors cannot copy final fields",
+            "clone() is required by the equals contract"
+          ],
+          "correctIndex": 1,
+          "explanation": "clone is awkward (Cloneable, checked exceptions); explicit copies are clearer."
+        },
+        {
+          "id": "oops-s2-q15",
+          "stem": "Anemic domain model criticism: what is missing when entities are data bags?",
+          "options": [
+            "ORM tools cannot map anemic objects",
+            "Too many methods on entities violating SRP always",
+            "Behavior and invariants live outside in services, weakening encapsulation",
+            "Anemic models forbid DTOs by definition"
+          ],
+          "correctIndex": 2,
+          "explanation": "Rich models keep business rules with the data they protect."
+        },
+        {
+          "id": "oops-s2-q16",
+          "stem": "Factory Method versus simple constructor: when is a factory justified?",
+          "options": [
+            "When you want to bypass access modifiers illegally",
+            "Whenever a class has more than one field",
+            "Only for immutable strings in the JDK",
+            "When creation logic varies, caches, or returns subclass instances polymorphically"
+          ],
+          "correctIndex": 3,
+          "explanation": "Factories encapsulate non-trivial or polymorphic construction decisions."
+        },
+        {
+          "id": "oops-s2-q17",
+          "stem": "Symmetric equals: why must a.equals(b) imply b.equals(a) for a correct contract?",
+          "options": [
+            "Collections and algorithms assume equivalence relations; asymmetry breaks them",
+            "Java compilers enforce symmetry with a special keyword",
+            "hashCode ignores equals when symmetry fails",
+            "Asymmetry is required for inheritance hierarchies"
+          ],
+          "correctIndex": 0,
+          "explanation": "equals must be an equivalence relation: reflexive, symmetric, transitive."
+        },
+        {
+          "id": "oops-s2-q18",
+          "stem": "Prefer interfaces for return types of public APIs — why is that considered good design?",
+          "options": [
+            "Interfaces are faster than concrete classes at runtime always",
+            "Callers depend on contracts; you can swap ArrayList for LinkedList later",
+            "Concrete returns are illegal in Java",
+            "Interfaces automatically deep-copy returned collections"
+          ],
+          "correctIndex": 1,
+          "explanation": "Program to an interface so implementations can evolve without breaking callers."
+        },
+        {
+          "id": "oops-s2-q19",
+          "stem": "Object identity (==) versus equality (equals) in Java — interview contrast?",
+          "options": [
+            "equals cannot be overridden; only == is customizable",
+            "== always compares field-by-field contents for objects",
+            "== compares references (for objects); equals compares logical value when overridden",
+            "They are identical for all reference types"
+          ],
+          "correctIndex": 2,
+          "explanation": "== is reference identity; equals is value semantics when properly implemented."
+        },
+        {
+          "id": "oops-s2-q20",
+          "stem": "Mixin composition via delegation: how do you simulate multiple inheritance safely?",
+          "options": [
+            "Make all methods static and call them with class names",
+            "Extend two concrete classes in languages that forbid it",
+            "Copy-paste parent methods into every subclass",
+            "Hold collaborator objects and forward methods instead of inheriting many parents"
+          ],
+          "correctIndex": 3,
+          "explanation": "Delegation/composition provides reuse without multiple-implementation inheritance."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "oops-s3-q01",
+          "stem": "Can equals be consistent with inheritance when adding fields in a subclass? Classic pitfall?",
+          "options": [
+            "Comparing getClass() vs instanceof leads to LSP/symmetry tensions; prefer composition or careful design",
+            "Always use instanceof and ignore symmetry concerns",
+            "Subclasses must not define any new fields ever",
+            "hashCode should ignore subclass fields always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Extending equality across inheritance hierarchies easily breaks symmetry or LSP."
+        },
+        {
+          "id": "oops-s3-q02",
+          "stem": "Circular dependency between two concrete classes — senior remediation?",
+          "options": [
+            "Make both classes inherit from each other",
+            "Extract an interface, invert one dependency, or introduce an event/mediator",
+            "Delete equals and hashCode from both types",
+            "Mark both classes final and public only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Break cycles with abstractions or by pushing interaction to a third collaborator."
+        },
+        {
+          "id": "oops-s3-q03",
+          "stem": "Concurrency: publishing a mutable object before construction finishes — hazard?",
+          "options": [
+            "Constructors are atomic across all JVMs for all fields always",
+            "Immutability makes escape analysis illegal",
+            "Other threads may see a partially initialized object (this escape)",
+            "final fields can never be visible to other threads"
+          ],
+          "correctIndex": 2,
+          "explanation": "Leaking this from a constructor can expose uninitialized state to other threads."
+        },
+        {
+          "id": "oops-s3-q04",
+          "stem": "Visitor pattern versus adding methods to a sealed hierarchy — when is Visitor justified?",
+          "options": [
+            "When you want to avoid compile-time exhaustiveness",
+            "Whenever you have exactly two subclasses",
+            "Only for immutable strings",
+            "When operations over a stable type set evolve often and you want double dispatch"
+          ],
+          "correctIndex": 3,
+          "explanation": "Visitor externalizes operations; modern sealed types + switches are often simpler."
+        },
+        {
+          "id": "oops-s3-q05",
+          "stem": "Binary compatibility when evolving a public abstract class — senior caution?",
+          "options": [
+            "Adding abstract methods breaks existing subclasses; prefer interfaces with defaults carefully",
+            "Any change to an abstract class is always binary-compatible",
+            "Abstract classes cannot be in public APIs",
+            "Removing methods never affects subclasses at link time"
+          ],
+          "correctIndex": 0,
+          "explanation": "Published abstract classes are hard to evolve; new abstract methods break implementors."
+        },
+        {
+          "id": "oops-s3-q06",
+          "stem": "Object pools for mutable reusable instances — what correctness risk appears?",
+          "options": [
+            "Pools make equals and hashCode unnecessary",
+            "Stale state leaking between borrowers unless reset is airtight",
+            "Pooled objects cannot implement interfaces",
+            "GC is disabled permanently when pooling"
+          ],
+          "correctIndex": 1,
+          "explanation": "Reuse requires rigorous cleanup; leftover mutable state causes subtle bugs."
+        },
+        {
+          "id": "oops-s3-q07",
+          "stem": "Hexagonal architecture + OOP: what does a port/adapter boundary protect?",
+          "options": [
+            "Controllers may access SQL drivers directly by design",
+            "All domain classes must extend JpaRepository",
+            "Domain model stays free of framework/UI/DB details behind interfaces",
+            "Adapters must never implement interfaces"
+          ],
+          "correctIndex": 2,
+          "explanation": "Ports are abstractions; adapters plug infrastructure without polluting the core."
+        },
+        {
+          "id": "oops-s3-q08",
+          "stem": "Record / data class as a value object: what still needs senior judgment?",
+          "options": [
+            "Records cannot implement interfaces in Java",
+            "Records automatically enforce all business rules",
+            "equals is unsafe on records and must be deleted",
+            "Validate invariants; avoid exposing mutable nested structures; define domain behavior if needed"
+          ],
+          "correctIndex": 3,
+          "explanation": "Concise value types still need validation and careful handling of nested mutability."
+        },
+        {
+          "id": "oops-s3-q09",
+          "stem": "Multiple inheritance of state (C++): what classic problem do languages avoid with single inheritance + interfaces?",
+          "options": [
+            "Diamond problem of duplicate base state and ambiguous method resolution",
+            "Inability to express polymorphism at all",
+            "Loss of encapsulation in private fields",
+            "Mandatory use of garbage collection"
+          ],
+          "correctIndex": 0,
+          "explanation": "Diamonds duplicate subobjects/state; Java-like models allow many interfaces, one class parent."
+        },
+        {
+          "id": "oops-s3-q10",
+          "stem": "Designing for testability without over-mocking: which OOP practice helps most?",
+          "options": [
+            "Make every method static for easier stubbing",
+            "Depend on narrow interfaces; keep pure domain logic free of static singletons and IO",
+            "Use only concrete final classes with private constructors everywhere",
+            "Put all logic in getters and setters"
+          ],
+          "correctIndex": 1,
+          "explanation": "Thin seams and pure core logic let tests stay fast without mocking the world."
+        }
+      ]
+    }
+  ]
+}

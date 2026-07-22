@@ -1,0 +1,624 @@
+{
+  "slug": "hashing",
+  "title": "Hashing",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "hashing-s1-q01",
+          "stem": "In a coding interview, you are asked: Java hashCode/equals contract — what must you recite? Which response is most accurate?",
+          "options": [
+            "Equal objects must share hashCode; unequal may collide; mutate keys carefully",
+            "equals can ignore hashCode entirely with no rules",
+            "hashCode must be unique for every object",
+            "hashCode may change freely after insert into a HashMap"
+          ],
+          "correctIndex": 0,
+          "explanation": "Consistency between equals and hashCode is mandatory for hash-based collections."
+        },
+        {
+          "id": "hashing-s1-q02",
+          "stem": "In a coding interview, you are asked: Average vs worst lookup in a hash map? Which response is most accurate?",
+          "options": [
+            "Both always O(1)",
+            "Average O(1) expected with good hash/load; worst can degrade (long chains / bad hash)",
+            "Average O(n), worst O(1)",
+            "Always O(log n) like trees"
+          ],
+          "correctIndex": 1,
+          "explanation": "Amortized/expected constant; adversarial or poor hashing hurts."
+        },
+        {
+          "id": "hashing-s1-q03",
+          "stem": "In a coding interview, you are asked: Chaining vs open addressing — one-line distinction? Which response is most accurate?",
+          "options": [
+            "They are identical strategies",
+            "Open addressing needs linked lists per key",
+            "Chaining stores collisions in buckets (lists/trees); open addressing probes other slots in the table",
+            "Chaining forbids load factors above 0"
+          ],
+          "correctIndex": 2,
+          "explanation": "Two classic collision resolutions."
+        },
+        {
+          "id": "hashing-s1-q04",
+          "stem": "In a coding interview, you are asked: Load factor — what is it and why resize? Which response is most accurate?",
+          "options": [
+            "Keys divided by hashCode",
+            "Only used by tree maps",
+            "A synonym for collision count exactly",
+            "n/capacity; beyond a threshold, rehash to keep operations fast"
+          ],
+          "correctIndex": 3,
+          "explanation": "Keep density low enough for short probes/chains."
+        },
+        {
+          "id": "hashing-s1-q05",
+          "stem": "In a coding interview, you are asked: When does a hash map beat sorting for 'unique elements' / frequency? Which response is most accurate?",
+          "options": [
+            "When you need expected O(n) counts/membership vs O(n log n) sort",
+            "Never; sort is always faster",
+            "Only for already-sorted input",
+            "Only when memory is zero"
+          ],
+          "correctIndex": 0,
+          "explanation": "Hashing trades memory for expected linear passes."
+        },
+        {
+          "id": "hashing-s1-q06",
+          "stem": "In a coding interview, you are asked: Mutable object as HashMap key — danger? Which response is most accurate?",
+          "options": [
+            "No danger if equals is overridden",
+            "Changing fields that affect hashCode/equals after insert loses the entry",
+            "Mutation improves lookup speed",
+            "HashMaps copy keys deeply always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Key identity must remain stable while in the map."
+        },
+        {
+          "id": "hashing-s1-q07",
+          "stem": "In a coding interview, you are asked: Hash set vs hash map — screening difference? Which response is most accurate?",
+          "options": [
+            "Set stores key→value; map stores only keys",
+            "Set allows duplicate keys",
+            "Set is membership of keys; map associates keys to values (set often map to present flag)",
+            "Map forbids null in all languages always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Set = keys only; map = key/value."
+        },
+        {
+          "id": "hashing-s1-q08",
+          "stem": "In a coding interview, you are asked: Why is 'O(1) hash map' a slight interview oversimplification? Which response is most accurate?",
+          "options": [
+            "Hash maps are O(n²)",
+            "Big-O forbids hash maps",
+            "O(1) means one CPU cycle",
+            "Hashing the key can be O(key size); constants and collisions matter; worst-case ≠ average"
+          ],
+          "correctIndex": 3,
+          "explanation": "Be precise: expected time, key-length cost, load factor."
+        },
+        {
+          "id": "hashing-s1-q09",
+          "stem": "In a coding interview, you are asked: Frequency multiset problem (count occurrences) — go-to structure? Which response is most accurate?",
+          "options": [
+            "Hash map from element → count",
+            "Balanced BST only",
+            "Queue of elements",
+            "Raw array only when universe is unbounded 64-bit"
+          ],
+          "correctIndex": 0,
+          "explanation": "Counting map is the default multiset tool."
+        },
+        {
+          "id": "hashing-s1-q10",
+          "stem": "In a coding interview, you are asked: Perfect hashing — what does it mean informally? Which response is most accurate?",
+          "options": [
+            "SHA-256 of the key",
+            "A hash scheme with no collisions for a fixed known key set",
+            "Open addressing with linear probe",
+            "Hashing into a linked list"
+          ],
+          "correctIndex": 1,
+          "explanation": "Static sets can get collision-free layouts."
+        },
+        {
+          "id": "hashing-s1-q11",
+          "stem": "In a coding interview, you are asked: Two Sum with hash map — what do you store? Which response is most accurate?",
+          "options": [
+            "Only the target",
+            "All pairwise sums",
+            "Seen values → indices; probe for complement",
+            "Sorted copy exclusively"
+          ],
+          "correctIndex": 2,
+          "explanation": "Complement lookup while scanning."
+        },
+        {
+          "id": "hashing-s1-q12",
+          "stem": "In a coding interview, you are asked: Bucket index from hash — typical step? Which response is most accurate?",
+          "options": [
+            "Always binary search the table",
+            "Sort hashes first",
+            "Multiply by n²",
+            "Use hash % capacity (or bit mask when capacity is power of two)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Map hash space onto table slots."
+        },
+        {
+          "id": "hashing-s1-q13",
+          "stem": "In a coding interview, you are asked: Collision — definition? Which response is most accurate?",
+          "options": [
+            "Different keys map to the same bucket/slot index",
+            "Two tables resized at once",
+            "equals returns true for identical references only",
+            "Load factor below 0.1"
+          ],
+          "correctIndex": 0,
+          "explanation": "Same slot, different keys. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "hashing-s1-q14",
+          "stem": "In a coding interview, you are asked: TreeMap vs HashMap — when mention TreeMap? Which response is most accurate?",
+          "options": [
+            "When you need average O(1) and unordered keys",
+            "When you need sorted keys / range queries; operations O(log n)",
+            "TreeMap forbids Comparable keys",
+            "TreeMap is always faster"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ordered map vs unordered hash map."
+        },
+        {
+          "id": "hashing-s1-q15",
+          "stem": "In a coding interview, you are asked: IdentityHashMap / reference equality — when? Which response is most accurate?",
+          "options": [
+            "Default for all domain keys",
+            "To fix hashCode contract violations automatically",
+            "When key identity is == not equals (rare framework cases)",
+            "For sorting strings"
+          ],
+          "correctIndex": 2,
+          "explanation": "Reference equality is a specialized need."
+        },
+        {
+          "id": "hashing-s1-q16",
+          "stem": "In a coding interview, you are asked: Caching function results (memoization) — structure? Which response is most accurate?",
+          "options": [
+            "Stack only",
+            "Array of size 2 always",
+            "DFS without storage",
+            "Hash map from arguments → result"
+          ],
+          "correctIndex": 3,
+          "explanation": "Memo tables are hash maps (or arrays when domain is dense)."
+        },
+        {
+          "id": "hashing-s1-q17",
+          "stem": "In a coding interview, you are asked: Detect cycle in linked list alternatives — hashing approach? Which response is most accurate?",
+          "options": [
+            "Store seen node identities in a hash set while walking",
+            "Impossible with hashing",
+            "Hash the integer values only (always correct with duplicates)",
+            "Sort the list first"
+          ],
+          "correctIndex": 0,
+          "explanation": "Seen-set works; Floyd is O(1) space alternative."
+        },
+        {
+          "id": "hashing-s1-q18",
+          "stem": "In a coding interview, you are asked: Why redistribute on resize? Which response is most accurate?",
+          "options": [
+            "To shuffle user data randomly for security theater only",
+            "Capacity change changes slot indices; entries must be re-placed under new mask/modulo",
+            "To delete all keys",
+            "Resize never rehashes"
+          ],
+          "correctIndex": 1,
+          "explanation": "New table size ⇒ new bucket indices."
+        },
+        {
+          "id": "hashing-s1-q19",
+          "stem": "In a coding interview, you are asked: Hash multiset removal — detail to get right? Which response is most accurate?",
+          "options": [
+            "Always leave count at zero forever",
+            "Delete all keys on one remove",
+            "Decrement count; remove key when count hits zero",
+            "Removal is O(n) mandatory"
+          ],
+          "correctIndex": 2,
+          "explanation": "Zero-count keys should disappear to keep maps clean."
+        },
+        {
+          "id": "hashing-s1-q20",
+          "stem": "In a coding interview, you are asked: Screening: expected time to check key membership in a well-sized hash set? Which answer is best?",
+          "options": [
+            "Option claiming: O(n)",
+            "O(log n)",
+            "O(n log n)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Expected constant-time membership."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "hashing-s2-q01",
+          "stem": "In a coding interview, you are asked: Subarray sum equals k with negatives — hash role? Which response is most accurate?",
+          "options": [
+            "Map prefixSum → frequency; look for prefixSum−k",
+            "Store window characters",
+            "Hash the array indices only",
+            "Open address the target k"
+          ],
+          "correctIndex": 0,
+          "explanation": "Prefix frequencies turn the problem into complement counts."
+        },
+        {
+          "id": "hashing-s2-q02",
+          "stem": "In a coding interview, you are asked: Group anagrams — hashing angle? Which response is most accurate?",
+          "options": [
+            "Hash object identity of StringBuilder",
+            "Hash canonical signature (sorted string or count tuple) to list",
+            "Hash length alone",
+            "TreeMap by first char only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Signature hashing buckets equivalents."
+        },
+        {
+          "id": "hashing-s2-q03",
+          "stem": "In a coding interview, you are asked: LRU cache — structures you combine? Which response is most accurate?",
+          "options": [
+            "ArrayList only",
+            "Two stacks of keys",
+            "Hash map key→node plus doubly linked list (or LinkedHashMap ordering)",
+            "Bloom filter alone"
+          ],
+          "correctIndex": 2,
+          "explanation": "O(1) lookup + O(1) splice for recency."
+        },
+        {
+          "id": "hashing-s2-q04",
+          "stem": "In a coding interview, you are asked: Copy list with random pointer — hash trick? Which response is most accurate?",
+          "options": [
+            "Impossible without graph libraries",
+            "Hash only the random indices as ints",
+            "Sort nodes by value",
+            "Map original node → clone while first pass, wire next/random second pass"
+          ],
+          "correctIndex": 3,
+          "explanation": "Identity map from old to new nodes."
+        },
+        {
+          "id": "hashing-s2-q05",
+          "stem": "In a coding interview, you are asked: Longest consecutive sequence — why hash set? Which response is most accurate?",
+          "options": [
+            "O(1) predecessor checks; only expand from streak starts",
+            "To sort in O(n)",
+            "Sets keep order of insertion as sorted order",
+            "Because arrays cannot hold integers"
+          ],
+          "correctIndex": 0,
+          "explanation": "Membership tests make linear total expansion."
+        },
+        {
+          "id": "hashing-s2-q06",
+          "stem": "In a coding interview, you are asked: Four sum II style — hashing optimization? Which response is most accurate?",
+          "options": [
+            "Four nested loops only",
+            "Hash sums of one pair of arrays; probe complements from the other pair",
+            "Sort all four and binary search once",
+            "Convert to strings and KMP"
+          ],
+          "correctIndex": 1,
+          "explanation": "Meet-in-the-middle via sum frequencies."
+        },
+        {
+          "id": "hashing-s2-q07",
+          "stem": "In a coding interview, you are asked: Isomorphic strings — map usage? Which response is most accurate?",
+          "options": [
+            "One boolean flag",
+            "Hash the concatenation",
+            "Bijection maps s→t and t→s (or map + used-set) character-wise",
+            "Count total vowels"
+          ],
+          "correctIndex": 2,
+          "explanation": "Need both directions to enforce one-to-one mapping."
+        },
+        {
+          "id": "hashing-s2-q08",
+          "stem": "In a coding interview, you are asked: Word pattern ('abba' vs 'dog cat cat dog') — same idea as? Which response is most accurate?",
+          "options": [
+            "Edit distance",
+            "Option claiming: KMP",
+            "Option claiming: RLE",
+            "Isomorphic mapping between pattern tokens and words"
+          ],
+          "correctIndex": 3,
+          "explanation": "Token isomorphism via dual maps."
+        },
+        {
+          "id": "hashing-s2-q09",
+          "stem": "In a coding interview, you are asked: Design a sparse vector dot product — structure? Which response is most accurate?",
+          "options": [
+            "Hash map index→value for nonzeros; iterate smaller side probing the other",
+            "Dense float[1e9]",
+            "Linked list of all zeros",
+            "Bloom filter of indices"
+          ],
+          "correctIndex": 0,
+          "explanation": "Store nonzeros; intersect indices efficiently."
+        },
+        {
+          "id": "hashing-s2-q10",
+          "stem": "In a coding interview, you are asked: Find duplicate files by content — hashing approach? Which response is most accurate?",
+          "options": [
+            "Compare all pairs of full files always first",
+            "Hash content (often hierarchical: size then hash) to group candidates, then verify",
+            "Hash file paths only",
+            "Sort filenames"
+          ],
+          "correctIndex": 1,
+          "explanation": "Content hashes cluster likely duplicates."
+        },
+        {
+          "id": "hashing-s2-q11",
+          "stem": "In a coding interview, you are asked: Rolling hash for substring search — update idea? Which response is most accurate?",
+          "options": [
+            "Recompute from scratch each window always",
+            "Sort window chars each time",
+            "Remove leaving char contribution, shift, add entering char — O(1) per slide",
+            "Use equals on whole text each step"
+          ],
+          "correctIndex": 2,
+          "explanation": "Algebraic update makes Rabin–Karp slide fast."
+        },
+        {
+          "id": "hashing-s2-q12",
+          "stem": "In a coding interview, you are asked: Count distinct elements in every window of size k — tools? Which response is most accurate?",
+          "options": [
+            "One integer counter only",
+            "Sort each window",
+            "Segment tree mandatory",
+            "Sliding window + hash map of frequencies; bump distinct when count transitions 0↔1"
+          ],
+          "correctIndex": 3,
+          "explanation": "Freq map tracks how many unique in window."
+        },
+        {
+          "id": "hashing-s2-q13",
+          "stem": "In a coding interview, you are asked: Alien dictionary order — hashing/graph combo? Which response is most accurate?",
+          "options": [
+            "Build adjacency from sorted adjacent word diffs; then Kahn/DFS topo; map for edges",
+            "HashSet of letters only solves order",
+            "RLE the dictionary",
+            "Binary search words"
+          ],
+          "correctIndex": 0,
+          "explanation": "Edge set from mismatches + topological sort."
+        },
+        {
+          "id": "hashing-s2-q14",
+          "stem": "In a coding interview, you are asked: Randomized Set insert/remove/getRandom O(1) — layout? Which response is most accurate?",
+          "options": [
+            "HashMap alone cannot getRandom O(1)",
+            "ArrayList of values + HashMap value→index; swap-remove on delete",
+            "LinkedList get(i) for random",
+            "TreeMap of ranks"
+          ],
+          "correctIndex": 1,
+          "explanation": "Swap-with-last + index map is the classic design."
+        },
+        {
+          "id": "hashing-s2-q15",
+          "stem": "In a coding interview, you are asked: Two strings are permutations — hash way without sorting? Which response is most accurate?",
+          "options": [
+            "XOR lengths",
+            "HashCode equality implies permutation",
+            "Frequency map/array counts must match",
+            "Stack reverse one string"
+          ],
+          "correctIndex": 2,
+          "explanation": "Equal counts ⇔ same multiset of chars."
+        },
+        {
+          "id": "hashing-s2-q16",
+          "stem": "In a coding interview, you are asked: Avoiding DoS from hash collisions in servers — mitigation talk track? Which response is most accurate?",
+          "options": [
+            "Disable hashing",
+            "Always use open addressing without probes",
+            "Sort every map key on insert only",
+            "SipHash/randomized seeds, treeify long buckets, limits on request maps"
+          ],
+          "correctIndex": 3,
+          "explanation": "Adversarial keys can force O(n) chains without defenses."
+        },
+        {
+          "id": "hashing-s2-q17",
+          "stem": "In a coding interview, you are asked: Consistent hashing — problem it targets? Which response is most accurate?",
+          "options": [
+            "Distributed key remapping: minimize key movement when nodes add/remove",
+            "Local Two Sum",
+            "Perfect static hashing only",
+            "Replacing equals"
+          ],
+          "correctIndex": 0,
+          "explanation": "Ring hashing for caches/shards."
+        },
+        {
+          "id": "hashing-s2-q18",
+          "stem": "In a coding interview, you are asked: Bloom filter — what do you promise? Which response is most accurate?",
+          "options": [
+            "Exact membership with no error",
+            "Probabilistic set: no false negatives; possible false positives; tiny space",
+            "Sorted iteration of keys",
+            "O(1) deletion without variants"
+          ],
+          "correctIndex": 1,
+          "explanation": "Space-efficient approximate membership."
+        },
+        {
+          "id": "hashing-s2-q19",
+          "stem": "In a coding interview, you are asked: First missing positive without huge array — hashing angle vs index-hash? Which answer is best?",
+          "options": [
+            "Must allocate HashSet of size Integer.MAX_VALUE",
+            "TreeMap is required for O(n)",
+            "HashSet of nums then scan 1..n+1, or cycle-sort index placement for O(1) extra",
+            "Bloom filter exact answer"
+          ],
+          "correctIndex": 2,
+          "explanation": "Set scan is simple; in-place index map is the optimization."
+        },
+        {
+          "id": "hashing-s2-q20",
+          "stem": "In a coding interview, you are asked: Map of maps for prefix frequencies of pairs — when? Which response is most accurate?",
+          "options": [
+            "Never useful",
+            "Only for string RLE",
+            "Replacing arrays of size 2",
+            "Problems needing counts of pairs/tuples (e.g. 4Sum variants, geometric pairs)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Nested frequency tables appear in pair-counting problems."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "hashing-s3-q01",
+          "stem": "In a coding interview, you are asked: Senior: Java 8+ HashMap treeifies long colliding bins — why? Which response is most accurate?",
+          "options": [
+            "Bound worst-case lookup toward O(log n) under collision attacks / bad hashes",
+            "To make average case O(n)",
+            "Trees use less memory than lists always",
+            "To preserve insertion order"
+          ],
+          "correctIndex": 0,
+          "explanation": "Tree bins mitigate pathological chains."
+        },
+        {
+          "id": "hashing-s3-q02",
+          "stem": "In a coding interview, you are asked: Open addressing deletion pitfall? Which response is most accurate?",
+          "options": [
+            "Just clear the slot to empty always works with linear probe",
+            "Must use tombstones (or careful rehash) so probe sequences don't break",
+            "Deletion is impossible",
+            "Load factor ignores deletions"
+          ],
+          "correctIndex": 1,
+          "explanation": "Empty holes truncate probes incorrectly without tombstones."
+        },
+        {
+          "id": "hashing-s3-q03",
+          "stem": "In a coding interview, you are asked: Why power-of-two capacities in many hash maps? Which response is most accurate?",
+          "options": [
+            "Aesthetic",
+            "Forbids open addressing",
+            "Allow bit-mask instead of modulo; faster index from hash",
+            "Guarantees zero collisions"
+          ],
+          "correctIndex": 2,
+          "explanation": "index = hash & (cap−1) when cap is 2^k."
+        },
+        {
+          "id": "hashing-s3-q04",
+          "stem": "In a coding interview, you are asked: hashCode quality: only using one field of a multi-field key? Which response is most accurate?",
+          "options": [
+            "Always optimal",
+            "Required by the equals contract",
+            "Makes TreeMap faster",
+            "Increases collisions when that field repeats; mix all significant fields"
+          ],
+          "correctIndex": 3,
+          "explanation": "Poor hash distribution destroys performance."
+        },
+        {
+          "id": "hashing-s3-q05",
+          "stem": "In a coding interview, you are asked: Memory: HashMap overhead vs dense array for int→int on 0..n? Which response is most accurate?",
+          "options": [
+            "HashMap has per-entry object overhead; dense array often wins for dense universes",
+            "HashMap always uses less memory",
+            "Arrays cannot store ints",
+            "Overhead is exactly 1 bit per key"
+          ],
+          "correctIndex": 0,
+          "explanation": "Constants and object headers matter at scale."
+        },
+        {
+          "id": "hashing-s3-q06",
+          "stem": "In a coding interview, you are asked: ConcurrentHashMap vs synchronized HashMap — interview point? Which response is most accurate?",
+          "options": [
+            "They are identical",
+            "CHM allows finer-grained concurrency; don't iterate shared HashMap without external sync",
+            "HashMap is thread-safe by default",
+            "CHM permits mutable keys safely always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Concurrency story beats 'just synchronize everything' handwaving."
+        },
+        {
+          "id": "hashing-s3-q07",
+          "stem": "In a coding interview, you are asked: When sort+two-pointers beats hash for pairs? Which response is most accurate?",
+          "options": [
+            "Option claiming: Never",
+            "Only when n < 3",
+            "Tight memory, need deterministic O(n log n), or avoid hash overhead/worst-case concerns",
+            "When keys are strings of length 10^6 each"
+          ],
+          "correctIndex": 2,
+          "explanation": "Sorting can be the better engineering choice."
+        },
+        {
+          "id": "hashing-s3-q08",
+          "stem": "In a coding interview, you are asked: Floating-point keys in hash maps — caution? Which response is most accurate?",
+          "options": [
+            "Floats hash perfectly with no surprises",
+            "Floats cannot be hashed in Java",
+            "Use == instead of equals for all floats in sets",
+            "NaN/−0.0 equals quirks; prefer canonicalization or avoid as keys"
+          ],
+          "correctIndex": 3,
+          "explanation": "IEEE edge cases break naive keying."
+        },
+        {
+          "id": "hashing-s3-q09",
+          "stem": "In a coding interview, you are asked: Universal hashing — why mention theoretically? Which response is most accurate?",
+          "options": [
+            "Randomized hash families bound expected collisions vs adversarial keys",
+            "It removes need for equals",
+            "It guarantees perfect hashing for streaming infinite sets",
+            "It replaces cryptographic hashes in TLS"
+          ],
+          "correctIndex": 0,
+          "explanation": "Expected-case guarantees against worst inputs."
+        },
+        {
+          "id": "hashing-s3-q10",
+          "stem": "In a coding interview, you are asked: Resizing storms under load — operational pitfall? Which response is most accurate?",
+          "options": [
+            "Resize is O(1) always",
+            "Sudden large rehash can stall latency; size capacity / use incremental strategies when relevant",
+            "Load factor 0.75 forbids stalls",
+            "Only GC causes map latency"
+          ],
+          "correctIndex": 1,
+          "explanation": "Stop-the-world rehash is a real latency spike."
+        }
+      ]
+    }
+  ]
+}

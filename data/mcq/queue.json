@@ -1,0 +1,624 @@
+{
+  "slug": "queue",
+  "title": "Queue",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "queue-s1-q01",
+          "stem": "In a coding interview, you are asked: What ordering does a standard queue enforce? Which response is most accurate?",
+          "options": [
+            "FIFO — first in, first out",
+            "Option claiming: LIFO",
+            "Sorted by priority always",
+            "Random order"
+          ],
+          "correctIndex": 0,
+          "explanation": "Enqueue at the back, dequeue from the front—classic FIFO."
+        },
+        {
+          "id": "queue-s1-q02",
+          "stem": "In a coding interview, how should you answer this: Core queue operations are typically named:? Choose the strongest option.",
+          "options": [
+            "push / pop only (no other names exist)",
+            "enqueue / dequeue (offer/poll in some APIs), plus peek",
+            "addFirst / removeLast exclusively",
+            "union / find"
+          ],
+          "correctIndex": 1,
+          "explanation": "Enqueue inserts rear; dequeue removes front; peek reads front."
+        },
+        {
+          "id": "queue-s1-q03",
+          "stem": "In a coding interview, how should you answer this: Dequeuing from an empty queue should:? Choose the strongest option.",
+          "options": [
+            "Return a magic zero silently in all designs",
+            "Block the CPU interrupt table",
+            "Signal underflow / empty (exception or empty Optional)",
+            "Convert to a stack"
+          ],
+          "correctIndex": 2,
+          "explanation": "Empty dequeue is exceptional or explicitly empty—don’t invent data."
+        },
+        {
+          "id": "queue-s1-q04",
+          "stem": "In a coding interview, how should you answer this: A circular buffer (ring) implements a bounded queue by:? Choose the strongest option.",
+          "options": [
+            "Shifting all elements on every dequeue",
+            "Allocating a new array on every enqueue",
+            "Storing elements in a BST",
+            "Using head/tail indices modulo capacity to reuse the array slot space"
+          ],
+          "correctIndex": 3,
+          "explanation": "Modulo arithmetic wraps indices so the fixed array is reused without shifting."
+        },
+        {
+          "id": "queue-s1-q05",
+          "stem": "Why prefer a circular array over a naive “shift left on dequeue” array queue?",
+          "options": [
+            "Avoid O(n) shifts; ring ops are O(1) time per enqueue/dequeue",
+            "Shifting is O(1)",
+            "Circular buffers cannot be bounded",
+            "Shifting improves cache misses always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Shifting makes dequeue O(n); head/tail indices keep both ends O(1)."
+        },
+        {
+          "id": "queue-s1-q06",
+          "stem": "In a coding interview, how should you answer this: A deque (double-ended queue) allows:? Choose the strongest option.",
+          "options": [
+            "Insert/remove only at the front",
+            "Insert/remove at both front and back in O(1) (typical implementations)",
+            "Only middle inserts in O(1)",
+            "Priority-based removal only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Deques support both ends; they can implement stacks or queues."
+        },
+        {
+          "id": "queue-s1-q07",
+          "stem": "In a coding interview, how should you answer this: In BFS on a graph, the queue’s role is to:? Choose the strongest option.",
+          "options": [
+            "Process nodes in LIFO order for depth-first discovery",
+            "Sort edges by weight",
+            "Expand nodes level by level so first discovered is first expanded",
+            "Detect cycles via Floyd"
+          ],
+          "correctIndex": 2,
+          "explanation": "FIFO yields non-decreasing distance order in unweighted graphs."
+        },
+        {
+          "id": "queue-s1-q08",
+          "stem": "In a coding interview, how should you answer this: Implementing a queue with a singly linked list is efficient when you:? Choose the strongest option.",
+          "options": [
+            "Enqueue and dequeue both at the head only",
+            "Scan for the minimum each time",
+            "Store nodes in a hash set only",
+            "Keep head and tail pointers: enqueue at tail, dequeue at head"
+          ],
+          "correctIndex": 3,
+          "explanation": "Two ends need two references; otherwise one operation becomes O(n)."
+        },
+        {
+          "id": "queue-s1-q09",
+          "stem": "In a coding interview, you are asked: Which real-world metaphor best matches a queue? Which response is most accurate?",
+          "options": [
+            "People waiting in a single-file ticket line",
+            "A stack of plates",
+            "A tournament bracket heap",
+            "A call stack of nested functions"
+          ],
+          "correctIndex": 0,
+          "explanation": "The first person in line is served first—FIFO."
+        },
+        {
+          "id": "queue-s1-q10",
+          "stem": "In a coding interview, how should you answer this: Peek on a queue returns:? Choose the strongest option.",
+          "options": [
+            "The most recently enqueued element",
+            "The front element (next to be dequeued) without removing it",
+            "The median element",
+            "All elements concatenated"
+          ],
+          "correctIndex": 1,
+          "explanation": "Peek/front observes without dequeue."
+        },
+        {
+          "id": "queue-s1-q11",
+          "stem": "In a coding interview, how should you answer this: Bounded queue that is full on enqueue should typically:? Choose the strongest option.",
+          "options": [
+            "Overwrite the oldest without policy",
+            "Silently drop the front and the new item",
+            "Reject / block / apply backpressure per the chosen policy",
+            "Become unbounded automatically in all systems"
+          ],
+          "correctIndex": 2,
+          "explanation": "Full bounded queues need an explicit policy: error, block, or drop with rules."
+        },
+        {
+          "id": "queue-s1-q12",
+          "stem": "In a coding interview, how should you answer this: Priority queues differ from FIFO queues because:? Choose the strongest option.",
+          "options": [
+            "They always use linked lists",
+            "They cannot store duplicates",
+            "They forbid peek",
+            "Removal order follows priority, not arrival time alone"
+          ],
+          "correctIndex": 3,
+          "explanation": "Heaps/priority queues extract by priority; FIFO ignores keys."
+        },
+        {
+          "id": "queue-s1-q13",
+          "stem": "In a coding interview, you are asked: In Java, ArrayDeque as a queue is often preferred over LinkedList because:? Which answer is best?",
+          "options": [
+            "Better locality and fewer per-node allocations for typical FIFO workloads",
+            "LinkedList is not a Queue",
+            "ArrayDeque cannot grow",
+            "LinkedList is lock-free"
+          ],
+          "correctIndex": 0,
+          "explanation": "ArrayDeque’s circular array usually outperforms pointer-heavy LinkedList for queues."
+        },
+        {
+          "id": "queue-s1-q14",
+          "stem": "In a coding interview, how should you answer this: Space for n queued elements is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(1)",
+            "Option claiming: O(n)",
+            "O(log n)",
+            "O(n log n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "All pending elements must be stored—linear space."
+        },
+        {
+          "id": "queue-s1-q15",
+          "stem": "In a coding interview, you are asked: Which problem naturally uses a queue? Which response is most accurate?",
+          "options": [
+            "Matching parentheses",
+            "Next greater element via monotonic stack only",
+            "Level-order traversal of a tree",
+            "DFS-only maze without revisiting levels"
+          ],
+          "correctIndex": 2,
+          "explanation": "Level-order is BFS: enqueue children, dequeue parents."
+        },
+        {
+          "id": "queue-s1-q16",
+          "stem": "In a coding interview, how should you answer this: A double-ended queue used as a stack means you:? Choose the strongest option.",
+          "options": [
+            "Must enqueue only in the middle",
+            "Lose O(1) end operations",
+            "Require two physical machines",
+            "Push and pop from the same end"
+          ],
+          "correctIndex": 3,
+          "explanation": "Stack discipline is LIFO at one end; deques support that easily."
+        },
+        {
+          "id": "queue-s1-q17",
+          "stem": "In a coding interview, how should you answer this: Producer–consumer pipelines commonly place between stages:? Choose the strongest option.",
+          "options": [
+            "A shared FIFO queue (often bounded)",
+            "Only a global mutable int",
+            "A call stack shared across threads without locks",
+            "A singly linked list without any sync"
+          ],
+          "correctIndex": 0,
+          "explanation": "Queues decouple producers and consumers; bounds implement backpressure."
+        },
+        {
+          "id": "queue-s1-q18",
+          "stem": "In a coding interview, you are asked: In a ring buffer of capacity C, distinguishing full vs empty often needs:? Which answer is best?",
+          "options": [
+            "No extra state ever",
+            "A count, or an empty slot convention, or mirroring index tricks",
+            "Sorting the buffer",
+            "A second identical buffer always"
+          ],
+          "correctIndex": 1,
+          "explanation": "When head==tail, is it empty or full? Extra state or wasted slot resolves ambiguity."
+        },
+        {
+          "id": "queue-s1-q19",
+          "stem": "Amortized complexity of enqueue on a resizable array queue (not shifting) is:",
+          "options": [
+            "O(n) amortized",
+            "O(log n) amortized",
+            "O(1) amortized",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Like dynamic arrays, occasional resize amortizes to O(1) per insert."
+        },
+        {
+          "id": "queue-s1-q20",
+          "stem": "In a coding interview, you are asked: Which statement is true? Which response is most accurate?",
+          "options": [
+            "Queues cannot be implemented with linked lists",
+            "Queues are always slower than stacks by Big-O",
+            "BFS requires a stack",
+            "Stacks and queues differ in which end removals use relative to insertions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Both are restricted lists; FIFO vs LIFO is the semantic difference."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "queue-s2-q01",
+          "stem": "In a coding interview, how should you answer this: Implementing a queue with two stacks works by:? Choose the strongest option.",
+          "options": [
+            "Incoming stack for enqueue; outgoing stack for dequeue (pour when outgoing empty)",
+            "Pushing to both stacks on every enqueue",
+            "Using stacks as heaps",
+            "Sorting after each operation"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pour reverses twice → FIFO; amortized O(1) with lazy transfer."
+        },
+        {
+          "id": "queue-s2-q02",
+          "stem": "In a coding interview, how should you answer this: Sliding window maximum in O(n) often uses a deque to store:? Choose the strongest option.",
+          "options": [
+            "A full sorted copy of the array",
+            "All window indices in increasing order of value candidates (monotonic deque)",
+            "Only the window size as an integer",
+            "BFS parents"
+          ],
+          "correctIndex": 1,
+          "explanation": "Monotonic deque drops smaller useless indices from the back; front is max."
+        },
+        {
+          "id": "queue-s2-q03",
+          "stem": "In a coding interview, how should you answer this: 0-1 BFS (edges weight 0 or 1) uses a deque to:? Choose the strongest option.",
+          "options": [
+            "Always push to back like Dijkstra with a binary heap only",
+            "Ignore weights",
+            "Push weight-0 neighbors to front and weight-1 to back",
+            "Sort the deque each step"
+          ],
+          "correctIndex": 2,
+          "explanation": "Deque maintains increasing distance order for 0-1 weights in linear time."
+        },
+        {
+          "id": "queue-s2-q04",
+          "stem": "In a coding interview, you are asked: Design a circular queue (fixed capacity) API: enQueue when full should:? Which answer is best?",
+          "options": [
+            "Always overwrite the front",
+            "Resize by 2× silently in LeetCode-style fixed circular queue",
+            "Convert to a linked list mid-call",
+            "Return false / fail without overwriting"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic bounded circular queue problems reject when full."
+        },
+        {
+          "id": "queue-s2-q05",
+          "stem": "In a coding interview, how should you answer this: Moving average from a data stream uses a queue to:? Choose the strongest option.",
+          "options": [
+            "Keep the last W elements, dequeue when window exceeds W, maintain a running sum",
+            "Sort all historical values",
+            "Store only the average without elements",
+            "DFS the stream"
+          ],
+          "correctIndex": 0,
+          "explanation": "FIFO window drops oldest; sum updates in O(1)."
+        },
+        {
+          "id": "queue-s2-q06",
+          "stem": "In a coding interview, how should you answer this: Shortest path in an unweighted maze is computed with:? Choose the strongest option.",
+          "options": [
+            "Dijkstra with Fibonacci heaps only",
+            "BFS queue tracking distance/parents",
+            "DFS that always finds shortest paths",
+            "A monotonic stack of cells"
+          ],
+          "correctIndex": 1,
+          "explanation": "Unweighted shortest paths = BFS layers."
+        },
+        {
+          "id": "queue-s2-q07",
+          "stem": "In a coding interview, how should you answer this: Multi-source BFS starts by:? Choose the strongest option.",
+          "options": [
+            "Running separate BFS and taking min without a shared queue",
+            "Using a stack of sources",
+            "Enqueuing all sources at distance 0 before the loop",
+            "Sorting sources by id"
+          ],
+          "correctIndex": 2,
+          "explanation": "Seed the queue with every source so the first visit is globally nearest."
+        },
+        {
+          "id": "queue-s2-q08",
+          "stem": "In a coding interview, how should you answer this: Implement stack using two queues (costly) typically:? Choose the strongest option.",
+          "options": [
+            "Makes push O(1) and pop O(1) easily without tricks",
+            "Is impossible",
+            "Needs four queues minimum",
+            "Pays O(n) on either push or pop by rotating queues to expose LIFO end"
+          ],
+          "correctIndex": 3,
+          "explanation": "FIFO structures can simulate LIFO with rotations—some op becomes O(n)."
+        },
+        {
+          "id": "queue-s2-q09",
+          "stem": "In a coding interview, how should you answer this: Task scheduler / cooldown problems often combine counting with:? Choose the strongest option.",
+          "options": [
+            "A queue/timeline of when a task becomes available again",
+            "Only a single integer counter",
+            "Floyd cycle finding",
+            "BST serialization"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cooldowns are time-ordered readiness—queue or time buckets help."
+        },
+        {
+          "id": "queue-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Number of islands / rotting oranges grid BFS uses a queue to:? Choose the strongest option.",
+          "options": [
+            "Sort cell values",
+            "Expand infected/visited cells level by level for time or connectivity",
+            "Replace DFS entirely in all graph problems forever",
+            "Compute MST"
+          ],
+          "correctIndex": 1,
+          "explanation": "Grid multisource/infection timing is textbook BFS."
+        },
+        {
+          "id": "queue-s2-q11",
+          "stem": "In a coding interview, how should you answer this: A blocking queue in concurrent code provides:? Choose the strongest option.",
+          "options": [
+            "Busy-spin only with no waiting",
+            "Automatic distributed consensus",
+            "Thread waits on empty take / full put—coordination for producers/consumers",
+            "LIFO ordering"
+          ],
+          "correctIndex": 2,
+          "explanation": "BlockingQueue couples waiting with capacity—core concurrency primitive."
+        },
+        {
+          "id": "queue-s2-q12",
+          "stem": "In a coding interview, how should you answer this: Backpressure metaphor for a bounded queue means:? Choose the strongest option.",
+          "options": [
+            "Consumers must always outrun producers with infinite buffers",
+            "The queue compresses data automatically",
+            "Network routers ignore queue length",
+            "Producers slow/block/drop when consumers lag and the queue fills"
+          ],
+          "correctIndex": 3,
+          "explanation": "Full buffers push pressure upstream so the system doesn’t OOM."
+        },
+        {
+          "id": "queue-s2-q13",
+          "stem": "In a coding interview, how should you answer this: First unique character in a stream can use queue + frequency map to:? Choose the strongest option.",
+          "options": [
+            "Keep candidate indices in FIFO order and skip those with count > 1",
+            "Sort the stream online",
+            "Use only a stack of characters",
+            "BFS the alphabet"
+          ],
+          "correctIndex": 0,
+          "explanation": "Queue holds potential uniques in arrival order; map tracks counts."
+        },
+        {
+          "id": "queue-s2-q14",
+          "stem": "In a coding interview, you are asked: Why can LinkedList queue suffer more GC/allocator churn than ArrayDeque? Which answer is best?",
+          "options": [
+            "It does not",
+            "Each element is a separate node object with pointers",
+            "ArrayDeque allocates one node per bit",
+            "LinkedList stores primitives inline always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Per-element nodes cost allocation and pointer chasing."
+        },
+        {
+          "id": "queue-s2-q15",
+          "stem": "In a coding interview, how should you answer this: Level-order zigzag traversal uses a queue (or deque) and:? Choose the strongest option.",
+          "options": [
+            "Requires a priority queue of depths",
+            "Cannot use FIFO at all",
+            "Alternates direction when emitting each level’s values",
+            "Sorts children by value each time"
+          ],
+          "correctIndex": 2,
+          "explanation": "Still BFS levels; reverse every other level’s output (or use deque ends)."
+        },
+        {
+          "id": "queue-s2-q16",
+          "stem": "When composing microservices, an unbounded in-memory queue between stages risks:",
+          "options": [
+            "Nothing if FIFO",
+            "Mandatory correctness",
+            "Automatic exactly-once delivery",
+            "Memory exhaustion under load spikes—prefer bounds + backpressure"
+          ],
+          "correctIndex": 3,
+          "explanation": "Unbounded queues hide overload until OOM; bounds make failure modes explicit."
+        },
+        {
+          "id": "queue-s2-q17",
+          "stem": "In a coding interview, how should you answer this: Josephus problem variants are often simulated with:? Choose the strongest option.",
+          "options": [
+            "A queue: dequeue and re-enqueue skips until elimination count",
+            "Only binary search",
+            "A min-stack",
+            "Floyd’s tortoise without a circle"
+          ],
+          "correctIndex": 0,
+          "explanation": "Circular counting maps cleanly to queue rotations."
+        },
+        {
+          "id": "queue-s2-q18",
+          "stem": "In a coding interview, you are asked: Hit counter (hits in last 5 minutes) can use a queue of timestamps to:? Which answer is best?",
+          "options": [
+            "Store every hit forever without eviction",
+            "Evict timestamps older than the window from the front",
+            "Sort hits by user id",
+            "Use DFS on time"
+          ],
+          "correctIndex": 1,
+          "explanation": "FIFO by time drops expired events in amortized O(1)."
+        },
+        {
+          "id": "queue-s2-q19",
+          "stem": "In a coding interview, how should you answer this: OpenLock / Word Ladder style problems use BFS queues because:? Choose the strongest option.",
+          "options": [
+            "DFS always shorter",
+            "Dijkstra is illegal",
+            "Each move has equal cost; first time you reach the target is fewest steps",
+            "Stacks find shortest unweighted paths"
+          ],
+          "correctIndex": 2,
+          "explanation": "Unit-cost state graphs → BFS distances."
+        },
+        {
+          "id": "queue-s2-q20",
+          "stem": "In a coding interview, how should you answer this: A deque-based “sliding window min” differs from max by:? Choose the strongest option.",
+          "options": [
+            "Using a queue that is not monotonic",
+            "Requiring O(n²) time",
+            "Forbidding index storage",
+            "Maintaining increasing candidates at the front instead of decreasing (or vice versa)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same monotonic deque idea; inequality direction flips for min vs max."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "queue-s3-q01",
+          "stem": "In a coding interview, you are asked: Senior pitfall: using Stack for BFS “because it’s a list.” What breaks? Which answer is best?",
+          "options": [
+            "You get DFS-ish order; distances/shortest-path arguments for unweighted graphs fail",
+            "Nothing—LIFO still yields levels",
+            "The compiler rejects it",
+            "Queues cannot hold graph nodes"
+          ],
+          "correctIndex": 0,
+          "explanation": "BFS correctness depends on FIFO; a stack silently changes the algorithm."
+        },
+        {
+          "id": "queue-s3-q02",
+          "stem": "In a coding interview, how should you answer this: Ring buffer full/empty bug (head==tail meaning both) manifests as:? Choose the strongest option.",
+          "options": [
+            "Perfect utilization always",
+            "False full or false empty unless you track size or waste one slot",
+            "Automatic resizing",
+            "Thread safety"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic fencepost: need a discriminator for the ambiguous state."
+        },
+        {
+          "id": "queue-s3-q03",
+          "stem": "In a coding interview, you are asked: Two-stack queue with careless transfer every operation (not lazy) causes:? Which answer is best?",
+          "options": [
+            "Still amortized O(1) somehow",
+            "FIFO becoming LIFO",
+            "O(n) per op and cache-unfriendly churn—lazy pour when out is empty",
+            "Mandatory correctness bugs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Eager full transfers each time destroy the amortization story."
+        },
+        {
+          "id": "queue-s3-q04",
+          "stem": "In distributed systems, a local in-process queue is not a substitute for a durable log when:",
+          "options": [
+            "You only need single-threaded in-memory decoupling",
+            "Latency must be nanoseconds on one box",
+            "The queue is bounded",
+            "You need crash survival and cross-process consumers"
+          ],
+          "correctIndex": 3,
+          "explanation": "Memory queues die with the process; Kafka/SQS etc. add durability/fan-out."
+        },
+        {
+          "id": "queue-s3-q05",
+          "stem": "False sharing / cache-line ping-pong on concurrent ring buffers often comes from:",
+          "options": [
+            "Head and tail counters sharing a cache line between producer and consumer cores",
+            "Using too much padding",
+            "Linked lists only",
+            "Java ArrayDeque being concurrent"
+          ],
+          "correctIndex": 0,
+          "explanation": "High-perf queues pad/separate counters; naive layouts thrash caches."
+        },
+        {
+          "id": "queue-s3-q06",
+          "stem": "Dropping newest vs oldest on overflow is a product decision. Dropping oldest (coalescing sensors) means:",
+          "options": [
+            "Consumers always see stale spikes only",
+            "You keep freshest data, losing history—document the policy",
+            "Exactly-once processing",
+            "No data loss ever"
+          ],
+          "correctIndex": 1,
+          "explanation": "Overwrite policies trade completeness for freshness; make it explicit."
+        },
+        {
+          "id": "queue-s3-q07",
+          "stem": "In a coding interview, how should you answer this: BFS memory blow-up on wide graphs: mitigation includes:? Choose the strongest option.",
+          "options": [
+            "Ignoring visited sets",
+            "Switching to an unbounded stack",
+            "Visited/seen marks, bidirectional BFS, or problem-specific pruning",
+            "Storing the entire power set of nodes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Queue width can be huge; visited and bidirectional search reduce frontier size."
+        },
+        {
+          "id": "queue-s3-q08",
+          "stem": "Why is “queue via stacks” a common interview question but rare in hot paths?",
+          "options": [
+            "It is asymptotically faster than arrays",
+            "Hardware lacks FIFO support",
+            "It cannot be correct",
+            "Teaching composition of ADTs; arrays/deques win on constants and simplicity"
+          ],
+          "correctIndex": 3,
+          "explanation": "Interviews test understanding; production picks the straightforward structure."
+        },
+        {
+          "id": "queue-s3-q09",
+          "stem": "In a coding interview, how should you answer this: At-least-once consumers with a work queue must handle:? Choose the strongest option.",
+          "options": [
+            "Idempotent processing or dedupe because retries redeliver",
+            "Nothing—duplicates never happen",
+            "Only exactly-once without extra design",
+            "LIFO retries only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Real queues redeliver on failure; consumers must tolerate duplicates."
+        },
+        {
+          "id": "queue-s3-q10",
+          "stem": "Using a PriorityQueue when the problem needs stable FIFO among equal priorities leads to:",
+          "options": [
+            "Stable arrival order by default in all libraries",
+            "Non-deterministic/unstable ordering among ties unless you add a sequence tie-breaker",
+            "Automatic conversion to ArrayDeque",
+            "Compile errors"
+          ],
+          "correctIndex": 1,
+          "explanation": "Heaps don’t promise FIFO among equal keys—add insertion index if needed."
+        }
+      ]
+    }
+  ]
+}

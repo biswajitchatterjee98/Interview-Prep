@@ -1,0 +1,624 @@
+{
+  "slug": "linked-list",
+  "title": "Linked List",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "linked-list-s1-q01",
+          "stem": "What is the defining structural property of a singly linked list versus an array?",
+          "options": [
+            "Nodes store a value and a next pointer; elements need not be contiguous in memory",
+            "All nodes live in one contiguous block and support O(1) index access",
+            "Each node has both prev and next pointers by default",
+            "Insertion always requires shifting all later elements"
+          ],
+          "correctIndex": 0,
+          "explanation": "Singly linked lists chain nodes via next pointers; memory need not be contiguous, so index access is O(n)."
+        },
+        {
+          "id": "linked-list-s1-q02",
+          "stem": "In a doubly linked list, what extra information does each node typically hold compared to a singly linked list?",
+          "options": [
+            "A hash of the payload for O(1) lookup",
+            "A pointer to the previous node in addition to next",
+            "An array of child pointers",
+            "Only a previous pointer; next is implied"
+          ],
+          "correctIndex": 1,
+          "explanation": "Doubly linked nodes carry both prev and next, enabling O(1) backward traversal and easier deletion when you hold the node."
+        },
+        {
+          "id": "linked-list-s1-q03",
+          "stem": "In a circular singly linked list with at least one node, what does the last node's next pointer reference?",
+          "options": [
+            "null / nullptr",
+            "The second node",
+            "The head (first) node",
+            "Itself only when the list has size 1; otherwise null"
+          ],
+          "correctIndex": 2,
+          "explanation": "Circular lists close the ring: the last node's next points back to the head (and a one-node circular list points to itself)."
+        },
+        {
+          "id": "linked-list-s1-q04",
+          "stem": "In a coding interview, you are asked: Why do many list algorithms introduce a dummy (sentinel) head node? Which response is most accurate?",
+          "options": [
+            "To force the list into contiguous memory",
+            "To make random access O(1)",
+            "To store the list length in O(1) without counting",
+            "To avoid special-casing empty lists and head updates during insert/delete"
+          ],
+          "correctIndex": 3,
+          "explanation": "A dummy head unifies edge cases: operations always mutate next of some node, so head insertion/deletion needs no separate branch."
+        },
+        {
+          "id": "linked-list-s1-q05",
+          "stem": "Given only the head pointer of a singly linked list, what is the typical time complexity to access the k-th node (0-indexed)?",
+          "options": [
+            "O(k), which is O(n) in the worst case",
+            "Option claiming: O(1)",
+            "O(log n)",
+            "O(n log n)"
+          ],
+          "correctIndex": 0,
+          "explanation": "You must walk k next pointers from the head; there is no index arithmetic like arrays."
+        },
+        {
+          "id": "linked-list-s1-q06",
+          "stem": "Inserting a new node after a given node pointer in a singly linked list is O(1) because:",
+          "options": [
+            "The CPU can index the node in constant time from an array offset",
+            "You rewrite two pointers (new.next and node.next) without shifting other nodes",
+            "Garbage collection automatically relocates neighbors",
+            "You must still scan from head, so it is actually O(n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "With a direct pointer to the predecessor, pointer rewiring is constant time; finding that predecessor from head alone is still O(n)."
+        },
+        {
+          "id": "linked-list-s1-q07",
+          "stem": "In a coding interview, how should you answer this: Compared to dynamic arrays, linked lists typically suffer more from:? Choose the strongest option.",
+          "options": [
+            "Inability to grow beyond a fixed compile-time capacity",
+            "Mandatory O(n) insert at the end when you already hold a tail pointer",
+            "Poor cache locality and pointer-chasing overhead due to scattered node allocations",
+            "Inability to store heterogeneous value types"
+          ],
+          "correctIndex": 2,
+          "explanation": "Nodes are often heap-allocated separately, so traversal jumps around memory (fragmentation / cache misses) versus contiguous arrays."
+        },
+        {
+          "id": "linked-list-s1-q08",
+          "stem": "To delete a node in a singly linked list when you only have a pointer to that node (not its predecessor), which constraint usually applies?",
+          "options": [
+            "Always impossible in a singly linked list",
+            "You free the node and the previous next updates automatically",
+            "You set the node's next to null and the list heals",
+            "You can copy the next node's value into this node and unlink the next (fails for the true tail)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic trick: overwrite with successor's data then bypass the successor. It does not work cleanly for the last node."
+        },
+        {
+          "id": "linked-list-s1-q09",
+          "stem": "In a coding interview, you are asked: What does reversing a singly linked list in place primarily rearrange? Which answer is best?",
+          "options": [
+            "The direction of next pointers so the former head becomes the tail",
+            "Node values into sorted order",
+            "Memory so all nodes become contiguous",
+            "Prev pointers only; next stays the same"
+          ],
+          "correctIndex": 0,
+          "explanation": "In-place reverse walks the list once, flipping next links (prev/curr/next pattern) so order of traversal reverses."
+        },
+        {
+          "id": "linked-list-s1-q10",
+          "stem": "If you already hold a pointer to the tail of a singly linked list, appending a new node is:",
+          "options": [
+            "O(n) because you must start from head",
+            "O(1) by setting tail.next and updating the tail reference",
+            "O(log n) with binary search for the end",
+            "Amortized O(1) only if the list is circular"
+          ],
+          "correctIndex": 1,
+          "explanation": "A maintained tail pointer makes append constant time; without it, finding the end is O(n)."
+        },
+        {
+          "id": "linked-list-s1-q11",
+          "stem": "In a coding interview, you are asked: Which statement about memory for arrays vs linked lists is most accurate? Which answer is best?",
+          "options": [
+            "Arrays always use more memory than linked lists of the same length",
+            "Linked lists never fragment the heap",
+            "Linked lists pay per-node pointer overhead; arrays pay for unused capacity when over-allocated",
+            "Arrays cannot store pointers to other structures"
+          ],
+          "correctIndex": 2,
+          "explanation": "Lists add pointer fields (and allocator metadata); dynamic arrays may reserve extra slots. Trade-offs depend on usage."
+        },
+        {
+          "id": "linked-list-s1-q12",
+          "stem": "In interview code, checking for an empty singly linked list usually means:",
+          "options": [
+            "head.next == null always",
+            "length field equals −1",
+            "tail points to head",
+            "head == null"
+          ],
+          "correctIndex": 3,
+          "explanation": "An empty list is represented by a null head (unless a sentinel is used; then sentinel.next == null)."
+        },
+        {
+          "id": "linked-list-s1-q13",
+          "stem": "Why is finding the middle of a singly linked list commonly done with two pointers rather than counting length first?",
+          "options": [
+            "Slow/fast (tortoise/hare) finds the middle in one pass without a prior length scan",
+            "Two pointers run in O(1) total time",
+            "Counting length is impossible on linked lists",
+            "It avoids using any extra variables"
+          ],
+          "correctIndex": 0,
+          "explanation": "Advance fast by two and slow by one; when fast finishes, slow is at the middle—single O(n) pass, O(1) space."
+        },
+        {
+          "id": "linked-list-s1-q14",
+          "stem": "In a coding interview, you are asked: A key advantage of a doubly linked list for LRU-cache style designs is:? Which answer is best?",
+          "options": [
+            "O(1) index access to the k-th entry",
+            "O(1) removal of a node when you already hold its pointer (rewire prev/next)",
+            "Automatic sorting of keys",
+            "Half the memory of a singly linked list"
+          ],
+          "correctIndex": 1,
+          "explanation": "With a node handle, doubly linked lists splice out in O(1); singly lists need the predecessor."
+        },
+        {
+          "id": "linked-list-s1-q15",
+          "stem": "What happens if you lose the head pointer of a singly linked list and have no other references into the chain?",
+          "options": [
+            "You can recover the head by walking backward from any node",
+            "The OS automatically rebuilds the head from the heap",
+            "The nodes become unreachable (leaked until GC/manual free) and the list is effectively gone",
+            "Tail uniquely determines the head"
+          ],
+          "correctIndex": 2,
+          "explanation": "Singly linked nodes do not point backward; without an entry pointer, the chain is unreachable."
+        },
+        {
+          "id": "linked-list-s1-q16",
+          "stem": "Inserting at the front of a singly linked list (updating head) is typically:",
+          "options": [
+            "Option claiming: O(n)",
+            "O(log n)",
+            "Option claiming: O(n²)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 3,
+          "explanation": "New node points to old head; head is reassigned—constant pointer work."
+        },
+        {
+          "id": "linked-list-s1-q17",
+          "stem": "Which best describes a circular doubly linked list often used with a sentinel?",
+          "options": [
+            "Both next and prev form rings, and a sentinel can sit between head and tail logically",
+            "Only next pointers form a circle; prev is always null",
+            "It is identical to a binary tree with parent links",
+            "It forbids deletion of any node"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sentinel-based circular DLL designs make empty/non-empty operations uniform via prev/next of the sentinel."
+        },
+        {
+          "id": "linked-list-s1-q18",
+          "stem": "When comparing two singly linked lists for equality of sequence values, the safe approach is:",
+          "options": [
+            "Compare only the head pointers for identity",
+            "Walk both lists in lockstep comparing values until both end",
+            "Hash only the first node of each list",
+            "Compare lengths only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Structural equality of sequences requires pairwise value comparison (and matching lengths)."
+        },
+        {
+          "id": "linked-list-s1-q19",
+          "stem": "Why might an interviewer ask you to implement a list with a dummy head even if the problem statement does not require it?",
+          "options": [
+            "It guarantees O(1) random access",
+            "It is required by the language runtime",
+            "It simplifies boundary handling and reduces off-by-one / null bugs in merge and remove code",
+            "It halves asymptotic time complexity"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dummy heads are a robustness technique for cleaner pointer logic, not an asymptotic shortcut."
+        },
+        {
+          "id": "linked-list-s1-q20",
+          "stem": "Space overhead of a singly linked list of n integer nodes (ignoring allocator padding) is dominated by:",
+          "options": [
+            "n integers only, same as an array",
+            "A single pointer regardless of n",
+            "n² pointers for full connectivity",
+            "n integers plus n next pointers (plus possible object headers)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Each node stores payload and a next reference; that pointer cost is the classic list vs array trade-off."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "linked-list-s2-q01",
+          "stem": "Floyd’s cycle detection uses a slow and fast pointer. If a cycle exists, what eventually happens?",
+          "options": [
+            "Slow and fast meet inside the cycle",
+            "Fast reaches null before slow moves",
+            "Slow always overtakes fast from behind in one step",
+            "Both pointers stay at the head forever"
+          ],
+          "correctIndex": 0,
+          "explanation": "In a cycle, fast gains on slow and they collide; if there is no cycle, fast hits null."
+        },
+        {
+          "id": "linked-list-s2-q02",
+          "stem": "After detecting a cycle with Floyd, how do you find the cycle’s entrance (start of the loop)?",
+          "options": [
+            "Return the meeting point; it is always the entrance",
+            "Reset one pointer to head and advance both one step at a time until they meet",
+            "Binary search on node addresses",
+            "Reverse the list and take the new head"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic second phase: one pointer at head, one at meeting point; same-speed walk meets at the cycle start."
+        },
+        {
+          "id": "linked-list-s2-q03",
+          "stem": "Merging two sorted singly linked lists into one sorted list is typically done by:",
+          "options": [
+            "Concatenating then sorting with quicksort on values only",
+            "Hashing all values into a set",
+            "Walking both lists and splicing the smaller head each time (often with a dummy)",
+            "Converting both to arrays, then linking randomly"
+          ],
+          "correctIndex": 2,
+          "explanation": "Two-pointer merge reuses existing nodes in O(n+m) time and O(1) extra space (iterative)."
+        },
+        {
+          "id": "linked-list-s2-q04",
+          "stem": "To reverse nodes in groups of k (e.g., 1→2→3→4 with k=2 → 2→1→4→3), a solid approach is:",
+          "options": [
+            "Reverse the entire list once",
+            "Use a stack of size n always, ignoring k",
+            "Swap only adjacent pairs regardless of k",
+            "Count k nodes, reverse that segment, connect to previous and recurse/iterate on the rest"
+          ],
+          "correctIndex": 3,
+          "explanation": "Process the list in k-sized windows: reverse each full window and link windows carefully; leftover <k may stay."
+        },
+        {
+          "id": "linked-list-s2-q05",
+          "stem": "Finding whether two singly linked lists intersect (share a suffix by reference) can be done by:",
+          "options": [
+            "Aligning starts after length difference, then walking together until a shared node or null",
+            "Comparing only lengths; equal length means they intersect",
+            "Sorting both lists by value",
+            "Checking if heads have equal values"
+          ],
+          "correctIndex": 0,
+          "explanation": "Intersection by identity: equalize remaining length, then advance; first common node is the join (or null)."
+        },
+        {
+          "id": "linked-list-s2-q06",
+          "stem": "In a coding interview, how should you answer this: Removing the n-th node from the end in one pass is commonly done by:? Choose the strongest option.",
+          "options": [
+            "Counting length, then making a second full pass always",
+            "Leading pointer n+1 steps ahead of a trailing pointer (with dummy), then deleting trailing.next",
+            "Using a max-heap of node indices",
+            "Reversing twice and deleting the n-th from the new head only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Two pointers with gap n maintain the delete position; dummy handles deleting the original head."
+        },
+        {
+          "id": "linked-list-s2-q07",
+          "stem": "Why is “insert in O(1)” incomplete if you only say “linked list insert is O(1)”?",
+          "options": [
+            "Insert is never O(1) on linked lists",
+            "O(1) requires a doubly linked list only",
+            "O(1) holds when you already have a pointer to the insert location (or predecessor); finding that spot from head is O(n)",
+            "O(1) requires the list to be circular"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pointer rewiring is O(1); locating where to insert from the head is search cost."
+        },
+        {
+          "id": "linked-list-s2-q08",
+          "stem": "Palindrome check on a singly linked list in O(n) time and O(1) extra space typically:",
+          "options": [
+            "Converts to a string and uses two indices",
+            "Uses recursion with O(n) call-stack and claims O(1) space",
+            "Sorts node values in place",
+            "Finds the middle, reverses the second half, compares, then optionally restores"
+          ],
+          "correctIndex": 3,
+          "explanation": "Middle + reverse second half + compare is the classic O(1)-extra-space approach (careful with odd length)."
+        },
+        {
+          "id": "linked-list-s2-q09",
+          "stem": "Adding two numbers stored as reverse-digit linked lists (least significant digit at head) is similar to:",
+          "options": [
+            "Schoolbook addition with a carry while both lists (and carry) remain",
+            "DFS on a tree",
+            "Merge sort’s combine step only",
+            "Binary search on digit values"
+          ],
+          "correctIndex": 0,
+          "explanation": "Walk both lists, sum digits + carry, emit new nodes—same idea as adding integers digit-wise."
+        },
+        {
+          "id": "linked-list-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Detecting a cycle using a hash set of visited node identities uses:? Choose the strongest option.",
+          "options": [
+            "O(1) extra space always",
+            "O(n) extra space in the worst case, O(n) time",
+            "O(log n) space via binary lifting",
+            "No extra space and no pointer mutation"
+          ],
+          "correctIndex": 1,
+          "explanation": "Storing seen nodes trades space for a simple cycle check; Floyd uses O(1) space instead."
+        },
+        {
+          "id": "linked-list-s2-q11",
+          "stem": "When splitting a list into two halves for merge sort on linked lists, why prefer slow/fast over converting to an array?",
+          "options": [
+            "Arrays cannot hold object references",
+            "Merge sort is illegal on arrays",
+            "You can split in O(n) with O(1) extra space and sort by pointer splicing without random access",
+            "Slow/fast runs in O(log n)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Linked-list merge sort finds mid, sorts halves, merges—natural fit without needing index access."
+        },
+        {
+          "id": "linked-list-s2-q12",
+          "stem": "In a coding interview, how should you answer this: Reordering list L0→L1→…→Ln-1→Ln to L0→Ln→L1→Ln-1→… often uses:? Choose the strongest option.",
+          "options": [
+            "Only a stack of all nodes, never finding the middle",
+            "Random shuffle of pointers",
+            "Sort by value then reverse",
+            "Find middle, reverse second half, weave the two halves together"
+          ],
+          "correctIndex": 3,
+          "explanation": "Standard pattern: mid split, reverse back half, merge by alternating nodes."
+        },
+        {
+          "id": "linked-list-s2-q13",
+          "stem": "Copying a linked list where each node has next and a random pointer (deep copy) is often solved by:",
+          "options": [
+            "Hash map old→new nodes, or interleaving cloned nodes then restoring",
+            "Shallow copying only next",
+            "Sorting by random pointer addresses",
+            "Ignoring random and hoping tests miss it"
+          ],
+          "correctIndex": 0,
+          "explanation": "Map or weave techniques ensure random links point to clones, not originals."
+        },
+        {
+          "id": "linked-list-s2-q14",
+          "stem": "In a problem “swap every two adjacent nodes,” what should you be careful about?",
+          "options": [
+            "Only swapping values, never pointers, is required by all interviewers",
+            "Updating head when the first pair swaps, and linking pairs without losing the rest of the list",
+            "Using recursion that always uses O(1) stack",
+            "Ensuring the list becomes circular afterward"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pointer swaps change the head for the first pair; keep references to the next pair before rewiring."
+        },
+        {
+          "id": "linked-list-s2-q15",
+          "stem": "In a coding interview, you are asked: Removing duplicates from a sorted singly linked list is easiest because:? Which answer is best?",
+          "options": [
+            "You need a global hash set even when sorted",
+            "Sorting again inside the algorithm is mandatory",
+            "Duplicates are adjacent, so one pass comparing curr and curr.next suffices",
+            "You must reverse first"
+          ],
+          "correctIndex": 2,
+          "explanation": "Sorted order colocates duplicates; skip equal neighbors. Unsorted needs a set or sort first."
+        },
+        {
+          "id": "linked-list-s2-q16",
+          "stem": "Why can merge sort be preferred over quicksort for linked lists in interviews?",
+          "options": [
+            "Quicksort cannot partition without arrays",
+            "Merge sort uses less than O(n log n) comparisons on lists",
+            "Quicksort is unstable only on lists",
+            "Merge is natural with pointer splicing; random-access pivots/partitions are awkward on lists"
+          ],
+          "correctIndex": 3,
+          "explanation": "Lists lack cheap indexing; merging by pointers fits; efficient in-place quicksort-style partition is harder."
+        },
+        {
+          "id": "linked-list-s2-q17",
+          "stem": "Given a node to delete in a doubly linked list (not the only node), correct unlinking includes:",
+          "options": [
+            "node.prev.next = node.next and node.next.prev = node.prev (with null checks at ends)",
+            "Only setting node.next = null",
+            "Freeing without updating neighbors",
+            "Setting only node.prev = null"
+          ],
+          "correctIndex": 0,
+          "explanation": "Both neighboring links must bypass the deleted node; handle head/tail when prev or next is null."
+        },
+        {
+          "id": "linked-list-s2-q18",
+          "stem": "In a coding interview, how should you answer this: Rotating a list right by k places efficiently usually:? Choose the strongest option.",
+          "options": [
+            "Performs k single-node moves from head each time in O(nk)",
+            "Finds length, reduces k mod length, finds new tail/head cut point, and relinks once",
+            "Uses a queue of size k²",
+            "Sorts then rotates"
+          ],
+          "correctIndex": 1,
+          "explanation": "One length pass, modular k, one cut-and-relink yields O(n) time."
+        },
+        {
+          "id": "linked-list-s2-q19",
+          "stem": "In a coding interview, you are asked: When would you choose a linked list over a dynamic array in production? Which answer is best?",
+          "options": [
+            "You need the fastest possible scans of large numeric buffers",
+            "You need minimal pointer overhead and great locality",
+            "You need frequent middle inserts/deletes given node handles, and random access is rare",
+            "You need O(1) index reads as the primary operation"
+          ],
+          "correctIndex": 2,
+          "explanation": "Lists shine for splice-heavy workloads with known positions; arrays win on locality and indexing."
+        },
+        {
+          "id": "linked-list-s2-q20",
+          "stem": "A “zigzag” or odd-even list rearrangement (odds then evens by position) should:",
+          "options": [
+            "Sort values into odd/even numeric groups",
+            "Option claiming: Use BFS",
+            "Require a doubly linked list",
+            "Split by index parity via two pointer chains, then connect odd tail to even head"
+          ],
+          "correctIndex": 3,
+          "explanation": "Maintain odd and even lists by position, preserve relative order, then concatenate."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "linked-list-s3-q01",
+          "stem": "Senior pitfall: your cycle detector “works” on interviews but mutates next pointers to mark visited. What risk do you introduce?",
+          "options": [
+            "You destroy the list structure; concurrent readers or later reuse see corruption unless you restore perfectly",
+            "None—mutation is always fine",
+            "You only risk integer overflow",
+            "You improve cache locality permanently"
+          ],
+          "correctIndex": 0,
+          "explanation": "Destructive marking is a side-effect hazard; Floyd or a set avoids permanently breaking shared lists."
+        },
+        {
+          "id": "linked-list-s3-q02",
+          "stem": "You implement delete(node) by copying next’s value, but the interviewer asks about deleting the tail. What is the honest limitation?",
+          "options": [
+            "It works for the tail if you set next to null",
+            "Without the predecessor (or a doubly linked prev), you cannot unlink the true tail this way",
+            "Tails are never deleted in singly linked lists",
+            "Copying always allocates a new tail automatically"
+          ],
+          "correctIndex": 1,
+          "explanation": "The copy-trick needs a successor; the last node has none, so you need prev or a full scan from head."
+        },
+        {
+          "id": "linked-list-s3-q03",
+          "stem": "In a concurrent environment, why is a naive lock-free singly linked list push still subtle?",
+          "options": [
+            "Linked lists cannot be concurrent by definition",
+            "Locks are illegal in all languages",
+            "CAS on head can suffer ABA; memory reclamation (hazard pointers/RCU/GC) must be correct",
+            "FIFO ordering appears automatically without care"
+          ],
+          "correctIndex": 2,
+          "explanation": "ABA and safe reclamation dominate real lock-free list design beyond a textbook CAS loop."
+        },
+        {
+          "id": "linked-list-s3-q04",
+          "stem": "Memory fragmentation concern: frequent allocate/free of tiny list nodes can cause:",
+          "options": [
+            "Only faster sequential scans",
+            "The OS to convert the list into an array automatically",
+            "O(1) guarantees for all operations",
+            "Allocator pressure and poor locality; pooling/arena allocation is a common mitigation"
+          ],
+          "correctIndex": 3,
+          "explanation": "Node-churn fragments heaps and hurts caches; custom allocators or arrays-of-nodes are practical fixes."
+        },
+        {
+          "id": "linked-list-s3-q05",
+          "stem": "Intersection of lists by value equality vs by node reference—why do interviews emphasize reference?",
+          "options": [
+            "Y-shaped intersection problems mean shared suffix nodes (same objects), not merely equal payloads",
+            "Values are never comparable",
+            "Reference equality is slower to test",
+            "Value equality always implies shared memory"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic “intersection” is structural sharing; equal numbers in separate nodes do not count."
+        },
+        {
+          "id": "linked-list-s3-q06",
+          "stem": "After reversing the second half for palindrome check, a production-quality solution often:",
+          "options": [
+            "Leaves the list permanently reversed as a feature",
+            "Restores the list (re-reverse) if callers expect the original order",
+            "Converts to an array and discards the list",
+            "Deletes the second half"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interview demos may skip restore; real APIs should not mutate observably unless documented."
+        },
+        {
+          "id": "linked-list-s3-q07",
+          "stem": "Off-by-one with dummy heads: deleting the n-th from end fails when gap is wrong. What usually went wrong?",
+          "options": [
+            "Dummy heads cannot be used for this problem",
+            "correctIndex arithmetic in MCQs",
+            "Fast advanced n steps instead of n+1 (or vice versa) relative to where dummy sits",
+            "Integer overflow of n alone"
+          ],
+          "correctIndex": 2,
+          "explanation": "The lead distance must account for whether trailing starts at dummy or head—classic fencepost bug."
+        },
+        {
+          "id": "linked-list-s3-q08",
+          "stem": "Why might an intrusive linked list (node embedded in objects) be used in kernels/games?",
+          "options": [
+            "It forces GC pauses",
+            "It makes algorithms asymptotically faster than O(n)",
+            "It removes the need for prev/next entirely",
+            "Zero extra heap node allocation, better locality/control, objects can sit on multiple lists carefully"
+          ],
+          "correctIndex": 3,
+          "explanation": "Intrusive lists avoid separate node objects and give precise lifetime/layout control."
+        },
+        {
+          "id": "linked-list-s3-q09",
+          "stem": "You claim “linked list insert is always better than ArrayList.” A senior rebuttal is:",
+          "options": [
+            "ArrayList insert at end is amortized O(1) with far better constants/locality; middle insert still needs O(n) find on a list",
+            "Agree—lists always dominate",
+            "ArrayList cannot insert at all",
+            "Big-O ignores constants so lists win every benchmark"
+          ],
+          "correctIndex": 0,
+          "explanation": "Real performance cares about locality and whether you already have the insert position; lists are not free wins."
+        },
+        {
+          "id": "linked-list-s3-q10",
+          "stem": "Circular list + flawed termination (while curr != null) causes what failure mode?",
+          "options": [
+            "Immediate null pointer on first node",
+            "Infinite loop because null is never reached",
+            "Automatic conversion to a doubly linked list",
+            "Guaranteed stack overflow only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Circular structures never hit null; terminate on returning to start or use a visited set / cycle-aware walk."
+        }
+      ]
+    }
+  ]
+}

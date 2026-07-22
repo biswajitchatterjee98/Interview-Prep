@@ -1,0 +1,624 @@
+{
+  "slug": "computer-networks",
+  "title": "Computer Networks",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "computer-networks-s1-q01",
+          "stem": "Screening: how do you map OSI vs TCP/IP when asked what practitioners actually implement?",
+          "options": [
+            "TCP/IP is the deployed model; OSI is a teaching reference with finer splits",
+            "OSI's seven layers are what every stack ships; TCP/IP is only theory",
+            "They have identical layer counts and names always",
+            "TCP/IP removes IP and keeps only Ethernet frames"
+          ],
+          "correctIndex": 0,
+          "explanation": "Real stacks follow TCP/IP; OSI helps discuss roles like session/presentation."
+        },
+        {
+          "id": "computer-networks-s1-q02",
+          "stem": "TCP vs UDP: what one-line tradeoff do you give in a screening interview?",
+          "options": [
+            "UDP always retransmits lost packets like TCP",
+            "TCP is reliable and ordered; UDP is lightweight with no delivery guarantees",
+            "TCP never uses ports; UDP always does congestion control",
+            "They differ only in encryption, not reliability"
+          ],
+          "correctIndex": 1,
+          "explanation": "Choose TCP for reliability; UDP when you want low overhead or custom control."
+        },
+        {
+          "id": "computer-networks-s1-q03",
+          "stem": "Explain the TCP three-way handshake steps an interviewer expects you to name.",
+          "options": [
+            "SYN, then data, then FIN with no ACKs",
+            "Only ACK and FIN in either order",
+            "SYN, SYN-ACK, then ACK to agree on sequence state",
+            "Four identical SYNs from both sides simultaneously"
+          ],
+          "correctIndex": 2,
+          "explanation": "Both sides exchange initial sequence numbers before application data."
+        },
+        {
+          "id": "computer-networks-s1-q04",
+          "stem": "Flow control vs congestion control: how do you keep them distinct in an interview?",
+          "options": [
+            "They are the same algorithm with two names",
+            "Congestion only limits the receiver window size",
+            "Flow control only runs inside routers, never endpoints",
+            "Flow protects the receiver; congestion protects the network path"
+          ],
+          "correctIndex": 3,
+          "explanation": "Receiver window vs path capacity; TCP reacts to both signals."
+        },
+        {
+          "id": "computer-networks-s1-q05",
+          "stem": "HTTP vs HTTPS: what do you say HTTPS adds at a high level for security?",
+          "options": [
+            "A different application verb set with no security change",
+            "TLS encryption and server authentication under HTTP semantics",
+            "Only compression; encryption is handled by IP alone",
+            "UDP instead of TCP for all web traffic"
+          ],
+          "correctIndex": 1,
+          "explanation": "HTTPS is HTTP over TLS; confidentiality and integrity for the session."
+        },
+        {
+          "id": "computer-networks-s1-q06",
+          "stem": "DNS role: what problem does it solve that users never type as numbers?",
+          "options": [
+            "Encrypts every packet between browser and origin",
+            "Routes packets at layer 2 using MAC learning only",
+            "Maps human names to IP addresses (and related records)",
+            "Replaces TCP congestion control on the public internet"
+          ],
+          "correctIndex": 2,
+          "explanation": "DNS resolves names to addresses so clients know where to connect."
+        },
+        {
+          "id": "computer-networks-s1-q07",
+          "stem": "CDN high-level: what do you claim it primarily optimizes for end users and origins?",
+          "options": [
+            "Serving cached content from edge nodes closer to users",
+            "Replacing DNS entirely with anycast-only routing",
+            "Making origin databases strongly consistent worldwide",
+            "Eliminating the need for TLS on static assets"
+          ],
+          "correctIndex": 0,
+          "explanation": "Edges cut latency and origin load by caching near the audience."
+        },
+        {
+          "id": "computer-networks-s1-q08",
+          "stem": "IP address vs MAC address: which layer story do you tell in a networking screen?",
+          "options": [
+            "MAC is end-to-end across the internet; IP is only on the LAN",
+            "They are interchangeable identifiers at every hop",
+            "MAC replaces IP after the first router always",
+            "IP is logical/network routing; MAC is link-local hardware addressing"
+          ],
+          "correctIndex": 3,
+          "explanation": "IP survives across hops; MAC is rewritten per link as frames are forwarded."
+        },
+        {
+          "id": "computer-networks-s1-q09",
+          "stem": "Routing vs switching: what contrast lands well in a networking screening round?",
+          "options": [
+            "Routers only learn MAC tables; switches compute BGP paths",
+            "They are identical operations with different marketing names",
+            "Switching forwards on L2/MAC within a LAN; routing forwards on L3/IP between networks",
+            "Switching always needs global internet topology knowledge"
+          ],
+          "correctIndex": 2,
+          "explanation": "Switches bridge a broadcast domain; routers interconnect networks."
+        },
+        {
+          "id": "computer-networks-s1-q10",
+          "stem": "NAT: what problem does it solve for typical home and office IPv4 networks?",
+          "options": [
+            "Encrypts DNS queries by default on every resolver",
+            "Lets many private hosts share scarce public IPv4 addresses",
+            "Replaces ARP with a global name service",
+            "Guarantees end-to-end IP transparency for every peer"
+          ],
+          "correctIndex": 1,
+          "explanation": "NAT translates private addresses/ports onto a shared public endpoint."
+        },
+        {
+          "id": "computer-networks-s1-q11",
+          "stem": "TLS handshake idea: what must happen before application data can be considered safe?",
+          "options": [
+            "Peers authenticate (usually server) and agree on keys/ciphers",
+            "Only a TCP SYN is needed; TLS adds nothing before data",
+            "The client emails a password in cleartext once",
+            "Routers negotiate AES keys hop-by-hop instead"
+          ],
+          "correctIndex": 0,
+          "explanation": "Handshake establishes identity and session secrets, then encrypts records."
+        },
+        {
+          "id": "computer-networks-s1-q12",
+          "stem": "Idempotent HTTP methods: which claim matches REST interview expectations?",
+          "options": [
+            "POST is always idempotent; GET never is",
+            "GET, PUT, and DELETE are typically treated as idempotent; POST often is not",
+            "No HTTP method is ever idempotent by definition",
+            "Only TRACE is idempotent; others mutate twice on retry"
+          ],
+          "correctIndex": 1,
+          "explanation": "Safe retries matter; POST usually creates anew unless designed carefully."
+        },
+        {
+          "id": "computer-networks-s1-q13",
+          "stem": "Latency vs bandwidth: how do you explain why a fat pipe can still feel slow?",
+          "options": [
+            "Bandwidth alone fixes RTT for tiny request/response chats",
+            "Latency and bandwidth are the same measurement in milliseconds",
+            "High bandwidth helps bulk transfer; high RTT still hurts chatty round trips",
+            "Only bandwidth matters for DNS; latency never does"
+          ],
+          "correctIndex": 2,
+          "explanation": "Many small RPCs are RTT-bound; large downloads are more bandwidth-bound."
+        },
+        {
+          "id": "computer-networks-s1-q14",
+          "stem": "What does ARP resolve when a host needs to send on the local Ethernet?",
+          "options": [
+            "Domain names to certificate fingerprints",
+            "TCP ports to process IDs on the local machine",
+            "BGP AS numbers to geographic regions",
+            "IPv4 addresses on the LAN to MAC addresses"
+          ],
+          "correctIndex": 3,
+          "explanation": "ARP (or ND for IPv6) finds the next-hop link-layer address."
+        },
+        {
+          "id": "computer-networks-s1-q15",
+          "stem": "What is a port number used for at the transport layer when many apps share one host?",
+          "options": [
+            "Choosing which wire color to use on the switch",
+            "Multiplexing connections so many apps share one IP",
+            "Encrypting payloads instead of TLS",
+            "Replacing the IP header on every hop"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ports demux traffic to the correct socket/application on a host."
+        },
+        {
+          "id": "computer-networks-s1-q16",
+          "stem": "Stateful firewall idea: why track connection state beyond simple IP allowlists?",
+          "options": [
+            "Firewalls never inspect ports or protocols",
+            "State tracking disables NAT by design",
+            "To allow return traffic for established flows while blocking unsolicited inbound",
+            "Only MAC filtering is needed for internet edge security"
+          ],
+          "correctIndex": 2,
+          "explanation": "Conntrack lets replies through for sessions the inside initiated."
+        },
+        {
+          "id": "computer-networks-s1-q17",
+          "stem": "What does a default gateway do for a host that needs to leave its local LAN?",
+          "options": [
+            "Forwards packets destined outside the local subnet",
+            "Resolves all DNS names without contacting any server",
+            "Assigns MAC addresses to every new NIC forever",
+            "Terminates TLS for every outbound HTTPS request"
+          ],
+          "correctIndex": 0,
+          "explanation": "Off-subnet traffic is sent to the gateway for L3 forwarding."
+        },
+        {
+          "id": "computer-networks-s1-q18",
+          "stem": "MTU and fragmentation: what practical advice do you give about large packets?",
+          "options": [
+            "MTU only applies to UDP and never to TCP",
+            "Fragmentation always improves latency on the internet",
+            "Ethernet MTU is irrelevant once you use IPv6",
+            "Bigger than path MTU can fragment or black-hole; path MTU discovery matters"
+          ],
+          "correctIndex": 3,
+          "explanation": "Oversized packets fail or fragment; PMTUD avoids silent drops when possible."
+        },
+        {
+          "id": "computer-networks-s1-q19",
+          "stem": "What is DHCP's job when a laptop first joins a network and needs connectivity?",
+          "options": [
+            "Encrypt the Wi-Fi radio with WPA keys only",
+            "Compile BGP routes for the entire internet",
+            "Lease IP, gateway, DNS, and related config automatically",
+            "Replace HTTP with a binary RPC protocol"
+          ],
+          "correctIndex": 2,
+          "explanation": "DHCP hands out addressing and common network parameters on join."
+        },
+        {
+          "id": "computer-networks-s1-q20",
+          "stem": "Keep-alive / persistent HTTP: what benefit do you cite versus new TCP each request?",
+          "options": [
+            "Removes the need for DNS forever after the first hit",
+            "Avoids repeated handshakes and warm-up for subsequent requests",
+            "Guarantees zero latency regardless of geography",
+            "Makes UDP mandatory for all static assets"
+          ],
+          "correctIndex": 1,
+          "explanation": "Reusing connections amortizes TCP/TLS setup cost across requests."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "computer-networks-s2-q01",
+          "stem": "TCP slow start: what intuition do you share about why cwnd grows carefully at first?",
+          "options": [
+            "To probe available capacity without dumping a huge burst into an unknown path",
+            "Because receivers cannot advertise a window until slow start ends",
+            "Slow start disables ACKs until the transfer finishes",
+            "It only applies to UDP video streams"
+          ],
+          "correctIndex": 0,
+          "explanation": "Exponential probe finds bandwidth; loss/signals then enter congestion avoidance."
+        },
+        {
+          "id": "computer-networks-s2-q02",
+          "stem": "Head-of-line blocking in HTTP/1.1 pipelining vs HTTP/2: what do you contrast?",
+          "options": [
+            "HTTP/1.1 never had any form of HOL concern",
+            "HTTP/2 multiplexing reduces TCP-level HOL for concurrent streams on one connection",
+            "HTTP/2 removes TCP entirely so HOL cannot exist",
+            "Pipelining eliminated all blocking including TCP loss recovery"
+          ],
+          "correctIndex": 1,
+          "explanation": "H2 streams share one TCP; packet loss can still stall all streams (QUIC helps)."
+        },
+        {
+          "id": "computer-networks-s2-q03",
+          "stem": "DNS caching and TTLs: what failure mode appears when TTLs are very long?",
+          "options": [
+            "Long TTLs always improve consistency of every record instantly",
+            "TTL only affects TLS certificates, never DNS answers",
+            "Clients may keep stale IPs after backend moves or failovers",
+            "Caches ignore TTL and refresh every packet"
+          ],
+          "correctIndex": 2,
+          "explanation": "Long TTL cuts query load but slows propagation of changes."
+        },
+        {
+          "id": "computer-networks-s2-q04",
+          "stem": "Anycast CDN: how does a single IP reach different edges for different users?",
+          "options": [
+            "Each client runs a VPN to a random POP by hashing cookies",
+            "Anycast rewrites MAC addresses into global unicast IPs",
+            "DNS is disabled; ARP floods the whole internet instead",
+            "Routing advertises the same prefix from many locations; users hit nearby announcements"
+          ],
+          "correctIndex": 3,
+          "explanation": "BGP anycast steers traffic to the topologically closest advertising site."
+        },
+        {
+          "id": "computer-networks-s2-q05",
+          "stem": "TLS certificate validation: what do you check beyond 'padlock present'?",
+          "options": [
+            "Only that the cipher suite string contains AES",
+            "Chain to a trusted CA, name match, and not-expired/revocation policy as applicable",
+            "That the server IP equals the certificate serial number",
+            "Validation is optional if HTTP status is 200"
+          ],
+          "correctIndex": 1,
+          "explanation": "Identity rests on PKI checks, not merely that encryption happened."
+        },
+        {
+          "id": "computer-networks-s2-q06",
+          "stem": "Nagle's algorithm vs delayed ACK: what latency pitfall do you warn about?",
+          "options": [
+            "Nagle always reduces latency for tiny messages",
+            "Delayed ACKs only affect UDP checksums",
+            "Their interaction can delay small writes; often disable Nagle for chatty RPCs",
+            "They only matter on localhost loopback interfaces"
+          ],
+          "correctIndex": 2,
+          "explanation": "Small write + wait-for-ACK patterns can stall; tune for interactive traffic."
+        },
+        {
+          "id": "computer-networks-s2-q07",
+          "stem": "SYN flood: what is the attack idea and a classic mitigation direction?",
+          "options": [
+            "Overwhelm half-open state; SYN cookies or better backlog defenses help",
+            "Flood only FIN packets so handshake never starts",
+            "Corrupt DNSSEC signatures on every resolver",
+            "Force all clients onto UDP port 53 exclusively"
+          ],
+          "correctIndex": 0,
+          "explanation": "Attackers exhaust connection state; cookies avoid storing full state early."
+        },
+        {
+          "id": "computer-networks-s2-q08",
+          "stem": "ECN and modern congestion signals: what do you say beyond 'drop = congestion'?",
+          "options": [
+            "ECN replaces TCP with a new transport protocol",
+            "Routers must encrypt ECN bits end-to-end with TLS",
+            "ECN only works on token-ring networks historically",
+            "Marked packets can signal congestion without loss when endpoints honor ECN"
+          ],
+          "correctIndex": 3,
+          "explanation": "Explicit marks let senders back off before queues overflow into loss."
+        },
+        {
+          "id": "computer-networks-s2-q09",
+          "stem": "Split horizon / NAT hairpin: why can two internal hosts fail to reach each other via the public VIP?",
+          "options": [
+            "Internal hosts cannot use DNS by definition",
+            "TCP forbids two private addresses on one LAN",
+            "Hairpin NAT may be missing so public-destined packets never loop correctly",
+            "VIPs only work for UDP traceroute packets"
+          ],
+          "correctIndex": 2,
+          "explanation": "Need hairpin/NAT loopback or split-horizon DNS to internal addresses."
+        },
+        {
+          "id": "computer-networks-s2-q10",
+          "stem": "HTTP idempotency keys for POST: when would you introduce them mid-interview?",
+          "options": [
+            "Only for GET caching at the CDN layer",
+            "When clients may retry create requests and you must avoid duplicate side effects",
+            "When TLS is disabled and you need checksums",
+            "Idempotency keys replace status codes entirely"
+          ],
+          "correctIndex": 1,
+          "explanation": "Safe retries of non-idempotent APIs need server-side deduplication."
+        },
+        {
+          "id": "computer-networks-s2-q11",
+          "stem": "BGP at a high level: what decision does it make that OSPF inside an AS does not?",
+          "options": [
+            "Policy-rich routing between autonomous systems on the internet",
+            "Learning MAC addresses on a single Ethernet switch",
+            "Assigning DHCP leases to home routers",
+            "Terminating TLS sessions at the edge POP"
+          ],
+          "correctIndex": 0,
+          "explanation": "BGP exchanges reachability across ASes with administrative policy."
+        },
+        {
+          "id": "computer-networks-s2-q12",
+          "stem": "Connection migration / QUIC pitch: what problem with TCP+TLS middleboxes do you cite?",
+          "options": [
+            "QUIC removes encryption so middleboxes can rewrite freely",
+            "QUIC can survive some path changes better; TCP 4-tuple identity is brittle",
+            "TCP already migrates connections without any handshake state",
+            "QUIC only runs over ICMP echo requests"
+          ],
+          "correctIndex": 1,
+          "explanation": "Connection IDs help when IP/port change; encrypted transport limits ossification."
+        },
+        {
+          "id": "computer-networks-s2-q13",
+          "stem": "Load balancer L4 vs L7: what tradeoff do you articulate when picking a tier?",
+          "options": [
+            "L7 is always faster than L4 for every workload",
+            "L4 can terminate TLS certificates but L7 cannot",
+            "L4 is cheap/fast on tuples; L7 can route on HTTP content at higher cost",
+            "They are identical; only the brand name differs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Choose L4 for throughput; L7 when you need host/path/header awareness."
+        },
+        {
+          "id": "computer-networks-s2-q14",
+          "stem": "TIME_WAIT accumulation: why do short-lived many connections hurt a server?",
+          "options": [
+            "TIME_WAIT means the NIC hardware failed permanently",
+            "Only clients enter TIME_WAIT; servers never do",
+            "It increases MTU until fragmentation stops",
+            "Sockets linger in TIME_WAIT, consuming ports/state after close"
+          ],
+          "correctIndex": 3,
+          "explanation": "Rapid connect/close churn exhausts ephemeral resources; reuse or tune carefully."
+        },
+        {
+          "id": "computer-networks-s2-q15",
+          "stem": "DNSSEC vs DNS over HTTPS: what different threats do these two mechanisms address?",
+          "options": [
+            "They are the same protocol with two marketing names",
+            "DNSSEC authenticates DNS data; DoH encrypts the client-resolver channel",
+            "DoH signs zone data; DNSSEC only encrypts queries",
+            "Neither relates to integrity or privacy of lookups"
+          ],
+          "correctIndex": 1,
+          "explanation": "DNSSEC = authenticity of answers; DoH/DoT = privacy to the resolver."
+        },
+        {
+          "id": "computer-networks-s2-q16",
+          "stem": "Bufferbloat: how do you describe the latency symptom when queues grow under load?",
+          "options": [
+            "Buffers that are too small always maximize goodput with no downside",
+            "Bufferbloat only occurs on satellite links historically",
+            "Oversized queues add delay even when bandwidth remains available",
+            "It means ARP tables overflow on the access switch"
+          ],
+          "correctIndex": 2,
+          "explanation": "Bloated queues raise RTT; AQM/FQ helps keep latency low."
+        },
+        {
+          "id": "computer-networks-s2-q17",
+          "stem": "Same-origin policy vs CORS: what do you say the browser is actually enforcing here?",
+          "options": [
+            "Scripts cannot freely read cross-origin responses unless CORS allows it",
+            "CORS replaces TLS for all cross-site images",
+            "Same-origin only applies to WebSocket ping frames",
+            "Browsers never block cross-origin XHR by default"
+          ],
+          "correctIndex": 0,
+          "explanation": "SOP isolates origins; CORS is the explicit server opt-in for sharing."
+        },
+        {
+          "id": "computer-networks-s2-q18",
+          "stem": "Path asymmetry and NAT timeouts: why can long-idle TCP die mysteriously?",
+          "options": [
+            "TCP forbids idle connections longer than one RTT",
+            "Asymmetry only affects UDP traceroute, never TCP",
+            "NAT never tracks ports for TCP sessions",
+            "Middlebox state expires; keepalives or shorter idle help detect/refresh"
+          ],
+          "correctIndex": 3,
+          "explanation": "Stateful NAT/firewalls drop silent flows; apps need heartbeats."
+        },
+        {
+          "id": "computer-networks-s2-q19",
+          "stem": "HTTP caching: Cache-Control vs ETag—how do you assign roles in an interview answer?",
+          "options": [
+            "ETag sets max-age; Cache-Control only signs certificates",
+            "Neither is used once a CDN is present",
+            "Cache-Control sets freshness policy; ETag validates whether content changed",
+            "ETags encrypt the response body end-to-end"
+          ],
+          "correctIndex": 2,
+          "explanation": "Freshness avoids revalidation; validators enable cheap 304 responses."
+        },
+        {
+          "id": "computer-networks-s2-q20",
+          "stem": "IPv6 neighbor discovery vs ARP: what parallel do you draw for link-layer resolution?",
+          "options": [
+            "IPv6 removes the need for any link-layer address resolution",
+            "ND resolves IPv6 next-hop link addresses using ICMPv6 instead of ARP",
+            "ARP is reused unchanged for all IPv6 deployments",
+            "ND only assigns global BGP communities"
+          ],
+          "correctIndex": 1,
+          "explanation": "Same job as ARP—map IP to MAC—but via ICMPv6 ND messages."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "computer-networks-s3-q01",
+          "stem": "Senior tradeoff: terminate TLS at the load balancer vs end-to-end to the app—what do you weigh?",
+          "options": [
+            "Edge termination eases cert ops/inspection but trusts the internal hop; E2E preserves stronger trust boundaries",
+            "Edge termination always removes the need for any certificates",
+            "End-to-end TLS makes HTTP/2 multiplexing impossible",
+            "They are identical for threat model and operational cost"
+          ],
+          "correctIndex": 0,
+          "explanation": "Balance observability and ops against lateral-trust and compliance needs."
+        },
+        {
+          "id": "computer-networks-s3-q02",
+          "stem": "You debug multi-second p99 with healthy bandwidth: what senior checklist do you start with?",
+          "options": [
+            "Only increase NIC speed; latency cannot come from protocols",
+            "RTT, DNS, TLS handshake reuse, HOL/loss, and app-level chatty round trips",
+            "Disable all congestion control to maximize p99",
+            "Assume MAC address conflicts are the only cause"
+          ],
+          "correctIndex": 1,
+          "explanation": "Tail latency is often round-trip and setup bound, not raw capacity."
+        },
+        {
+          "id": "computer-networks-s3-q03",
+          "stem": "Designing retries across a fleet: what thundering-herd pitfall do you call out?",
+          "options": [
+            "Immediate full-rate retries always heal faster with no downside",
+            "Retries are unnecessary if you use UDP",
+            "Synchronized retries amplify outages; use jittered exponential backoff",
+            "Backoff only matters for DNS, never for HTTP APIs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Uncoordinated synchronized clients can DDoS your own recovery path."
+        },
+        {
+          "id": "computer-networks-s3-q04",
+          "stem": "CGNAT and peer-to-peer: why is 'just open a listening socket' naive on mobile networks?",
+          "options": [
+            "Mobile networks assign globally routable IPs to every handset always",
+            "TCP cannot traverse any NAT by protocol design",
+            "P2P only fails when DNSSEC is enabled",
+            "Carrier NAT blocks unsolicited inbound; need hole-punching or relays (e.g., TURN)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Inbound reachability dies behind CGNAT; ICE/STUN/TURN are the real toolkit."
+        },
+        {
+          "id": "computer-networks-s3-q05",
+          "stem": "Zero-downtime deploy behind a LB: what connection-draining concern do you raise?",
+          "options": [
+            "Killing all sockets instantly is fine if DNS TTL is under one day",
+            "Stop new traffic, finish in-flight, then tear down—or clients see resets mid-request",
+            "Load balancers never hold long-lived connections",
+            "Draining only applies to UDP syslog, never HTTP"
+          ],
+          "correctIndex": 1,
+          "explanation": "Graceful deregistration prevents cut connections during rolling deploys."
+        },
+        {
+          "id": "computer-networks-s3-q06",
+          "stem": "mTLS between services: what attack surface shrinks, and what ops cost appears?",
+          "options": [
+            "mTLS removes the need for authorization checks entirely",
+            "Certificates never expire in service meshes",
+            "Stronger service identity; you must manage cert issuance/rotation everywhere",
+            "mTLS only encrypts DNS, not application bytes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Workload identity improves East-West trust; PKI lifecycle becomes critical."
+        },
+        {
+          "id": "computer-networks-s3-q07",
+          "stem": "Anycast + stateful TCP: what senior risk do you flag for long-lived connections?",
+          "options": [
+            "Route changes can move flows to a different PoP that lacks connection state",
+            "Anycast guarantees sticky TCP state across the whole internet forever",
+            "BGP withdrawals never affect established sockets",
+            "Stateful services should always bind only to 127.0.0.1 publicly"
+          ],
+          "correctIndex": 0,
+          "explanation": "Anycast is great for UDP/stateless edges; TCP needs careful stickiness design."
+        },
+        {
+          "id": "computer-networks-s3-q08",
+          "stem": "Observability: why is RED/USE at the network edge incomplete without DNS and TLS timings?",
+          "options": [
+            "DNS and TLS never appear in real user monitoring",
+            "Only packet loss metrics matter for web performance",
+            "TTFB excludes all protocol overhead by definition",
+            "Name lookup and handshake often dominate TTFB before the first byte of HTTP"
+          ],
+          "correctIndex": 3,
+          "explanation": "Break down connect/TLS/DNS phases or you misattribute slowness to the app."
+        },
+        {
+          "id": "computer-networks-s3-q09",
+          "stem": "Rate limiting at L7 vs L3/L4: when do you insist on application-aware limits?",
+          "options": [
+            "IP limits always equal user fairness on shared NATs",
+            "L3 limits can read HTTP bodies without termination",
+            "When abuse is per-user/API-key/costly endpoint, not just per source IP",
+            "Application limits replace the need for any WAF or auth"
+          ],
+          "correctIndex": 2,
+          "explanation": "CGNAT and bots share IPs; identity-aware quotas match business risk."
+        },
+        {
+          "id": "computer-networks-s3-q10",
+          "stem": "CAP-ish networking reality: strong consistency across regions vs low latency—what do you say?",
+          "options": [
+            "Bandwidth alone removes the speed-of-light constraint",
+            "Cross-region sync adds RTT; many systems choose locality and accept weaker freshness",
+            "Anycast makes every write instantly visible worldwide",
+            "TCP retransmission eliminates the need for distributed consensus"
+          ],
+          "correctIndex": 1,
+          "explanation": "Physics and quorum protocols trade latency for consistency; design explicitly."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "slug": "heaps",
+  "title": "Heaps",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Easy",
+      "level": "easy",
+      "problems": [
+        {
+          "id": "heaps-easy-01",
+          "title": "Kth Largest Element in an Array",
+          "prompt": "Given an integer array nums and an integer k, return the kth largest element in the array.\n\nNote that it is the kth largest element in the sorted order, not the kth distinct element. Solve it with a heap (or quickselect) \u2014 sorting the whole array is accepted for interview practice but prefer O(n log k).",
+          "examples": [
+            {
+              "input": "nums = [3,2,1,5,6,4], k = 2",
+              "output": "5"
+            },
+            {
+              "input": "nums = [3,2,3,1,2,4,5,5,6], k = 4",
+              "output": "4"
+            }
+          ],
+          "constraints": [
+            "1 <= k <= nums.length <= 10^5",
+            "-10^4 <= nums[i] <= 10^4"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def findKthLargest(self, nums: list[int], k: int) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        java.util.PriorityQueue<Integer> pq = new java.util.PriorityQueue<>();\n        for (int x : nums) {\n            pq.offer(x);\n            if (pq.size() > k) pq.poll();\n        }\n        return pq.peek();\n    }\n}\n",
+            "python": "class Solution:\n    def findKthLargest(self, nums: list[int], k: int) -> int:\n        import heapq\n        return heapq.nlargest(k, nums)[-1]\n"
+          },
+          "samples": [
+            {
+              "input": "[3,2,1,5,6,4], k=2",
+              "output": "5"
+            }
+          ]
+        },
+        {
+          "id": "heaps-easy-02",
+          "title": "Last Stone Weight",
+          "prompt": "You are given an array of integers stones where stones[i] is the weight of the ith stone.\n\nWe continually smash the heaviest two stones. Suppose the heaviest two are x and y with x <= y. If x == y both are destroyed; otherwise stone of weight y - x is put back. Return the smallest possible weight of the left stone. If there are no stones left, return 0.",
+          "examples": [
+            {
+              "input": "stones = [2,7,4,1,8,1]",
+              "output": "1"
+            },
+            {
+              "input": "stones = [1]",
+              "output": "1"
+            }
+          ],
+          "constraints": [
+            "1 <= stones.length <= 30",
+            "1 <= stones[i] <= 1000"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int lastStoneWeight(int[] stones) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def lastStoneWeight(self, stones: list[int]) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int lastStoneWeight(int[] stones) {\n        java.util.PriorityQueue<Integer> pq = new java.util.PriorityQueue<>(java.util.Collections.reverseOrder());\n        for (int s : stones) pq.offer(s);\n        while (pq.size() > 1) {\n            int y = pq.poll(), x = pq.poll();\n            if (y != x) pq.offer(y - x);\n        }\n        return pq.isEmpty() ? 0 : pq.peek();\n    }\n}\n",
+            "python": "class Solution:\n    def lastStoneWeight(self, stones: list[int]) -> int:\n        import heapq\n        h = [-s for s in stones]\n        heapq.heapify(h)\n        while len(h) > 1:\n            y = -heapq.heappop(h)\n            x = -heapq.heappop(h)\n            if y != x:\n                heapq.heappush(h, -(y - x))\n        return -h[0] if h else 0\n"
+          },
+          "samples": [
+            {
+              "input": "[2,7,4,1,8,1]",
+              "output": "1"
+            }
+          ]
+        },
+        {
+          "id": "heaps-easy-03",
+          "title": "K Closest Points to Origin",
+          "prompt": "Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).\n\nThe distance is Euclidean: sqrt(xi^2 + yi^2). You may return the answer in any order. The answer is guaranteed to be unique (except for order).",
+          "examples": [
+            {
+              "input": "points = [[1,3],[-2,2]], k = 1",
+              "output": "[[-2,2]]"
+            },
+            {
+              "input": "points = [[3,3],[5,-1],[-2,4]], k = 2",
+              "output": "[[3,3],[-2,4]]"
+            }
+          ],
+          "constraints": [
+            "1 <= k <= points.length <= 10^4",
+            "-10^4 <= xi, yi <= 10^4"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        // write your code\n        return new int[0][];\n    }\n}\n",
+            "python": "class Solution:\n    def kClosest(self, points: list[list[int]], k: int) -> list[list[int]]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int[][] kClosest(int[][] points, int k) {\n        java.util.PriorityQueue<int[]> pq = new java.util.PriorityQueue<>((a, b) ->\n            Integer.compare(b[0]*b[0] + b[1]*b[1], a[0]*a[0] + a[1]*a[1]));\n        for (int[] p : points) {\n            pq.offer(p);\n            if (pq.size() > k) pq.poll();\n        }\n        int[][] ans = new int[k][];\n        for (int i = 0; i < k; i++) ans[i] = pq.poll();\n        return ans;\n    }\n}\n",
+            "python": "class Solution:\n    def kClosest(self, points: list[list[int]], k: int) -> list[list[int]]:\n        import heapq\n        return heapq.nsmallest(k, points, key=lambda p: p[0]*p[0] + p[1]*p[1])\n"
+          },
+          "samples": [
+            {
+              "input": "[[1,3],[-2,2]], k=1",
+              "output": "[[-2,2]]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Intermediate",
+      "level": "intermediate",
+      "problems": [
+        {
+          "id": "heaps-intermediate-01",
+          "title": "Top K Frequent Elements",
+          "prompt": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+          "examples": [
+            {
+              "input": "nums = [1,1,1,2,2,3], k = 2",
+              "output": "[1,2]"
+            },
+            {
+              "input": "nums = [1], k = 1",
+              "output": "[1]"
+            }
+          ],
+          "constraints": [
+            "1 <= nums.length <= 10^5",
+            "-10^4 <= nums[i] <= 10^4",
+            "k is in the range [1, number of unique elements]",
+            "It is guaranteed the answer is unique"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        // write your code\n        return new int[0];\n    }\n}\n",
+            "python": "class Solution:\n    def topKFrequent(self, nums: list[int], k: int) -> list[int]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        java.util.Map<Integer, Integer> freq = new java.util.HashMap<>();\n        for (int x : nums) freq.merge(x, 1, Integer::sum);\n        java.util.PriorityQueue<int[]> pq = new java.util.PriorityQueue<>((a, b) -> a[1] - b[1]);\n        for (var e : freq.entrySet()) {\n            pq.offer(new int[]{e.getKey(), e.getValue()});\n            if (pq.size() > k) pq.poll();\n        }\n        int[] ans = new int[k];\n        for (int i = 0; i < k; i++) ans[i] = pq.poll()[0];\n        return ans;\n    }\n}\n",
+            "python": "class Solution:\n    def topKFrequent(self, nums: list[int], k: int) -> list[int]:\n        from collections import Counter\n        import heapq\n        return [x for x, _ in heapq.nlargest(k, Counter(nums).items(), key=lambda t: t[1])]\n"
+          },
+          "samples": [
+            {
+              "input": "[1,1,1,2,2,3], k=2",
+              "output": "[1,2]"
+            }
+          ]
+        },
+        {
+          "id": "heaps-intermediate-02",
+          "title": "Merge K Sorted Lists (Lite)",
+          "prompt": "You are given an array of k linked-list heads, each sorted in ascending order. Merge all the linked lists into one sorted linked list and return its head.\n\nUse a min-heap of list heads. Constraints are lite: total nodes <= 10^4.",
+          "examples": [
+            {
+              "input": "lists = [[1,4,5],[1,3,4],[2,6]]",
+              "output": "[1,1,2,3,4,4,5,6]"
+            },
+            {
+              "input": "lists = []",
+              "output": "[]"
+            }
+          ],
+          "constraints": [
+            "k == lists.length",
+            "0 <= k <= 10^4",
+            "0 <= lists[i].length <= 500",
+            "Total number of nodes <= 10^4",
+            "-10^4 <= Node.val <= 10^4"
+          ],
+          "starter": {
+            "java": "/** Definition for singly-linked list.\n * public class ListNode {\n *     int val; ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        // write your code\n        return null;\n    }\n}\n",
+            "python": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def mergeKLists(self, lists: list[ListNode | None]) -> ListNode | None:\n        # write your code\n        return None\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public ListNode mergeKLists(ListNode[] lists) {\n        java.util.PriorityQueue<ListNode> pq = new java.util.PriorityQueue<>((a, b) -> a.val - b.val);\n        for (ListNode n : lists) if (n != null) pq.offer(n);\n        ListNode dummy = new ListNode(0), cur = dummy;\n        while (!pq.isEmpty()) {\n            ListNode n = pq.poll();\n            cur.next = n;\n            cur = cur.next;\n            if (n.next != null) pq.offer(n.next);\n        }\n        return dummy.next;\n    }\n}\n",
+            "python": "class Solution:\n    def mergeKLists(self, lists: list[ListNode | None]) -> ListNode | None:\n        import heapq\n        heap = []\n        for i, node in enumerate(lists):\n            if node:\n                heapq.heappush(heap, (node.val, i, node))\n        dummy = cur = ListNode(0)\n        while heap:\n            _, i, node = heapq.heappop(heap)\n            cur.next = node\n            cur = cur.next\n            if node.next:\n                heapq.heappush(heap, (node.next.val, i, node.next))\n        return dummy.next\n"
+          },
+          "samples": [
+            {
+              "input": "[[1,4,5],[1,3,4],[2,6]]",
+              "output": "[1,1,2,3,4,4,5,6]"
+            }
+          ]
+        },
+        {
+          "id": "heaps-intermediate-03",
+          "title": "Reorganize String",
+          "prompt": "Given a string s, rearrange the characters of s so that any two adjacent characters are not the same. Return any possible rearrangement, or return \"\" if not possible.",
+          "examples": [
+            {
+              "input": "s = \"aab\"",
+              "output": "\"aba\""
+            },
+            {
+              "input": "s = \"aaab\"",
+              "output": "\"\""
+            }
+          ],
+          "constraints": [
+            "1 <= s.length <= 500",
+            "s consists of lowercase English letters"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public String reorganizeString(String s) {\n        // write your code\n        return \"\";\n    }\n}\n",
+            "python": "class Solution:\n    def reorganizeString(self, s: str) -> str:\n        # write your code\n        return \"\"\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public String reorganizeString(String s) {\n        int[] freq = new int[26];\n        for (char c : s.toCharArray()) freq[c - 'a']++;\n        java.util.PriorityQueue<int[]> pq = new java.util.PriorityQueue<>((a, b) -> b[1] - a[1]);\n        for (int i = 0; i < 26; i++) if (freq[i] > 0) pq.offer(new int[]{i, freq[i]});\n        StringBuilder sb = new StringBuilder();\n        int[] prev = null;\n        while (!pq.isEmpty()) {\n            int[] cur = pq.poll();\n            sb.append((char) (cur[0] + 'a'));\n            cur[1]--;\n            if (prev != null && prev[1] > 0) pq.offer(prev);\n            prev = cur;\n        }\n        return sb.length() == s.length() ? sb.toString() : \"\";\n    }\n}\n",
+            "python": "class Solution:\n    def reorganizeString(self, s: str) -> str:\n        from collections import Counter\n        import heapq\n        heap = [(-c, ch) for ch, c in Counter(s).items()]\n        heapq.heapify(heap)\n        out = []\n        prev = None\n        while heap:\n            cnt, ch = heapq.heappop(heap)\n            out.append(ch)\n            if prev:\n                heapq.heappush(heap, prev)\n            prev = (cnt + 1, ch) if cnt + 1 < 0 else None\n        return ''.join(out) if len(out) == len(s) else ''\n"
+          },
+          "samples": [
+            {
+              "input": "\"aab\"",
+              "output": "\"aba\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Hard",
+      "level": "hard",
+      "problems": [
+        {
+          "id": "heaps-hard-01",
+          "title": "Find Median from Data Stream",
+          "prompt": "The median is the middle value in an ordered integer list. If the size is even, the median is the mean of the two middle values.\n\nImplement MedianFinder:\n- MedianFinder(): Initialize\n- void addNum(int num): Add integer from the data stream\n- double findMedian(): Return the median of all elements so far\n\nUse two heaps (max-heap for lower half, min-heap for upper half).",
+          "examples": [
+            {
+              "input": "[\"MedianFinder\",\"addNum\",\"addNum\",\"findMedian\",\"addNum\",\"findMedian\"]\n[[],[1],[2],[],[3],[]]",
+              "output": "[null,null,null,1.5,null,2.0]"
+            }
+          ],
+          "constraints": [
+            "-10^5 <= num <= 10^5",
+            "There will be at least one element before findMedian",
+            "At most 5 * 10^4 calls to addNum and findMedian"
+          ],
+          "starter": {
+            "java": "class MedianFinder {\n    public MedianFinder() {}\n    public void addNum(int num) {}\n    public double findMedian() { return 0; }\n}\n",
+            "python": "class MedianFinder:\n    def __init__(self):\n        pass\n    def addNum(self, num: int) -> None:\n        pass\n    def findMedian(self) -> float:\n        return 0.0\n"
+          },
+          "solution": {
+            "java": "class MedianFinder {\n    private final java.util.PriorityQueue<Integer> low = new java.util.PriorityQueue<>(java.util.Collections.reverseOrder());\n    private final java.util.PriorityQueue<Integer> high = new java.util.PriorityQueue<>();\n    public MedianFinder() {}\n    public void addNum(int num) {\n        low.offer(num);\n        high.offer(low.poll());\n        if (high.size() > low.size()) low.offer(high.poll());\n    }\n    public double findMedian() {\n        if (low.size() > high.size()) return low.peek();\n        return (low.peek() + high.peek()) / 2.0;\n    }\n}\n",
+            "python": "class MedianFinder:\n    def __init__(self):\n        import heapq\n        self.low = []   # max-heap via negatives\n        self.high = []  # min-heap\n        self._hq = heapq\n    def addNum(self, num: int) -> None:\n        self._hq.heappush(self.low, -num)\n        self._hq.heappush(self.high, -self._hq.heappop(self.low))\n        if len(self.high) > len(self.low):\n            self._hq.heappush(self.low, -self._hq.heappop(self.high))\n    def findMedian(self) -> float:\n        if len(self.low) > len(self.high):\n            return float(-self.low[0])\n        return (-self.low[0] + self.high[0]) / 2.0\n"
+          },
+          "samples": [
+            {
+              "input": "add 1, add 2, findMedian, add 3, findMedian",
+              "output": "1.5, 2.0"
+            }
+          ]
+        },
+        {
+          "id": "heaps-hard-02",
+          "title": "Task Scheduler (Lite)",
+          "prompt": "You are given an array of CPU tasks, each represented by a character from A to Z, and a non-negative integer n representing the cooldown between two same tasks. Each unit of time the CPU executes one task or is idle.\n\nReturn the least number of units of times that the CPU will take to finish all the given tasks.\n\nLite constraints: tasks.length <= 1000.",
+          "examples": [
+            {
+              "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2",
+              "output": "8"
+            },
+            {
+              "input": "tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 0",
+              "output": "6"
+            }
+          ],
+          "constraints": [
+            "1 <= tasks.length <= 1000",
+            "0 <= n <= 100",
+            "tasks[i] is an uppercase English letter"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int leastInterval(char[] tasks, int n) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def leastInterval(self, tasks: list[str], n: int) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int leastInterval(char[] tasks, int n) {\n        int[] freq = new int[26];\n        for (char c : tasks) freq[c - 'A']++;\n        java.util.Arrays.sort(freq);\n        int maxf = freq[25];\n        int idle = (maxf - 1) * n;\n        for (int i = 24; i >= 0 && idle > 0; i--) idle -= Math.min(freq[i], maxf - 1);\n        return tasks.length + Math.max(0, idle);\n    }\n}\n",
+            "python": "class Solution:\n    def leastInterval(self, tasks: list[str], n: int) -> int:\n        from collections import Counter\n        freq = sorted(Counter(tasks).values())\n        maxf = freq[-1]\n        idle = (maxf - 1) * n\n        for f in freq[:-1][::-1]:\n            if idle <= 0:\n                break\n            idle -= min(f, maxf - 1)\n        return len(tasks) + max(0, idle)\n"
+          },
+          "samples": [
+            {
+              "input": "[\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n=2",
+              "output": "8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

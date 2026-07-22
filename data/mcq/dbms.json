@@ -1,0 +1,624 @@
+{
+  "slug": "dbms",
+  "title": "DBMS",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "dbms-s1-q01",
+          "stem": "In a DBMS interview, you are asked to name the four ACID properties of a transaction. Which answer is complete and correct?",
+          "options": [
+            "Atomicity, Consistency, Isolation, Durability",
+            "Availability, Consistency, Integrity, Durability",
+            "Atomicity, Caching, Isolation, Distribution",
+            "Accuracy, Consistency, Idempotency, Durability"
+          ],
+          "correctIndex": 0,
+          "explanation": "ACID is Atomicity, Consistency, Isolation, Durability — the classic transactional guarantees."
+        },
+        {
+          "id": "dbms-s1-q02",
+          "stem": "An interviewer asks: what does Atomicity guarantee if a multi-statement transfer fails halfway? Which response is most accurate?",
+          "options": [
+            "Partial updates may remain until a nightly cleanup job",
+            "All statements succeed together or none take effect",
+            "Only the last statement is rolled back automatically",
+            "Readers always see intermediate balances during the failure"
+          ],
+          "correctIndex": 1,
+          "explanation": "Atomicity means the transaction is all-or-nothing; a mid-flight failure rolls everything back."
+        },
+        {
+          "id": "dbms-s1-q03",
+          "stem": "You are asked: Consistency in ACID vs Consistency in CAP — how do they differ at a high level? Which is best?",
+          "options": [
+            "They are identical synonyms used interchangeably in papers",
+            "ACID Consistency means replicas eventually agree on values",
+            "ACID: integrity rules hold; CAP Consistency: every read sees latest write",
+            "CAP Consistency only applies to single-node relational databases"
+          ],
+          "correctIndex": 2,
+          "explanation": "ACID Consistency is about invariants/constraints; CAP Consistency is linearizability across replicas."
+        },
+        {
+          "id": "dbms-s1-q04",
+          "stem": "CAP theorem at interview depth: after a network partition, what must a distributed system choose between?",
+          "options": [
+            "Throughput versus storage cost exclusively",
+            "B-tree indexes versus hash indexes exclusively",
+            "SQL versus NoSQL query languages only",
+            "Strong consistency versus availability for that partition window"
+          ],
+          "correctIndex": 3,
+          "explanation": "During a partition, you trade Consistency vs Availability while Partition tolerance is assumed."
+        },
+        {
+          "id": "dbms-s1-q05",
+          "stem": "What does 1NF primarily require of a relational table design? Pick the most accurate interview answer.",
+          "options": [
+            "Atomic attribute values — no repeating groups or nested tables in a cell",
+            "Every non-key attribute must depend on the whole composite key",
+            "No transitive dependencies from non-key attributes to other non-keys",
+            "Every determinant of a candidate key must itself be a candidate key"
+          ],
+          "correctIndex": 0,
+          "explanation": "1NF: domains are atomic; cells hold single values, not lists or nested relations."
+        },
+        {
+          "id": "dbms-s1-q06",
+          "stem": "A table has composite key (order_id, product_id) and column warehouse_city depending only on product_id. Which normal form is violated?",
+          "options": [
+            "First normal form only, because city is a string",
+            "Second normal form — partial dependency on part of the key",
+            "Boyce–Codd normal form, but never second normal form",
+            "Third normal form only; 2NF is already satisfied here"
+          ],
+          "correctIndex": 1,
+          "explanation": "Partial dependency of a non-key attribute on part of a composite key breaks 2NF."
+        },
+        {
+          "id": "dbms-s1-q07",
+          "stem": "Interview prompt: define a primary key versus a candidate key. Which statement is most precise?",
+          "options": [
+            "Primary key is any indexed column; candidate keys are foreign keys",
+            "Candidate keys may contain nulls; primary keys must be composite",
+            "Candidate keys uniquely identify rows; one chosen candidate is the primary key",
+            "Primary keys are only surrogate integers; candidate keys cannot be natural"
+          ],
+          "correctIndex": 2,
+          "explanation": "All candidate keys uniquely identify rows; the designer designates one as the primary key."
+        },
+        {
+          "id": "dbms-s1-q08",
+          "stem": "What is a foreign key's main role in a relational schema? Choose the best interview-ready answer.",
+          "options": [
+            "It speeds up every SELECT by replacing the need for indexes",
+            "It stores a duplicate copy of the entire parent row",
+            "It guarantees that joins always run in O(1) time",
+            "It enforces referential integrity between related tables' rows"
+          ],
+          "correctIndex": 3,
+          "explanation": "Foreign keys reference a parent key and enforce referential integrity on insert/update/delete."
+        },
+        {
+          "id": "dbms-s1-q09",
+          "stem": "B-tree versus hash index — when do interviewers expect you to prefer a B-tree? Which answer fits?",
+          "options": [
+            "Range predicates, ORDER BY, and inequality filters on the key",
+            "Only for equality lookups on unordered GUID primary keys",
+            "Only when the table has fewer than ten rows total",
+            "Never; hash indexes dominate all relational workloads"
+          ],
+          "correctIndex": 0,
+          "explanation": "B-trees support ordered range scans and sorting; hash indexes shine mainly on equality."
+        },
+        {
+          "id": "dbms-s1-q10",
+          "stem": "When is a hash index typically a better fit than a B-tree in DBMS discussions?",
+          "options": [
+            "For BETWEEN queries spanning large key ranges",
+            "For exact equality lookups when ranges are not needed",
+            "For prefix LIKE 'abc%' pattern matching on text",
+            "For sorting results without an explicit ORDER BY clause"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hash indexes are strong for = lookups; they do not support ordered range access."
+        },
+        {
+          "id": "dbms-s1-q11",
+          "stem": "Isolation in ACID: what problem does it primarily aim to control between concurrent transactions?",
+          "options": [
+            "Disk failures that corrupt the write-ahead log permanently",
+            "Schema drift when columns are renamed across releases",
+            "Interference where one transaction's partial work affects another",
+            "Network latency between the client and the database proxy"
+          ],
+          "correctIndex": 2,
+          "explanation": "Isolation limits how concurrent transactions see each other's uncommitted or intermediate state."
+        },
+        {
+          "id": "dbms-s1-q12",
+          "stem": "What is a dirty read in concurrency control terminology? Select the most accurate definition.",
+          "options": [
+            "Reading a row that another transaction has committed and then deleted",
+            "Reading past the end of a table scan due to a missing index",
+            "Reading the same committed row twice and seeing identical values",
+            "Reading uncommitted data written by another still-running transaction"
+          ],
+          "correctIndex": 3,
+          "explanation": "A dirty read sees another transaction's uncommitted writes that may later roll back."
+        },
+        {
+          "id": "dbms-s1-q13",
+          "stem": "Durability means what after a successful COMMIT, even if the server crashes moments later?",
+          "options": [
+            "Committed effects survive crashes and can be recovered from durable storage",
+            "Committed data lives only in the buffer pool until the next checkpoint",
+            "Committed rows are immediately replicated to every geo region",
+            "Committed transactions can still be undone by any concurrent reader"
+          ],
+          "correctIndex": 0,
+          "explanation": "Durability: once COMMIT succeeds, effects persist across failures (typically via WAL/fsync)."
+        },
+        {
+          "id": "dbms-s1-q14",
+          "stem": "OLTP versus OLAP — how should you contrast them in a systems interview?",
+          "options": [
+            "OLTP is analytics warehouses; OLAP is high-QPS point updates",
+            "OLTP: many short transactional writes; OLAP: heavy analytical scans/aggregations",
+            "They are identical workloads with different marketing names",
+            "OLAP never uses indexes; OLTP never uses joins"
+          ],
+          "correctIndex": 1,
+          "explanation": "OLTP is transactional operational traffic; OLAP is analytical reporting over large scans."
+        },
+        {
+          "id": "dbms-s1-q15",
+          "stem": "What is a superkey in relational theory terms, at foundation interview level?",
+          "options": [
+            "A key that must include every column of the relation",
+            "Only the single-column surrogate primary key chosen by the DBA",
+            "Any set of attributes that uniquely identifies a row, possibly with extras",
+            "A foreign key that points to a primary key in the same table"
+          ],
+          "correctIndex": 2,
+          "explanation": "A superkey uniquely identifies tuples; a candidate key is a minimal superkey."
+        },
+        {
+          "id": "dbms-s1-q16",
+          "stem": "Third normal form (3NF): which dependency pattern must you remove beyond 2NF?",
+          "options": [
+            "Partial dependencies of non-keys on part of a composite key only",
+            "Any functional dependency involving a foreign key column",
+            "All multivalued dependencies regardless of keys",
+            "Transitive dependencies of non-key attributes on other non-key attributes"
+          ],
+          "correctIndex": 3,
+          "explanation": "3NF eliminates transitive FDs: non-key → non-key chains that bypass the key."
+        },
+        {
+          "id": "dbms-s1-q17",
+          "stem": "What is the high-level idea of a write-ahead log (WAL) in recovery-oriented DBMS design?",
+          "options": [
+            "Log the change durably before the corresponding data page is considered safe",
+            "Buffer pool pages are flushed before any log record is written",
+            "Delete the log after every successful SELECT to save disk space",
+            "Store only SELECT statements because writes never need recovery"
+          ],
+          "correctIndex": 0,
+          "explanation": "WAL: append redo/undo information to the log before relying on data-page durability."
+        },
+        {
+          "id": "dbms-s1-q18",
+          "stem": "Denormalization tradeoff: when might a team intentionally duplicate data across tables?",
+          "options": [
+            "To always improve write throughput and reduce anomaly risk",
+            "To speed hot read paths at the cost of harder consistency on writes",
+            "To satisfy 3NF when a schema is already in BCNF",
+            "To eliminate the need for any primary keys forever"
+          ],
+          "correctIndex": 1,
+          "explanation": "Denormalization optimizes reads; writes must update multiple places and risk anomalies."
+        },
+        {
+          "id": "dbms-s1-q19",
+          "stem": "What does a clustered index conceptually determine about physical row storage?",
+          "options": [
+            "Only which columns appear in the SELECT list of views",
+            "That no secondary indexes are allowed on the same table",
+            "The on-disk row order roughly follows the clustered key order",
+            "That all queries must use hash joins exclusively"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clustered indexes organize table data by key order (engine-specific details vary)."
+        },
+        {
+          "id": "dbms-s1-q20",
+          "stem": "Nonrepeatable read versus dirty read — which distinction should you give in an interview?",
+          "options": [
+            "Both always mean reading uncommitted data from another transaction",
+            "Dirty reads are impossible in any isolation level by definition",
+            "Nonrepeatable reads only occur at SERIALIZABLE isolation",
+            "Dirty: uncommitted data; nonrepeatable: same row reread after another's commit changes it"
+          ],
+          "correctIndex": 3,
+          "explanation": "Dirty reads see uncommitted data; nonrepeatable reads see committed updates between reads."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "dbms-s2-q01",
+          "stem": "At READ UNCOMMITTED, which anomaly is characteristically allowed that stronger levels prevent?",
+          "options": [
+            "Dirty reads of another transaction's uncommitted writes",
+            "Only phantom inserts after the transaction ends",
+            "Lost updates that SERIALIZABLE always permits",
+            "Split-brain replica divergence across data centers"
+          ],
+          "correctIndex": 0,
+          "explanation": "READ UNCOMMITTED permits dirty reads; higher levels block seeing uncommitted data."
+        },
+        {
+          "id": "dbms-s2-q02",
+          "stem": "READ COMMITTED typically prevents dirty reads but still allows which classic anomaly?",
+          "options": [
+            "Seeing another transaction's uncommitted INSERT forever",
+            "Nonrepeatable reads when a row changes between two reads",
+            "No anomalies of any kind by definition",
+            "Only write skew and never nonrepeatable reads"
+          ],
+          "correctIndex": 1,
+          "explanation": "READ COMMITTED stops dirty reads but still allows nonrepeatable reads and phantoms."
+        },
+        {
+          "id": "dbms-s2-q03",
+          "stem": "REPEATABLE READ: what does it generally protect against compared with READ COMMITTED?",
+          "options": [
+            "All phantoms in every SQL engine without exception",
+            "Network partitions between primary and replica nodes",
+            "Nonrepeatable reads of already-read rows within the transaction",
+            "Schema changes from concurrent DDL in other sessions"
+          ],
+          "correctIndex": 2,
+          "explanation": "REPEATABLE READ keeps previously read row versions stable; phantoms may still appear (engine-dependent)."
+        },
+        {
+          "id": "dbms-s2-q04",
+          "stem": "What is a phantom read in the ANSI isolation anomaly taxonomy used in interviews?",
+          "options": [
+            "Rereading a known row ID and seeing an updated column value",
+            "Seeing uncommitted deletes that are later rolled back only",
+            "Reading a page that was never written to the buffer pool",
+            "A new row matching a prior predicate appears on a later query"
+          ],
+          "correctIndex": 3,
+          "explanation": "Phantoms: range/predicate results change because another transaction inserted/deleted matching rows."
+        },
+        {
+          "id": "dbms-s2-q05",
+          "stem": "SERIALIZABLE isolation aims for which correctness intuition relative to concurrent schedules?",
+          "options": [
+            "Effects equivalent to some serial one-at-a-time order of transactions",
+            "Maximum throughput with zero locking under all workloads",
+            "Allowing dirty reads to reduce latch contention",
+            "Guaranteeing every query uses a covering index"
+          ],
+          "correctIndex": 0,
+          "explanation": "Serializable means the outcome matches some serial execution order of the transactions."
+        },
+        {
+          "id": "dbms-s2-q06",
+          "stem": "BCNF versus 3NF: when does BCNF demand a stronger decomposition than 3NF?",
+          "options": [
+            "Whenever a relation has any foreign key at all",
+            "When a determinant of a functional dependency is not a candidate key",
+            "Only when the relation has no candidate keys",
+            "When all attributes are prime attributes already"
+          ],
+          "correctIndex": 1,
+          "explanation": "BCNF: every nontrivial FD's left side must be a superkey; 3NF allows some exceptions for primes."
+        },
+        {
+          "id": "dbms-s2-q07",
+          "stem": "Surrogate key versus natural key — what tradeoff do interviewers often expect?",
+          "options": [
+            "Natural keys never change; surrogates always encode business meaning",
+            "Surrogates forbid indexes; natural keys require full table scans",
+            "Surrogates are stable opaque IDs; natural keys carry meaning but may change",
+            "Natural keys are illegal in 3NF; surrogates are mandatory"
+          ],
+          "correctIndex": 2,
+          "explanation": "Surrogates (e.g. UUID/serial) avoid coupling identity to mutable business attributes."
+        },
+        {
+          "id": "dbms-s2-q08",
+          "stem": "Covering index idea: why can a query avoid heap/table lookups after an index seek?",
+          "options": [
+            "Because the optimizer disables all joins for that query",
+            "Because foreign keys automatically cover every SELECT list",
+            "Because covering indexes store the entire database in RAM only",
+            "Because all needed columns are present in the index leaf entries"
+          ],
+          "correctIndex": 3,
+          "explanation": "An index-only scan works when the index contains every column the query needs."
+        },
+        {
+          "id": "dbms-s2-q09",
+          "stem": "Checkpointing in a WAL-based system primarily helps with what operational concern?",
+          "options": [
+            "Bounding recovery time by limiting how far back redo must replay",
+            "Eliminating the need for any redo on crash forever",
+            "Converting all B-tree indexes into hash indexes overnight",
+            "Making READ UNCOMMITTED identical to SERIALIZABLE"
+          ],
+          "correctIndex": 0,
+          "explanation": "Checkpoints flush dirty pages so crash recovery need not replay from the beginning of time."
+        },
+        {
+          "id": "dbms-s2-q10",
+          "stem": "Lost update anomaly: two transactions read a balance, each add money, both write. What went wrong?",
+          "options": [
+            "The database refused both COMMITs due to durable WAL rules",
+            "One transaction's write silently overwrote the other's increment",
+            "Phantoms appeared because of a missing foreign key",
+            "The clustered index was converted to a heap mid-transaction"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lost update: concurrent read-modify-write without proper locking/versioning drops one change."
+        },
+        {
+          "id": "dbms-s2-q11",
+          "stem": "MVCC high-level: how do readers often avoid blocking writers in modern engines?",
+          "options": [
+            "By always taking exclusive locks on every SELECT",
+            "By disabling the write-ahead log during SELECT statements",
+            "By reading a snapshot version instead of waiting for writers' locks",
+            "By converting all tables to temporary tables per query"
+          ],
+          "correctIndex": 2,
+          "explanation": "MVCC serves older row versions to readers so writers can proceed without blocking reads."
+        },
+        {
+          "id": "dbms-s2-q12",
+          "stem": "When would you argue for denormalizing a frequently joined dimension into a fact table?",
+          "options": [
+            "When write QPS is the only metric and reads never matter",
+            "When foreign keys are banned by company policy",
+            "When the schema must remain strictly in BCNF forever",
+            "When a hot analytical/OLTP read path pays too much for repeated joins"
+          ],
+          "correctIndex": 3,
+          "explanation": "Duplicate dimension attributes to cut join cost when reads dominate and staleness is managed."
+        },
+        {
+          "id": "dbms-s2-q13",
+          "stem": "Unique index versus unique constraint — what practical framing do interviewers expect?",
+          "options": [
+            "A unique constraint is typically enforced via a unique index under the hood",
+            "They are unrelated; indexes never enforce uniqueness",
+            "Unique indexes forbid NULLs in every SQL dialect identically",
+            "Constraints live only in the application; indexes live only in RAM"
+          ],
+          "correctIndex": 0,
+          "explanation": "Engines usually implement uniqueness constraints with unique indexes."
+        },
+        {
+          "id": "dbms-s2-q14",
+          "stem": "Selectivity of a column: why does it matter when choosing which indexes to create?",
+          "options": [
+            "Low-selectivity columns always make the best single-column indexes",
+            "High selectivity (many distinct values) often makes indexes more useful for filters",
+            "Selectivity only matters for hash indexes, never B-trees",
+            "The optimizer ignores selectivity and only counts table size"
+          ],
+          "correctIndex": 1,
+          "explanation": "Indexes help most when predicates discriminate; low-cardinality columns often filter poorly."
+        },
+        {
+          "id": "dbms-s2-q15",
+          "stem": "Two-phase locking (2PL) intuition: what must hold for the growing and shrinking phases?",
+          "options": [
+            "Locks may be acquired after the first lock release at any time",
+            "All locks are released before any data page is read",
+            "Acquire locks in a growing phase; after first release, only shrink — no new locks",
+            "Shared locks are never upgraded and exclusive locks never release"
+          ],
+          "correctIndex": 2,
+          "explanation": "Strict/basic 2PL: no lock acquisition after unlocking begins, supporting serializable schedules."
+        },
+        {
+          "id": "dbms-s2-q16",
+          "stem": "Star schema for OLAP: what is the typical relationship between fact and dimension tables?",
+          "options": [
+            "Facts must be in BCNF; dimensions must violate 1NF",
+            "One giant denormalized table with no foreign keys by definition",
+            "Only dimension tables store numeric measures; facts store labels",
+            "Many normalized dimensions join to a central fact table of measures"
+          ],
+          "correctIndex": 3,
+          "explanation": "Facts hold measures/FKs; dimensions hold descriptive attributes — classic warehouse modeling."
+        },
+        {
+          "id": "dbms-s2-q17",
+          "stem": "Composite index (a, b): which query predicate is most likely to use the index efficiently?",
+          "options": [
+            "WHERE a = 1 AND b = 2 matching leftmost prefix",
+            "WHERE b = 5 with no predicate on a",
+            "WHERE c = 9 on an unrelated column only",
+            "ORDER BY b DESC without referencing a at all"
+          ],
+          "correctIndex": 0,
+          "explanation": "B-tree composites use the leftmost prefix; filtering only on trailing columns often cannot seek."
+        },
+        {
+          "id": "dbms-s2-q18",
+          "stem": "Idempotent retry of a committed money transfer: which DBMS design concern is central?",
+          "options": [
+            "Making every SELECT use SERIALIZABLE by default",
+            "Detecting duplicate requests so a second COMMIT does not double-apply",
+            "Replacing WAL with synchronous full-table dumps",
+            "Denormalizing balances into every related table"
+          ],
+          "correctIndex": 1,
+          "explanation": "At-least-once delivery needs idempotency keys/unique constraints so retries are safe."
+        },
+        {
+          "id": "dbms-s2-q19",
+          "stem": "Buffer pool / page cache role: what does it optimize in a disk-backed DBMS?",
+          "options": [
+            "Parsing SQL text into abstract syntax trees only",
+            "Enforcing foreign keys without storing any metadata",
+            "Caching frequently used pages in memory to reduce disk I/O",
+            "Compressing network packets between client drivers"
+          ],
+          "correctIndex": 2,
+          "explanation": "The buffer pool keeps hot pages in RAM so reads/writes avoid immediate disk hits."
+        },
+        {
+          "id": "dbms-s2-q20",
+          "stem": "Functional dependency X → Y means what in normalization discussions at interview depth?",
+          "options": [
+            "Y can take any value independent of X in every legal relation instance",
+            "X must be a foreign key referencing Y's table",
+            "X and Y must both be candidate keys of the relation",
+            "For each X value, at most one Y value appears in any valid instance"
+          ],
+          "correctIndex": 3,
+          "explanation": "X → Y: X determines Y; equal X implies equal Y in every valid database state."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "dbms-s3-q01",
+          "stem": "Write skew under SNAPSHOT isolation: two doctors both see one on-call, each goes off-duty. Why can both commit?",
+          "options": [
+            "Each transaction's predicate check used a stale snapshot without mutual exclusion",
+            "Because dirty reads are required at SNAPSHOT isolation",
+            "SERIALIZABLE always allows write skew by definition",
+            "WAL replay reorders their COMMITs into a serial history"
+          ],
+          "correctIndex": 0,
+          "explanation": "Write skew: disjoint writes based on a shared predicate that neither locked/updated."
+        },
+        {
+          "id": "dbms-s3-q02",
+          "stem": "SSI (Serializable Snapshot Isolation) aims to fix which gap relative to plain SI?",
+          "options": [
+            "It removes the need for durable logging entirely",
+            "It detects/aborts dangerous dependency cycles so SI behaves serializable",
+            "It forces every query to use hash indexes only",
+            "It makes CAP Consistency identical to ACID Atomicity"
+          ],
+          "correctIndex": 1,
+          "explanation": "SSI watches rw-dependencies and aborts transactions that would violate serializability."
+        },
+        {
+          "id": "dbms-s3-q03",
+          "stem": "Group commit / fsync batching: what latency-versus-throughput tradeoff are you describing?",
+          "options": [
+            "Flushing each COMMIT with its own fsync maximizes throughput always",
+            "Skipping WAL entirely removes both latency and durability risk",
+            "Batching several COMMITs per durable flush improves throughput, may add latency",
+            "Group commit only applies to SELECT-only workloads"
+          ],
+          "correctIndex": 2,
+          "explanation": "Amortize expensive fsync across many transactions; wait a bit for a fuller batch."
+        },
+        {
+          "id": "dbms-s3-q04",
+          "stem": "Hot-row contention on a single counter row: which senior mitigation is most on-point?",
+          "options": [
+            "Lower isolation to READ UNCOMMITTED for that update only",
+            "Replace the B-tree with a full table scan plan",
+            "Add more foreign keys pointing at the contested row",
+            "Shard counters, use queues, or avoid a single global hotspot row"
+          ],
+          "correctIndex": 3,
+          "explanation": "Serialize on one row kills scale; design around partitioning or asynchronous aggregation."
+        },
+        {
+          "id": "dbms-s3-q05",
+          "stem": "Logical decoding / CDC from WAL: what senior use case does this unlock?",
+          "options": [
+            "Streaming row changes to search indexes, caches, or warehouses reliably",
+            "Replacing all secondary indexes with full table scans",
+            "Making phantom reads impossible without isolation changes",
+            "Eliminating the need for primary keys in OLTP schemas"
+          ],
+          "correctIndex": 0,
+          "explanation": "CDC reads the log stream to propagate changes without dual-writing from the app."
+        },
+        {
+          "id": "dbms-s3-q06",
+          "stem": "Online schema change without long exclusive locks — what technique is interview-relevant?",
+          "options": [
+            "ALTER TABLE in one blocking transaction on multi-TB tables always",
+            "Shadow table/trigger or row-copy tools that swap with brief locks",
+            "Dropping all indexes first so DDL becomes instantaneous and safe",
+            "Running DDL only inside READ UNCOMMITTED sessions"
+          ],
+          "correctIndex": 1,
+          "explanation": "Tools copy/backfill to a new structure then cut over, avoiding prolonged table locks."
+        },
+        {
+          "id": "dbms-s3-q07",
+          "stem": "Quorum reads/writes in a replicated store: how does this relate to CAP Consistency?",
+          "options": [
+            "Any quorum size always guarantees linearizability under all partitions",
+            "Quorums only improve Availability and never Consistency",
+            "Overlapping read/write quorums can provide strong consistency when reachable",
+            "Quorums replace the need for conflict resolution in multi-master forever"
+          ],
+          "correctIndex": 2,
+          "explanation": "R+W > N style quorums intersect so a read can see the latest successful write."
+        },
+        {
+          "id": "dbms-s3-q08",
+          "stem": "Index write amplification under heavy inserts: what senior observation should you make?",
+          "options": [
+            "Every secondary index is free because WAL already records the row",
+            "Hash indexes never need maintenance on INSERT",
+            "More indexes always reduce insert latency linearly",
+            "Each secondary index adds extra random I/O and log/index maintenance cost"
+          ],
+          "correctIndex": 3,
+          "explanation": "Indexes speed reads but tax every write; over-indexing hurts ingest and storage."
+        },
+        {
+          "id": "dbms-s3-q09",
+          "stem": "Predicate locking versus next-key locking for phantoms: what is the shared goal?",
+          "options": [
+            "Prevent new rows from appearing in a scanned predicate/range",
+            "Allow dirty reads while blocking nonrepeatable reads only",
+            "Force all queries onto hash joins without indexes",
+            "Disable MVCC versioning for the duration of SELECT"
+          ],
+          "correctIndex": 0,
+          "explanation": "Both approaches lock ranges/predicates so concurrent inserts cannot create phantoms."
+        },
+        {
+          "id": "dbms-s3-q10",
+          "stem": "You must pick isolation for a banking ledger that forbids write skew and phantoms. Best default stance?",
+          "options": [
+            "READ UNCOMMITTED with application-level hope",
+            "SERIALIZABLE or carefully proven equivalent patterns (SSI/strict 2PL)",
+            "READ COMMITTED because dirty reads never matter for money",
+            "No transactions — single-statement auto-commit only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Financial correctness needs serializable semantics or rigorously equivalent controls."
+        }
+      ]
+    }
+  ]
+}

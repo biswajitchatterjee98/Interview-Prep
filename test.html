@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Test — Software Engineer Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">Software Engineer Concepts</div>
+      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+    </header>
+
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="hub.html">Home</a>
+      <span>/</span>
+      <span aria-current="page">Test</span>
+    </nav>
+
+    <p class="kicker">Practice</p>
+    <h1>Test mode</h1>
+    <p class="lede">Choose how you want to practice — full MCQ banks and coding problems are ready.</p>
+
+    <div class="card-grid">
+      <a class="card" href="mcq.html">
+        <h2>MCQs</h2>
+        <p>Three sections per topic (20 + 20 + 10). Review correct and incorrect answers after each section.</p>
+        <div class="meta">32 topics · 50 questions each</div>
+      </a>
+      <a class="card" href="coding.html">
+        <h2>Coding</h2>
+        <p>Easy / Intermediate / Hard (SQL has a larger set). Submit, save, and reveal Java &amp; Python answers.</p>
+        <div class="meta">12 DSA topics + SQL</div>
+      </a>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+  <script src="js/topics.js"></script>
+  <script>
+    requireAuth();
+    bindLogout();
+  </script>
+</body>
+</html>

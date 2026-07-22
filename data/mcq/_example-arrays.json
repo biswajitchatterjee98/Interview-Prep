@@ -1,0 +1,26 @@
+{
+  "slug": "arrays",
+  "title": "Arrays",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "arrays-s1-q01",
+          "stem": "In an interview you must pick a structure for frequent random access by index. What do you choose and why?",
+          "options": [
+            "Array — contiguous memory gives O(1) index access",
+            "Linked list — pointer chasing is faster for random access",
+            "Hash map — always O(1) regardless of key type",
+            "Stack — LIFO makes indexing natural"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arrays (and array-lists) offer true random access by index in amortized or strict O(1)."
+        }
+      ]
+    },
+    { "id": 2, "label": "Section 2", "questions": [] },
+    { "id": 3, "label": "Section 3", "questions": [] }
+  ]
+}

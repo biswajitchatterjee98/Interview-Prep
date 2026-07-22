@@ -1,0 +1,624 @@
+{
+  "slug": "design-patterns",
+  "title": "Design Patterns",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "design-patterns-s1-q01",
+          "stem": "In an interview, what problem does the Singleton pattern primarily address?",
+          "options": [
+            "Ensure a class has one shared instance and a global access point",
+            "Clone objects without knowing their concrete classes at compile time",
+            "Compose tree structures of part-whole hierarchies for uniform treatment",
+            "Decouple an abstraction from its implementation so both can vary"
+          ],
+          "correctIndex": 0,
+          "explanation": "Singleton restricts instantiation so one shared instance serves the whole process."
+        },
+        {
+          "id": "design-patterns-s1-q02",
+          "stem": "Factory Method versus Abstract Factory — which distinction is interview-correct?",
+          "options": [
+            "They are identical GoF aliases with no practical difference",
+            "Factory Method creates one product via subclass hooks; Abstract Factory families of related products",
+            "Abstract Factory only works for immutable value objects",
+            "Factory Method always returns singletons; Abstract Factory never does"
+          ],
+          "correctIndex": 1,
+          "explanation": "Factory Method: one product type via inheritance. Abstract Factory: product families via composition."
+        },
+        {
+          "id": "design-patterns-s1-q03",
+          "stem": "When would you prefer Builder over a telescoping constructor in an interview answer?",
+          "options": [
+            "When you must guarantee exactly one instance across JVM processes",
+            "When every field is required and order never varies",
+            "When objects need many optional fields assembled step-by-step with a fluent API",
+            "When inheritance alone can express all construction variants"
+          ],
+          "correctIndex": 2,
+          "explanation": "Builder shines for complex, optional, ordered construction without constructor explosion."
+        },
+        {
+          "id": "design-patterns-s1-q04",
+          "stem": "In an interview, you are asked: Prototype pattern — what is the core idea you should state crisply? Which answer is best?",
+          "options": [
+            "Wrap a class to add behavior without modifying its source",
+            "Route requests along a chain until one handler processes them",
+            "Capture and restore an object's internal state for undo",
+            "Create new objects by cloning an existing prototype instead of subclassing factories"
+          ],
+          "correctIndex": 3,
+          "explanation": "Prototype clones configured instances when construction is costly or subclasses proliferate."
+        },
+        {
+          "id": "design-patterns-s1-q05",
+          "stem": "Adapter pattern — which interview line best describes its intent?",
+          "options": [
+            "Convert one interface into another clients already expect without changing either side",
+            "Share fine-grained immutable state across many similar objects to save memory",
+            "Provide a simplified entry point over a complex subsystem of classes",
+            "Let subclasses redefine steps of an algorithm skeleton"
+          ],
+          "correctIndex": 0,
+          "explanation": "Adapter translates incompatible interfaces so existing clients can reuse new code."
+        },
+        {
+          "id": "design-patterns-s1-q06",
+          "stem": "Decorator versus Inheritance for extending behavior — what's the better interview take?",
+          "options": [
+            "Decorator always replaces the original class definition at compile time",
+            "Decorator composes wrappers at runtime; inheritance bakes extensions into a fixed hierarchy",
+            "Inheritance is preferred when you need unlimited open-ended combinations",
+            "Decorator and inheritance are interchangeable with identical trade-offs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Decorators stack behaviors dynamically; deep inheritance hierarchies get brittle."
+        },
+        {
+          "id": "design-patterns-s1-q07",
+          "stem": "In an interview, you are asked: Facade pattern — what problem does it solve in real systems? Which answer is best?",
+          "options": [
+            "Ensure only one thread can enter a critical section at a time",
+            "Map relational rows to domain objects automatically",
+            "Offer a coarse-grained simple API over a noisy multi-class subsystem",
+            "Serialize objects across network boundaries with schema evolution"
+          ],
+          "correctIndex": 2,
+          "explanation": "Facade reduces coupling by hiding subsystem complexity behind one entry point."
+        },
+        {
+          "id": "design-patterns-s1-q08",
+          "stem": "Proxy pattern — name a common production use you'd cite in interviews",
+          "options": [
+            "Building immutable collections with structural sharing only",
+            "Generating SQL from LINQ expressions at query time",
+            "Compiling regexes ahead of time into finite automata",
+            "Lazy loading, access control, caching, or remote stubs that stand in for the real object"
+          ],
+          "correctIndex": 3,
+          "explanation": "Proxies intercept calls for cross-cutting concerns while preserving the subject's interface."
+        },
+        {
+          "id": "design-patterns-s1-q09",
+          "stem": "In an interview, you are asked: Bridge pattern intent — pick the most accurate statement? Which answer is best?",
+          "options": [
+            "Decouple abstraction from implementation so each hierarchy can evolve independently",
+            "Merge two class hierarchies into one via multiple inheritance",
+            "Replace switch statements with polymorphic method dispatch only",
+            "Guarantee thread-safe publication of shared mutable state"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bridge separates what clients use from how it is implemented across platforms."
+        },
+        {
+          "id": "design-patterns-s1-q10",
+          "stem": "In an interview, you are asked: Composite pattern fits which structure best? Which answer is best?",
+          "options": [
+            "Flat key-value caches with eviction policies only",
+            "Tree-like part-whole hierarchies where clients treat leaves and composites uniformly",
+            "Linear pipelines of pure functions with no nesting",
+            "Peer-to-peer mesh networks without hierarchical ownership"
+          ],
+          "correctIndex": 1,
+          "explanation": "Composite lets you nest components and invoke the same operations on nodes and leaves."
+        },
+        {
+          "id": "design-patterns-s1-q11",
+          "stem": "Flyweight — when is it the right interview recommendation?",
+          "options": [
+            "You need exactly one mutable global configuration object",
+            "Clients must undo a sequence of document edits",
+            "Huge numbers of similar objects share intrinsic state; extrinsic state is passed in",
+            "You want to version HTTP APIs with content negotiation"
+          ],
+          "correctIndex": 2,
+          "explanation": "Flyweight trades per-instance memory for shared intrinsic data plus context parameters."
+        },
+        {
+          "id": "design-patterns-s1-q12",
+          "stem": "Strategy pattern — what does it buy you compared to hard-coded conditionals?",
+          "options": [
+            "Force every algorithm into a single inheritance tree forever",
+            "Eliminate the need for unit tests around business rules",
+            "Automatically persist algorithm choice to a relational database",
+            "Swap interchangeable algorithms behind a common interface without changing callers"
+          ],
+          "correctIndex": 3,
+          "explanation": "Strategy encapsulates families of algorithms and selects them at runtime."
+        },
+        {
+          "id": "design-patterns-s1-q13",
+          "stem": "Observer / pub-sub — classic interview definition?",
+          "options": [
+            "Subjects notify dependents of state changes so observers stay loosely coupled",
+            "A single handler processes every event in a strict FIFO queue only",
+            "Callers poll a database every millisecond for updates",
+            "Events are always stored in the same process heap as listeners"
+          ],
+          "correctIndex": 0,
+          "explanation": "Observer defines a one-to-many dependency for change notification without tight coupling."
+        },
+        {
+          "id": "design-patterns-s1-q14",
+          "stem": "Command pattern — which benefit is most interview-relevant?",
+          "options": [
+            "Replace all HTTP verbs with a single RPC endpoint name",
+            "Encapsulate requests as objects enabling queueing, logging, and undo/redo",
+            "Guarantee ACID across distributed microservices by default",
+            "Compile domain models directly into SQL DDL scripts"
+          ],
+          "correctIndex": 1,
+          "explanation": "Commands reify operations so they can be stored, delayed, composed, or reversed."
+        },
+        {
+          "id": "design-patterns-s1-q15",
+          "stem": "In an interview, you are asked: Template Method versus Strategy — how do you distinguish them? Which answer is best?",
+          "options": [
+            "Template Method is only for UI; Strategy is only for networking",
+            "They are forbidden together in the same codebase by GoF rules",
+            "Template Method uses inheritance for algorithm skeleton; Strategy uses composition of behaviors",
+            "Strategy requires abstract classes; Template Method requires only interfaces"
+          ],
+          "correctIndex": 2,
+          "explanation": "Template Method fixes steps in a base class; Strategy plugs whole algorithms as objects."
+        },
+        {
+          "id": "design-patterns-s1-q16",
+          "stem": "In an interview, you are asked: Chain of Responsibility — best one-line intent? Which answer is best?",
+          "options": [
+            "Ensure every handler must mutate the request before forwarding",
+            "Require a central registry that dispatches by numeric priority only",
+            "Merge all handlers into one god class for performance",
+            "Pass a request along handlers until one (or more) can handle it"
+          ],
+          "correctIndex": 3,
+          "explanation": "Chain decouples sender from receiver by giving multiple objects a chance to handle."
+        },
+        {
+          "id": "design-patterns-s1-q17",
+          "stem": "State pattern — when should you reach for it in an interview?",
+          "options": [
+            "Object behavior changes dramatically with internal state; replace big conditionals",
+            "You only need a Boolean flag that never grows new states",
+            "All transitions are illegal and must throw immediately",
+            "State machines cannot be modeled with objects at all"
+          ],
+          "correctIndex": 0,
+          "explanation": "State encapsulates per-state behavior and transitions as separate classes."
+        },
+        {
+          "id": "design-patterns-s1-q18",
+          "stem": "In an interview, you are asked: Mediator pattern primary goal? Which answer is best?",
+          "options": [
+            "Expose every colleague's private fields to every other colleague",
+            "Centralize complex colleague interactions so objects don't reference each other densely",
+            "Replace databases with in-memory maps for all collaboration",
+            "Force synchronous RPC between every pair of services"
+          ],
+          "correctIndex": 1,
+          "explanation": "Mediator reduces chaotic many-to-many links by routing communication through one hub."
+        },
+        {
+          "id": "design-patterns-s1-q19",
+          "stem": "In an interview, you are asked: Memento — classic use case to mention? Which answer is best?",
+          "options": [
+            "Compress images with lossy codecs before upload",
+            "Shard databases by geographic region automatically",
+            "Capture and restore object state for undo without violating encapsulation",
+            "Translate REST payloads into GraphQL schemas"
+          ],
+          "correctIndex": 2,
+          "explanation": "Memento stores opaque snapshots so originators can roll back safely."
+        },
+        {
+          "id": "design-patterns-s1-q20",
+          "stem": "In an interview, you are asked: Visitor pattern — trade-off you should acknowledge? Which answer is best?",
+          "options": [
+            "Add new element types easily; adding new operations is always trivial too",
+            "It eliminates the need for double dispatch in every language",
+            "Visitors must never traverse composite trees",
+            "Add new operations easily across a fixed object structure; adding new element types is hard"
+          ],
+          "correctIndex": 3,
+          "explanation": "Visitor shines when the element hierarchy is stable but operations keep growing."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "design-patterns-s2-q01",
+          "stem": "In an interview, you are asked: Dependency Inversion often pairs with which pattern approach? Which answer is best?",
+          "options": [
+            "Depend on abstractions (interfaces) injected at runtime — Strategy/Factory style seams",
+            "Hard-code concrete classes in every call site for clarity",
+            "Use only static utility methods with no interfaces",
+            "Ban constructors and create objects via reflection only"
+          ],
+          "correctIndex": 0,
+          "explanation": "DIP + factories/DI keep high-level modules free of low-level concretes."
+        },
+        {
+          "id": "design-patterns-s2-q02",
+          "stem": "In an interview, you are asked: Open/Closed Principle maps cleanly to which GoF idea? Which answer is best?",
+          "options": [
+            "Seal every class so nothing can ever be extended",
+            "Extend behavior via new Strategy/Decorator implementations without editing callers",
+            "Copy-paste modules whenever requirements change",
+            "Prefer global mutable registries over polymorphism"
+          ],
+          "correctIndex": 1,
+          "explanation": "OCP: open for extension, closed for modification — patterns enable plug-in behavior."
+        },
+        {
+          "id": "design-patterns-s2-q03",
+          "stem": "Interview trap: Singleton as a global — what's the honest downside?",
+          "options": [
+            "It always improves horizontal scalability across machines",
+            "Singletons cannot hold configuration in any language",
+            "Hidden dependencies, hard testing, and accidental shared mutable state",
+            "The JVM forbids more than one classloader ever"
+          ],
+          "correctIndex": 2,
+          "explanation": "Singletons couple callers to a global lifetime and complicate isolation in tests."
+        },
+        {
+          "id": "design-patterns-s2-q04",
+          "stem": "Which pattern best models a plugin system for interchangeable payment gateways?",
+          "options": [
+            "Memento storing credit card numbers in memory",
+            "Flyweight sharing PAN digits across tenants",
+            "Iterator walking every gateway on each charge",
+            "Strategy (or Factory Method) selected by config or DI at startup"
+          ],
+          "correctIndex": 3,
+          "explanation": "Payment providers are classic Strategy/Factory plug-ins behind one interface."
+        },
+        {
+          "id": "design-patterns-s2-q05",
+          "stem": "Logging, metrics, and auth checks around a service call — which pattern fits?",
+          "options": [
+            "Decorator or Proxy wrapping the core service while preserving its interface",
+            "Prototype cloning log files into the response body",
+            "Composite nesting HTTP status codes as tree nodes",
+            "Builder assembling stack traces into a fluent UI"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cross-cutting wrappers are textbook Decorator/Proxy without changing the core."
+        },
+        {
+          "id": "design-patterns-s2-q06",
+          "stem": "Null Object pattern — interview value proposition?",
+          "options": [
+            "Replace every Optional with raw null references",
+            "Provide a do-nothing implementation so callers avoid null checks",
+            "Force NPEs early to surface bugs in production only",
+            "Serialize nulls as the string literal \"null\" always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Null Object is a safe default collaborator that no-ops instead of being null."
+        },
+        {
+          "id": "design-patterns-s2-q07",
+          "stem": "In an interview, you are asked: Object pool vs Flyweight — how do they differ? Which answer is best?",
+          "options": [
+            "They are the same pattern under two GoF names",
+            "Pools only apply to strings; Flyweights only to threads",
+            "Pools reuse expensive mutable instances; Flyweights share immutable intrinsic state",
+            "Flyweights always allocate fresh objects; pools never recycle"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pooling manages lifecycle/reuse; Flyweight minimizes memory via shared data."
+        },
+        {
+          "id": "design-patterns-s2-q08",
+          "stem": "In an interview, you are asked: Repository pattern in domain layers — what does it abstract? Which answer is best?",
+          "options": [
+            "HTTP routing tables for every microservice endpoint",
+            "CPU scheduling queues inside the operating system",
+            "CSS layout engines for responsive design",
+            "Persistence access behind a collection-like interface over aggregates"
+          ],
+          "correctIndex": 3,
+          "explanation": "Repositories hide storage details so domain code talks in aggregates, not SQL."
+        },
+        {
+          "id": "design-patterns-s2-q09",
+          "stem": "In an interview, you are asked: Unit of Work — complementary idea to Repository? Which answer is best?",
+          "options": [
+            "Track changes across a business transaction and commit or roll back together",
+            "Spawn one database connection per field write immediately",
+            "Disable transactions to maximize write throughput always",
+            "Store every domain event only in the browser localStorage"
+          ],
+          "correctIndex": 0,
+          "explanation": "Unit of Work coordinates dirty tracking and atomic flush of related changes."
+        },
+        {
+          "id": "design-patterns-s2-q10",
+          "stem": "In an interview, you are asked: CQRS often pairs with which separation? Which answer is best?",
+          "options": [
+            "One shared mutable DTO for all reads and writes forever",
+            "Distinct models/handlers for commands (writes) versus queries (reads)",
+            "Banning eventual consistency in every distributed system",
+            "Replacing databases with CSV files for auditability"
+          ],
+          "correctIndex": 1,
+          "explanation": "CQRS splits write and read paths when their shapes and SLAs diverge."
+        },
+        {
+          "id": "design-patterns-s2-q11",
+          "stem": "In an interview, you are asked: Anti-pattern: God Object — what smell are you naming? Which answer is best?",
+          "options": [
+            "A class that only holds immutable data with no behavior",
+            "A module that is too small to be useful in isolation",
+            "One class knows and does far too much, accumulating unrelated responsibilities",
+            "An interface with exactly one implementing class"
+          ],
+          "correctIndex": 2,
+          "explanation": "God objects violate SRP and become change magnets and bug nests."
+        },
+        {
+          "id": "design-patterns-s2-q12",
+          "stem": "In an interview, you are asked: When is Factory preferable to exposing constructors publicly? Which answer is best?",
+          "options": [
+            "The type has zero fields and a trivial no-arg constructor only",
+            "You want callers to new up every dependency graph manually",
+            "Reflection is banned and DI containers are unavailable forever",
+            "Construction is complex, varies by type, or must hide concrete classes from clients"
+          ],
+          "correctIndex": 3,
+          "explanation": "Factories encapsulate creation decisions and keep clients on abstractions."
+        },
+        {
+          "id": "design-patterns-s2-q13",
+          "stem": "In an interview, you are asked: Double-checked locking Singleton — what must you mention for Java/C#? Which answer is best?",
+          "options": [
+            "Needs volatile/correct memory barriers or you risk seeing a partially constructed instance",
+            "It is always safe without any synchronization on modern CPUs",
+            "It only works when the singleton holds no fields at all",
+            "Language runtimes automatically rewrite it to enum singletons"
+          ],
+          "correctIndex": 0,
+          "explanation": "Without proper publication guarantees, DCL can expose uninitialized state."
+        },
+        {
+          "id": "design-patterns-s2-q14",
+          "stem": "In an interview, you are asked: Iterator pattern purpose in collections APIs? Which answer is best?",
+          "options": [
+            "Sort every collection in place before any traversal",
+            "Provide sequential access to elements without exposing underlying representation",
+            "Guarantee O(1) random access for linked structures",
+            "Replace for-each loops with recursive tree walks only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Iterators abstract traversal so clients don't depend on array vs list internals."
+        },
+        {
+          "id": "design-patterns-s2-q15",
+          "stem": "In an interview, you are asked: Interpreter pattern — typical niche use? Which answer is best?",
+          "options": [
+            "JIT-compile all JVM bytecode on every method entry",
+            "Translate REST to SOAP with zero configuration",
+            "Represent and evaluate a simple language/grammar as an object structure",
+            "Replace regex engines entirely in every codebase"
+          ],
+          "correctIndex": 2,
+          "explanation": "Interpreter builds an AST of grammar rules for DSLs and expression evaluation."
+        },
+        {
+          "id": "design-patterns-s2-q16",
+          "stem": "In an interview, you are asked: Which pattern helps undo a sequence of document edits? Which answer is best?",
+          "options": [
+            "Facade that deletes the undo stack on every keystroke",
+            "Adapter converting keyboards into mouse events",
+            "Flyweight sharing keystroke objects across users only",
+            "Command (with mementos or inverse commands) for reversible operations"
+          ],
+          "correctIndex": 3,
+          "explanation": "Commands (often with Memento) are the classic undo/redo mechanism."
+        },
+        {
+          "id": "design-patterns-s2-q17",
+          "stem": "MVC / MVP — which statement is interview-safe?",
+          "options": [
+            "Separate model state from presentation and input handling to reduce UI coupling",
+            "Put SQL queries directly inside view templates for speed",
+            "Make the view own the database connection pool",
+            "Eliminate the model layer in all web applications"
+          ],
+          "correctIndex": 0,
+          "explanation": "UI architectures isolate domain data from rendering and user gestures."
+        },
+        {
+          "id": "design-patterns-s2-q18",
+          "stem": "In an interview, you are asked: Event Sourcing stores what as the source of truth? Which answer is best?",
+          "options": [
+            "Only the latest row snapshot with no history retained",
+            "A sequence of immutable domain events that can rebuild state by replay",
+            "Binary memory dumps of the JVM heap each minute",
+            "Normalized third-normal-form tables without append logs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Event sourcing appends facts; current state is a projection of the stream."
+        },
+        {
+          "id": "design-patterns-s2-q19",
+          "stem": "In an interview, you are asked: Specification pattern — useful for what? Which answer is best?",
+          "options": [
+            "Generating OpenAPI specs from handwritten YAML only",
+            "Enforcing that every class has a public no-arg constructor",
+            "Composable business rules expressed as objects that can combine with and/or/not",
+            "Validating TLS certificates inside the browser exclusively"
+          ],
+          "correctIndex": 2,
+          "explanation": "Specifications encapsulate reusable predicates for filtering and validation."
+        },
+        {
+          "id": "design-patterns-s2-q20",
+          "stem": "In an interview, you are asked: Prefer composition over inheritance — which pattern mindset matches? Which answer is best?",
+          "options": [
+            "Always subclass Object for every new behavior variant",
+            "Multiple inheritance is required for every extension point",
+            "Copy base class source into each subclass file manually",
+            "Strategy, Decorator, and Bridge favor has-a collaboration over deep is-a trees"
+          ],
+          "correctIndex": 3,
+          "explanation": "Modern design favors plugging behaviors via composition, not tall hierarchies."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "design-patterns-s3-q01",
+          "stem": "Interview: pick a pattern for rate-limiting wrappers around an HTTP client",
+          "options": [
+            "Decorator or Proxy that counts calls and rejects excess before delegating",
+            "Prototype that clones the entire TCP stack per request",
+            "Composite that nests status codes as filesystem paths",
+            "Memento that stores every response body forever"
+          ],
+          "correctIndex": 0,
+          "explanation": "Rate limits are cross-cutting — wrap the client without changing call sites."
+        },
+        {
+          "id": "design-patterns-s3-q02",
+          "stem": "In an interview, you are asked: Why might Abstract Factory appear in UI toolkits? Which answer is best?",
+          "options": [
+            "Ensure only one JFrame exists in the entire operating system",
+            "Create families of related widgets (button/scrollbar) matching a look-and-feel",
+            "Serialize Swing components into JSON automatically",
+            "Replace the event loop with busy-wait polling"
+          ],
+          "correctIndex": 1,
+          "explanation": "Abstract Factory supplies consistent product families across themes/platforms."
+        },
+        {
+          "id": "design-patterns-s3-q03",
+          "stem": "In an interview, you are asked: Liskov Substitution — how does it constrain pattern usage? Which answer is best?",
+          "options": [
+            "Any override may weaken preconditions freely for flexibility",
+            "Interfaces may throw undocumented errors for every method",
+            "Subtype Strategy/Decorator implementations must honor the base contract callers rely on",
+            "Substituting types is never allowed once a Factory exists"
+          ],
+          "correctIndex": 2,
+          "explanation": "LSP: clients must be able to use substitutes without breaking expectations."
+        },
+        {
+          "id": "design-patterns-s3-q04",
+          "stem": "In an interview, you are asked: Circuit breaker often implemented as which structural idea? Which answer is best?",
+          "options": [
+            "Flyweight sharing open sockets across all tenants unsafely",
+            "Builder constructing stack traces into HTML emails",
+            "Iterator scanning every microservice on each user click",
+            "Proxy/Decorator that short-circuits calls when failure thresholds trip"
+          ],
+          "correctIndex": 3,
+          "explanation": "Circuit breakers wrap remotes and fail fast while the circuit is open."
+        },
+        {
+          "id": "design-patterns-s3-q05",
+          "stem": "Publish-subscribe vs Observer — nuanced interview point?",
+          "options": [
+            "Pub-sub often adds a broker/topic decoupling publishers from subscribers further",
+            "They are always identical with the same coupling characteristics",
+            "Observer requires a message bus; pub-sub forbids one",
+            "Pub-sub only works inside a single threaded process"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic Observer is often in-process; pub-sub scales with brokers and topics."
+        },
+        {
+          "id": "design-patterns-s3-q06",
+          "stem": "In an interview, you are asked: When is Visitor a poor fit? Which answer is best?",
+          "options": [
+            "You only need to add operations and the structure is frozen forever",
+            "The element type hierarchy changes often, forcing visitor interface churn",
+            "You want double dispatch over a stable set of node types",
+            "Compilers need to walk ASTs with many analysis passes"
+          ],
+          "correctIndex": 1,
+          "explanation": "Unstable element hierarchies make Visitor's dual hierarchy painful."
+        },
+        {
+          "id": "design-patterns-s3-q07",
+          "stem": "In an interview, you are asked: Smart Proxy for lazy ORM associations — what does it do? Which answer is best?",
+          "options": [
+            "Eager-load the entire database on application startup",
+            "Delete orphan rows whenever any field is read",
+            "Defer loading related rows until the property is first accessed",
+            "Replace foreign keys with natural language descriptions"
+          ],
+          "correctIndex": 2,
+          "explanation": "Lazy-loading proxies fetch related data on demand transparently."
+        },
+        {
+          "id": "design-patterns-s3-q08",
+          "stem": "In an interview, you are asked: Builder vs Factory Method — quick contrast? Which answer is best?",
+          "options": [
+            "Builder always returns interfaces; Factory Method always returns primitives",
+            "Factory Method cannot return objects in statically typed languages",
+            "Builder requires a multithreaded runtime to function",
+            "Builder focuses on step-wise construction of one complex product; Factory Method on which subtype to instantiate"
+          ],
+          "correctIndex": 3,
+          "explanation": "Different axes: construction steps versus polymorphic product choice."
+        },
+        {
+          "id": "design-patterns-s3-q09",
+          "stem": "In an interview, you are asked: Active Record vs Data Mapper — pattern-level difference? Which answer is best?",
+          "options": [
+            "Active Record binds domain object to persistence; Data Mapper keeps domain free of storage",
+            "They are synonyms in every ORM documentation",
+            "Data Mapper forbids SQL; Active Record forbids objects",
+            "Active Record only works with document databases"
+          ],
+          "correctIndex": 0,
+          "explanation": "Data Mapper (and Repository) keep domain models persistence-ignorant."
+        },
+        {
+          "id": "design-patterns-s3-q10",
+          "stem": "In an interview, you are asked: Hexagonal / ports-and-adapters aligns with which GoF mindset? Which answer is best?",
+          "options": [
+            "Put framework annotations deep inside pure domain entities always",
+            "Depend on port interfaces; drive adapters (DB, HTTP) via Strategy-like plugging",
+            "Call JDBC drivers directly from every UI button handler",
+            "Ban interfaces so adapters can never be swapped"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ports are abstractions; adapters are interchangeable implementations at the edges."
+        }
+      ]
+    }
+  ]
+}

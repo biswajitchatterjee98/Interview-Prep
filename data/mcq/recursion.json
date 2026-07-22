@@ -1,0 +1,624 @@
+{
+  "slug": "recursion",
+  "title": "Recursion",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "recursion-s1-q01",
+          "stem": "In a coding interview, how should you answer this: Every recursive function needs:? Choose the strongest option.",
+          "options": [
+            "Only a recursive case",
+            "A base case that stops recursion and a recursive case that progresses toward it",
+            "Only global variables",
+            "Option claiming: A heap"
+          ],
+          "correctIndex": 1,
+          "explanation": "Without a base case you recurse forever (until stack overflow)."
+        },
+        {
+          "id": "recursion-s1-q02",
+          "stem": "In a coding interview, how should you answer this: The call stack stores:? Choose the strongest option.",
+          "options": [
+            "Frames with parameters, locals, and return address for each active call",
+            "Only the final answer",
+            "The entire heap",
+            "CPU registers permanently"
+          ],
+          "correctIndex": 0,
+          "explanation": "Each call pushes a frame; return pops."
+        },
+        {
+          "id": "recursion-s1-q03",
+          "stem": "In a coding interview, how should you answer this: Tail recursion means the recursive call is:? Choose the strongest option.",
+          "options": [
+            "The first line always",
+            "Mutual only",
+            "Forbidden in Java",
+            "The last action in the function (nothing after it uses the result)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Definition of tail position. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q04",
+          "stem": "In a coding interview, how should you answer this: On the JVM, tail recursion is typically:? Choose the strongest option.",
+          "options": [
+            "Always converted to loops by HotSpot for all methods",
+            "Impossible to write",
+            "Not optimized away — deep tail recursion can still StackOverflowError",
+            "Faster than iteration always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Java does not guarantee TCO; rewrite as loops for deep recursion."
+        },
+        {
+          "id": "recursion-s1-q05",
+          "stem": "In a coding interview, how should you answer this: Recursion vs iteration tradeoff: recursion often wins on:? Choose the strongest option.",
+          "options": [
+            "Guaranteed less memory always",
+            "Clarity for tree/graph naturally recursive structures",
+            "Faster asymptotics always",
+            "Avoiding base cases"
+          ],
+          "correctIndex": 1,
+          "explanation": "Trees/DFS map cleanly to recursion; iteration needs explicit stacks."
+        },
+        {
+          "id": "recursion-s1-q06",
+          "stem": "In a coding interview, how should you answer this: A classic backtracking template is:? Choose the strongest option.",
+          "options": [
+            "choose → explore → unchoose (undo)",
+            "sort → heapify → extract",
+            "BFS only",
+            "Union → find"
+          ],
+          "correctIndex": 0,
+          "explanation": "Undo restores state for the next candidate."
+        },
+        {
+          "id": "recursion-s1-q07",
+          "stem": "In a coding interview, how should you answer this: Mutual recursion means:? Choose the strongest option.",
+          "options": [
+            "A function calls itself only",
+            "No base cases",
+            "Only lambdas",
+            "Functions call each other in a cycle of responsibility"
+          ],
+          "correctIndex": 3,
+          "explanation": "e.g., isEven/isOdd pair. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q08",
+          "stem": "In a coding interview, how should you answer this: factorial(n) = n * factorial(n-1) progresses because:? Choose the strongest option.",
+          "options": [
+            "n increases forever",
+            "No base case needed",
+            "n decreases toward the base case 0 or 1",
+            "It uses a heap"
+          ],
+          "correctIndex": 2,
+          "explanation": "Measure of progress must strictly decrease."
+        },
+        {
+          "id": "recursion-s1-q09",
+          "stem": "In a coding interview, how should you answer this: Stack overflow in recursion usually indicates:? Choose the strongest option.",
+          "options": [
+            "Too much heap RAM only",
+            "Missing/incorrect base case or recursion depth too large for the stack",
+            "That iteration is impossible",
+            "JSON errors"
+          ],
+          "correctIndex": 1,
+          "explanation": "Debug base case and depth. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q10",
+          "stem": "In a coding interview, how should you answer this: Memoized recursion stores results to:? Choose the strongest option.",
+          "options": [
+            "Avoid recomputing identical subproblems",
+            "Increase stack size",
+            "Skip base cases",
+            "Replace the call stack with a queue always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bridge from recursion to DP. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q11",
+          "stem": "In a coding interview, how should you answer this: Binary tree height recursively is:? Choose the strongest option.",
+          "options": [
+            "Always n",
+            "BFS only",
+            "sum of values",
+            "1 + max(height(left), height(right)), with null = -1 or 0 convention"
+          ],
+          "correctIndex": 3,
+          "explanation": "Natural recursive definition. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q12",
+          "stem": "In a coding interview, you are asked: Why prefer iteration for a simple countdown in production Java? Which response is most accurate?",
+          "options": [
+            "Recursion is illegal",
+            "Loops cannot count",
+            "Avoids call-stack risk and TCO is not guaranteed",
+            "JIT forbids recursion"
+          ],
+          "correctIndex": 2,
+          "explanation": "Practical JVM guidance. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q13",
+          "stem": "In a coding interview, how should you answer this: Permutations via backtracking swap elements then:? Choose the strongest option.",
+          "options": [
+            "Delete the array",
+            "Recurse on next index and swap back",
+            "Run Dijkstra",
+            "Topo sort"
+          ],
+          "correctIndex": 1,
+          "explanation": "In-place permutation generation."
+        },
+        {
+          "id": "recursion-s1-q14",
+          "stem": "In a coding interview, how should you answer this: N-Queens backtracking places a queen only if:? Choose the strongest option.",
+          "options": [
+            "Row/col/diag are free, then recurse to next row",
+            "Any cell randomly",
+            "MST allows",
+            "Heap extract succeeds"
+          ],
+          "correctIndex": 0,
+          "explanation": "Constraint check before explore."
+        },
+        {
+          "id": "recursion-s1-q15",
+          "stem": "In a coding interview, how should you answer this: Indirect recursion is another name for patterns like:? Choose the strongest option.",
+          "options": [
+            "Only self calls",
+            "Tail calls only",
+            "Iteration",
+            "Mutual recursion through a cycle of functions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same family as mutual recursion."
+        },
+        {
+          "id": "recursion-s1-q16",
+          "stem": "In a coding interview, how should you answer this: Recursion depth for balanced binary tree algorithms is often:? Choose the strongest option.",
+          "options": [
+            "O(n²) always",
+            "O(1) always",
+            "O(log n) stack frames",
+            "O(2^n) frames"
+          ],
+          "correctIndex": 2,
+          "explanation": "Height governs depth. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q17",
+          "stem": "In a coding interview, how should you answer this: A recursive DFS on a graph must mark visited to avoid:? Choose the strongest option.",
+          "options": [
+            "Base cases",
+            "Infinite recursion on cycles",
+            "Tail calls",
+            "Iterators"
+          ],
+          "correctIndex": 1,
+          "explanation": "Cycles ⇒ nontermination without marks."
+        },
+        {
+          "id": "recursion-s1-q18",
+          "stem": "In a coding interview, how should you answer this: Head recursion does significant work:? Choose the strongest option.",
+          "options": [
+            "After the recursive call returns",
+            "Only before the call in tail form",
+            "Only in base case",
+            "Option claiming: Never"
+          ],
+          "correctIndex": 0,
+          "explanation": "Contrast with tail recursion. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s1-q19",
+          "stem": "In a coding interview, how should you answer this: Converting recursion to iteration explicitly uses:? Choose the strongest option.",
+          "options": [
+            "Deleting parameters",
+            "More heaps only",
+            "Floyd-Warshall",
+            "Your own stack (or clever loops) simulating frames"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same control flow, manual stack."
+        },
+        {
+          "id": "recursion-s1-q20",
+          "stem": "In a coding interview, how should you answer this: Base case for empty list / null tree often returns:? Choose the strongest option.",
+          "options": [
+            "Random data",
+            "The root always",
+            "Identity values (0, 1, empty list, null) appropriate to the problem",
+            "Negative infinity only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pick the monoid identity for the aggregation."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "recursion-s2-q01",
+          "stem": "In a coding interview, how should you answer this: Backtracking vs brute generate-all then filter:? Choose the strongest option.",
+          "options": [
+            "They always explore the same number of nodes",
+            "Backtracking forbids undo",
+            "Backtracking prunes invalid partial solutions early",
+            "Filter is always faster"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pruning is the point. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q02",
+          "stem": "In a coding interview, you are asked: Subset generation recursion either includes or excludes each element then:? Which answer is best?",
+          "options": [
+            "Sorts the set each time",
+            "Recurses to index+1; undo if mutating a shared path list",
+            "Uses Dijkstra",
+            "Builds MST"
+          ],
+          "correctIndex": 1,
+          "explanation": "Include/exclude tree. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q03",
+          "stem": "In a coding interview, how should you answer this: Tail-recursive factorial accumulator version passes:? Choose the strongest option.",
+          "options": [
+            "Running product so the call is in tail position",
+            "Option claiming: Only n",
+            "Option claiming: A heap",
+            "Option claiming: A graph"
+          ],
+          "correctIndex": 0,
+          "explanation": "acc * n with n-1. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q04",
+          "stem": "Scala/Kotlin may optimize tail calls where Java won't — interview takeaway:",
+          "options": [
+            "All JVMs identical always",
+            "Python guarantees TCO",
+            "TCO is in the Java Language Spec mandate",
+            "TCO is language/runtime dependent; don't assume it on JVM Java"
+          ],
+          "correctIndex": 3,
+          "explanation": "Know your runtime. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q05",
+          "stem": "In a coding interview, how should you answer this: mutual recursion example: recursive descent parsing often splits:? Choose the strongest option.",
+          "options": [
+            "Only one function ever",
+            "Option claiming: Heaps",
+            "expr/term/factor functions calling each other by grammar",
+            "Union-Find"
+          ],
+          "correctIndex": 2,
+          "explanation": "Grammar productions ↔ functions."
+        },
+        {
+          "id": "recursion-s2-q06",
+          "stem": "In a coding interview, how should you answer this: Trampolining avoids deep stacks by:? Choose the strongest option.",
+          "options": [
+            "Using more recursion",
+            "Returning a thunk/continuation for a driver loop to bounce",
+            "Deleting base cases",
+            "BFS only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Functional technique when TCO absent."
+        },
+        {
+          "id": "recursion-s2-q07",
+          "stem": "In a coding interview, how should you answer this: Combination sum backtracking sorts candidates to:? Choose the strongest option.",
+          "options": [
+            "Prune when remaining < next candidate and control duplicates",
+            "Make Dijkstra work",
+            "Build Huffman",
+            "Color graphs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Ordering enables pruning/dupe skipping."
+        },
+        {
+          "id": "recursion-s2-q08",
+          "stem": "In a coding interview, how should you answer this: Recursion on linked lists: reverse list recursive step is:? Choose the strongest option.",
+          "options": [
+            "Swap with heap",
+            "BFS nodes",
+            "Option claiming: Topo",
+            "Recurse on next; then point next.next to current; null current.next"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic pointer rewind. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q09",
+          "stem": "In a coding interview, how should you answer this: Worst-case recursion depth on a skewed tree DFS is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(1)",
+            "O(log n) always",
+            "O(n) — risk of stack overflow",
+            "Option claiming: O(√n)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Skewed ⇒ linear depth. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Generator/coroutine style 'recursion' yields control to:? Choose the strongest option.",
+          "options": [
+            "Force full materialization",
+            "Produce values lazily without building full results in memory",
+            "Replace base cases",
+            "Ban iteration"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lazy recursive enumeration. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q11",
+          "stem": "In a coding interview, how should you answer this: Sudoku solver is backtracking that:? Choose the strongest option.",
+          "options": [
+            "Tries digits 1–9 with constraint checks; undoes on failure",
+            "Uses only greedy density",
+            "Runs Kruskal",
+            "Memoizes all boards in O(1)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Search with undo. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q12",
+          "stem": "In a coding interview, you are asked: Why pass index instead of slicing arrays in recursion interviews? Which response is most accurate?",
+          "options": [
+            "Slicing is illegal",
+            "Indices break base cases",
+            "Arrays cannot slice",
+            "Slicing costs O(n) time/space per call; indices are O(1)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Performance hygiene. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q13",
+          "stem": "In a coding interview, how should you answer this: Divide and conquer recursion solves by:? Choose the strongest option.",
+          "options": [
+            "Overlapping mandatory memo",
+            "Greedy only",
+            "Splitting into independent subproblems then combining",
+            "One subproblem only always"
+          ],
+          "correctIndex": 2,
+          "explanation": "If overlapping, it becomes DP territory."
+        },
+        {
+          "id": "recursion-s2-q14",
+          "stem": "In a coding interview, how should you answer this: Master theorem applies to recursions of form T(n)=aT(n/b)+f(n) when:? Choose the strongest option.",
+          "options": [
+            "Graph cycles exist",
+            "Subproblems shrink by constant factor b with a branches",
+            "n increases",
+            "Base case missing"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic runtime tool. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q15",
+          "stem": "In a coding interview, how should you answer this: Backtracking 'used' boolean array must be cleared on unchoose to:? Choose the strongest option.",
+          "options": [
+            "Allow the element in other branches",
+            "Leak memory intentionally",
+            "Skip base cases",
+            "Sort faster"
+          ],
+          "correctIndex": 0,
+          "explanation": "Undo symmetry. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q16",
+          "stem": "In a coding interview, you are asked: Recursive quicksort depth expected is O(log n) but worst-case O(n) when:? Which answer is best?",
+          "options": [
+            "Arrays are empty",
+            "TCO applies",
+            "Heaps intervene",
+            "Pivots are consistently terrible (sorted input with bad pivot rule)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Randomized/median pivots mitigate."
+        },
+        {
+          "id": "recursion-s2-q17",
+          "stem": "In a coding interview, how should you answer this: CPS (continuation-passing style) makes every call tail-like by:? Choose the strongest option.",
+          "options": [
+            "Deleting returns",
+            "Using MST",
+            "Passing 'what to do next' as an explicit function argument",
+            "Forbidding higher-order functions"
+          ],
+          "correctIndex": 2,
+          "explanation": "Advanced recursion transform. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s2-q18",
+          "stem": "Flood fill recursion on large grids may fail where BFS iteration succeeds because:",
+          "options": [
+            "BFS uses more stack frames always",
+            "Call stack depth hits region size",
+            "Recursion cannot mark visited",
+            "Grids forbid queues"
+          ],
+          "correctIndex": 1,
+          "explanation": "Prefer explicit queue for large fills."
+        },
+        {
+          "id": "recursion-s2-q19",
+          "stem": "In a coding interview, how should you answer this: Memo keys for recursive grid DP should include:? Choose the strongest option.",
+          "options": [
+            "All state that affects the future (r,c, and constraints like remaining health)",
+            "Option claiming: Only r",
+            "Option claiming: Only c",
+            "Option claiming: Nothing"
+          ],
+          "correctIndex": 0,
+          "explanation": "Incomplete keys ⇒ wrong answers."
+        },
+        {
+          "id": "recursion-s2-q20",
+          "stem": "In a coding interview, how should you answer this: Symmetric undo: if choose pushes to a list, unchoose must:? Choose the strongest option.",
+          "options": [
+            "push again",
+            "clear the entire list always",
+            "sort the list",
+            "pop the same element"
+          ],
+          "correctIndex": 3,
+          "explanation": "Keep path coherent across branches."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "recursion-s3-q01",
+          "stem": "In a coding interview, how should you answer this: Senior JVM: increasing -Xss fixes some recursive SOE but:? Choose the strongest option.",
+          "options": [
+            "Is always the best design",
+            "Guarantees TCO",
+            "Removes need for base cases",
+            "Masks bad depth; prefer algorithmic iteration / explicit stacks for unbounded input"
+          ],
+          "correctIndex": 3,
+          "explanation": "Ops knobs ≠ algorithm fix. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s3-q02",
+          "stem": "In a coding interview, how should you answer this: Proving recursive algorithms terminate uses a:? Choose the strongest option.",
+          "options": [
+            "Random sleep",
+            "Heap size",
+            "Variant/measure that decreases and is bounded below",
+            "JSON schema"
+          ],
+          "correctIndex": 2,
+          "explanation": "Well-founded induction. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s3-q03",
+          "stem": "In a coding interview, how should you answer this: Mutual recursion can complicate inlining/TCO; a refactor is:? Choose the strongest option.",
+          "options": [
+            "Add more mutual calls",
+            "Fuse into one function with a state/mode flag or use a loop",
+            "Delete base cases",
+            "Require Python"
+          ],
+          "correctIndex": 1,
+          "explanation": "Production simplification. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s3-q04",
+          "stem": "In a coding interview, how should you answer this: Backtracking time explosion: estimate nodes by:? Choose the strongest option.",
+          "options": [
+            "Branching factor ^ depth with pruning effects called out",
+            "Only O(n) always",
+            "MST size",
+            "Heap height only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Interview complexity honesty. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s3-q05",
+          "stem": "In a coding interview, how should you answer this: Y-combinator / anonymous recursion is mostly:? Choose the strongest option.",
+          "options": [
+            "Required by JVM",
+            "Faster than named functions always",
+            "A graph algorithm",
+            "Theory/functional trivia — rarely idiomatic production Java"
+          ],
+          "correctIndex": 3,
+          "explanation": "Know it exists; don't force it."
+        },
+        {
+          "id": "recursion-s3-q06",
+          "stem": "In a coding interview, how should you answer this: Recursive locks / reentrancy bugs appear when:? Choose the strongest option.",
+          "options": [
+            "Iteration is used",
+            "Base cases run",
+            "A function holds a lock and recurses into code that needs the same non-reentrant lock",
+            "TCO fires"
+          ],
+          "correctIndex": 2,
+          "explanation": "Concurrency ∩ recursion hazard."
+        },
+        {
+          "id": "recursion-s3-q07",
+          "stem": "In a coding interview, how should you answer this: Exact cover / dancing links is optimized backtracking because:? Choose the strongest option.",
+          "options": [
+            "It avoids undo",
+            "It updates links to remove/restore columns efficiently",
+            "It is greedy Huffman",
+            "It is Dijkstra"
+          ],
+          "correctIndex": 1,
+          "explanation": "Knuth DLX — senior algorithms culture."
+        },
+        {
+          "id": "recursion-s3-q08",
+          "stem": "In a coding interview, how should you answer this: Converting tree recursion to continuation/iterator enables:? Choose the strongest option.",
+          "options": [
+            "Lazy traversal and bounded stack via explicit control",
+            "Mandatory TCO on JVM",
+            "Deleting leaves",
+            "O(1) height always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pull-based tree walk. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s3-q09",
+          "stem": "A subtle bug: base case `n==0` but caller passes negative due to bug upstream — symptom?",
+          "options": [
+            "Automatic success",
+            "Faster AC",
+            "Heap corruption only",
+            "Nontermination or wrong branch; validate inputs at API boundary"
+          ],
+          "correctIndex": 3,
+          "explanation": "Trust boundaries matter. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "recursion-s3-q10",
+          "stem": "In a coding interview, how should you answer this: When recursion and DP meet in interviews, phrase the relationship as:? Choose the strongest option.",
+          "options": [
+            "Recursion forbids optima",
+            "DP bans recursion",
+            "Recurrence defines structure; memo/tabulation makes it efficient by caching",
+            "They never overlap"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clean senior summary. State this clearly and mention complexity when relevant."
+        }
+      ]
+    }
+  ]
+}

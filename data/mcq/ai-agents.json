@@ -1,0 +1,624 @@
+{
+  "slug": "ai-agents",
+  "title": "AI Agents",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "ai-agents-s1-q01",
+          "stem": "In an agents interview, what distinguishes an AI agent from a single LLM completion?",
+          "options": [
+            "Agents plan/act via tools and feedback loops toward a goal, not one-shot text",
+            "Agents cannot call tools and may only emit a final paragraph once",
+            "Any chatbot with a system prompt is legally defined as an autonomous agent",
+            "Agents replace LLMs entirely with finite-state machines and no models"
+          ],
+          "correctIndex": 0,
+          "explanation": "Agency implies iterative perception–reasoning–action with external effects."
+        },
+        {
+          "id": "ai-agents-s1-q02",
+          "stem": "ReAct prompting pattern: what two interleaved activities does the pattern emphasize?",
+          "options": [
+            "Only final answers without revealing intermediate reasoning or actions",
+            "Reasoning traces (thoughts) alternating with concrete tool/environment actions",
+            "Training a reward model online during every user session automatically",
+            "Replacing tools with larger context windows until actions are unnecessary"
+          ],
+          "correctIndex": 1,
+          "explanation": "ReAct couples chain-of-thought with observable tool use steps."
+        },
+        {
+          "id": "ai-agents-s1-q03",
+          "stem": "Tool use / function calling: what must the runtime provide beyond the LLM itself?",
+          "options": [
+            "Only a larger temperature so the model invents tool outputs itself",
+            "A guarantee that all tool calls succeed without error handling",
+            "Schemas, execution sandbox, auth, and a way to return observations to the model",
+            "Removal of the system prompt so tools become the only instructions"
+          ],
+          "correctIndex": 2,
+          "explanation": "Orchestration executes tools safely and feeds results back into context."
+        },
+        {
+          "id": "ai-agents-s1-q04",
+          "stem": "Short-term versus long-term agent memory: how do you distinguish them clearly?",
+          "options": [
+            "Long-term memory is only the GPU VRAM holding model weights",
+            "Short-term memory forbids tool calls; long-term forbids prompts",
+            "They are identical Redis keys with different marketing names",
+            "Short-term is session/context state; long-term persists knowledge across sessions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Persistence horizon separates scratchpad context from durable stores."
+        },
+        {
+          "id": "ai-agents-s1-q05",
+          "stem": "Multi-agent systems: what potential benefit should you mention carefully in interviews?",
+          "options": [
+            "Specialization and critique among roles can improve complex workflows",
+            "More agents always reduce cost and latency compared with one agent",
+            "Multi-agent setups eliminate the need for any evaluation or guardrails",
+            "Agents cannot communicate; multi-agent only means sharding GPUs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Role-split agents help when tasks decompose, but add coordination cost."
+        },
+        {
+          "id": "ai-agents-s1-q06",
+          "stem": "LangGraph-style idea: what does a graph-based agent orchestration buy your system?",
+          "options": [
+            "Automatic training of new foundation models from the graph structure",
+            "Explicit nodes/edges for control flow, retries, branching, and stateful loops",
+            "Deletion of tools because graphs replace all external side effects",
+            "A guarantee of optimal plans without any search or evaluation"
+          ],
+          "correctIndex": 1,
+          "explanation": "Graphs make agent control flow inspectable and engineered, not ad hoc."
+        },
+        {
+          "id": "ai-agents-s1-q07",
+          "stem": "Guardrails for agents: which controls belong on a production readiness checklist?",
+          "options": [
+            "Removing all authentication so tools are easier to call quickly",
+            "Letting the agent self-modify its own production credentials freely",
+            "Allowlists, spend limits, sandboxes, output filters, and policy checks",
+            "Guardrails only apply to training and never to runtime tool calls"
+          ],
+          "correctIndex": 2,
+          "explanation": "Defense in depth constrains what agents may say and do."
+        },
+        {
+          "id": "ai-agents-s1-q08",
+          "stem": "Agent loops that never terminate: what mitigations should you design into the system?",
+          "options": [
+            "Increase temperature until the loop becomes creative enough to stop",
+            "Disable logging so infinite loops consume resources silently",
+            "Infinite loops are impossible if the model uses ReAct formatting",
+            "Max steps, timeouts, budget caps, and stop conditions on goal checks"
+          ],
+          "correctIndex": 3,
+          "explanation": "Hard resource limits prevent runaway tool-calling cycles."
+        },
+        {
+          "id": "ai-agents-s1-q09",
+          "stem": "Human-in-the-loop (HITL): when is it especially important for production agents?",
+          "options": [
+            "High-stakes, irreversible, or ambiguous actions needing approval gates",
+            "Only for unit tests and never for production user workflows",
+            "HITL means the human types tokens instead of using an LLM at all",
+            "Agents with tools never need humans because tools are sandboxed always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Approval checkpoints reduce blast radius on consequential operations."
+        },
+        {
+          "id": "ai-agents-s1-q10",
+          "stem": "Agentic RAG: how does it differ from classic retrieve-then-read RAG pipelines?",
+          "options": [
+            "Agentic RAG forbids vector indexes and uses only parametric memory",
+            "The agent decides when/what to retrieve iteratively based on intermediate needs",
+            "Classic RAG already plans arbitrary tool sequences by definition",
+            "Agentic means the retriever trains the generator online each query"
+          ],
+          "correctIndex": 1,
+          "explanation": "Retrieval becomes a controllable action inside a broader agent policy."
+        },
+        {
+          "id": "ai-agents-s1-q11",
+          "stem": "Planning then execution vs interleaved ReAct: what tradeoff appears in practice?",
+          "options": [
+            "Planning always dominates because environments never change mid-task",
+            "Interleaved methods cannot use tools and only produce text plans",
+            "Up-front plans can be brittle; interleaved act/observe adapts to feedback",
+            "They are identical if the context window exceeds one thousand tokens"
+          ],
+          "correctIndex": 2,
+          "explanation": "Closed-loop execution handles uncertainty better than open-loop plans."
+        },
+        {
+          "id": "ai-agents-s1-q12",
+          "stem": "Observation quality: why do bad tool outputs break otherwise capable agents?",
+          "options": [
+            "Agents ignore tool results by architecture and only read the user prompt",
+            "Tool outputs are encrypted so models cannot misuse them anyway",
+            "Observation noise always improves exploration without downside",
+            "Garbage observations poison the next reasoning step and compound errors"
+          ],
+          "correctIndex": 3,
+          "explanation": "Agents are only as good as the feedback signals tools return."
+        },
+        {
+          "id": "ai-agents-s1-q13",
+          "stem": "Stateful tools (browsers, REPLs): what extra risks should you call out in interviews?",
+          "options": [
+            "Session drift, side effects, credential exposure, and non-idempotent actions",
+            "Stateful tools cannot affect the world beyond returning strings",
+            "Browsers used by agents are read-only by networking protocol law",
+            "REPLs delete the need for sandboxing because code is already text"
+          ],
+          "correctIndex": 0,
+          "explanation": "Persistent environments amplify both capability and security risk."
+        },
+        {
+          "id": "ai-agents-s1-q14",
+          "stem": "Evaluation of agents: why are single-turn LLM benchmarks insufficient alone?",
+          "options": [
+            "Agent quality equals MMLU score of the underlying base model always",
+            "Agents fail via multi-step trajectories, tool misuse, and loop pathologies",
+            "Only latency matters; task success rates are irrelevant for agents",
+            "Trajectory evals are impossible because tools are nondeterministic forever"
+          ],
+          "correctIndex": 1,
+          "explanation": "You must score end-to-end task success and intermediate step quality."
+        },
+        {
+          "id": "ai-agents-s1-q15",
+          "stem": "Memory write policies: what should agents store versus leave as ephemeral context?",
+          "options": [
+            "Store every token of every tool response forever without summarization",
+            "Never write memory because context windows make persistence obsolete",
+            "Durable facts/preferences worth reuse; avoid secrets and stale noisy traces",
+            "Memory stores must include raw API keys for faster tool authentication"
+          ],
+          "correctIndex": 2,
+          "explanation": "Selective memory prevents bloat, leakage, and incorrect future grounding."
+        },
+        {
+          "id": "ai-agents-s1-q16",
+          "stem": "Supervisor / worker multi-agent pattern: what division of labor is typical here?",
+          "options": [
+            "Every worker independently ships code to production without review",
+            "Supervisors only resize GPU clusters and never see task content",
+            "Workers must all use identical prompts with zero specialization",
+            "A coordinator delegates subtasks to specialist workers and synthesizes results"
+          ],
+          "correctIndex": 3,
+          "explanation": "Hierarchical control helps decompose work while keeping a single owner."
+        },
+        {
+          "id": "ai-agents-s1-q17",
+          "stem": "Deterministic workflows vs free-form agents: when should you prefer explicit graphs?",
+          "options": [
+            "When compliance, SLAs, and predictable steps matter more than open exploration",
+            "Always prefer free-form agents because graphs cannot call tools",
+            "Deterministic workflows cannot include an LLM at any node",
+            "Graphs are only for training and free-form is only for evaluation"
+          ],
+          "correctIndex": 0,
+          "explanation": "Engineered control flow wins when variance and auditability dominate."
+        },
+        {
+          "id": "ai-agents-s1-q18",
+          "stem": "Tool permission scopes: what least-privilege example belongs in agent interviews?",
+          "options": [
+            "Grant admin cloud credentials to every agent for maximum helpfulness",
+            "Read-only search tools by default; escalate writes behind HITL approval",
+            "Put secrets in prompts so tools can parse them without a vault",
+            "Scopes are unnecessary if the model says it will be careful"
+          ],
+          "correctIndex": 1,
+          "explanation": "Narrow capabilities reduce damage from prompt injection and bugs."
+        },
+        {
+          "id": "ai-agents-s1-q19",
+          "stem": "Reflection / self-critique steps: what are they intended to improve in agents?",
+          "options": [
+            "Increase token usage with no intended quality benefit by design",
+            "Replace external evaluators so metrics become unnecessary forever",
+            "Catch errors, missing evidence, or policy violations before finalizing actions",
+            "Reflection deletes tool APIs and answers from parametric memory only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Critique loops can reduce avoidable mistakes in long trajectories."
+        },
+        {
+          "id": "ai-agents-s1-q20",
+          "stem": "Cost control for agent systems: which levers should you mention first in design?",
+          "options": [
+            "Always use the largest model for every micro-decision without routing",
+            "Disable caching because repeated tool calls improve freshness always",
+            "Cost is fixed per user and cannot be influenced by agent design",
+            "Step caps, cheaper models for routing, caching, and selective tool use"
+          ],
+          "correctIndex": 3,
+          "explanation": "Token and tool budgets are first-class product constraints for agents."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "ai-agents-s2-q01",
+          "stem": "Blackboard vs message-passing multi-agent designs: what contrast is useful to know?",
+          "options": [
+            "Blackboard shares a common state; message-passing exchanges explicit messages",
+            "Blackboard forbids any shared state by networking definition",
+            "Message-passing requires a single agent and cannot scale out",
+            "Both designs prohibit tools and only allow pure text chat"
+          ],
+          "correctIndex": 0,
+          "explanation": "Coordination style affects observability, contention, and coupling."
+        },
+        {
+          "id": "ai-agents-s2-q02",
+          "stem": "Formal planning (PDDL-like) plus LLMs: when might classical planners help agents?",
+          "options": [
+            "Classical planners replace all perception and need no world model",
+            "When actions have clear preconditions/effects and need reliable long plans",
+            "LLMs cannot interface with planners because plans are not text",
+            "PDDL is required for every web browsing agent by law"
+          ],
+          "correctIndex": 1,
+          "explanation": "Symbolic planners excel at structured action spaces with constraints."
+        },
+        {
+          "id": "ai-agents-s2-q03",
+          "stem": "Environment grounding: why do agents need reliable schemas and validators on tools?",
+          "options": [
+            "Schemas slow agents down and should be avoided in production",
+            "Validators are only for SQL databases and not HTTP tools",
+            "Malformed tool calls waste steps; validators catch errors early",
+            "LLMs always emit perfect JSON if temperature is below 0.7"
+          ],
+          "correctIndex": 2,
+          "explanation": "Structured interfaces turn free-form text into executable actions safely."
+        },
+        {
+          "id": "ai-agents-s2-q04",
+          "stem": "Debate / critique multi-agent setups: what failure mode still remains a risk?",
+          "options": [
+            "Debate always converges to ground truth if agents use different temperatures",
+            "Critique agents cannot hallucinate because they only read others’ text",
+            "Multi-agent debate removes the need for external tools and retrieval",
+            "Shared blind spots and persuasive wrong arguments can reinforce errors"
+          ],
+          "correctIndex": 3,
+          "explanation": "Social aggregation helps but does not guarantee correctness."
+        },
+        {
+          "id": "ai-agents-s2-q05",
+          "stem": "Long-running agents: what operational concerns dominate beyond raw model quality?",
+          "options": [
+            "Checkpointing, idempotency, retries, observability, and recovery from crashes",
+            "Only the system prompt matters; ops tooling is optional for uptime",
+            "Long-running agents cannot be observed because trajectories are private",
+            "Idempotency is automatic for all HTTP POST tool calls"
+          ],
+          "correctIndex": 0,
+          "explanation": "Production agents are distributed systems problems, not just prompts."
+        },
+        {
+          "id": "ai-agents-s2-q06",
+          "stem": "Policy engines alongside LLMs: what separation of duties is healthy for agents?",
+          "options": [
+            "Put all policies only in natural language prompts with no code checks",
+            "Hard rules enforce non-negotiable constraints; LLMs handle flexible reasoning",
+            "Policy engines should be editable by the agent at runtime freely",
+            "LLMs must bypass policies when users say the request is urgent"
+          ],
+          "correctIndex": 1,
+          "explanation": "Code-enforced policies catch violations models might rationalize away."
+        },
+        {
+          "id": "ai-agents-s2-q07",
+          "stem": "Memory retrieval for agents: how is it similar to and different from classic RAG?",
+          "options": [
+            "Agent memory cannot use embeddings and must store full transcripts only",
+            "RAG indexes are writeable by end users mid-conversation always",
+            "Similar vector/search tech, but memories are personalized, temporal, and writeable",
+            "Memory retrieval forbids citations and grounding checks by design"
+          ],
+          "correctIndex": 2,
+          "explanation": "Personal memory needs lifecycle, privacy, and conflict resolution extras."
+        },
+        {
+          "id": "ai-agents-s2-q08",
+          "stem": "Tool hallucination: what does it mean and how do you mitigate it in agents?",
+          "options": [
+            "Tool hallucination means the sandbox ran out of CPU quota",
+            "It only occurs when using sparse retrieval without dense vectors",
+            "Allowing free-form eval() of model text is the recommended mitigation",
+            "Model invents APIs/args; mitigate with strict schemas and allowlisted tools"
+          ],
+          "correctIndex": 3,
+          "explanation": "Never execute free-form invented calls; bind to declared tool contracts."
+        },
+        {
+          "id": "ai-agents-s2-q09",
+          "stem": "Parallel tool calls: when are they beneficial inside a single agent reasoning step?",
+          "options": [
+            "Independent I/O-bound lookups can run concurrently to cut wall-clock time",
+            "Parallelism always helps even when tools have write conflicts",
+            "Agents cannot call more than one tool per session by protocol",
+            "Parallel calls remove the need for any error handling on failures"
+          ],
+          "correctIndex": 0,
+          "explanation": "Safe concurrency requires independence and conflict-aware design."
+        },
+        {
+          "id": "ai-agents-s2-q10",
+          "stem": "Simulation environments for agent eval: why invest in them early in the project?",
+          "options": [
+            "Simulators always match production perfectly with zero domain gap",
+            "Cheap, repeatable stress tests of plans/tools without harming production",
+            "Real user traffic is the only ethical way to test irreversible actions",
+            "Simulations cannot measure loop length or tool misuse rates"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sandboxed worlds catch failure modes before they hit real systems."
+        },
+        {
+          "id": "ai-agents-s2-q11",
+          "stem": "Escalation policies: what should trigger handoff from an agent to a human operator?",
+          "options": [
+            "Every greeting message must escalate to a human for compliance",
+            "Agents should never escalate because that admits model weakness",
+            "Low confidence, policy ambiguity, repeated failures, or high-impact actions",
+            "Escalation is only for billing questions and never for safety issues"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clear escalation beats silent wrong action in uncertain states."
+        },
+        {
+          "id": "ai-agents-s2-q12",
+          "stem": "Graph cycles in agent workflows: when are loops desirable versus dangerous?",
+          "options": [
+            "Cycles are always bugs and must be forbidden in all agent graphs",
+            "Loops guarantee optimality if the model uses chain-of-thought",
+            "Budgets are unnecessary when cycles include a reflection node",
+            "Desirable for refine/retry; dangerous without budgets and convergence checks"
+          ],
+          "correctIndex": 3,
+          "explanation": "Controlled iteration helps; unbounded cycles burn money and time."
+        },
+        {
+          "id": "ai-agents-s2-q13",
+          "stem": "Shared tool registries in multi-agent systems: what governance is needed day-to-day?",
+          "options": [
+            "Versioned schemas, ownership, rate limits, and change management",
+            "Any agent may edit production tool code live without review",
+            "Registries should hide schemas so models invent arguments freely",
+            "Governance only matters for single-agent systems, not multi-agent"
+          ],
+          "correctIndex": 0,
+          "explanation": "Tools are APIs—treat them with platform engineering discipline."
+        },
+        {
+          "id": "ai-agents-s2-q14",
+          "stem": "Offline RL / trajectory optimization for agents: what data do you typically need?",
+          "options": [
+            "Only unlabeled prompts without any notion of task success",
+            "Logged state-action-observation outcomes with reward/success labels",
+            "Trajectories cannot be used because agents are non-stationary forever",
+            "Offline methods require live production writes on every gradient step"
+          ],
+          "correctIndex": 1,
+          "explanation": "Learning from logs needs outcomes, not just text demos."
+        },
+        {
+          "id": "ai-agents-s2-q15",
+          "stem": "Prompt injection against agents with tools: why is the blast radius often larger?",
+          "options": [
+            "Injection only changes font size in the UI without tool impact",
+            "Tool-using agents are immune because tools validate all natural language",
+            "Injected instructions can trigger real side-effecting tool invocations",
+            "Blast radius shrinks automatically when adding more tools"
+          ],
+          "correctIndex": 2,
+          "explanation": "Untrusted content plus privileged tools is a high-severity combo."
+        },
+        {
+          "id": "ai-agents-s2-q16",
+          "stem": "Capability routing: small model vs large model inside an agent orchestration graph?",
+          "options": [
+            "Always use the largest model for string equality checks too",
+            "Small models cannot participate in graphs that also contain large models",
+            "Routing is only about GPUs, not about task difficulty or cost",
+            "Route easy classification/extraction to small models; hard reasoning to large"
+          ],
+          "correctIndex": 3,
+          "explanation": "Heterogeneous model choice optimizes cost/quality per node."
+        },
+        {
+          "id": "ai-agents-s2-q17",
+          "stem": "Deterministic replay of agent runs: what do you need to store for effective debugging?",
+          "options": [
+            "Prompts, tool I/O, model versions, seeds/configs, and policy decisions",
+            "Only the final answer string without intermediate observations",
+            "Replay is impossible because LLMs forbid logging by license",
+            "Storing tool outputs violates the definition of an agent trajectory"
+          ],
+          "correctIndex": 0,
+          "explanation": "Debuggability requires a full audit trail of the control loop."
+        },
+        {
+          "id": "ai-agents-s2-q18",
+          "stem": "Contract testing for tools: why do agent platforms invest in schema contracts?",
+          "options": [
+            "Contract tests replace the need for any runtime validation forever",
+            "Schema drift breaks agents silently; tests catch incompatible changes early",
+            "Tools never change once published so contracts are optional",
+            "Agents invent new fields so contracts should be ignored in prod"
+          ],
+          "correctIndex": 1,
+          "explanation": "Stable tool interfaces keep agent prompts and parsers working."
+        },
+        {
+          "id": "ai-agents-s2-q19",
+          "stem": "Swarm-style many agents: what coordination tax should you anticipate in design?",
+          "options": [
+            "More agents linearly decrease coordination cost forever",
+            "Swarms eliminate the need for a goal specification entirely",
+            "Communication overhead, conflicting actions, and harder debugging/evals",
+            "Conflicts cannot occur if each agent has a unique temperature"
+          ],
+          "correctIndex": 2,
+          "explanation": "Parallelism helps only with strong orchestration and conflict rules."
+        },
+        {
+          "id": "ai-agents-s2-q20",
+          "stem": "Safety layers order: where should non-bypassable checks live in an agent stack?",
+          "options": [
+            "Only inside the prompt where the model can choose to ignore them",
+            "Safety checks should run solely after irreversible side effects complete",
+            "The UI layer is sufficient even if backends execute raw model text",
+            "In the tool/runtime boundary after the model proposes an action"
+          ],
+          "correctIndex": 3,
+          "explanation": "Enforce critical policies in code paths the model cannot skip."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "ai-agents-s3-q01",
+          "stem": "Senior agents: how do you design an architecture for bank-transfer-level actions?",
+          "options": [
+            "Typed intents, dual control HITL, strict allowlists, audits, and simulators first",
+            "Let the agent call wire APIs directly from free-form natural language",
+            "Rely on RLHF alone so the model refuses all harmful transfers forever",
+            "Disable logging to protect customer privacy during money movement"
+          ],
+          "correctIndex": 0,
+          "explanation": "High-stakes domains demand defense-in-depth beyond clever prompting."
+        },
+        {
+          "id": "ai-agents-s3-q02",
+          "stem": "When should you avoid multi-agent designs despite their popularity in demos?",
+          "options": [
+            "Always use multi-agent because single agents cannot call more than one tool",
+            "Simple tasks where one tool-calling agent is clearer, cheaper, and enough",
+            "Never use multi-agent even for specialized parallel research workflows",
+            "Multi-agent is required whenever the context window exceeds 8k tokens"
+          ],
+          "correctIndex": 1,
+          "explanation": "Complexity must pay rent; otherwise prefer a simpler control loop."
+        },
+        {
+          "id": "ai-agents-s3-q03",
+          "stem": "How do you measure whether memory writes actually improve agent success rates?",
+          "options": [
+            "Assume more stored tokens always improve outcomes without measurement",
+            "Only measure embedding cosine similarity and ignore task completion",
+            "A/B with memory on/off, track task success, regressions, and privacy incidents",
+            "Memory quality cannot be measured because sessions are unique forever"
+          ],
+          "correctIndex": 2,
+          "explanation": "Treat memory like a product feature with causal impact evaluation."
+        },
+        {
+          "id": "ai-agents-s3-q04",
+          "stem": "LangGraph-like durability (checkpointing): what user-visible failures does it fix?",
+          "options": [
+            "It increases model accuracy on MMLU without changing orchestration",
+            "Checkpointing replaces the need for idempotent tool design entirely",
+            "Durability means deleting traces so runs cannot be audited later",
+            "Resume after crashes mid-workflow without losing completed side-effect state carefully"
+          ],
+          "correctIndex": 3,
+          "explanation": "Persisted graph state supports reliable long-running business processes."
+        },
+        {
+          "id": "ai-agents-s3-q05",
+          "stem": "Combining guardrails, HITL, and sandboxing: what layering principle should guide you?",
+          "options": [
+            "Prevent → detect → contain → recover, with humans on the highest-impact path",
+            "Pick exactly one control and delete the others to reduce latency",
+            "Sandboxing makes HITL unnecessary for irreversible external actions",
+            "Guardrails should run only in staging and be disabled in production"
+          ],
+          "correctIndex": 0,
+          "explanation": "Overlapping controls assume any single layer can fail."
+        },
+        {
+          "id": "ai-agents-s3-q06",
+          "stem": "Agent eval harness design: what scenario types must you include at minimum?",
+          "options": [
+            "Only sunny-day scripts where every tool returns the ideal payload",
+            "Happy paths, tool failures, injections, long loops, and ambiguous goals",
+            "Exclusive focus on token throughput without task success labels",
+            "Evals that forbid simulating errors because errors never happen live"
+          ],
+          "correctIndex": 1,
+          "explanation": "Adversarial and failure-mode coverage predicts production pain."
+        },
+        {
+          "id": "ai-agents-s3-q07",
+          "stem": "Open-ended web agents: what makes them uniquely hard to secure and evaluate well?",
+          "options": [
+            "The web is a closed schema with stable APIs and no injection surface",
+            "Browsing agents cannot encounter prompt injection by HTTP design",
+            "Huge action space, untrusted content, and moving targets across sites",
+            "Evaluation is trivial because success equals number of pages visited"
+          ],
+          "correctIndex": 2,
+          "explanation": "Open worlds maximize capability and risk simultaneously."
+        },
+        {
+          "id": "ai-agents-s3-q08",
+          "stem": "How should product specs define stop conditions for autonomous agent workflows?",
+          "options": [
+            "Stop only when the process is killed by the operating system OOM",
+            "Never stop because autonomy means running forever by definition",
+            "Stop conditions belong only in marketing docs, not runtime config",
+            "Explicit success criteria, refusal rules, budgets, and escalation triggers"
+          ],
+          "correctIndex": 3,
+          "explanation": "Clear termination criteria turn demos into operable systems."
+        },
+        {
+          "id": "ai-agents-s3-q09",
+          "stem": "Team topology for agent platforms: which skills must sit next to prompt authors?",
+          "options": [
+            "Security, SRE/observability, eval engineering, and API/tool owners",
+            "Only prompt writers; infrastructure and security can be afterthoughts",
+            "Agents remove the need for backend engineers once tools exist",
+            "Eval engineering is optional if the demo impresses executives"
+          ],
+          "correctIndex": 0,
+          "explanation": "Agent products are socio-technical systems needing cross-functional ownership."
+        },
+        {
+          "id": "ai-agents-s3-q10",
+          "stem": "Future-proofing agent designs: what abstraction stays valuable as models improve?",
+          "options": [
+            "Hard-coding chain-of-thought text that must never change with new models",
+            "Typed tools, policies, state machines/graphs, and measurable eval suites",
+            "Assuming one prompt file replaces all software architecture forever",
+            "Removing guardrails as soon as benchmark scores cross a threshold"
+          ],
+          "correctIndex": 1,
+          "explanation": "Control, interfaces, and evals remain even when raw model skill rises."
+        }
+      ]
+    }
+  ]
+}

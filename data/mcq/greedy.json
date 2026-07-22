@@ -1,0 +1,624 @@
+{
+  "slug": "greedy",
+  "title": "Greedy",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "greedy-s1-q01",
+          "stem": "In a coding interview, how should you answer this: Activity selection classic greedy picks:? Choose the strongest option.",
+          "options": [
+            "The longest activity first",
+            "The compatible activity that finishes earliest",
+            "Random activities",
+            "Latest start first always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Earliest finish leaves max room for future activities."
+        },
+        {
+          "id": "greedy-s1-q02",
+          "stem": "In a coding interview, how should you answer this: Fractional knapsack is greedy by:? Choose the strongest option.",
+          "options": [
+            "Value/weight density; take fraction of the last item",
+            "0/1 only decisions",
+            "Shortest paths",
+            "DFS order"
+          ],
+          "correctIndex": 0,
+          "explanation": "Fractions allowed ⇒ density sort works."
+        },
+        {
+          "id": "greedy-s1-q03",
+          "stem": "In a coding interview, you are asked: Why does 0/1 knapsack make pure density greedy fail? Which response is most accurate?",
+          "options": [
+            "Density is undefined",
+            "Weights are negative",
+            "Greedy never fails",
+            "You cannot take a fraction — a high-density item may block a better combo"
+          ],
+          "correctIndex": 3,
+          "explanation": "Indivisibility breaks the fractional argument."
+        },
+        {
+          "id": "greedy-s1-q04",
+          "stem": "In a coding interview, how should you answer this: An exchange argument shows greedy correctness by:? Choose the strongest option.",
+          "options": [
+            "Sorting randomly",
+            "Using DP tables",
+            "Transforming any optimal solution into the greedy one without worsening",
+            "Counting SCC"
+          ],
+          "correctIndex": 2,
+          "explanation": "High-level proof pattern for greedy."
+        },
+        {
+          "id": "greedy-s1-q05",
+          "stem": "In a coding interview, how should you answer this: Huffman coding builds codes by repeatedly:? Choose the strongest option.",
+          "options": [
+            "Merging two most frequent",
+            "Merging two least frequent nodes into a parent",
+            "BFS layers",
+            "Dijkstra relax"
+          ],
+          "correctIndex": 1,
+          "explanation": "Greedy for optimal prefix codes under symbol frequencies."
+        },
+        {
+          "id": "greedy-s1-q06",
+          "stem": "In a coding interview, how should you answer this: A greedy algorithm makes a sequence of choices that are:? Choose the strongest option.",
+          "options": [
+            "Locally best according to a rule, hoping for global optimum",
+            "Always DP-optimal by definition",
+            "Option claiming: Random",
+            "Exhaustive"
+          ],
+          "correctIndex": 0,
+          "explanation": "Need a proof or known theorem for guarantees."
+        },
+        {
+          "id": "greedy-s1-q07",
+          "stem": "In a coding interview, how should you answer this: Interval scheduling to maximize number of jobs uses:? Choose the strongest option.",
+          "options": [
+            "Longest interval first",
+            "Latest finishing first",
+            "Option claiming: Random",
+            "Earliest finishing time greedy"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same family as activity selection."
+        },
+        {
+          "id": "greedy-s1-q08",
+          "stem": "In a coding interview, how should you answer this: When greedy fails, a typical symptom is:? Choose the strongest option.",
+          "options": [
+            "That sorting is impossible",
+            "Negative zeros",
+            "A counterexample where a locally best choice ruins the global optimum",
+            "Missing heaps"
+          ],
+          "correctIndex": 2,
+          "explanation": "Always hunt counterexamples in interviews."
+        },
+        {
+          "id": "greedy-s1-q09",
+          "stem": "Coin change greedy (largest coin first) works for canonical systems like US coins but:",
+          "options": [
+            "Always works for all sets",
+            "Fails for some denomination sets — need DP",
+            "Never works",
+            "Needs MST"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic interview caveat. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s1-q10",
+          "stem": "In a coding interview, how should you answer this: Minimum number of platforms / meeting rooms relates to greedy by:? Choose the strongest option.",
+          "options": [
+            "Tracking overlaps via sorting starts/ends or a heap of ends",
+            "DFS on rooms",
+            "Knapsack DP only",
+            "Huffman merges"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sweep line / heap of end times."
+        },
+        {
+          "id": "greedy-s1-q11",
+          "stem": "In a coding interview, how should you answer this: Jump game I (reach last index) greedy tracks:? Choose the strongest option.",
+          "options": [
+            "Shortest path Dijkstra only",
+            "Option claiming: LIS",
+            "Topo sort",
+            "Farthest reachable index while scanning"
+          ],
+          "correctIndex": 3,
+          "explanation": "Update maxReach; fail if i > maxReach."
+        },
+        {
+          "id": "greedy-s1-q12",
+          "stem": "In a coding interview, how should you answer this: Assign cookies / soft greedy often sorts and:? Choose the strongest option.",
+          "options": [
+            "Uses DP knapsack always",
+            "Runs BFS",
+            "Matches smallest sufficient cookie to greediest remaining child factor",
+            "Builds Huffman"
+          ],
+          "correctIndex": 2,
+          "explanation": "Sort both arrays; two pointers."
+        },
+        {
+          "id": "greedy-s1-q13",
+          "stem": "In a coding interview, how should you answer this: Gas station circular tour greedy idea resets start when:? Choose the strongest option.",
+          "options": [
+            "MST fails",
+            "Tank goes negative; choose next index as new start",
+            "DFS backtracks",
+            "Heap extracts"
+          ],
+          "correctIndex": 1,
+          "explanation": "If total gas≥cost, unique start exists under classic constraints."
+        },
+        {
+          "id": "greedy-s1-q14",
+          "stem": "In a coding interview, how should you answer this: Scheduling unit-time tasks with deadlines/penalties often uses:? Choose the strongest option.",
+          "options": [
+            "Greedy by profit with slot finding / disjoint sets",
+            "Bellman-Ford",
+            "Bitmask only always",
+            "Random order"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic greedy scheduling variant."
+        },
+        {
+          "id": "greedy-s1-q15",
+          "stem": "In a coding interview, how should you answer this: Prim and Dijkstra are 'greedy' in the sense that they:? Choose the strongest option.",
+          "options": [
+            "Use memoized recursion",
+            "Ignore weights",
+            "Require negative edges",
+            "Commit to the best local edge/node choice under a proven invariant"
+          ],
+          "correctIndex": 3,
+          "explanation": "Greedy algorithms with cut/shortest-path proofs."
+        },
+        {
+          "id": "greedy-s1-q16",
+          "stem": "In a coding interview, how should you answer this: Kruskal is greedy because it:? Choose the strongest option.",
+          "options": [
+            "Randomly samples edges",
+            "Uses DP intervals",
+            "Always considers the next lightest edge globally",
+            "Colors bipartite sets"
+          ],
+          "correctIndex": 2,
+          "explanation": "Greedy MST via sorted edges. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s1-q17",
+          "stem": "In a coding interview, how should you answer this: A safe greedy choice property means:? Choose the strongest option.",
+          "options": [
+            "Every local choice is unique",
+            "There exists an optimal solution consistent with the greedy first choice",
+            "DP is impossible",
+            "Sorting fails"
+          ],
+          "correctIndex": 1,
+          "explanation": "Part of the formal greedy framework."
+        },
+        {
+          "id": "greedy-s1-q18",
+          "stem": "In a coding interview, how should you answer this: Candy distribution (ratings) two-pass greedy ensures:? Choose the strongest option.",
+          "options": [
+            "Higher rating gets more than neighbors by scanning both directions",
+            "One random pass",
+            "Dijkstra",
+            "Option claiming: Huffman"
+          ],
+          "correctIndex": 0,
+          "explanation": "Left-to-right then right-to-left max."
+        },
+        {
+          "id": "greedy-s1-q19",
+          "stem": "In a coding interview, how should you answer this: Boats to save people (weight limit) often pairs:? Choose the strongest option.",
+          "options": [
+            "Two heaviest always",
+            "Two lightest always",
+            "Random pairs",
+            "Lightest + heaviest if possible"
+          ],
+          "correctIndex": 3,
+          "explanation": "Two pointers after sort. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s1-q20",
+          "stem": "In a coding interview, how should you answer this: Greedy vs DP one-liner:? Choose the strongest option.",
+          "options": [
+            "They are identical",
+            "Greedy always slower",
+            "Greedy commits without revisiting; DP compares multiple subproblem options",
+            "DP forbids optima"
+          ],
+          "correctIndex": 2,
+          "explanation": "Conceptual distinction for interviews."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "greedy-s2-q01",
+          "stem": "In a coding interview, how should you answer this: Fractional knapsack proof sketch relies on:? Choose the strongest option.",
+          "options": [
+            "Bellman-Ford",
+            "SCC condensation",
+            "If an optimal solution differs, exchange toward higher density without loss",
+            "Heap sort only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Exchange/density argument. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s2-q02",
+          "stem": "Activity selection proof: if greedy picks a and OPT picks b finishing later,",
+          "options": [
+            "OPT becomes invalid always",
+            "Replace b with a; feasibility preserved, count not worse",
+            "Option claiming: Need DP",
+            "Graph coloring"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic exchange. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s2-q03",
+          "stem": "In a coding interview, how should you answer this: Huffman optimality needs:? Choose the strongest option.",
+          "options": [
+            "Prefix-free codes and greedy merge of least frequent symbols",
+            "Arbitrary overlapping codes",
+            "Dijkstra potentials",
+            "0/1 knapsack"
+          ],
+          "correctIndex": 0,
+          "explanation": "Kraft inequality / exchange intuitions in textbooks."
+        },
+        {
+          "id": "greedy-s2-q04",
+          "stem": "In a coding interview, how should you answer this: Minimum spanning tree greedy works due to:? Choose the strongest option.",
+          "options": [
+            "LIS structure",
+            "0/1 knapsack",
+            "Digit DP",
+            "Cut property / red-blue rule"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same foundation as Prim/Kruskal."
+        },
+        {
+          "id": "greedy-s2-q05",
+          "stem": "In a coding interview, how should you answer this: Job sequencing with deadlines: sort by profit then:? Choose the strongest option.",
+          "options": [
+            "Always first slot",
+            "Option claiming: Use BFS",
+            "Place each job in the latest free slot before deadline",
+            "Ignore deadlines"
+          ],
+          "correctIndex": 2,
+          "explanation": "Greedy placement pattern. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s2-q06",
+          "stem": "In a coding interview, how should you answer this: Non-overlapping intervals to remove minimum intervals: greedy by:? Choose the strongest option.",
+          "options": [
+            "Longest first keep",
+            "Earliest end time keep; count removals of overlaps",
+            "Option claiming: Random",
+            "Option claiming: MST"
+          ],
+          "correctIndex": 1,
+          "explanation": "Equivalent to max activities kept."
+        },
+        {
+          "id": "greedy-s2-q07",
+          "stem": "In a coding interview, how should you answer this: Queue reconstruction by height uses greedy insert because:? Choose the strongest option.",
+          "options": [
+            "Place tallest first so k-count inserts are stable",
+            "Place shortest first always",
+            "Use Dijkstra",
+            "Bitmask DP"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sort by height desc, k asc; insert at index k."
+        },
+        {
+          "id": "greedy-s2-q08",
+          "stem": "In a coding interview, how should you answer this: Minimum arrows to burst balloons sorts by:? Choose the strongest option.",
+          "options": [
+            "Start only random",
+            "Huffman frequency",
+            "Option claiming: SCC",
+            "End coordinate; shoot at end; skip overlapping starts"
+          ],
+          "correctIndex": 3,
+          "explanation": "Greedy stabbing intervals. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s2-q09",
+          "stem": "When a problem asks for lexicographically smallest subsequence with constraints, greedy often uses a:",
+          "options": [
+            "Max-heap only",
+            "Option claiming: Floyd",
+            "Monotonic stack discarding larger letters when frequency remains",
+            "Topo on letters only always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Stack + remaining counts pattern."
+        },
+        {
+          "id": "greedy-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Huffman tree height relates to:? Choose the strongest option.",
+          "options": [
+            "Uniform lengths always",
+            "Skewed frequencies → longer codes for rare symbols",
+            "BFS diameter only",
+            "MST weight"
+          ],
+          "correctIndex": 1,
+          "explanation": "More frequent ⇒ shorter depth typically."
+        },
+        {
+          "id": "greedy-s2-q11",
+          "stem": "Greedy coloring of interval graphs (register allocation intuition) sorts by:",
+          "options": [
+            "Start times and assigns lowest available color/room",
+            "Random colors",
+            "DP subsets",
+            "Dijkstra"
+          ],
+          "correctIndex": 0,
+          "explanation": "Interval graphs are perfect for greedy coloring."
+        },
+        {
+          "id": "greedy-s2-q12",
+          "stem": "In a coding interview, how should you answer this: Matroids (senior-lite): greedy works on structures where:? Choose the strongest option.",
+          "options": [
+            "Any constraint set",
+            "Only DP works",
+            "Cycles are mandatory",
+            "Independent sets satisfy exchange axioms allowing weight-greedy"
+          ],
+          "correctIndex": 3,
+          "explanation": "Abstract reason many greedy algorithms succeed."
+        },
+        {
+          "id": "greedy-s2-q13",
+          "stem": "In a coding interview, how should you answer this: Minimize max load / assign tasks: greedy might:? Choose the strongest option.",
+          "options": [
+            "Use only LCS",
+            "Ignore loads",
+            "Always put next job on current least loaded worker (with caveats)",
+            "Require neg cycles"
+          ],
+          "correctIndex": 2,
+          "explanation": "List scheduling; approximation context in advanced talks."
+        },
+        {
+          "id": "greedy-s2-q14",
+          "stem": "In a coding interview, how should you answer this: Stamping / covering problems fail naive greedy when:? Choose the strongest option.",
+          "options": [
+            "Greedy always optimal",
+            "A locally maximal stamp blocks a needed global cover",
+            "Only floats fail",
+            "Heaps break"
+          ],
+          "correctIndex": 1,
+          "explanation": "Build counterexamples. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s2-q15",
+          "stem": "In a coding interview, how should you answer this: Two-pointer greedy after sorting often needs the array to be:? Choose the strongest option.",
+          "options": [
+            "Sorted so extremes move inward correctly",
+            "Shuffled",
+            "Option claiming: A heap",
+            "Option claiming: A DAG"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sorting enables the greedy pairing."
+        },
+        {
+          "id": "greedy-s2-q16",
+          "stem": "In a coding interview, how should you answer this: Dijkstra as greedy: the settled node's distance is final because:? Choose the strongest option.",
+          "options": [
+            "Negatives strengthen the claim",
+            "BFS fails",
+            "MST equals SP",
+            "With non-negative weights, no path through unsettled can improve it"
+          ],
+          "correctIndex": 3,
+          "explanation": "Key invariant. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s2-q17",
+          "stem": "Activity selection variant maximizing total weight of intervals generally needs:",
+          "options": [
+            "The same unweighted greedy",
+            "Huffman only",
+            "DP / weighted interval scheduling, not plain earliest-finish greedy",
+            "Option claiming: Prim"
+          ],
+          "correctIndex": 2,
+          "explanation": "Weights break the unweighted greedy."
+        },
+        {
+          "id": "greedy-s2-q18",
+          "stem": "In a coding interview, how should you answer this: Egyptian fractions / greedy Fibonacci coding style can:? Choose the strongest option.",
+          "options": [
+            "Always match DP",
+            "Loop on largest unit fraction ≤ remainder — sometimes suboptimal historically",
+            "Option claiming: Use SCC",
+            "Need heaps"
+          ],
+          "correctIndex": 1,
+          "explanation": "Historical greedy; know limitations."
+        },
+        {
+          "id": "greedy-s2-q19",
+          "stem": "In a coding interview, how should you answer this: Sliding window maximum via deque is greedy-ish in that it:? Choose the strongest option.",
+          "options": [
+            "Discards indices that can never be the max later",
+            "Uses Floyd",
+            "Builds Huffman",
+            "Topo sorts"
+          ],
+          "correctIndex": 0,
+          "explanation": "Monotonic deque maintains candidates."
+        },
+        {
+          "id": "greedy-s2-q20",
+          "stem": "In a coding interview, how should you answer this: Interview answer structure for greedy:? Choose the strongest option.",
+          "options": [
+            "Only code",
+            "Only Big-O",
+            "Skip proofs",
+            "State rule → show safe choice / exchange → complexity; else give counterexample & DP"
+          ],
+          "correctIndex": 3,
+          "explanation": "How seniors talk through greedy."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "greedy-s3-q01",
+          "stem": "In a coding interview, how should you answer this: Weighted interval scheduling optimal algorithm is:? Choose the strongest option.",
+          "options": [
+            "Earliest finish greedy",
+            "Huffman merge",
+            "Dijkstra on intervals",
+            "Sort by finish; DP with p(j) predecessor binary search — not pure greedy"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic CLRS/Kleinberg shift from greedy to DP."
+        },
+        {
+          "id": "greedy-s3-q02",
+          "stem": "In a coding interview, how should you answer this: Approximation: set cover greedy by max new elements gives:? Choose the strongest option.",
+          "options": [
+            "Exact optimum always",
+            "O(1) exact",
+            "H_n ≈ ln n approximation in general",
+            "MST ratio"
+          ],
+          "correctIndex": 2,
+          "explanation": "Famous greedy approximation bound."
+        },
+        {
+          "id": "greedy-s3-q03",
+          "stem": "In a coding interview, how should you answer this: A counterexample for coin greedy on denominations {1,3,4} amount 6:? Choose the strongest option.",
+          "options": [
+            "Greedy is optimal here",
+            "Greedy 4+1+1=3 coins but 3+3=2 coins optimal",
+            "Need 6 coins",
+            "Impossible"
+          ],
+          "correctIndex": 1,
+          "explanation": "Standard teaching counterexample."
+        },
+        {
+          "id": "greedy-s3-q04",
+          "stem": "In a coding interview, how should you answer this: Submodular maximization with greedy (k-set) yields:? Choose the strongest option.",
+          "options": [
+            "(1-1/e) approximation for monotone submodular under cardinality",
+            "Exact n!",
+            "Only DP exact",
+            "Random 0"
+          ],
+          "correctIndex": 0,
+          "explanation": "ML/interview theory crossover."
+        },
+        {
+          "id": "greedy-s3-q05",
+          "stem": "Why earliest-deadline-first scheduling is optimal for feasible unit jobs on one machine:",
+          "options": [
+            "Option claiming: Huffman",
+            "0/1 knapsack",
+            "Bellman-Ford",
+            "Exchange argument swapping inversions of deadlines"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic scheduling greedy. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s3-q06",
+          "stem": "In a coding interview, how should you answer this: Online greedy (ski rental, caching) differs from offline because:? Choose the strongest option.",
+          "options": [
+            "You see the whole array",
+            "DP always online",
+            "Future input unknown — competitive ratio replaces optimality",
+            "Heaps forbid online"
+          ],
+          "correctIndex": 2,
+          "explanation": "Online algorithms framing. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s3-q07",
+          "stem": "In a coding interview, how should you answer this: Kruskal with almost-sorted edges still needs Union-Find because:? Choose the strongest option.",
+          "options": [
+            "Sorting alone builds MST",
+            "You must skip cycle-forming edges even if nearly sorted",
+            "BFS replaces UF",
+            "Colors suffice"
+          ],
+          "correctIndex": 1,
+          "explanation": "Greedy choice still constrained by acyclicity."
+        },
+        {
+          "id": "greedy-s3-q08",
+          "stem": "In a coding interview, you are asked: Senior bug: 'greedy by start time' for max activities. Failure mode? Which response is most accurate?",
+          "options": [
+            "A long early-starting activity blocks many short ones",
+            "It always matches earliest-finish",
+            "It solves weighted case",
+            "It computes MST"
+          ],
+          "correctIndex": 0,
+          "explanation": "Wrong criterion ⇒ counterexample."
+        },
+        {
+          "id": "greedy-s3-q09",
+          "stem": "In a coding interview, how should you answer this: Huffman vs Shannon codes interview point:? Choose the strongest option.",
+          "options": [
+            "They are identical bit-for-bit always",
+            "Huffman needs DP",
+            "Shannon uses MST",
+            "Huffman optimal among prefix codes for known frequencies; Shannon is a different construction bound"
+          ],
+          "correctIndex": 3,
+          "explanation": "Know what optimality means. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "greedy-s3-q10",
+          "stem": "In a coding interview, how should you answer this: When pressed 'is greedy correct?', best senior move is:? Choose the strongest option.",
+          "options": [
+            "Insist intuition is enough",
+            "Cite Big-O only",
+            "Produce a short invariant/exchange proof or a minimal counterexample",
+            "Rewrite as Bubble sort"
+          ],
+          "correctIndex": 2,
+          "explanation": "Proof or counterexample — no middle ground."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,624 @@
+{
+  "slug": "aiml-fundamentals",
+  "title": "AI/ML Fundamentals",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "aiml-fundamentals-s1-q01",
+          "stem": "In an ML interview, how do you crisply distinguish supervised learning from unsupervised learning?",
+          "options": [
+            "Supervised trains on labeled targets; unsupervised finds structure without labels",
+            "Supervised never needs data; unsupervised always needs labels for every row",
+            "They differ only by programming language used, not by the learning setup",
+            "Unsupervised always predicts a continuous y; supervised only clusters points"
+          ],
+          "correctIndex": 0,
+          "explanation": "Labels define the prediction target in supervised learning; unsupervised seeks patterns without y."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q02",
+          "stem": "Screening question: why split data into train, validation, and test sets instead of one pile?",
+          "options": [
+            "All three splits must be identical copies of the same rows for fairness",
+            "Train fits; validation tunes; test estimates final generalization once",
+            "Validation replaces test forever so you never need a held-out set",
+            "Test is only for hyperparameter search; train is only for reporting"
+          ],
+          "correctIndex": 1,
+          "explanation": "Separation prevents leaking selection decisions into the final performance estimate."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q03",
+          "stem": "Bias–variance tradeoff: what does high variance typically look like on train versus validation?",
+          "options": [
+            "High train and validation error that stay almost equally bad",
+            "Perfect validation accuracy with random guessing on the training set",
+            "Very low train error but much higher validation error (overfitting pattern)",
+            "Identical errors on every split with no sensitivity to model capacity"
+          ],
+          "correctIndex": 2,
+          "explanation": "High-variance models memorize train quirks and fail to generalize to validation."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q04",
+          "stem": "Precision versus recall: which one-line definitions should you give in an interview?",
+          "options": [
+            "Precision equals accuracy; recall equals the learning rate chosen",
+            "Recall is only for regression; precision is only for clustering tasks",
+            "They are interchangeable metrics that always move in the same direction",
+            "Precision: of predicted positives, how many true; recall: of actual positives, how many found"
+          ],
+          "correctIndex": 3,
+          "explanation": "Precision guards false positives; recall guards missed true positives."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q05",
+          "stem": "When would you prefer F1 over raw accuracy in a classification interview scenario?",
+          "options": [
+            "Imbalanced classes where accuracy can look high while missing the minority class",
+            "When every class has exactly equal prior and zero cost asymmetry",
+            "Only for unsupervised clustering where labels do not exist at all",
+            "When the model outputs continuous scores without any decision threshold"
+          ],
+          "correctIndex": 0,
+          "explanation": "F1 balances precision and recall and is more informative under class imbalance."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q06",
+          "stem": "Overfitting — what practical signs and responses should you mention in an interview setting?",
+          "options": [
+            "Val error always lower than train; increase capacity until train fails",
+            "Train ≪ val error; simplify, regularize, get more data, or early-stop",
+            "Overfitting means the optimizer failed to decrease the training loss",
+            "It is fixed only by removing the validation set from the pipeline"
+          ],
+          "correctIndex": 1,
+          "explanation": "Gap between train and val signals memorization; capacity control and data help."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q07",
+          "stem": "Underfitting versus overfitting: how do you tell them apart from learning curves?",
+          "options": [
+            "Underfit: zero train error only; overfit: zero validation error only",
+            "They produce identical curves; only wall-clock time distinguishes them",
+            "Underfit: high train and val error; overfit: low train, high val error",
+            "Underfit appears only with neural nets; overfit only with linear models"
+          ],
+          "correctIndex": 2,
+          "explanation": "Both errors high ⇒ underfit; train good but val poor ⇒ overfit."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q08",
+          "stem": "Feature scaling: when is it especially important and why do interviewers ask about it?",
+          "options": [
+            "Tree ensembles always require z-score scaling before every split decision",
+            "Scaling deletes outliers automatically so you never need robust methods",
+            "It only matters for visualization dashboards, never for model training",
+            "Distance-based and gradient methods suffer if features have wildly different scales"
+          ],
+          "correctIndex": 3,
+          "explanation": "Scale mismatch distorts distances and slows or skews many optimizers."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q09",
+          "stem": "L1 versus L2 regularization — what difference is most interview-relevant to explain?",
+          "options": [
+            "L1 can drive coefficients to zero (sparsity); L2 shrinks but rarely zeros",
+            "L2 deletes features; L1 only smooths the loss landscape for SGD",
+            "They are identical penalties with different Greek letters in papers",
+            "L1 applies only to neural nets; L2 applies only to decision trees"
+          ],
+          "correctIndex": 0,
+          "explanation": "L1 encourages sparse solutions; L2 prefers small dense weights."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q10",
+          "stem": "Cross-validation: why use k-fold instead of a single train/val split when data is limited?",
+          "options": [
+            "It guarantees zero variance in every hyperparameter search result",
+            "Averages performance across folds so estimates are less split-dependent",
+            "It removes the need for a final held-out test set in all cases",
+            "Folding duplicates rows until the dataset looks infinitely large"
+          ],
+          "correctIndex": 1,
+          "explanation": "Multiple folds reuse data for more stable validation estimates."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q11",
+          "stem": "Classification vs regression: how do you frame the target type clearly in an interview?",
+          "options": [
+            "Regression always outputs probabilities; classification never does",
+            "They use identical loss functions and evaluation metrics always",
+            "Classification predicts discrete labels; regression predicts continuous values",
+            "Classification is unsupervised; regression is the only supervised task"
+          ],
+          "correctIndex": 2,
+          "explanation": "Target type drives loss choice, metrics, and model family."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q12",
+          "stem": "Train/validation leakage: which practice should you call out as dangerous in interviews?",
+          "options": [
+            "Holding out a test set untouched until the final evaluation step",
+            "Tuning hyperparameters only on the validation fold, not the test fold",
+            "Shuffling before a random split when rows are i.i.d. observations",
+            "Fitting scalers or selecting features using the full dataset before splitting"
+          ],
+          "correctIndex": 3,
+          "explanation": "Preprocessing fit on all data leaks future information into training."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q13",
+          "stem": "Ensemble methods at a high level: what core idea should you state cleanly and accurately?",
+          "options": [
+            "Combine multiple models so errors cancel and predictive power improves",
+            "Train one giant model that is forced to memorize every training example",
+            "Replace labeled data with random labels to increase diversity",
+            "Always average predictions with equal weights and never learn weights"
+          ],
+          "correctIndex": 0,
+          "explanation": "Diversity plus aggregation is the ensemble principle behind bagging/boosting."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q14",
+          "stem": "Bagging versus boosting — which contrast is most accurate for ML interview answers?",
+          "options": [
+            "Boosting always reduces variance only; bagging only reduces bias always",
+            "Bagging trains in parallel on bootstrap samples; boosting trains sequentially on residuals",
+            "They are synonyms for the same algorithm invented under two names",
+            "Bagging requires neural nets; boosting works only with linear regression"
+          ],
+          "correctIndex": 1,
+          "explanation": "Bagging averages parallel learners; boosting focuses later models on hard cases."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q15",
+          "stem": "Confusion matrix: if false positives are very costly, which metric do you emphasize first?",
+          "options": [
+            "Recall only, because false positives never affect precision by definition",
+            "R-squared, because it directly counts false positives in classification",
+            "Precision (and related costs), because FP hurt precision among predicted positives",
+            "Silhouette score, the standard cost-sensitive classification metric"
+          ],
+          "correctIndex": 2,
+          "explanation": "High precision means few false alarms among predicted positives."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q16",
+          "stem": "Why is a held-out test set evaluated only once (or rarely) in careful ML practice?",
+          "options": [
+            "Test metrics are illegal to compute more than once in any ML library",
+            "The test set shrinks each time you evaluate until no rows remain",
+            "Optimizers require the test loss gradient on every training step",
+            "Repeated peeking turns the test set into another validation set and biases estimates"
+          ],
+          "correctIndex": 3,
+          "explanation": "Test is a final, rarely touched estimate of generalization."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q17",
+          "stem": "Feature engineering vs automatic deep features: what pragmatic view should you give?",
+          "options": [
+            "Good features still matter; deep models learn representations but domain features help",
+            "Feature engineering is obsolete for every problem after 2012 without exception",
+            "Neural nets cannot use engineered features by architectural law",
+            "Only unsupervised methods benefit from human-designed features"
+          ],
+          "correctIndex": 0,
+          "explanation": "Representation learning helps, but domain signal and clean features remain valuable."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q18",
+          "stem": "Standardization (z-score) versus min-max scaling: when might min-max be preferred?",
+          "options": [
+            "When outliers dominate and you want them to stretch the entire scale heavily",
+            "When you need features bounded to a fixed range for certain models or activations",
+            "When tree-based models require all features in [0,1] to split correctly",
+            "When labels are missing and you must invent targets from feature ranges"
+          ],
+          "correctIndex": 1,
+          "explanation": "Min-max maps to a range; beware outlier sensitivity compared with robust scaling."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q19",
+          "stem": "What does a high-bias model imply about capacity relative to the problem complexity?",
+          "options": [
+            "Capacity is infinite; it memorizes noise and fails only on training data",
+            "The learning rate is zero so gradients never update any parameters",
+            "Capacity is too low / assumptions too strong; it underfits systematic patterns",
+            "The validation set was empty so bias cannot be estimated at all"
+          ],
+          "correctIndex": 2,
+          "explanation": "Bias reflects restrictive assumptions that miss the true relationship."
+        },
+        {
+          "id": "aiml-fundamentals-s1-q20",
+          "stem": "Imbalanced classification: besides F1, what practical techniques should you mention?",
+          "options": [
+            "Delete the minority class so accuracy becomes trivially perfect",
+            "Always switch to unsupervised clustering and ignore labels completely",
+            "Report only training accuracy after oversampling the majority class",
+            "Resampling, class weights, threshold tuning, and appropriate ranking metrics"
+          ],
+          "correctIndex": 3,
+          "explanation": "Weighting, sampling, thresholds, and PR/ROC-style metrics address imbalance."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "aiml-fundamentals-s2-q01",
+          "stem": "Interview deep-dive: how does regularization reduce overfitting without collecting more data?",
+          "options": [
+            "It penalizes complexity (weights/capacity) so the model prefers simpler fits",
+            "It duplicates the validation set into training until losses match exactly",
+            "It forces train error to zero while ignoring validation performance",
+            "It replaces the loss with accuracy so gradients become unnecessary"
+          ],
+          "correctIndex": 0,
+          "explanation": "Complexity penalties shrink effective capacity and improve generalization."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q02",
+          "stem": "Early stopping as regularization: what signal do you monitor and why stop training?",
+          "options": [
+            "Stop when training loss is still decreasing rapidly every epoch",
+            "Stop when validation loss stops improving to avoid fitting noise later",
+            "Stop only after test accuracy peaks, then continue training on test",
+            "Stop randomly each epoch to inject stochasticity into the parameters"
+          ],
+          "correctIndex": 1,
+          "explanation": "Validation plateau or worsening indicates further training harms generalization."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q03",
+          "stem": "Bias–variance: if both train and val error are high, what is your first diagnosis?",
+          "options": [
+            "Classic high variance — immediately prune capacity and add heavy L1",
+            "Perfect fit — ship the model because errors being equal means success",
+            "Likely underfitting — try a richer model, better features, or longer training",
+            "Label leakage — both errors high always means the target leaked"
+          ],
+          "correctIndex": 2,
+          "explanation": "High/high errors point to underfit before you chase variance fixes."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q04",
+          "stem": "Precision–recall tradeoff: raising the positive threshold typically does what to metrics?",
+          "options": [
+            "Always raises both precision and recall simultaneously without cost",
+            "Converts the classifier into a clustering algorithm automatically",
+            "Leaves PR unchanged because thresholds never affect hard decisions",
+            "Often raises precision and lowers recall for the positive class"
+          ],
+          "correctIndex": 3,
+          "explanation": "Stricter thresholds yield fewer positives (higher precision, lower recall)."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q05",
+          "stem": "Macro vs micro F1: when does an interviewer expect you to prefer the macro average?",
+          "options": [
+            "When each class should count equally regardless of support size",
+            "When you only care about overall decision count weighted by frequency",
+            "When regression targets must be averaged across folds",
+            "When unsupervised silhouette scores need an F1-style summary"
+          ],
+          "correctIndex": 0,
+          "explanation": "Macro averages per-class F1; micro aggregates contributions by instance."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q06",
+          "stem": "Why can accuracy be misleading even at 99% on a rare-event detection task?",
+          "options": [
+            "Accuracy formulas forbid values above 50% for rare-event problems",
+            "Predicting the majority class always can hit ~99% while missing all events",
+            "99% accuracy always implies perfect recall on the rare positive class",
+            "Rare-event tasks cannot use accuracy because labels are continuous"
+          ],
+          "correctIndex": 1,
+          "explanation": "Majority-class baselines inflate accuracy when positives are rare."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q07",
+          "stem": "Ridge vs Lasso naming: which statement matches common interview vocabulary exactly?",
+          "options": [
+            "Ridge is L1; Lasso is L2; Elastic Net forbids both penalties",
+            "Ridge and Lasso are tree pruning heuristics unrelated to linear models",
+            "Ridge is L2; Lasso is L1; Elastic Net mixes both penalties",
+            "Lasso only applies to neural dropout; Ridge only to batch norm"
+          ],
+          "correctIndex": 2,
+          "explanation": "Standard names: Ridge equals L2, Lasso equals L1, Elastic Net combines both."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q08",
+          "stem": "Random forests: what two ingredients make the bagged trees more diverse and useful?",
+          "options": [
+            "Training every tree on the identical full dataset with the same features",
+            "Sharing a single tree structure and only randomizing leaf labels",
+            "Replacing impurity criteria with unsupervised clustering at every node",
+            "Bootstrap samples of rows plus random feature subsets at splits"
+          ],
+          "correctIndex": 3,
+          "explanation": "Row bagging and feature randomness decorrelate trees for better averaging."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q09",
+          "stem": "Gradient boosting intuition: what does each new tree typically try to accomplish?",
+          "options": [
+            "Fit the residual errors (or gradients) left by the current ensemble",
+            "Ignore previous trees and restart from random labels each round",
+            "Maximize train accuracy by memorizing one random feature only",
+            "Delete half the previous trees to keep the ensemble size constant"
+          ],
+          "correctIndex": 0,
+          "explanation": "Boosting stages correct remaining mistakes via residual or gradient fitting."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q10",
+          "stem": "Time-series split caution: why is random k-fold often wrong for temporal data?",
+          "options": [
+            "k-fold cannot run when timestamps are present in any dataframe",
+            "It leaks future information into training by shuffling across time",
+            "Temporal data forbids validation sets of any kind by definition",
+            "Random folds always produce lower variance than chronological splits"
+          ],
+          "correctIndex": 1,
+          "explanation": "Respect time order; use walk-forward or time-based validation."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q11",
+          "stem": "Calibration of probabilities: what problem does it address beyond ranking quality?",
+          "options": [
+            "It forces accuracy and F1 to become mathematically identical",
+            "It removes the need for any decision threshold in production",
+            "Predicted probabilities should match true outcome frequencies",
+            "It converts unsupervised embeddings into supervised labels"
+          ],
+          "correctIndex": 2,
+          "explanation": "Calibration aligns score magnitudes with empirical probabilities."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q12",
+          "stem": "Multicollinearity: how does it affect linear models in a solid interview answer?",
+          "options": [
+            "It always improves generalization by duplicating useful signal",
+            "Tree models crash whenever any two features correlate above 0.1",
+            "It only appears in unsupervised PCA and never in regression",
+            "Correlated features make coefficients unstable and hard to interpret"
+          ],
+          "correctIndex": 3,
+          "explanation": "Collinearity inflates coefficient variance; regularization or PCA can help."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q13",
+          "stem": "Train/val/test ratios: what principle matters more than a fixed 70/15/15 rule?",
+          "options": [
+            "Enough train to learn; enough val to tune; enough test to estimate reliably",
+            "Always use 99% train and 0.5% each for val and test regardless of N",
+            "Validation must be larger than train to avoid overfitting completely",
+            "Test must equal train size so metrics are comparable by construction"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sizes depend on data volume and metric variance, not a magic ratio."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q14",
+          "stem": "ROC-AUC vs PR-AUC: when is PR-AUC often more informative for practitioners?",
+          "options": [
+            "When negatives do not exist and only regression metrics apply",
+            "Severe class imbalance where positives are rare and PR focuses on them",
+            "When you need a threshold-free metric that ignores ranking quality",
+            "Only when the model is unsupervised and labels are unavailable"
+          ],
+          "correctIndex": 1,
+          "explanation": "PR curves emphasize positive-class performance under imbalance."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q15",
+          "stem": "Data leakage via target encoding: what careful practice should you describe clearly?",
+          "options": [
+            "Encode using the full dataset including test labels for maximum signal",
+            "Replace all categoricals with the global target mean after seeing test",
+            "Compute encodings within folds / using only training rows to avoid peeking",
+            "Target encoding is safe always because categories are not numeric"
+          ],
+          "correctIndex": 2,
+          "explanation": "Target statistics must not use rows that should remain unseen."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q16",
+          "stem": "Curse of dimensionality at a practical level: what happens as feature count explodes?",
+          "options": [
+            "Every algorithm becomes linear-time and overfitting disappears",
+            "Validation error always drops monotonically with more random features",
+            "Feature scaling becomes unnecessary because all norms coincide",
+            "Distances concentrate; models need more data; sparsity and noise grow"
+          ],
+          "correctIndex": 3,
+          "explanation": "High dimensions make neighborhood methods and sample needs harder."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q17",
+          "stem": "Holdout vs bootstrap resampling for error estimates — key interview contrast to state?",
+          "options": [
+            "Holdout uses a fixed split; bootstrap resamples with replacement many times",
+            "Bootstrap forbids replacement; holdout requires infinite validation sets",
+            "They produce identical estimates by mathematical identity always",
+            "Holdout is only for unsupervised; bootstrap only for reinforcement learning"
+          ],
+          "correctIndex": 0,
+          "explanation": "Different resampling schemes trade bias and variance of the estimate itself."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q18",
+          "stem": "Why might you choose a simpler linear model over a complex ensemble in production?",
+          "options": [
+            "Linear models always beat ensembles on every benchmark without exception",
+            "Interpretability, latency, stability, and adequate accuracy for the business",
+            "Ensembles cannot be deployed because they lack serialization formats",
+            "Regulators forbid any model that uses more than one decision tree"
+          ],
+          "correctIndex": 1,
+          "explanation": "Operational and explainability constraints often favor simpler models."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q19",
+          "stem": "Stratified sampling in classification splits: what problem does stratification solve?",
+          "options": [
+            "Guarantees that every fold contains only one class for purity",
+            "Removes the need for metrics other than accuracy forever",
+            "Preserves class proportions across train/val/test when classes are imbalanced",
+            "Forces features to be Gaussian before any model training begins"
+          ],
+          "correctIndex": 2,
+          "explanation": "Stratification keeps rare classes represented in each split."
+        },
+        {
+          "id": "aiml-fundamentals-s2-q20",
+          "stem": "Online vs batch learning: what distinction should you articulate clearly in interviews?",
+          "options": [
+            "Online learning forbids gradients; batch learning forbids any loss function",
+            "They differ only in GPU brand, not in data arrival assumptions",
+            "Batch learning cannot shuffle; online learning cannot use regularization",
+            "Online updates incrementally as data arrives; batch trains on a fixed dataset"
+          ],
+          "correctIndex": 3,
+          "explanation": "Streaming updates versus offline training on a static corpus."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "aiml-fundamentals-s3-q01",
+          "stem": "Senior interview: how do you choose between collecting more data and adding regularization?",
+          "options": [
+            "Diagnose bias/variance via curves; more data helps variance; capacity/features help bias",
+            "Always collect more data first because regularization never helps generalization",
+            "Always add L1 first because more data cannot reduce variance by theory",
+            "Flip a coin; both interventions have identical effects on every learning curve"
+          ],
+          "correctIndex": 0,
+          "explanation": "Learning-curve diagnosis guides whether data or model capacity is the bottleneck."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q02",
+          "stem": "Nested cross-validation: why do strong interviewers bring it up for model selection?",
+          "options": [
+            "It nests neural layers inside trees to create a single hybrid model",
+            "Outer loop estimates generalization; inner loop tunes hyperparameters without test leakage",
+            "It removes the need for any validation metric other than training loss",
+            "Nested CV is only required when using unsupervised clustering algorithms"
+          ],
+          "correctIndex": 1,
+          "explanation": "Nested CV separates selection from evaluation to reduce optimistic bias."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q03",
+          "stem": "Domain shift: your val looks great but production fails. What do you investigate first?",
+          "options": [
+            "Increase dropout until train accuracy drops below chance on every batch",
+            "Delete the test set so production metrics cannot disagree with val",
+            "Train/serving skew, population drift, label definition changes, and leakage artifacts",
+            "Switch metrics from F1 to silhouette score for all classification tasks"
+          ],
+          "correctIndex": 2,
+          "explanation": "Distribution and pipeline mismatches often explain validation–production gaps."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q04",
+          "stem": "Cost-sensitive learning: how do you incorporate asymmetric FP/FN business costs?",
+          "options": [
+            "Ignore costs and optimize accuracy only because costs are not ML concerns",
+            "Set the decision threshold to 0.5 always regardless of cost asymmetry",
+            "Convert the problem to unsupervised clustering to avoid false negatives",
+            "Weighted losses, tuned thresholds, or explicit cost matrices aligned to business"
+          ],
+          "correctIndex": 3,
+          "explanation": "Encode costs in loss weights and operating-point selection carefully."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q05",
+          "stem": "Feature selection vs dimensionality reduction: how do you distinguish them cleanly?",
+          "options": [
+            "Selection keeps original features; reduction projects to new derived axes (e.g., PCA)",
+            "They are identical operations with different library function names",
+            "Selection always creates new axes; PCA always keeps original column names",
+            "Reduction only works for labels; selection only works for unsupervised data"
+          ],
+          "correctIndex": 0,
+          "explanation": "Selection subsets features; reduction transforms the representation space."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q06",
+          "stem": "When is a model with slightly worse offline metrics still the right production choice?",
+          "options": [
+            "Never — offline leaderboard rank is the only production decision criterion",
+            "When it is cheaper, more robust to drift, explainable, or meets latency SLOs",
+            "Only when the worse model has strictly higher training loss by design",
+            "When legal teams forbid evaluating any online A/B experiment metrics"
+          ],
+          "correctIndex": 1,
+          "explanation": "Production constraints beyond a single metric often dominate the choice."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q07",
+          "stem": "Label noise: what mitigation strategies should you mention at a senior interview level?",
+          "options": [
+            "Fit harder until train accuracy is 100% so noise is memorized correctly",
+            "Remove the validation set because noisy labels only affect held-out data",
+            "Clean labels, robust losses, relabeling, confidence filtering, and noise-aware training",
+            "Noise is harmless for supervised learning and only hurts clustering"
+          ],
+          "correctIndex": 2,
+          "explanation": "Noisy targets need cleaning and/or algorithms robust to mislabels."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q08",
+          "stem": "Why report confidence intervals or multiple-seed variance for ML results in interviews?",
+          "options": [
+            "Intervals replace the need for a test set in modern ML workflows",
+            "Variance across seeds always means the model architecture is invalid",
+            "Interviewers only accept point estimates without any uncertainty talk",
+            "Single-run metrics can be noisy; uncertainty communicates estimate reliability"
+          ],
+          "correctIndex": 3,
+          "explanation": "Uncertainty-aware reporting shows maturity about experimental noise."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q09",
+          "stem": "Semi-supervised learning: when is it a reasonable suggestion in an ML interview?",
+          "options": [
+            "Abundant unlabeled data, scarce labels, and a structure that unlabeled data can help",
+            "When you have infinite labels and zero unlabeled examples by design",
+            "Only for reinforcement learning environments without any observations",
+            "Whenever accuracy is already perfect and you need more compute spend"
+          ],
+          "correctIndex": 0,
+          "explanation": "Semi-supervised leverages unlabeled structure when labels are expensive."
+        },
+        {
+          "id": "aiml-fundamentals-s3-q10",
+          "stem": "Metric gaming: why can optimizing a proxy metric hurt the real product objective?",
+          "options": [
+            "Proxy metrics are mathematically identical to business KPIs always",
+            "Goodhart’s law — proxies can be gamed while true goals degrade",
+            "Product objectives cannot be influenced by model score thresholds",
+            "Only unsupervised metrics can be gamed; supervised metrics cannot"
+          ],
+          "correctIndex": 1,
+          "explanation": "Align evaluation with true outcomes and watch for proxy exploitation."
+        }
+      ]
+    }
+  ]
+}

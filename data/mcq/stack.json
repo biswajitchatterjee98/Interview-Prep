@@ -1,0 +1,624 @@
+{
+  "slug": "stack",
+  "title": "Stack",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "stack-s1-q01",
+          "stem": "In a coding interview, you are asked: What discipline does a stack enforce on insert and remove? Which response is most accurate?",
+          "options": [
+            "LIFO — last in, first out",
+            "FIFO — first in, first out",
+            "Priority order by key",
+            "Random eviction"
+          ],
+          "correctIndex": 0,
+          "explanation": "Push adds to the top; pop removes from the top—classic LIFO."
+        },
+        {
+          "id": "stack-s1-q02",
+          "stem": "In a coding interview, you are asked: Which pair of operations defines the core stack ADT? Which response is most accurate?",
+          "options": [
+            "enqueue / dequeue",
+            "push / pop (plus often peek/top)",
+            "insertAt / removeAt arbitrary index",
+            "union / find"
+          ],
+          "correctIndex": 1,
+          "explanation": "Stacks expose push and pop at one end; peek reads the top without removal."
+        },
+        {
+          "id": "stack-s1-q03",
+          "stem": "In a coding interview, how should you answer this: Popping an empty stack should typically:? Choose the strongest option.",
+          "options": [
+            "Silently return a default zero",
+            "Allocate a new element automatically",
+            "Signal an error/underflow (exception or error code)",
+            "Block until another thread pushes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Underflow is an exceptional condition; well-defined APIs fail loudly or return Optional.empty."
+        },
+        {
+          "id": "stack-s1-q04",
+          "stem": "In a coding interview, how should you answer this: A call stack in a running program primarily stores:? Choose the strongest option.",
+          "options": [
+            "Only global variables",
+            "The entire heap",
+            "Disk blocks for the filesystem",
+            "Activation records: return addresses, locals, parameters, saved registers"
+          ],
+          "correctIndex": 3,
+          "explanation": "Each call pushes a frame; return pops it—hence stack overflow on deep recursion."
+        },
+        {
+          "id": "stack-s1-q05",
+          "stem": "In a coding interview, you are asked: Implementing a stack with a dynamic array (vector) makes push amortized:? Which answer is best?",
+          "options": [
+            "O(1) amortized (occasional resize)",
+            "O(n) always",
+            "O(log n) guaranteed worst-case",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Append at end is amortized O(1); rare geometric resizes cost O(n)."
+        },
+        {
+          "id": "stack-s1-q06",
+          "stem": "In a coding interview, you are asked: Implementing a stack with a singly linked list (push/pop at head) gives:? Which answer is best?",
+          "options": [
+            "O(n) push and pop",
+            "O(1) push and pop without shifting elements",
+            "O(log n) due to tree balancing",
+            "O(1) push but O(n) pop"
+          ],
+          "correctIndex": 1,
+          "explanation": "Head insert/delete is constant time; no contiguous shifting."
+        },
+        {
+          "id": "stack-s1-q07",
+          "stem": "In a coding interview, how should you answer this: Balanced parentheses checking uses a stack because:? Choose the strongest option.",
+          "options": [
+            "FIFO matches nested openers to closers",
+            "Stacks sort the characters",
+            "The most recent unmatched opener must match the next closer (LIFO nesting)",
+            "Queues detect mismatches faster asymptotically"
+          ],
+          "correctIndex": 2,
+          "explanation": "Nesting is LIFO: the latest open bracket is what the next close must match."
+        },
+        {
+          "id": "stack-s1-q08",
+          "stem": "Which sequence of stack operations leaves the stack empty? Start empty. push(1), push(2), pop(), push(3), pop(), pop().",
+          "options": [
+            "Stack still has 3",
+            "Stack has 1 and 2",
+            "Underflow occurs before the end",
+            "Stack is empty"
+          ],
+          "correctIndex": 3,
+          "explanation": "After ops: [1,2] → pop→[1] → push3→[1,3] → pop→[1] → pop→[]."
+        },
+        {
+          "id": "stack-s1-q09",
+          "stem": "In a coding interview, how should you answer this: Peek/top on a non-empty stack returns:? Choose the strongest option.",
+          "options": [
+            "The most recently pushed element still present",
+            "The bottom-most element",
+            "The minimum element",
+            "A random element"
+          ],
+          "correctIndex": 0,
+          "explanation": "Top is the LIFO end—the last pushed item that has not been popped."
+        },
+        {
+          "id": "stack-s1-q10",
+          "stem": "In a coding interview, how should you answer this: Stack overflow in recursion usually means:? Choose the strongest option.",
+          "options": [
+            "The heap ran out of disk swap only",
+            "Call depth exceeded available call-stack memory",
+            "Too many threads joined",
+            "A queue grew without bound"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each frame consumes stack space; unbounded or huge depth exhausts the call stack."
+        },
+        {
+          "id": "stack-s1-q11",
+          "stem": "In a coding interview, how should you answer this: Infix to postfix conversion algorithms commonly rely on a stack to:? Choose the strongest option.",
+          "options": [
+            "Store output numbers only",
+            "Sort operands alphabetically",
+            "Hold operators until precedence/associativity says to emit them",
+            "Implement BFS"
+          ],
+          "correctIndex": 2,
+          "explanation": "Shunting-yard uses an operator stack guided by precedence and parentheses."
+        },
+        {
+          "id": "stack-s1-q12",
+          "stem": "In a coding interview, how should you answer this: Evaluating a postfix expression efficiently uses a stack of:? Choose the strongest option.",
+          "options": [
+            "Operators waiting for precedence",
+            "Entire tokens in FIFO order",
+            "Function names only",
+            "Operands; when an operator appears, pop operands, push result"
+          ],
+          "correctIndex": 3,
+          "explanation": "Postfix is stack-friendly: operands push; operators consume and push back."
+        },
+        {
+          "id": "stack-s1-q13",
+          "stem": "In a coding interview, how should you answer this: Compared to a queue, a stack is a better fit for:? Choose the strongest option.",
+          "options": [
+            "Undo history and nested scope matching",
+            "BFS layer order",
+            "Fair scheduling of print jobs",
+            "Round-robin CPU time slices"
+          ],
+          "correctIndex": 0,
+          "explanation": "Undo and nesting are inherently LIFO; BFS and fair queues need FIFO."
+        },
+        {
+          "id": "stack-s1-q14",
+          "stem": "In a coding interview, how should you answer this: A fixed-capacity array stack that pushes when full should:? Choose the strongest option.",
+          "options": [
+            "Overwrite the bottom silently",
+            "Report overflow / refuse the push",
+            "Become a queue automatically",
+            "Grow the array without telling anyone it was fixed"
+          ],
+          "correctIndex": 1,
+          "explanation": "Bounded stacks define overflow behavior; silent corruption is unacceptable."
+        },
+        {
+          "id": "stack-s1-q15",
+          "stem": "Which statement about Java’s Stack class vs Deque-as-stack is a common interview note?",
+          "options": [
+            "Stack is always preferred as a legacy Vector subclass; Deque is never used",
+            "Neither can implement LIFO",
+            "Prefer ArrayDeque (or Deque) for stack use; java.util.Stack is a legacy synchronized Vector",
+            "Stack is lock-free and Deque is not"
+          ],
+          "correctIndex": 2,
+          "explanation": "Modern Java guidance: use Deque methods push/pop/peek; Stack is outdated."
+        },
+        {
+          "id": "stack-s1-q16",
+          "stem": "In a coding interview, how should you answer this: Space complexity of storing n elements in a stack is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(1)",
+            "O(log n)",
+            "Option claiming: O(n²)",
+            "Option claiming: O(n)"
+          ],
+          "correctIndex": 3,
+          "explanation": "You must retain all n items until popped—Θ(n) memory."
+        },
+        {
+          "id": "stack-s1-q17",
+          "stem": "In a coding interview, how should you answer this: Reversing a string or array segment with a stack works because:? Choose the strongest option.",
+          "options": [
+            "Push all, then pop all yields reverse order",
+            "Stacks sort lexicographically",
+            "Pop order equals push order",
+            "Stacks preserve FIFO"
+          ],
+          "correctIndex": 0,
+          "explanation": "LIFO naturally reverses a sequence."
+        },
+        {
+          "id": "stack-s1-q18",
+          "stem": "In a coding interview, how should you answer this: In browser history “back,” a stack of pages models:? Choose the strongest option.",
+          "options": [
+            "A priority queue of popularity",
+            "The next pages you have not visited yet (forward often uses another stack)",
+            "Only the home page",
+            "A circular buffer of ads"
+          ],
+          "correctIndex": 1,
+          "explanation": "Back pops the previous page; forward is often a second stack."
+        },
+        {
+          "id": "stack-s1-q19",
+          "stem": "In a coding interview, you are asked: Which is NOT a typical stack application? Which response is most accurate?",
+          "options": [
+            "DFS traversal with an explicit stack",
+            "Matching HTML/XML tags",
+            "Shortest path in an unweighted graph via BFS",
+            "Expression parsing"
+          ],
+          "correctIndex": 2,
+          "explanation": "Unweighted shortest path uses a queue (BFS), not a stack."
+        },
+        {
+          "id": "stack-s1-q20",
+          "stem": "In a coding interview, how should you answer this: Ambiguous interview phrase “stack overflow” might mean:? Choose the strongest option.",
+          "options": [
+            "Only the Q&A website",
+            "Only heap fragmentation",
+            "Only a full queue",
+            "Either call-stack exhaustion or a bounded stack ADT overflow—clarify context"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same words, two meanings: OS/runtime call stack vs ADT capacity—ask which."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "stack-s2-q01",
+          "stem": "In a coding interview, you are asked: A monotonic increasing stack (storing indices) is typically used to find:? Which answer is best?",
+          "options": [
+            "Next smaller element to the right (by popping larger candidates)",
+            "Only the global maximum in O(n²)",
+            "BFS distances",
+            "Hash collisions"
+          ],
+          "correctIndex": 0,
+          "explanation": "While the new element breaks monotonicity, pop; popped indices find their next smaller/greater depending on direction."
+        },
+        {
+          "id": "stack-s2-q02",
+          "stem": "In a coding interview, how should you answer this: Next Greater Element for each array index in O(n) uses:? Choose the strongest option.",
+          "options": [
+            "Nested loops only",
+            "A stack of indices awaiting a greater value; when found, resolve popped indices",
+            "Sorting the array in place permanently",
+            "A queue of all greater candidates"
+          ],
+          "correctIndex": 1,
+          "explanation": "Monotonic stack processes each index at most twice (push/pop)—linear time."
+        },
+        {
+          "id": "stack-s2-q03",
+          "stem": "In a coding interview, how should you answer this: Min-stack (getMin in O(1) with push/pop O(1)) commonly stores:? Choose the strongest option.",
+          "options": [
+            "Only the current min in a global variable without history",
+            "A full sorted copy of all elements",
+            "Each push paired with the min-so-far, or a parallel mins stack",
+            "A heap alone without a stack"
+          ],
+          "correctIndex": 2,
+          "explanation": "Track minima history so pop can restore the previous min in O(1)."
+        },
+        {
+          "id": "stack-s2-q04",
+          "stem": "In a coding interview, how should you answer this: Daily Temperatures / “days until warmer” is solved like NGE by:? Choose the strongest option.",
+          "options": [
+            "Binary search on sorted temperatures only",
+            "Floyd cycle detection",
+            "Union-find",
+            "Monotonic stack of indices of unresolved colder days"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same next-greater pattern: when a warmer day appears, answer pops."
+        },
+        {
+          "id": "stack-s2-q05",
+          "stem": "In a coding interview, how should you answer this: Largest rectangle in histogram (classic) uses a stack to:? Choose the strongest option.",
+          "options": [
+            "Find, for each bar, previous/next smaller bars to compute max width × height",
+            "Store bar heights in sorted order only",
+            "Run Dijkstra on bars",
+            "Convert histogram to a balanced BST"
+          ],
+          "correctIndex": 0,
+          "explanation": "Near-smallest boundaries via monotonic stack give O(n) area computation."
+        },
+        {
+          "id": "stack-s2-q06",
+          "stem": "Validating a path of push/pop sequences (permutation is a valid stack permutation) checks:",
+          "options": [
+            "Whether the sequence is sorted",
+            "Whether pops could arise from some push order using a stack simulation",
+            "Whether lengths differ",
+            "Whether a queue could produce it instead"
+          ],
+          "correctIndex": 1,
+          "explanation": "Simulate: push when needed, pop when top matches next desired output; detect impossibility."
+        },
+        {
+          "id": "stack-s2-q07",
+          "stem": "In a coding interview, how should you answer this: Implementing a queue using two stacks typically:? Choose the strongest option.",
+          "options": [
+            "Makes every operation O(n) always",
+            "Requires three stacks minimum",
+            "Amortizes transfers: enqueue to in-stack, dequeue from out-stack (refill by pouring in→out)",
+            "Violates FIFO permanently"
+          ],
+          "correctIndex": 2,
+          "explanation": "Lazy transfer yields amortized O(1) per op while preserving FIFO."
+        },
+        {
+          "id": "stack-s2-q08",
+          "stem": "In a coding interview, how should you answer this: Asteroid collision problems use a stack because:? Choose the strongest option.",
+          "options": [
+            "All asteroids collide simultaneously with no order",
+            "BFS explores space",
+            "A min-heap picks the smallest asteroid",
+            "Only the most recent surviving asteroid can collide with the incoming one"
+          ],
+          "correctIndex": 3,
+          "explanation": "Collisions resolve against the top of the “surviving” line—stack simulation."
+        },
+        {
+          "id": "stack-s2-q09",
+          "stem": "In a coding interview, how should you answer this: Decode string patterns like 3[a2[c]] often use stacks to store:? Choose the strongest option.",
+          "options": [
+            "Counts and partial strings to expand nested repeats",
+            "Only integers",
+            "A BFS queue of characters",
+            "Sorted unique letters"
+          ],
+          "correctIndex": 0,
+          "explanation": "Nesting of k[…] maps to push on ‘[’ and pop/expand on ‘]’."
+        },
+        {
+          "id": "stack-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Simplifying a Unix path (/, .., .) is stack-friendly because:? Choose the strongest option.",
+          "options": [
+            "Paths are FIFO queues of mounts",
+            "“..” pops the previous directory segment when possible",
+            "Sorting segments alphabetically is required",
+            "Hashing each character suffices"
+          ],
+          "correctIndex": 1,
+          "explanation": "Directory nesting + parent (..) is exactly stack push/pop of path parts."
+        },
+        {
+          "id": "stack-s2-q11",
+          "stem": "Trapping rain water (two-pointer or stack variants): the stack approach tracks:",
+          "options": [
+            "Only the global max height",
+            "A queue of water units",
+            "Indices of decreasing heights to form basins when a higher bar appears",
+            "DFS on a tree of bars"
+          ],
+          "correctIndex": 2,
+          "explanation": "Monotonic decreasing heights; a rise closes valleys and adds trapped water."
+        },
+        {
+          "id": "stack-s2-q12",
+          "stem": "In a coding interview, you are asked: When using a stack for iterative DFS, what do you push? Which response is most accurate?",
+          "options": [
+            "Only distances like BFS",
+            "Sorted edges by weight always",
+            "Nothing—DFS cannot be iterative",
+            "Nodes to visit (often with state), popping to process, pushing neighbors"
+          ],
+          "correctIndex": 3,
+          "explanation": "Explicit stack replaces the call stack; careful with visit timing vs recursion."
+        },
+        {
+          "id": "stack-s2-q13",
+          "stem": "In a coding interview, how should you answer this: A max-stack (O(1) getMax) mirrors min-stack by:? Choose the strongest option.",
+          "options": [
+            "Storing max-so-far alongside each push or on an auxiliary stack",
+            "Scanning the whole stack each getMax",
+            "Using only a queue",
+            "Sorting on every pop"
+          ],
+          "correctIndex": 0,
+          "explanation": "Same history trick as min-stack, tracking maxima."
+        },
+        {
+          "id": "stack-s2-q14",
+          "stem": "In a coding interview, how should you answer this: Basic calculator with +, -, and parentheses often combines:? Choose the strongest option.",
+          "options": [
+            "Only regular expressions",
+            "A stack of signs/results when entering parentheses, then apply on exit",
+            "A single integer with no stack",
+            "Dijkstra’s algorithm"
+          ],
+          "correctIndex": 1,
+          "explanation": "Parentheses create nested contexts; stacks restore prior sign/sum."
+        },
+        {
+          "id": "stack-s2-q15",
+          "stem": "In a coding interview, you are asked: Remove k digits to form the smallest number uses a monotonic stack to:? Which answer is best?",
+          "options": [
+            "Always delete the last k digits",
+            "Sort digits ascending and drop k largest only without order",
+            "Keep digits ascending when possible by removing peaks that hurt smallness",
+            "Use a max-heap of indices randomly"
+          ],
+          "correctIndex": 2,
+          "explanation": "Greedy: pop larger digits before a smaller one while removals remain."
+        },
+        {
+          "id": "stack-s2-q16",
+          "stem": "In a coding interview, you are asked: Why store indices instead of values in many monotonic-stack problems? Which response is most accurate?",
+          "options": [
+            "Indices cannot overflow",
+            "Values are illegal on stacks",
+            "Indices sort themselves",
+            "You need positions to compute distances/widths, and values are available via array[index]"
+          ],
+          "correctIndex": 3,
+          "explanation": "Answers often need index differences; the array still holds values."
+        },
+        {
+          "id": "stack-s2-q17",
+          "stem": "In a coding interview, how should you answer this: Exclusive time of functions in a call log uses a stack of:? Choose the strongest option.",
+          "options": [
+            "Function ids with timestamps to attribute exclusive CPU between events",
+            "Sorted unique function names",
+            "A queue of all logs",
+            "Union-find of threads"
+          ],
+          "correctIndex": 0,
+          "explanation": "Nested calls are LIFO; stack tracks who is running between start/end events."
+        },
+        {
+          "id": "stack-s2-q18",
+          "stem": "In a coding interview, how should you answer this: Stock span problem (consecutive days ≤ today’s price) is solved with:? Choose the strongest option.",
+          "options": [
+            "Option claiming: BFS",
+            "Monotonic stack of prior days’ prices/indices",
+            "Binary search trees only",
+            "Counting sort of all prices globally"
+          ],
+          "correctIndex": 1,
+          "explanation": "Find previous greater; span derives from index distance—monotonic stack."
+        },
+        {
+          "id": "stack-s2-q19",
+          "stem": "Designing an O(1) amortized stack that also supports getMin, a subtle bug is:",
+          "options": [
+            "Using two stacks at all",
+            "Storing ints instead of longs",
+            "Forgetting to pop the mins stack when the popped value equals current min",
+            "Implementing peek"
+          ],
+          "correctIndex": 2,
+          "explanation": "Mins auxiliary structure must stay synced on duplicate minima and pops."
+        },
+        {
+          "id": "stack-s2-q20",
+          "stem": "In a coding interview, how should you answer this: Parsing nested JSON-like braces with a stack fails validation when:? Choose the strongest option.",
+          "options": [
+            "The file is larger than 1KB",
+            "Only digits appear",
+            "The stack used ArrayDeque",
+            "A closer appears while stack empty, or final stack non-empty, or type mismatch on pop"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same rules as brackets: underflow, leftover opens, or wrong closer type."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "stack-s3-q01",
+          "stem": "Senior pitfall: recursive DFS “works” until production graphs are deep. What do you ship?",
+          "options": [
+            "Iterative DFS/BFS with heap-allocated explicit stack/queue and cycle guards",
+            "Increase stack size only and ignore",
+            "Ban graphs deeper than 10",
+            "Replace all graphs with arrays"
+          ],
+          "correctIndex": 0,
+          "explanation": "Call-stack limits are real; explicit structures scale and fail more controllably."
+        },
+        {
+          "id": "stack-s3-q02",
+          "stem": "In a coding interview, how should you answer this: Monotonic stack off-by-one on circular arrays (NGE II) usually needs:? Choose the strongest option.",
+          "options": [
+            "Ignoring circularity",
+            "Simulating 2n traversal (mod n) while still pushing each index once logically",
+            "Sorting the circular array",
+            "A third stack for the wrap"
+          ],
+          "correctIndex": 1,
+          "explanation": "Visit indices twice around the ring; avoid double-pushing resolved indices."
+        },
+        {
+          "id": "stack-s3-q03",
+          "stem": "In a coding interview, how should you answer this: Min-stack storing (value − min) encoded in one stack risks:? Choose the strongest option.",
+          "options": [
+            "Nothing ever",
+            "Guaranteed O(n) getMin",
+            "Integer overflow/underflow and harder debugging versus a clear aux stack",
+            "Losing LIFO order"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clever encodings save space but invite overflow and maintenance bugs—know the trade-off."
+        },
+        {
+          "id": "stack-s3-q04",
+          "stem": "In a coding interview, you are asked: Using Stack in a multi-threaded server without synchronization causes:? Which answer is best?",
+          "options": [
+            "Automatic linearizability",
+            "Faster correct pops always",
+            "FIFO becoming LIFO safely",
+            "Data races / corruption unless the structure is concurrent or externally locked"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic stacks are not thread-safe; ConcurrentLinkedDeque or locks are needed."
+        },
+        {
+          "id": "stack-s3-q05",
+          "stem": "In a coding interview, you are asked: Why can “two stacks make a queue” still be a poor production queue? Which response is most accurate?",
+          "options": [
+            "Worse constants, poorer locality, and awkward concurrency versus a ring buffer or ArrayDeque",
+            "It cannot implement FIFO",
+            "It uses negative memory",
+            "Interviewers forbid it in codebases"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pedagogically fine; real systems prefer contiguous circular buffers."
+        },
+        {
+          "id": "stack-s3-q06",
+          "stem": "In a coding interview, how should you answer this: Expression evaluator security pitfall with unbounded nesting:? Choose the strongest option.",
+          "options": [
+            "Stacks cannot nest",
+            "Deep parentheses can exhaust memory/CPU—enforce depth limits and input size",
+            "Only floats are unsafe",
+            "Postfix cannot overflow"
+          ],
+          "correctIndex": 1,
+          "explanation": "Untrusted input + unbounded stack growth is a DoS vector."
+        },
+        {
+          "id": "stack-s3-q07",
+          "stem": "Iterator invalidation: holding a pointer into a vector-backed stack across push that resizes leads to:",
+          "options": [
+            "Defined stable references forever",
+            "Automatic locks",
+            "Dangling references / UB in C++; stale views in languages that reallocate backing stores",
+            "Conversion to a linked stack"
+          ],
+          "correctIndex": 2,
+          "explanation": "Resizing invalidates raw pointers/iterators into the old buffer."
+        },
+        {
+          "id": "stack-s3-q08",
+          "stem": "In a coding interview, how should you answer this: Claiming every LIFO problem needs a monotonic stack is wrong because:? Choose the strongest option.",
+          "options": [
+            "Monotonic stacks are never useful",
+            "Queues solve all LIFO problems",
+            "Stacks cannot store indices",
+            "Many LIFO tasks are plain simulation; monotonicity applies to next-greater/smaller style constraints"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pick the pattern that matches the invariant—don’t force monotonicity everywhere."
+        },
+        {
+          "id": "stack-s3-q09",
+          "stem": "In a coding interview, how should you answer this: In lock-free concurrent stacks, the hard part is often:? Choose the strongest option.",
+          "options": [
+            "ABA problems and safe memory reclamation after pop",
+            "Writing push without CAS",
+            "Making pop return void",
+            "Ensuring FIFO"
+          ],
+          "correctIndex": 0,
+          "explanation": "CAS on head is the easy sketch; ABA and reclamation dominate real designs."
+        },
+        {
+          "id": "stack-s3-q10",
+          "stem": "In a coding interview, how should you answer this: Production undo stack that also needs redo typically uses:? Choose the strongest option.",
+          "options": [
+            "One stack only, discarding redo forever",
+            "Undo stack + redo stack (or a single list with a cursor); clears redo on new action",
+            "A priority queue of edits",
+            "BFS of document states"
+          ],
+          "correctIndex": 1,
+          "explanation": "Dual-stack or cursor models are standard; new edits invalidate redo branch."
+        }
+      ]
+    }
+  ]
+}

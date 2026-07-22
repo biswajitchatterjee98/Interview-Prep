@@ -1,0 +1,624 @@
+{
+  "slug": "heaps",
+  "title": "Heaps",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "heaps-s1-q01",
+          "stem": "In a coding interview, you are asked: In a min-heap, where is the smallest element stored? Which response is most accurate?",
+          "options": [
+            "Always at a leaf",
+            "At the root (index 0 or 1 depending on convention)",
+            "At the last index of the array",
+            "Anywhere — heaps are unordered"
+          ],
+          "correctIndex": 1,
+          "explanation": "A min-heap maintains the heap property that every parent is ≤ its children, so the global minimum is at the root."
+        },
+        {
+          "id": "heaps-s1-q02",
+          "stem": "For a binary heap stored in a 0-indexed array, what is the left child index of node i?",
+          "options": [
+            "Option claiming: 2*i + 1",
+            "Option claiming: 2*i",
+            "Option claiming: 2*i - 1",
+            "Option claiming: i // 2"
+          ],
+          "correctIndex": 0,
+          "explanation": "In 0-indexed layout: left = 2i+1, right = 2i+2, parent = (i-1)//2."
+        },
+        {
+          "id": "heaps-s1-q03",
+          "stem": "For a binary heap stored in a 0-indexed array, what is the parent index of node i (i > 0)?",
+          "options": [
+            "Option claiming: i // 2",
+            "Option claiming: 2*i + 1",
+            "Option claiming: i - 1",
+            "(i - 1) // 2"
+          ],
+          "correctIndex": 3,
+          "explanation": "Parent of i is floor((i-1)/2) in 0-indexed heaps."
+        },
+        {
+          "id": "heaps-s1-q04",
+          "stem": "In a coding interview, you are asked: What is the height of a complete binary heap with n nodes? Which response is most accurate?",
+          "options": [
+            "Option claiming: Θ(n)",
+            "Option claiming: Θ(√n)",
+            "Θ(log n)",
+            "Option claiming: Θ(1)"
+          ],
+          "correctIndex": 2,
+          "explanation": "A complete binary tree of n nodes has height floor(log₂ n)."
+        },
+        {
+          "id": "heaps-s1-q05",
+          "stem": "In a coding interview, you are asked: How does insert typically work in a binary heap? Which response is most accurate?",
+          "options": [
+            "Insert at root and sift down always",
+            "Place at next leaf position, then sift/bubble up",
+            "Append unsorted; rebuild whole tree each time",
+            "Insert into a sorted array position via binary search"
+          ],
+          "correctIndex": 1,
+          "explanation": "New element goes at the end to keep completeness, then bubble-up restores the heap property."
+        },
+        {
+          "id": "heaps-s1-q06",
+          "stem": "In a coding interview, you are asked: What does extract-min on a min-heap typically do? Which response is most accurate?",
+          "options": [
+            "Swap root with last element, remove last, then sift down from root",
+            "Remove an arbitrary leaf and rebuild",
+            "Scan the array for the min each time",
+            "Pop the last element only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Root holds the min; after removing it you move the last leaf to root and heapify down."
+        },
+        {
+          "id": "heaps-s1-q07",
+          "stem": "In a coding interview, you are asked: Time complexity of insert and extract-min in a binary heap? Which response is most accurate?",
+          "options": [
+            "Both O(1)",
+            "Insert O(n), extract O(1)",
+            "Both O(n)",
+            "Both O(log n)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Height is O(log n); sift-up/sift-down walk at most that far."
+        },
+        {
+          "id": "heaps-s1-q08",
+          "stem": "In a coding interview, you are asked: What does heapify (sift-down) do starting at index i? Which response is most accurate?",
+          "options": [
+            "Sorts the entire array ascending",
+            "Converts a BST into a heap",
+            "Restores heap property in the subtree rooted at i assuming children are heaps",
+            "Removes duplicates under i"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic heapify assumes left/right subtrees are already heaps and fixes the root of that subtree."
+        },
+        {
+          "id": "heaps-s1-q09",
+          "stem": "In a coding interview, you are asked: Building a heap from an unordered array with Floyd's bottom-up heapify is:? Which answer is best?",
+          "options": [
+            "O(n log n) always only",
+            "Option claiming: O(n)",
+            "Option claiming: O(n²)",
+            "O(log n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Bottom-up heap construction is linear: most nodes are near the leaves so sift costs sum to O(n)."
+        },
+        {
+          "id": "heaps-s1-q10",
+          "stem": "In a coding interview, how should you answer this: A max-heap differs from a min-heap primarily in that:? Choose the strongest option.",
+          "options": [
+            "Every parent is ≥ its children",
+            "The array must be sorted descending",
+            "Leaves store the maximum",
+            "Only integers are allowed"
+          ],
+          "correctIndex": 0,
+          "explanation": "Max-heap property: parent ≥ children; min-heap: parent ≤ children."
+        },
+        {
+          "id": "heaps-s1-q11",
+          "stem": "In a coding interview, how should you answer this: In Java, PriorityQueue by default is a:? Choose the strongest option.",
+          "options": [
+            "Max-heap",
+            "Balanced BST",
+            "Sorted linked list",
+            "Min-heap (natural ordering)"
+          ],
+          "correctIndex": 3,
+          "explanation": "java.util.PriorityQueue is a min-heap under Comparable/natural order unless a reverse Comparator is supplied."
+        },
+        {
+          "id": "heaps-s1-q12",
+          "stem": "In a coding interview, how should you answer this: peek() on a PriorityQueue (min-heap) returns:? Choose the strongest option.",
+          "options": [
+            "The most recently inserted element",
+            "A random element",
+            "The current minimum without removing it",
+            "The maximum always"
+          ],
+          "correctIndex": 2,
+          "explanation": "peek/top inspects the root without deletion."
+        },
+        {
+          "id": "heaps-s1-q13",
+          "stem": "In a coding interview, you are asked: Which structure is typically NOT a heap? Which response is most accurate?",
+          "options": [
+            "Binary heap in an array",
+            "AVL tree guaranteeing sorted inorder traversal",
+            "d-ary heap",
+            "Fibonacci heap"
+          ],
+          "correctIndex": 1,
+          "explanation": "AVL is a balanced BST, not a heap; heaps do not keep a total inorder order."
+        },
+        {
+          "id": "heaps-s1-q14",
+          "stem": "Why are heaps often preferred over sorted arrays for a dynamic priority queue?",
+          "options": [
+            "Insert and extract are both O(log n) without shifting the whole array",
+            "Sorted arrays give O(1) insert",
+            "Heaps support O(1) arbitrary delete by value always",
+            "Heaps use less memory than one integer"
+          ],
+          "correctIndex": 0,
+          "explanation": "Maintaining a fully sorted array makes inserts O(n); heaps balance insert/extract at O(log n)."
+        },
+        {
+          "id": "heaps-s1-q15",
+          "stem": "In a coding interview, how should you answer this: In a 1-indexed heap array, the right child of i is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: 2*i",
+            "Option claiming: 2*i - 1",
+            "Option claiming: i + 1",
+            "Option claiming: 2*i + 1"
+          ],
+          "correctIndex": 3,
+          "explanation": "1-indexed convention: left=2i, right=2i+1, parent=i//2."
+        },
+        {
+          "id": "heaps-s1-q16",
+          "stem": "In a coding interview, how should you answer this: A complete binary tree (as used by binary heaps) means:? Choose the strongest option.",
+          "options": [
+            "Every node has 0 or 2 children only",
+            "It is always a perfect tree of 2^k-1 nodes",
+            "All levels full except possibly the last, which is filled left to right",
+            "Leaves may appear on any level arbitrarily"
+          ],
+          "correctIndex": 2,
+          "explanation": "Completeness enables the compact array representation without gaps."
+        },
+        {
+          "id": "heaps-s1-q17",
+          "stem": "In a coding interview, how should you answer this: Finding the minimum in a max-heap of n distinct elements is:? Choose the strongest option.",
+          "options": [
+            "O(1) at the root",
+            "Θ(n) in the worst case (scan leaves / all nodes)",
+            "O(log n) via sift",
+            "O(1) at the last index"
+          ],
+          "correctIndex": 1,
+          "explanation": "Max-heap root is the max; the min is among the leaves and requires a linear scan in general."
+        },
+        {
+          "id": "heaps-s1-q18",
+          "stem": "In a coding interview, how should you answer this: decrease-key in a binary heap (when you have the index) is typically:? Choose the strongest option.",
+          "options": [
+            "O(log n) via sift-up after lowering the key",
+            "O(1) always",
+            "O(n) rebuild only",
+            "Impossible"
+          ],
+          "correctIndex": 0,
+          "explanation": "Lowering a key may violate parent order; bubble up restores it in O(log n)."
+        },
+        {
+          "id": "heaps-s1-q19",
+          "stem": "In a coding interview, you are asked: Which operation is NOT efficiently supported by a standard binary heap? Which answer is best?",
+          "options": [
+            "Insert in O(log n)",
+            "Get-min in O(1)",
+            "Extract-min in O(log n)",
+            "Search for an arbitrary value in O(log n)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Heaps are not ordered for search; finding an arbitrary key is O(n) unless you keep an index map."
+        },
+        {
+          "id": "heaps-s1-q20",
+          "stem": "In a coding interview, how should you answer this: Compared to a balanced BST priority queue, a binary heap usually:? Choose the strongest option.",
+          "options": [
+            "Always supports O(log n) ordered traversal of all keys",
+            "Gives O(1) delete-by-value without extra maps",
+            "Uses less pointer overhead and has better cache locality in an array",
+            "Stores keys in sorted order in the array"
+          ],
+          "correctIndex": 2,
+          "explanation": "Array heaps are compact; BSTs pay pointer overhead but offer ordered iteration and easier delete-by-handle."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "heaps-s2-q01",
+          "stem": "Top-K largest elements from a stream using a heap of size K typically uses a:",
+          "options": [
+            "Max-heap of size n",
+            "Sorted array of all elements always",
+            "Min-heap of size K storing the current top-K",
+            "Queue of size K only"
+          ],
+          "correctIndex": 2,
+          "explanation": "A min-heap of K keeps the smallest of the top-K at the root; replace when a larger candidate arrives."
+        },
+        {
+          "id": "heaps-s2-q02",
+          "stem": "In a coding interview, you are asked: Why use a min-heap of size K for top-K largest (not a max-heap of size K)? Which answer is best?",
+          "options": [
+            "Max-heaps cannot store K elements",
+            "You need O(1) access to the smallest among candidates to decide eviction",
+            "Min-heap stores the largest at the root",
+            "Interviewers require min-heaps only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Eviction decision compares against the weakest (smallest) member of the current top-K."
+        },
+        {
+          "id": "heaps-s2-q03",
+          "stem": "In a coding interview, how should you answer this: Time to find top-K from n elements with a size-K heap is:? Choose the strongest option.",
+          "options": [
+            "O(n log K)",
+            "O(n log n) only",
+            "Option claiming: O(K)",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Each of n elements may cause an O(log K) heap operation."
+        },
+        {
+          "id": "heaps-s2-q04",
+          "stem": "In a coding interview, how should you answer this: The two-heap median trick keeps:? Choose the strongest option.",
+          "options": [
+            "Two min-heaps only",
+            "A sorted list and a heap",
+            "One heap of all elements",
+            "Max-heap for lower half, min-heap for upper half"
+          ],
+          "correctIndex": 3,
+          "explanation": "Lower half's max and upper half's min sit at the two roots so the median is O(1) to read."
+        },
+        {
+          "id": "heaps-s2-q05",
+          "stem": "In a coding interview, how should you answer this: After inserting into the two-heap median structure, you must:? Choose the strongest option.",
+          "options": [
+            "Sort both heaps fully",
+            "Move all elements to the min-heap",
+            "Rebalance so heap sizes differ by at most one",
+            "Clear the max-heap"
+          ],
+          "correctIndex": 2,
+          "explanation": "Size balance keeps the median at one root or the average of both roots."
+        },
+        {
+          "id": "heaps-s2-q06",
+          "stem": "In Dijkstra with a binary heap priority queue, decrease-key / re-insert is used because:",
+          "options": [
+            "Dijkstra never changes priorities",
+            "Tentative distances improve and priorities must update",
+            "BFS already guarantees order",
+            "Heaps cannot store distances"
+          ],
+          "correctIndex": 1,
+          "explanation": "Relaxation can improve d[v]; the PQ must reflect the new better priority (via decrease-key or lazy duplicate entries)."
+        },
+        {
+          "id": "heaps-s2-q07",
+          "stem": "Lazy Dijkstra (insert duplicates instead of decrease-key) is correct if you:",
+          "options": [
+            "Ignore stale entries when a worse distance is popped",
+            "Always process every duplicate",
+            "Delete the graph after first pop",
+            "Use DFS instead"
+          ],
+          "correctIndex": 0,
+          "explanation": "When popping, skip if the distance is not the current best known for that node."
+        },
+        {
+          "id": "heaps-s2-q08",
+          "stem": "In a coding interview, how should you answer this: Heap sort's main idea is:? Choose the strongest option.",
+          "options": [
+            "Partition like quicksort around a pivot",
+            "Merge two sorted halves",
+            "Count frequencies",
+            "Build a heap then repeatedly extract-max/min into the sorted region"
+          ],
+          "correctIndex": 3,
+          "explanation": "Heap sort = build-heap + n extract operations; in-place variant swaps root with end."
+        },
+        {
+          "id": "heaps-s2-q09",
+          "stem": "In a coding interview, how should you answer this: Worst-case time of heap sort is:? Choose the strongest option.",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(n²)",
+            "O(n log n)",
+            "O(log n)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Build is O(n); n extracts cost O(n log n) total."
+        },
+        {
+          "id": "heaps-s2-q10",
+          "stem": "In a coding interview, how should you answer this: A d-ary heap with larger d tends to:? Choose the strongest option.",
+          "options": [
+            "Always dominate binary heaps on every operation",
+            "Make decrease-key/sift-up cheaper (shallower) but sift-down more expensive",
+            "Remove the need for the heap property",
+            "Use Θ(n²) memory"
+          ],
+          "correctIndex": 1,
+          "explanation": "Height ~ log_d n shrinks up-sifts; down-sifts scan d children so they cost more."
+        },
+        {
+          "id": "heaps-s2-q11",
+          "stem": "In a coding interview, how should you answer this: k-way merge of sorted lists with a heap uses the heap to:? Choose the strongest option.",
+          "options": [
+            "Always pull the next smallest head among k list heads",
+            "Concatenate lists then sort",
+            "Binary search each list fully each time",
+            "Hash all elements"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic pattern: push each list's front; pop min and push that list's next."
+        },
+        {
+          "id": "heaps-s2-q12",
+          "stem": "For 'Kth largest in an unsorted array', a size-K min-heap approach returns the answer as:",
+          "options": [
+            "The last leaf",
+            "The average of heap values",
+            "Any element in the heap",
+            "The root of the min-heap after processing all elements"
+          ],
+          "correctIndex": 3,
+          "explanation": "After processing, the min-heap of K largest has the Kth largest at its root."
+        },
+        {
+          "id": "heaps-s2-q13",
+          "stem": "In a coding interview, how should you answer this: Priority queues in OS schedulers often use heaps because:? Choose the strongest option.",
+          "options": [
+            "They guarantee fairness like FIFO",
+            "They sort PIDs alphabetically",
+            "They efficiently fetch the next highest-priority ready task",
+            "They replace mutexes"
+          ],
+          "correctIndex": 2,
+          "explanation": "Extract-max/min matches 'run highest priority next' efficiently."
+        },
+        {
+          "id": "heaps-s2-q14",
+          "stem": "If you need both insert and delete-arbitrary-by-id fast, a pure binary heap is awkward because:",
+          "options": [
+            "Heaps forbid deletes",
+            "You need an index/handle map from id → heap position",
+            "IDs cannot be integers",
+            "Extract-min becomes O(n²)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Without knowing the index, finding the node is O(n); production PQ libraries expose handles."
+        },
+        {
+          "id": "heaps-s2-q15",
+          "stem": "In a coding interview, you are asked: When is a sorted list better than a heap as a priority queue? Which response is most accurate?",
+          "options": [
+            "When n is tiny or you need frequent full ordered scans",
+            "Always for large n",
+            "Option claiming: Never",
+            "Only for strings"
+          ],
+          "correctIndex": 0,
+          "explanation": "For tiny sets, constants dominate; sorted structures also help if you iterate all keys in order often."
+        },
+        {
+          "id": "heaps-s2-q16",
+          "stem": "In a coding interview, how should you answer this: Meldable heaps (e.g., pairing/Fibonacci) shine when you need:? Choose the strongest option.",
+          "options": [
+            "Only peek operations",
+            "Static arrays only",
+            "O(1) search for every key",
+            "Efficient merge of two priority queues"
+          ],
+          "correctIndex": 3,
+          "explanation": "Binary heaps don't meld cheaply; some advanced heaps support fast union."
+        },
+        {
+          "id": "heaps-s2-q17",
+          "stem": "In an interview, 'reorganize string so no two identical letters are adjacent' often uses a heap to:",
+          "options": [
+            "Sort the string alphabetically once",
+            "Use BFS on characters",
+            "Always place the currently most frequent remaining character (with a cool-down)",
+            "Count only vowels"
+          ],
+          "correctIndex": 2,
+          "explanation": "Max-heap by frequency greedily schedules the next letter; cool-down queue holds the last used."
+        },
+        {
+          "id": "heaps-s2-q18",
+          "stem": "Replace elements with next greater element using a monotonic stack differs from a heap approach mainly in:",
+          "options": [
+            "They are identical algorithms",
+            "Stack exploits left-to-right adjacency structure; heap is for priority by value globally",
+            "Heaps cannot store integers",
+            "Stacks are always slower"
+          ],
+          "correctIndex": 1,
+          "explanation": "Next-greater is positional; heaps don't encode 'next to the right' without extra work."
+        },
+        {
+          "id": "heaps-s2-q19",
+          "stem": "Capacity planning: a min-heap of meeting end times helps room assignment by:",
+          "options": [
+            "Checking whether the earliest-ending room is free for the next start",
+            "Sorting starts only",
+            "Using DFS on rooms",
+            "Hashing attendees"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic 'minimum meeting rooms' / allocation: pop heap if end ≤ start, else need a new room."
+        },
+        {
+          "id": "heaps-s2-q20",
+          "stem": "In a coding interview, how should you answer this: Compared to quickselect for Kth element, a heap-of-K approach:? Choose the strongest option.",
+          "options": [
+            "Is always asymptotically faster",
+            "Uses no extra memory ever",
+            "Fails for duplicate values",
+            "Is simpler and O(n log K); quickselect expected O(n) but harder to get right"
+          ],
+          "correctIndex": 3,
+          "explanation": "Interviewers accept heap-of-K for clarity; quickselect is faster expected time but careful coding."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "heaps-s3-q01",
+          "stem": "You implement Dijkstra with a binary heap on a dense graph (E ≈ V²). The bottleneck is often:",
+          "options": [
+            "Always O(V) regardless of E",
+            "Bellman-Ford becomes O(1)",
+            "Heaps cannot store V nodes",
+            "O((V+E) log V) with many PQ ops — dense graphs may prefer other structures/algorithms"
+          ],
+          "correctIndex": 3,
+          "explanation": "Binary-heap Dijkstra is O((V+E) log V); on dense graphs Fibonacci/heaps or other algos may matter, and Floyd is sometimes simpler for all-pairs."
+        },
+        {
+          "id": "heaps-s3-q02",
+          "stem": "Why can 'insert duplicate nodes' Dijkstra use more memory than decrease-key?",
+          "options": [
+            "Duplicates are never created",
+            "The graph stores copies of all edges in the heap",
+            "Each improvement pushes another PQ entry, so the queue can hold O(E) entries",
+            "It allocates a new graph"
+          ],
+          "correctIndex": 2,
+          "explanation": "Lazy Dijkstra trades decrease-key complexity for potentially many stale heap entries."
+        },
+        {
+          "id": "heaps-s3-q03",
+          "stem": "In a coding interview, you are asked: A senior bug: median of a stream drifts after deletions. Likely cause? Which answer is best?",
+          "options": [
+            "IEEE floating error only",
+            "Heaps not rebalanced / lazy deletion not cleaning both heaps consistently",
+            "Min-heap used for both halves intentionally",
+            "JSON serialization"
+          ],
+          "correctIndex": 1,
+          "explanation": "Two-heap median with deletions needs careful lazy delete + rebalance invariants."
+        },
+        {
+          "id": "heaps-s3-q04",
+          "stem": "In a coding interview, you are asked: When would you pick a 4-ary heap over binary for Dijkstra in practice? Which answer is best?",
+          "options": [
+            "Shallower tree can improve decrease-key-heavy workloads and cache behavior",
+            "4-ary heaps are always slower",
+            "Interviewers ban binary heaps",
+            "4-ary heaps need O(n²) build"
+          ],
+          "correctIndex": 0,
+          "explanation": "Higher arity reduces height; some contest/library Dijkstra implementations use 4-heaps."
+        },
+        {
+          "id": "heaps-s3-q05",
+          "stem": "In a coding interview, how should you answer this: Prove briefly why bottom-up build-heap is O(n): the key insight is:? Choose the strongest option.",
+          "options": [
+            "Every node sifts n steps",
+            "Only the root sifts",
+            "Leaves sift log n each",
+            "Nodes at height h cost O(h) and there are ≤ n/2^{h+1} of them, summing to O(n)"
+          ],
+          "correctIndex": 3,
+          "explanation": "The geometric series over heights yields a linear bound — classic CLRS argument."
+        },
+        {
+          "id": "heaps-s3-q06",
+          "stem": "In a coding interview, you are asked: Priority queue stability (equal priorities): binary heaps are typically:? Which answer is best?",
+          "options": [
+            "FIFO stable by default like a queue",
+            "Sorted by identity hash always",
+            "Unstable unless you add a tie-breaker (insertion counter)",
+            "Required to be unstable by the JVM"
+          ],
+          "correctIndex": 2,
+          "explanation": "Equal keys may extract in any order; add sequence numbers for stable scheduling."
+        },
+        {
+          "id": "heaps-s3-q07",
+          "stem": "In a coding interview, how should you answer this: In soft real-time systems, a risk of heap-based schedulers is:? Choose the strongest option.",
+          "options": [
+            "Heaps never extract",
+            "O(log n) extract jitter under load; design must bound queue size / use constant-time structures if needed",
+            "O(1) worst-case always",
+            "Priority inversion is solved by heaps alone"
+          ],
+          "correctIndex": 1,
+          "explanation": "Logs grow with ready-queue size; hard RT often wants tighter bounds or hierarchical queues."
+        },
+        {
+          "id": "heaps-s3-q08",
+          "stem": "In a coding interview, how should you answer this: Indexable PQ (heap + map) delete(id) steps are:? Choose the strongest option.",
+          "options": [
+            "Swap with last, pop, then sift up/down from the hole; update map indices",
+            "Remove from map only",
+            "Set key to infinity and ignore forever without fixing structure",
+            "Rebuild always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Handle-based delete must restore heap shape and keep the position map coherent."
+        },
+        {
+          "id": "heaps-s3-q09",
+          "stem": "All-pairs shortest paths: repeatedly running heap-Dijkstra from each source is preferred over Floyd-Warshall when:",
+          "options": [
+            "Always, even with negatives",
+            "Only if V=2",
+            "Floyd is illegal",
+            "Graph is sparse and non-negative weights — O(V(E+V) log V) can beat O(V³)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sparse non-negative: V×Dijkstra wins; dense or negatives change the calculus."
+        },
+        {
+          "id": "heaps-s3-q10",
+          "stem": "Interview follow-up: convert BST to min-heap in-place discussion — the hard constraint is:",
+          "options": [
+            "BST is already a heap",
+            "Inorder equals level order",
+            "Heap needs complete shape + heap order; BST inorder is sorted so you need a careful rebuild or extra array",
+            "Pointers are enough for O(1)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Different invariants; usually extract sorted keys then build-heap, or tree-to-array techniques."
+        }
+      ]
+    }
+  ]
+}

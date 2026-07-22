@@ -1,0 +1,624 @@
+{
+  "slug": "sql",
+  "title": "SQL",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "sql-s1-q01",
+          "stem": "In a SQL interview, explain INNER JOIN versus LEFT JOIN on matching keys. Which answer is most accurate?",
+          "options": [
+            "INNER keeps only matching rows; LEFT keeps all left rows, NULLs on right miss",
+            "LEFT JOIN drops unmatched left rows; INNER keeps every left row always",
+            "They are identical except LEFT JOIN forbids ON predicates",
+            "INNER JOIN can only join two tables; LEFT JOIN needs three"
+          ],
+          "correctIndex": 0,
+          "explanation": "INNER requires a match; LEFT preserves every left-side row and pads non-matches with NULL."
+        },
+        {
+          "id": "sql-s1-q02",
+          "stem": "What does a CROSS JOIN produce between tables A and B when no filter is applied?",
+          "options": [
+            "Only rows where primary keys are equal",
+            "The Cartesian product of all A rows with all B rows",
+            "A full outer join of A and B automatically",
+            "A sorted merge of A and B on the first column"
+          ],
+          "correctIndex": 1,
+          "explanation": "CROSS JOIN is every combination of rows — |A| × |B| unless filtered later."
+        },
+        {
+          "id": "sql-s1-q03",
+          "stem": "WHERE versus HAVING — when must you filter with HAVING instead of WHERE?",
+          "options": [
+            "When joining tables; HAVING is required for every JOIN",
+            "When filtering raw rows before any aggregation ever runs",
+            "When filtering aggregated groups after GROUP BY has computed results",
+            "When comparing NULLs; WHERE cannot use IS NULL"
+          ],
+          "correctIndex": 2,
+          "explanation": "WHERE filters rows pre-aggregation; HAVING filters groups after aggregate computation."
+        },
+        {
+          "id": "sql-s1-q04",
+          "stem": "GROUP BY interview staple: which columns may appear in SELECT with an aggregate?",
+          "options": [
+            "Any column from the table without restriction",
+            "Only columns that are indexed uniquely",
+            "Only primary key columns regardless of GROUP BY",
+            "Aggregates plus columns listed in GROUP BY (engine rules apply)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Non-aggregated SELECT expressions must be functionally dependent on the GROUP BY keys."
+        },
+        {
+          "id": "sql-s1-q05",
+          "stem": "Three-valued logic: what is the result of comparing NULL = NULL in a WHERE clause?",
+          "options": [
+            "UNKNOWN, so the row is filtered out by WHERE",
+            "TRUE, so the row always passes the filter",
+            "FALSE, but OR with TRUE still fails always",
+            "A runtime error that aborts the entire query"
+          ],
+          "correctIndex": 0,
+          "explanation": "NULL comparisons yield UNKNOWN; WHERE keeps only rows where the predicate is TRUE."
+        },
+        {
+          "id": "sql-s1-q06",
+          "stem": "How should you correctly test for a NULL column value in a SQL WHERE clause?",
+          "options": [
+            "WHERE column = NULL using ordinary equality",
+            "WHERE column IS NULL (or IS NOT NULL)",
+            "WHERE column == None as in Python syntax",
+            "WHERE ISNULL(column = TRUE) only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Use IS NULL / IS NOT NULL; equality with NULL never yields TRUE."
+        },
+        {
+          "id": "sql-s1-q07",
+          "stem": "EXISTS versus IN for a subquery checking related rows — common interview guidance?",
+          "options": [
+            "EXISTS cannot reference outer columns; IN always can",
+            "IN always outperforms EXISTS on every engine forever",
+            "EXISTS short-circuits on first match; IN materializes a value list (optimizer may rewrite)",
+            "They are illegal in the same SQL standard version"
+          ],
+          "correctIndex": 2,
+          "explanation": "EXISTS is a semi-join style existence check; IN compares against a set (watch NULLs carefully)."
+        },
+        {
+          "id": "sql-s1-q08",
+          "stem": "What does BEGIN (or START TRANSACTION) followed by COMMIT accomplish in SQL?",
+          "options": [
+            "Disables indexes until ROLLBACK is issued",
+            "Only locks the schema catalog without applying DML",
+            "Runs each statement in its own auto-commit after the first",
+            "Marks a durable all-or-nothing unit of work across the enclosed statements"
+          ],
+          "correctIndex": 3,
+          "explanation": "Explicit transactions group statements so COMMIT persists all or ROLLBACK undoes all."
+        },
+        {
+          "id": "sql-s1-q09",
+          "stem": "DELETE versus TRUNCATE versus DROP — which distinction is interview-correct?",
+          "options": [
+            "DELETE removes rows (logged); TRUNCATE empties a table fast; DROP removes the object",
+            "TRUNCATE drops the table definition; DROP only clears rows",
+            "DELETE and DROP are synonyms; TRUNCATE is for indexes only",
+            "DROP preserves constraints; TRUNCATE always fires every row trigger identically"
+          ],
+          "correctIndex": 0,
+          "explanation": "DELETE is row DML; TRUNCATE is bulk empty (DDL-ish); DROP removes the table itself."
+        },
+        {
+          "id": "sql-s1-q10",
+          "stem": "What is a correlated subquery in SQL, and why can it become expensive?",
+          "options": [
+            "A subquery that never references outer columns and runs once",
+            "A subquery depending on outer-row values, potentially re-evaluated per outer row",
+            "A JOIN written with USING that the planner always forbids",
+            "A window function that cannot use PARTITION BY"
+          ],
+          "correctIndex": 1,
+          "explanation": "Correlation ties inner query to outer row context; naive plans may run it repeatedly."
+        },
+        {
+          "id": "sql-s1-q11",
+          "stem": "FULL OUTER JOIN semantics: which rows appear in the result set of the join?",
+          "options": [
+            "Only matches; unmatched sides are discarded always",
+            "Cartesian product with no NULL padding ever",
+            "Matches plus unmatched left rows and unmatched right rows with NULLs",
+            "Only unmatched rows; matches are excluded"
+          ],
+          "correctIndex": 2,
+          "explanation": "FULL OUTER keeps matches and preserves unmatched rows from both sides."
+        },
+        {
+          "id": "sql-s1-q12",
+          "stem": "SELECT DISTINCT versus GROUP BY for unique values — when are they similar?",
+          "options": [
+            "Only inside UPDATE statements, never SELECT",
+            "Never; DISTINCT cannot remove duplicates of any kind",
+            "Only when using HAVING with no GROUP BY clause",
+            "When grouping by the same columns you want unique without aggregates"
+          ],
+          "correctIndex": 3,
+          "explanation": "DISTINCT and GROUP BY-on-those-columns both collapse duplicate combinations."
+        },
+        {
+          "id": "sql-s1-q13",
+          "stem": "Why might an index on (status) fail to help WHERE LOWER(status) = 'open'?",
+          "options": [
+            "A function on the column can prevent a plain index seek unless an expression index exists",
+            "Because indexes never help equality predicates",
+            "Because LOWER always forces a full outer join",
+            "Because status columns cannot be indexed in SQL"
+          ],
+          "correctIndex": 0,
+          "explanation": "Wrapping the column hides the indexed value; use a functional/expression index or rewrite."
+        },
+        {
+          "id": "sql-s1-q14",
+          "stem": "COUNT(*) versus COUNT(column) — what is the key difference when NULLs appear?",
+          "options": [
+            "COUNT(*) ignores all rows; COUNT(column) counts every row",
+            "COUNT(*) counts rows; COUNT(column) skips NULLs in that column",
+            "They are identical including NULL handling always",
+            "COUNT(column) counts distinct values only by default"
+          ],
+          "correctIndex": 1,
+          "explanation": "COUNT(*) counts rows; COUNT(expr) counts non-NULL evaluations of expr."
+        },
+        {
+          "id": "sql-s1-q15",
+          "stem": "What does ORDER BY do relative to LIMIT/OFFSET pagination patterns in practice?",
+          "options": [
+            "ORDER BY is optional and LIMIT always returns a deterministic page",
+            "LIMIT sorts rows automatically without ORDER BY",
+            "Stable pagination needs ORDER BY (ideally unique) before LIMIT/OFFSET",
+            "OFFSET cannot be used with ORDER BY in standard SQL"
+          ],
+          "correctIndex": 2,
+          "explanation": "Without ORDER BY, LIMIT pages are undefined; ties need a unique sort key."
+        },
+        {
+          "id": "sql-s1-q16",
+          "stem": "UNION versus UNION ALL — which distinction should you give in a SQL interview?",
+          "options": [
+            "UNION requires ORDER BY; UNION ALL forbids it",
+            "UNION ALL removes duplicates; UNION keeps them",
+            "They differ only in column alias rules, not row sets",
+            "UNION removes duplicate rows; UNION ALL keeps duplicates and is usually cheaper"
+          ],
+          "correctIndex": 3,
+          "explanation": "UNION deduplicates (extra work); UNION ALL concatenates as-is."
+        },
+        {
+          "id": "sql-s1-q17",
+          "stem": "Primary key constraint in SQL: what does it enforce on the designated column set?",
+          "options": [
+            "Uniqueness and NOT NULL on the key columns",
+            "Only uniqueness; NULLs are always allowed in PK columns",
+            "Only NOT NULL; duplicates are fine",
+            "That the column must be a foreign key elsewhere"
+          ],
+          "correctIndex": 0,
+          "explanation": "PRIMARY KEY implies UNIQUE + NOT NULL for the key attributes."
+        },
+        {
+          "id": "sql-s1-q18",
+          "stem": "EXPLAIN (or EXPLAIN ANALYZE) — what interview insight should you cite?",
+          "options": [
+            "It rewrites application code into stored procedures automatically",
+            "It shows the planner's access path: scans, joins, estimated/actual costs",
+            "It always forces the use of every available index",
+            "It only works for INSERT and never for SELECT"
+          ],
+          "correctIndex": 1,
+          "explanation": "EXPLAIN reveals how the engine plans (and with ANALYZE, how it executed) the query."
+        },
+        {
+          "id": "sql-s1-q19",
+          "stem": "Self-join use case: employees table with manager_id referencing employee id. Best description?",
+          "options": [
+            "A CROSS JOIN that forbids ON conditions",
+            "A join that is only legal on temporary tables",
+            "Joining a table to itself to relate rows within the same relation",
+            "A join that always produces a Cartesian product only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Self-joins pair rows of one table (e.g. employee to manager) via aliases."
+        },
+        {
+          "id": "sql-s1-q20",
+          "stem": "ROLLBACK after BEGIN: what happens to uncommitted DML in that transaction?",
+          "options": [
+            "Changes are persisted because DDL already flushed them",
+            "Other sessions' committed work is also reverted",
+            "Only the last statement is undone; earlier ones stay",
+            "All uncommitted changes in the transaction are undone"
+          ],
+          "correctIndex": 3,
+          "explanation": "ROLLBACK aborts the current transaction and discards its uncommitted effects."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "sql-s2-q01",
+          "stem": "Window function high-level: how does ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary) differ from GROUP BY?",
+          "options": [
+            "Windows compute over partitions while keeping detail rows; GROUP BY collapses groups",
+            "Window functions collapse rows; GROUP BY keeps every detail row",
+            "They are identical; ROW_NUMBER is just syntax sugar for HAVING",
+            "Window functions cannot use ORDER BY inside OVER"
+          ],
+          "correctIndex": 0,
+          "explanation": "Windows add analytic columns without collapsing; GROUP BY reduces to one row per group."
+        },
+        {
+          "id": "sql-s2-q02",
+          "stem": "RANK versus DENSE_RANK versus ROW_NUMBER for tied salaries — key distinction?",
+          "options": [
+            "DENSE_RANK assigns random ranks; RANK is sequential always",
+            "ROW_NUMBER unique per partition; RANK gaps after ties; DENSE_RANK no gaps",
+            "ROW_NUMBER leaves gaps; RANK never ties by definition",
+            "All three always produce identical integers for every input"
+          ],
+          "correctIndex": 1,
+          "explanation": "ROW_NUMBER is unique; RANK skips after ties; DENSE_RANK continues without gaps."
+        },
+        {
+          "id": "sql-s2-q03",
+          "stem": "Anti-join pattern: find customers with no orders. Which approach is idiomatic?",
+          "options": [
+            "INNER JOIN orders and filter WHERE order_id IS NOT NULL",
+            "CROSS JOIN orders without a WHERE clause",
+            "LEFT JOIN orders ... WHERE orders.id IS NULL (or NOT EXISTS)",
+            "FULL OUTER JOIN and keep only matched pairs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Anti-join: preserve left rows whose right side is NULL, or use NOT EXISTS."
+        },
+        {
+          "id": "sql-s2-q04",
+          "stem": "IN (subquery) when the subquery can return NULL — what subtle pitfall appears?",
+          "options": [
+            "Engines ignore NULLs in IN lists with no semantic effect",
+            "IN always errors if any NULL appears in the subquery",
+            "NULL in the list makes every IN predicate TRUE",
+            "NOT IN becomes UNKNOWN for all rows if the subquery set contains NULL"
+          ],
+          "correctIndex": 3,
+          "explanation": "NOT IN with NULL in the set yields UNKNOWN, filtering out all candidates unexpectedly."
+        },
+        {
+          "id": "sql-s2-q05",
+          "stem": "Index nested-loop join versus hash join: what intuition should EXPLAIN give you?",
+          "options": [
+            "Hash join builds a hash of one input then probes; nested loop probes per outer row",
+            "Hash join always requires an index on both sides",
+            "Nested loops never use indexes; hash joins always do",
+            "They produce different result sets for the same INNER JOIN"
+          ],
+          "correctIndex": 0,
+          "explanation": "Different physical join algorithms; same logical INNER JOIN, different cost profiles."
+        },
+        {
+          "id": "sql-s2-q06",
+          "stem": "Sargable predicate: which form is more likely to use a B-tree index on created_at?",
+          "options": [
+            "WHERE YEAR(created_at) = 2024 wrapping the column",
+            "WHERE created_at >= '2024-01-01' AND created_at < '2025-01-01'",
+            "WHERE CAST(created_at AS text) LIKE '2024%'",
+            "WHERE created_at::date + 0 = CURRENT_DATE"
+          ],
+          "correctIndex": 1,
+          "explanation": "Keep the indexed column bare; range bounds remain seekable on a B-tree."
+        },
+        {
+          "id": "sql-s2-q07",
+          "stem": "SELECT FOR UPDATE (pessimistic locking) — what does it typically do to rows?",
+          "options": [
+            "Converts the SELECT into a DELETE automatically",
+            "Creates a new snapshot that ignores all future commits forever",
+            "Locks selected rows so concurrent writers wait until this transaction ends",
+            "Disables MVCC for the whole database cluster"
+          ],
+          "correctIndex": 2,
+          "explanation": "FOR UPDATE takes row locks for update intent until COMMIT/ROLLBACK."
+        },
+        {
+          "id": "sql-s2-q08",
+          "stem": "CTE (WITH clause) readability versus performance — balanced interview take?",
+          "options": [
+            "CTEs always materialize and are always slower than subqueries",
+            "CTEs replace the need for indexes on joined columns",
+            "CTEs are illegal inside transactions",
+            "CTEs clarify structure; engines may inline or materialize depending on version/hints"
+          ],
+          "correctIndex": 3,
+          "explanation": "WITH aids clarity; optimization behavior (inline vs materialize) is engine-specific."
+        },
+        {
+          "id": "sql-s2-q09",
+          "stem": "Aggregate FILTER / CASE pattern: count only active users in one pass. Best idea?",
+          "options": [
+            "COUNT(*) FILTER (WHERE active) or SUM(CASE WHEN active THEN 1 ELSE 0 END)",
+            "Always run separate queries per status with UNION ALL only",
+            "Use CROSS JOIN against a status dimension mandatorily",
+            "HAVING active = true without GROUP BY"
+          ],
+          "correctIndex": 0,
+          "explanation": "Conditional aggregates compute multiple measures in a single grouped scan."
+        },
+        {
+          "id": "sql-s2-q10",
+          "stem": "Upsert (INSERT ... ON CONFLICT / MERGE) — what concurrency problem does it solve?",
+          "options": [
+            "Deleting all duplicates before every insert manually",
+            "Insert-or-update atomically when a unique key already exists",
+            "Replacing TRUNCATE for emptying tables faster",
+            "Forcing SERIALIZABLE isolation on every session"
+          ],
+          "correctIndex": 1,
+          "explanation": "Upsert handles race-prone insert-or-update behind a unique constraint safely."
+        },
+        {
+          "id": "sql-s2-q11",
+          "stem": "Covering index for SELECT id, email WHERE status = 'active' — what columns help?",
+          "options": [
+            "A hash index on a different table's primary key",
+            "Only an index on email with no status column",
+            "An index on (status) including or composed with id and email",
+            "No index; covering requires a materialized view always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Filter key plus selected columns in the index enables index-only retrieval."
+        },
+        {
+          "id": "sql-s2-q12",
+          "stem": "OFFSET large N for deep pages — why do seniors push keyset pagination?",
+          "options": [
+            "OFFSET is O(1) regardless of N on all engines",
+            "LIMIT without OFFSET is illegal in SQL",
+            "Keyset pagination cannot use indexes by definition",
+            "Large OFFSET still scans/skips many rows; seek by last-seen key is cheaper"
+          ],
+          "correctIndex": 3,
+          "explanation": "Deep OFFSET is expensive; WHERE (sort_key) > :last uses an index seek."
+        },
+        {
+          "id": "sql-s2-q13",
+          "stem": "Prepared statements / bind parameters — main benefits beyond convenience?",
+          "options": [
+            "Plan reuse and safer parameterization against SQL injection",
+            "They disable the query planner for security reasons",
+            "They force full table scans to avoid index hijacking",
+            "They convert all DML into DDL automatically"
+          ],
+          "correctIndex": 0,
+          "explanation": "Parameters separate code from data and often allow cached plans."
+        },
+        {
+          "id": "sql-s2-q14",
+          "stem": "NULL-safe equality in joins: why can ordinary = miss matches you might expect?",
+          "options": [
+            "Because joins ignore ON and only use WHERE",
+            "Because NULL = NULL is UNKNOWN, so NULL keys do not match",
+            "Because INNER JOIN forbids equality predicates",
+            "Because NULLs are always coerced to zero in joins"
+          ],
+          "correctIndex": 1,
+          "explanation": "Standard = does not treat NULLs as equal; use IS NOT DISTINCT FROM where supported."
+        },
+        {
+          "id": "sql-s2-q15",
+          "stem": "VACUUM / dead tuple cleanup (MVCC engines) — why does UPDATE leave cleanup work?",
+          "options": [
+            "Dead tuples only appear after DROP TABLE",
+            "UPDATE always rewrites SQL text only, never storage",
+            "Updates create new row versions; old versions need reclaiming later",
+            "COMMIT deletes indexes that must be rebuilt each time"
+          ],
+          "correctIndex": 2,
+          "explanation": "MVCC UPDATE/DELETE leave obsolete versions; vacuum/purge reclaims space."
+        },
+        {
+          "id": "sql-s2-q16",
+          "stem": "Partial / filtered index WHERE status = 'open' — when is that pattern valuable?",
+          "options": [
+            "Only for FULL OUTER JOIN performance",
+            "When every query needs all statuses equally",
+            "When you want to index columns that do not exist",
+            "When most queries filter that subset and the predicate is common"
+          ],
+          "correctIndex": 3,
+          "explanation": "Smaller indexes targeting hot predicates reduce size and improve cache locality."
+        },
+        {
+          "id": "sql-s2-q17",
+          "stem": "SAVEPOINT inside a transaction — what can you do that plain COMMIT cannot?",
+          "options": [
+            "Roll back to a named point while keeping earlier work in the same transaction",
+            "Make the entire database durable without WAL",
+            "Escape SERIALIZABLE into READ UNCOMMITTED mid-statement",
+            "Share locks across unrelated database clusters"
+          ],
+          "correctIndex": 0,
+          "explanation": "SAVEPOINTs allow partial rollback without aborting the whole transaction."
+        },
+        {
+          "id": "sql-s2-q18",
+          "stem": "Lateral join / correlated FROM subquery — what capability does it add?",
+          "options": [
+            "Forbidding correlation so every subquery runs once globally",
+            "Referencing left-hand columns when computing a right-hand row set per input",
+            "Replacing GROUP BY with DISTINCT always",
+            "Disabling the use of indexes on joined keys"
+          ],
+          "correctIndex": 1,
+          "explanation": "LATERAL lets the right side depend on the current left-side row."
+        },
+        {
+          "id": "sql-s2-q19",
+          "stem": "Cardinality estimate errors from stale stats — symptom you should recognize?",
+          "options": [
+            "PRIMARY KEY constraints stop enforcing uniqueness",
+            "COMMIT starts failing with disk-full for every SELECT",
+            "EXPLAIN chooses a terrible join order or nested loop on huge sets",
+            "NULL comparisons begin returning TRUE for all rows"
+          ],
+          "correctIndex": 2,
+          "explanation": "Bad estimates mislead the planner into suboptimal join/scan strategies."
+        },
+        {
+          "id": "sql-s2-q20",
+          "stem": "Idempotent DELETE of stale sessions: DELETE ... WHERE id = $1 RETURNING *. Why RETURNING?",
+          "options": [
+            "To bypass foreign key checks on child tables",
+            "Because DELETE cannot use WHERE without RETURNING",
+            "To convert DELETE into TRUNCATE automatically",
+            "To learn whether a row was actually removed in this attempt"
+          ],
+          "correctIndex": 3,
+          "explanation": "RETURNING reports affected rows so callers distinguish no-op retries from real deletes."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "sql-s3-q01",
+          "stem": "Skip-scan / Index Skip Scan idea when a composite index is (tenant_id, created_at) but filter is only on created_at — senior framing?",
+          "options": [
+            "Optimizer may probe distinct tenant_id values then range-scan; not always available",
+            "The trailing column is always seekable without the leading column on every engine",
+            "Composite indexes ignore column order completely",
+            "Skip scan only applies to hash indexes"
+          ],
+          "correctIndex": 0,
+          "explanation": "Some engines can skip across leading-column distincts; otherwise rewrite or re-index."
+        },
+        {
+          "id": "sql-s3-q02",
+          "stem": "Serializable anomaly under concurrent INSERT of unique emails — classic failure mode?",
+          "options": [
+            "UNIQUE constraints are ignored under SERIALIZABLE",
+            "Two transactions both see absence, both insert, one hits unique violation or one aborts",
+            "Phantoms cannot occur for uniqueness checks",
+            "BEGIN disables unique indexes until COMMIT"
+          ],
+          "correctIndex": 1,
+          "explanation": "Race on 'not exists then insert' needs unique constraints and proper isolation/retry."
+        },
+        {
+          "id": "sql-s3-q03",
+          "stem": "Bitmap heap scan after an index: when does EXPLAIN often show this pattern?",
+          "options": [
+            "Only for CROSS JOIN without WHERE",
+            "Only when no indexes exist on the table at all",
+            "Many matching TIDs are collected from indexes then sorted/visited on the heap",
+            "When the query is a DDL ALTER TABLE"
+          ],
+          "correctIndex": 2,
+          "explanation": "Bitmap scans combine index hits then visit heap pages more sequentially."
+        },
+        {
+          "id": "sql-s3-q04",
+          "stem": "Outbox pattern with SQL transactions: why insert business row + outbox event together?",
+          "options": [
+            "Because triggers cannot run inside transactions",
+            "So the message broker can lock the database schema",
+            "To avoid using primary keys on either table",
+            "So COMMIT atomically records state change and a reliably publishable event"
+          ],
+          "correctIndex": 3,
+          "explanation": "Transactional outbox keeps DB write and eventual publish consistent without dual-write races."
+        },
+        {
+          "id": "sql-s3-q05",
+          "stem": "Advisory locks for application-level critical sections — senior caveat?",
+          "options": [
+            "They are session/transaction scoped tokens; misuse causes deadlocks or forgotten holds",
+            "They replace the need for transactions entirely",
+            "They automatically cover every row touched by SELECT",
+            "They make EXPLAIN show covering indexes always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Advisory locks coordinate apps but need clear ownership, timeouts, and deadlock awareness."
+        },
+        {
+          "id": "sql-s3-q06",
+          "stem": "Partition pruning: how should a large fact table's WHERE clause be written?",
+          "options": [
+            "Always wrap the partition key in a function to help pruning",
+            "Predicate on the partition key so the planner can skip irrelevant partitions",
+            "Avoid mentioning the partition key so all partitions scan faster",
+            "Use CROSS JOIN across partitions to force parallelism"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sargable predicates on the partition key enable partition elimination."
+        },
+        {
+          "id": "sql-s3-q07",
+          "stem": "Write skew example in SQL: two transactions enforce 'at least one admin' via SELECT then UPDATE. Fix?",
+          "options": [
+            "Replace UPDATE with TRUNCATE on the users table",
+            "Switch both sessions to READ UNCOMMITTED",
+            "Use SERIALIZABLE/SSI or lock the constraint rows/predicate properly",
+            "Remove the UNIQUE constraint on admin emails"
+          ],
+          "correctIndex": 2,
+          "explanation": "Predicate integrity needs serializable control or explicit locking of the checked set."
+        },
+        {
+          "id": "sql-s3-q08",
+          "stem": "Histogram / MCV stats and skewed joins — why do they matter at senior level?",
+          "options": [
+            "They only apply to temporary tables",
+            "They replace indexes for all equality lookups",
+            "They force nested-loop joins exclusively",
+            "They help the planner estimate selectivity when values are unevenly distributed"
+          ],
+          "correctIndex": 3,
+          "explanation": "Skewed data fools uniform estimates; richer stats improve join/filter choices."
+        },
+        {
+          "id": "sql-s3-q09",
+          "stem": "Online DDL concurrent with DML: what risk should you name even with non-blocking tools?",
+          "options": [
+            "Replication lag, lock queues on cutover, or inconsistent reads during backfill windows",
+            "That COMMIT becomes optional during the migration",
+            "That primary keys are dropped permanently after success",
+            "That EXPLAIN stops working until restart"
+          ],
+          "correctIndex": 0,
+          "explanation": "Even careful online schema changes have operational windows and replication effects."
+        },
+        {
+          "id": "sql-s3-q10",
+          "stem": "Recursive CTE for org chart depth — termination concern you must address?",
+          "options": [
+            "Recursive CTEs cannot join tables by definition",
+            "Cycles in the graph can recurse forever without a visited/path guard",
+            "WITH RECURSIVE forbids UNION ALL in standard SQL",
+            "Depth is always limited to three levels by the engine"
+          ],
+          "correctIndex": 1,
+          "explanation": "Detect cycles (path arrays/sets) or depth caps so hierarchy walks terminate."
+        }
+      ]
+    }
+  ]
+}

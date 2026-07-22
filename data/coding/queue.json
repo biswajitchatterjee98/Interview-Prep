@@ -1,0 +1,280 @@
+{
+  "slug": "queue",
+  "title": "Queue",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Easy",
+      "level": "easy",
+      "problems": [
+        {
+          "id": "queue-easy-01",
+          "title": "Implement Queue using Stacks",
+          "prompt": "Implement a first-in-first-out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue: push, peek, pop, and empty.\n\nImplement MyQueue with:\n- push(x): Push element x to the back\n- pop(): Remove and return the element from the front\n- peek(): Return the element at the front\n- empty(): Return true if empty",
+          "examples": [
+            {
+              "input": "[\"MyQueue\",\"push\",\"push\",\"peek\",\"pop\",\"empty\"]\n[[],[1],[2],[],[],[]]",
+              "output": "[null,null,null,1,1,false]"
+            }
+          ],
+          "constraints": [
+            "1 <= x <= 9",
+            "At most 100 calls",
+            "All calls to pop/peek are valid"
+          ],
+          "starter": {
+            "java": "class MyQueue {\n    public MyQueue() {}\n    public void push(int x) {}\n    public int pop() { return 0; }\n    public int peek() { return 0; }\n    public boolean empty() { return true; }\n}\n",
+            "python": "class MyQueue:\n    def __init__(self):\n        pass\n    def push(self, x: int) -> None:\n        pass\n    def pop(self) -> int:\n        return 0\n    def peek(self) -> int:\n        return 0\n    def empty(self) -> bool:\n        return True\n"
+          },
+          "solution": {
+            "java": "class MyQueue {\n    private final java.util.ArrayDeque<Integer> in = new java.util.ArrayDeque<>();\n    private final java.util.ArrayDeque<Integer> out = new java.util.ArrayDeque<>();\n    public MyQueue() {}\n    public void push(int x) { in.push(x); }\n    private void move() {\n        if (out.isEmpty()) while (!in.isEmpty()) out.push(in.pop());\n    }\n    public int pop() { move(); return out.pop(); }\n    public int peek() { move(); return out.peek(); }\n    public boolean empty() { return in.isEmpty() && out.isEmpty(); }\n}\n",
+            "python": "class MyQueue:\n    def __init__(self):\n        self._in, self._out = [], []\n    def push(self, x: int) -> None:\n        self._in.append(x)\n    def _move(self) -> None:\n        if not self._out:\n            while self._in:\n                self._out.append(self._in.pop())\n    def pop(self) -> int:\n        self._move()\n        return self._out.pop()\n    def peek(self) -> int:\n        self._move()\n        return self._out[-1]\n    def empty(self) -> bool:\n        return not self._in and not self._out\n"
+          },
+          "samples": [
+            {
+              "input": "push 1, push 2, peek, pop, empty",
+              "output": "1, 1, false"
+            }
+          ]
+        },
+        {
+          "id": "queue-easy-02",
+          "title": "Number of Recent Calls",
+          "prompt": "You have a RecentCounter class which counts the number of recent requests within a certain time frame.\n\nImplement RecentCounter:\n- RecentCounter() Initializes the counter with zero recent requests.\n- int ping(int t) Adds a new request at time t (milliseconds), and returns the number of requests in the inclusive range [t - 3000, t].\n\nIt is guaranteed that every call to ping uses a strictly larger value of t than the previous call.",
+          "examples": [
+            {
+              "input": "[\"RecentCounter\",\"ping\",\"ping\",\"ping\",\"ping\"]\n[[],[1],[100],[3001],[3002]]",
+              "output": "[null,1,2,3,3]"
+            }
+          ],
+          "constraints": [
+            "1 <= t <= 10^9",
+            "Each test case will call ping with strictly increasing t",
+            "At most 10^4 calls to ping"
+          ],
+          "starter": {
+            "java": "class RecentCounter {\n    public RecentCounter() {}\n    public int ping(int t) { return 0; }\n}\n",
+            "python": "class RecentCounter:\n    def __init__(self):\n        pass\n    def ping(self, t: int) -> int:\n        return 0\n"
+          },
+          "solution": {
+            "java": "class RecentCounter {\n    private final java.util.ArrayDeque<Integer> q = new java.util.ArrayDeque<>();\n    public RecentCounter() {}\n    public int ping(int t) {\n        q.offer(t);\n        while (q.peek() < t - 3000) q.poll();\n        return q.size();\n    }\n}\n",
+            "python": "class RecentCounter:\n    def __init__(self):\n        from collections import deque\n        self.q = deque()\n    def ping(self, t: int) -> int:\n        self.q.append(t)\n        while self.q[0] < t - 3000:\n            self.q.popleft()\n        return len(self.q)\n"
+          },
+          "samples": [
+            {
+              "input": "ping(1), ping(100), ping(3001), ping(3002)",
+              "output": "1, 2, 3, 3"
+            }
+          ]
+        },
+        {
+          "id": "queue-easy-03",
+          "title": "Design Circular Queue",
+          "prompt": "Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO principle and the last position is connected back to the first to make a circle.\n\nImplement MyCircularQueue:\n- MyCircularQueue(k): Construct with size k\n- enQueue(value): Insert at rear; return true if successful\n- deQueue(): Delete from front; return true if successful\n- Front(): Get front item; return -1 if empty\n- Rear(): Get last item; return -1 if empty\n- isEmpty() / isFull()",
+          "examples": [
+            {
+              "input": "[\"MyCircularQueue\",\"enQueue\",\"enQueue\",\"enQueue\",\"enQueue\",\"Rear\",\"isFull\",\"deQueue\",\"enQueue\",\"Rear\"]\n[[3],[1],[2],[3],[4],[],[],[],[4],[]]",
+              "output": "[null,true,true,true,false,3,true,true,true,4]"
+            }
+          ],
+          "constraints": [
+            "1 <= k <= 1000",
+            "0 <= value <= 1000",
+            "At most 3000 calls"
+          ],
+          "starter": {
+            "java": "class MyCircularQueue {\n    public MyCircularQueue(int k) {}\n    public boolean enQueue(int value) { return false; }\n    public boolean deQueue() { return false; }\n    public int Front() { return -1; }\n    public int Rear() { return -1; }\n    public boolean isEmpty() { return true; }\n    public boolean isFull() { return false; }\n}\n",
+            "python": "class MyCircularQueue:\n    def __init__(self, k: int):\n        pass\n    def enQueue(self, value: int) -> bool:\n        return False\n    def deQueue(self) -> bool:\n        return False\n    def Front(self) -> int:\n        return -1\n    def Rear(self) -> int:\n        return -1\n    def isEmpty(self) -> bool:\n        return True\n    def isFull(self) -> bool:\n        return False\n"
+          },
+          "solution": {
+            "java": "class MyCircularQueue {\n    private final int[] buf;\n    private int head = 0, size = 0, count = 0;\n    public MyCircularQueue(int k) { buf = new int[k]; }\n    public boolean enQueue(int value) {\n        if (isFull()) return false;\n        buf[tail] = value;\n        tail = (tail + 1) % buf.length;\n        count++;\n        return true;\n    }\n    public boolean deQueue() {\n        if (isEmpty()) return false;\n        head = (head + 1) % buf.length;\n        count--;\n        return true;\n    }\n    public int Front() { return isEmpty() ? -1 : buf[head]; }\n    public int Rear() { return isEmpty() ? -1 : buf[(tail - 1 + buf.length) % buf.length]; }\n    public boolean isEmpty() { return count == 0; }\n    public boolean isFull() { return count == buf.length; }\n}\n",
+            "python": "class MyCircularQueue:\n    def __init__(self, k: int):\n        self.buf = [0] * k\n        self.head = self.tail = self.count = 0\n    def enQueue(self, value: int) -> bool:\n        if self.isFull():\n            return False\n        self.buf[self.tail] = value\n        self.tail = (self.tail + 1) % len(self.buf)\n        self.count += 1\n        return True\n    def deQueue(self) -> bool:\n        if self.isEmpty():\n            return False\n        self.head = (self.head + 1) % len(self.buf)\n        self.count -= 1\n        return True\n    def Front(self) -> int:\n        return -1 if self.isEmpty() else self.buf[self.head]\n    def Rear(self) -> int:\n        if self.isEmpty():\n            return -1\n        return self.buf[(self.tail - 1) % len(self.buf)]\n    def isEmpty(self) -> bool:\n        return self.count == 0\n    def isFull(self) -> bool:\n        return self.count == len(self.buf)\n"
+          },
+          "samples": [
+            {
+              "input": "k=3; enQueue 1,2,3,4; Rear; isFull; deQueue; enQueue 4; Rear",
+              "output": "false, 3, true, true, true, 4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Intermediate",
+      "level": "intermediate",
+      "problems": [
+        {
+          "id": "queue-intermediate-01",
+          "title": "Design Hit Counter",
+          "prompt": "Design a hit counter which counts the number of hits received in the past 5 minutes (i.e., the past 300 seconds).\n\nImplement HitCounter:\n- HitCounter(): Initialize\n- void hit(int timestamp): Record a hit at timestamp (in seconds)\n- int getHits(int timestamp): Return the number of hits in the past 5 minutes from timestamp (i.e. in (timestamp - 300, timestamp])\n\nTimestamps are in chronological order for both methods.",
+          "examples": [
+            {
+              "input": "[\"HitCounter\",\"hit\",\"hit\",\"hit\",\"getHits\",\"hit\",\"getHits\",\"getHits\"]\n[[],[1],[2],[3],[4],[300],[300],[301]]",
+              "output": "[null,null,null,null,3,null,4,3]"
+            }
+          ],
+          "constraints": [
+            "1 <= timestamp <= 2 * 10^9",
+            "All calls are made with non-decreasing timestamps",
+            "At most 300 calls to hit and getHits"
+          ],
+          "starter": {
+            "java": "class HitCounter {\n    public HitCounter() {}\n    public void hit(int timestamp) {}\n    public int getHits(int timestamp) { return 0; }\n}\n",
+            "python": "class HitCounter:\n    def __init__(self):\n        pass\n    def hit(self, timestamp: int) -> None:\n        pass\n    def getHits(self, timestamp: int) -> int:\n        return 0\n"
+          },
+          "solution": {
+            "java": "class HitCounter {\n    private final java.util.ArrayDeque<Integer> q = new java.util.ArrayDeque<>();\n    public HitCounter() {}\n    public void hit(int timestamp) { q.offer(timestamp); }\n    public int getHits(int timestamp) {\n        while (!q.isEmpty() && q.peek() <= timestamp - 300) q.poll();\n        return q.size();\n    }\n}\n",
+            "python": "class HitCounter:\n    def __init__(self):\n        from collections import deque\n        self.q = deque()\n    def hit(self, timestamp: int) -> None:\n        self.q.append(timestamp)\n    def getHits(self, timestamp: int) -> int:\n        while self.q and self.q[0] <= timestamp - 300:\n            self.q.popleft()\n        return len(self.q)\n"
+          },
+          "samples": [
+            {
+              "input": "hit 1,2,3; getHits(4); hit 300; getHits(300); getHits(301)",
+              "output": "3, 4, 3"
+            }
+          ]
+        },
+        {
+          "id": "queue-intermediate-02",
+          "title": "Moving Average from Data Stream",
+          "prompt": "Given a stream of integers and a window size, calculate the moving average of all integers in the sliding window.\n\nImplement MovingAverage:\n- MovingAverage(int size): Initialize with window size\n- double next(int val): Returns the moving average of the last size values of the stream",
+          "examples": [
+            {
+              "input": "[\"MovingAverage\",\"next\",\"next\",\"next\",\"next\"]\n[[3],[1],[10],[3],[5]]",
+              "output": "[null,1.0,5.5,4.66667,6.0]"
+            }
+          ],
+          "constraints": [
+            "1 <= size <= 1000",
+            "-10^5 <= val <= 10^5",
+            "At most 10^4 calls to next"
+          ],
+          "starter": {
+            "java": "class MovingAverage {\n    public MovingAverage(int size) {}\n    public double next(int val) { return 0; }\n}\n",
+            "python": "class MovingAverage:\n    def __init__(self, size: int):\n        pass\n    def next(self, val: int) -> float:\n        return 0.0\n"
+          },
+          "solution": {
+            "java": "class MovingAverage {\n    private final java.util.ArrayDeque<Integer> q = new java.util.ArrayDeque<>();\n    private final int size;\n    private long sum = 0;\n    public MovingAverage(int size) { this.size = size; }\n    public double next(int val) {\n        q.offer(val);\n        sum += val;\n        if (q.size() > size) sum -= q.poll();\n        return (double) sum / q.size();\n    }\n}\n",
+            "python": "class MovingAverage:\n    def __init__(self, size: int):\n        from collections import deque\n        self.size = size\n        self.q = deque()\n        self.sum = 0\n    def next(self, val: int) -> float:\n        self.q.append(val)\n        self.sum += val\n        if len(self.q) > self.size:\n            self.sum -= self.q.popleft()\n        return self.sum / len(self.q)\n"
+          },
+          "samples": [
+            {
+              "input": "size=3; next(1), next(10), next(3), next(5)",
+              "output": "1.0, 5.5, 4.666..., 6.0"
+            }
+          ]
+        },
+        {
+          "id": "queue-intermediate-03",
+          "title": "Time Needed to Buy Tickets",
+          "prompt": "There are n people in a line buying tickets. The 0-th person wants tickets[0] tickets, and so on. Each person takes exactly 1 second to buy a ticket, then goes to the end of the line (if they still need more). If a person has no tickets left to buy, they leave.\n\nReturn the time it takes for the person at position k (0-indexed) to finish buying tickets.",
+          "examples": [
+            {
+              "input": "tickets = [2,3,2], k = 2",
+              "output": "6"
+            },
+            {
+              "input": "tickets = [5,1,1,1], k = 0",
+              "output": "8"
+            }
+          ],
+          "constraints": [
+            "n == tickets.length",
+            "1 <= n <= 100",
+            "1 <= tickets[i] <= 100",
+            "0 <= k < n"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int timeRequiredToBuy(int[] tickets, int k) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def timeRequiredToBuy(self, tickets: list[int], k: int) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int timeRequiredToBuy(int[] tickets, int k) {\n        int time = 0;\n        for (int i = 0; i < tickets.length; i++) {\n            if (i <= k) time += Math.min(tickets[i], tickets[k]);\n            else time += Math.min(tickets[i], tickets[k] - 1);\n        }\n        return time;\n    }\n}\n",
+            "python": "class Solution:\n    def timeRequiredToBuy(self, tickets: list[int], k: int) -> int:\n        time = 0\n        for i, t in enumerate(tickets):\n            if i <= k:\n                time += min(t, tickets[k])\n            else:\n                time += min(t, tickets[k] - 1)\n        return time\n"
+          },
+          "samples": [
+            {
+              "input": "[2,3,2], k=2",
+              "output": "6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Hard",
+      "level": "hard",
+      "problems": [
+        {
+          "id": "queue-hard-01",
+          "title": "Sliding Window Maximum",
+          "prompt": "You are given an array of integers nums, and an integer k representing a sliding window of size k moving from left to right. Return an array of the maximum values in each window.\n\nUse a monotonic deque for an O(n) solution.",
+          "examples": [
+            {
+              "input": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+              "output": "[3,3,5,5,6,7]"
+            },
+            {
+              "input": "nums = [1], k = 1",
+              "output": "[1]"
+            }
+          ],
+          "constraints": [
+            "1 <= nums.length <= 10^5",
+            "-10^4 <= nums[i] <= 10^4",
+            "1 <= k <= nums.length"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        // write your code\n        return new int[0];\n    }\n}\n",
+            "python": "class Solution:\n    def maxSlidingWindow(self, nums: list[int], k: int) -> list[int]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] ans = new int[n - k + 1];\n        java.util.ArrayDeque<Integer> dq = new java.util.ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            while (!dq.isEmpty() && dq.peekFirst() <= i - k) dq.pollFirst();\n            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) dq.pollLast();\n            dq.offerLast(i);\n            if (i >= k - 1) ans[i - k + 1] = nums[dq.peekFirst()];\n        }\n        return ans;\n    }\n}\n",
+            "python": "class Solution:\n    def maxSlidingWindow(self, nums: list[int], k: int) -> list[int]:\n        from collections import deque\n        dq = deque()\n        ans = []\n        for i, x in enumerate(nums):\n            while dq and dq[0] <= i - k:\n                dq.popleft()\n            while dq and nums[dq[-1]] <= x:\n                dq.pop()\n            dq.append(i)\n            if i >= k - 1:\n                ans.append(nums[dq[0]])\n        return ans\n"
+          },
+          "samples": [
+            {
+              "input": "[1,3,-1,-3,5,3,6,7], k=3",
+              "output": "[3,3,5,5,6,7]"
+            }
+          ]
+        },
+        {
+          "id": "queue-hard-02",
+          "title": "Shortest Subarray with Sum at Least K",
+          "prompt": "Given an integer array nums and an integer k, return the length of the shortest non-empty subarray of nums with a sum of at least k. If there is no such subarray, return -1.\n\nHint: prefix sums + monotonic deque.",
+          "examples": [
+            {
+              "input": "nums = [2,1,3], k = 4",
+              "output": "2"
+            },
+            {
+              "input": "nums = [1,2], k = 4",
+              "output": "-1"
+            }
+          ],
+          "constraints": [
+            "1 <= nums.length <= 10^5",
+            "-10^5 <= nums[i] <= 10^5",
+            "1 <= k <= 10^9"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int shortestSubarray(int[] nums, int k) {\n        // write your code\n        return -1;\n    }\n}\n",
+            "python": "class Solution:\n    def shortestSubarray(self, nums: list[int], k: int) -> int:\n        # write your code\n        return -1\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int shortestSubarray(int[] nums, int k) {\n        int n = nums.length;\n        long[] pref = new long[n + 1];\n        for (int i = 0; i < n; i++) pref[i + 1] = pref[i] + nums[i];\n        int ans = n + 1;\n        java.util.ArrayDeque<Integer> dq = new java.util.ArrayDeque<>();\n        for (int i = 0; i <= n; i++) {\n            while (!dq.isEmpty() && pref[i] - pref[dq.peekFirst()] >= k)\n                ans = Math.min(ans, i - dq.pollFirst());\n            while (!dq.isEmpty() && pref[i] <= pref[dq.peekLast()]) dq.pollLast();\n            dq.offerLast(i);\n        }\n        return ans <= n ? ans : -1;\n    }\n}\n",
+            "python": "class Solution:\n    def shortestSubarray(self, nums: list[int], k: int) -> int:\n        from collections import deque\n        n = len(nums)\n        pref = [0] * (n + 1)\n        for i, x in enumerate(nums):\n            pref[i + 1] = pref[i] + x\n        ans = n + 1\n        dq = deque()\n        for i in range(n + 1):\n            while dq and pref[i] - pref[dq[0]] >= k:\n                ans = min(ans, i - dq.popleft())\n            while dq and pref[i] <= pref[dq[-1]]:\n                dq.pop()\n            dq.append(i)\n        return ans if ans <= n else -1\n"
+          },
+          "samples": [
+            {
+              "input": "[2,1,3], k=4",
+              "output": "2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

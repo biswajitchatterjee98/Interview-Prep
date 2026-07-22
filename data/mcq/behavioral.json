@@ -1,0 +1,624 @@
+{
+  "slug": "behavioral",
+  "title": "Behavioral",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "behavioral-s1-q01",
+          "stem": "What does the STAR method stand for in behavioral interviews?",
+          "options": [
+            "Situation, Task, Action, Result",
+            "Strategy, Timeline, Action, Review",
+            "Scope, Team, Analysis, Report",
+            "Story, Theme, Attitude, Role"
+          ],
+          "correctIndex": 0,
+          "explanation": "STAR = Situation, Task, Action, Result — the standard structure for behavioral answers."
+        },
+        {
+          "id": "behavioral-s1-q02",
+          "stem": "In an interview, you are asked: In a STAR answer, where should most of your speaking time go? Which answer is best?",
+          "options": [
+            "Long background on company history and org chart",
+            "Your Action and Result (what you did and impact)",
+            "Detailed Situation only; skip Result",
+            "Only the Task assigned by your manager"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interviewers care about your decisions and outcomes; keep Situation/Task brief."
+        },
+        {
+          "id": "behavioral-s1-q03",
+          "stem": "In an interview, you are asked: Best practice when asked about a conflict with a teammate? Which answer is best?",
+          "options": [
+            "Blame the teammate and name them for accountability",
+            "Say you never have conflict because you avoid disagreement",
+            "Frame the issue, your constructive steps, and the resolution/learning",
+            "Refuse the question as too personal"
+          ],
+          "correctIndex": 2,
+          "explanation": "Show maturity: problem framing, collaboration, and outcome — not blame or denial."
+        },
+        {
+          "id": "behavioral-s1-q04",
+          "stem": "When describing a failure, what is the strongest interview framing?",
+          "options": [
+            "Minimize it and pivot to an unrelated success quickly",
+            "Blame process so you appear blameless",
+            "Claim you have never failed in a professional setting",
+            "Own the miss, explain recovery, and name a concrete learning"
+          ],
+          "correctIndex": 3,
+          "explanation": "Ownership + recovery + learning signals growth mindset and credibility."
+        },
+        {
+          "id": "behavioral-s1-q05",
+          "stem": "Why do interviewers ask behavioral questions?",
+          "options": [
+            "To gather past behavior as a predictor of future performance",
+            "To test memorized algorithms only",
+            "To fill time before the coding round",
+            "To verify your LinkedIn headline wording"
+          ],
+          "correctIndex": 0,
+          "explanation": "Past behavior under real constraints is used as evidence of how you work."
+        },
+        {
+          "id": "behavioral-s1-q06",
+          "stem": "Best way to prepare STAR stories before interviews?",
+          "options": [
+            "Memorize one generic story and reuse it for every question",
+            "Write a bank of 6-10 real stories mapped to common themes",
+            "Only rehearse answers from internet sample scripts verbatim",
+            "Skip prep and rely on improvisation entirely"
+          ],
+          "correctIndex": 1,
+          "explanation": "A reusable story bank covering conflict, ownership, failure, leadership, etc. travels well."
+        },
+        {
+          "id": "behavioral-s1-q07",
+          "stem": "In an interview, you are asked: In STAR, what does 'Task' typically clarify? Which answer is best?",
+          "options": [
+            "Your compensation expectations",
+            "The interviewer's hiring timeline",
+            "Your specific responsibility or goal in that situation",
+            "The competitor's product roadmap"
+          ],
+          "correctIndex": 2,
+          "explanation": "Task defines your role/objective so Action is evaluated against clear ownership."
+        },
+        {
+          "id": "behavioral-s1-q08",
+          "stem": "When answering 'Tell me about a time you led without authority,' emphasize:",
+          "options": [
+            "That you escalated immediately and waited for a manager order",
+            "That leadership is impossible without a formal title",
+            "How you assigned mandatory overtime",
+            "Influence via clarity, alignment, and voluntary buy-in — not title"
+          ],
+          "correctIndex": 3,
+          "explanation": "Influence without authority is about persuasion, facilitation, and shared goals."
+        },
+        {
+          "id": "behavioral-s1-q09",
+          "stem": "In an interview, you are asked: Strong Result statements in STAR usually include:? Which answer is best?",
+          "options": [
+            "Measurable or observable impact when possible",
+            "Vague praise like 'everyone was happy'",
+            "Only feelings without outcomes",
+            "A promise of future results you never delivered"
+          ],
+          "correctIndex": 0,
+          "explanation": "Impact (metrics, quality, time, risk reduced) makes Results credible."
+        },
+        {
+          "id": "behavioral-s1-q10",
+          "stem": "In an interview, you are asked: If you do not have an exact story for a prompt, best practice is:? Which answer is best?",
+          "options": [
+            "Invent a dramatic fictional story",
+            "Use the closest truthful adjacent experience and label scope honestly",
+            "Say 'pass' and stop speaking",
+            "Copy a classmate's story as your own"
+          ],
+          "correctIndex": 1,
+          "explanation": "Honesty with a related real example beats fabrication or silence."
+        },
+        {
+          "id": "behavioral-s1-q11",
+          "stem": "How long should a typical STAR answer run in a live interview?",
+          "options": [
+            "10-15 minutes of full project history",
+            "One sentence with no detail",
+            "About 30-90 seconds of focused narrative, expandable if probed",
+            "Until the interviewer interrupts regardless of structure"
+          ],
+          "correctIndex": 2,
+          "explanation": "Concise STAR (~1-2 minutes max, often shorter) leaves room for follow-ups."
+        },
+        {
+          "id": "behavioral-s1-q12",
+          "stem": "In an interview, you are asked: Best practice for naming people in conflict stories? Which answer is best?",
+          "options": [
+            "Use first and last names of coworkers",
+            "Post the story on social media afterward",
+            "Share private Slack screenshots",
+            "Use roles/teams and avoid character assassination"
+          ],
+          "correctIndex": 3,
+          "explanation": "Protect privacy and professionalism; focus on behaviors and resolution."
+        },
+        {
+          "id": "behavioral-s1-q13",
+          "stem": "In an interview, you are asked: When asked how you handle disagreement with a manager, prefer:? Which answer is best?",
+          "options": [
+            "Share data/risks privately, propose options, then commit to the decision",
+            "Publicly contradict them to show independence",
+            "Never raise concerns; always comply silently",
+            "Go around them to their skip immediately every time"
+          ],
+          "correctIndex": 0,
+          "explanation": "Healthy pushback + alignment after decision shows judgment and loyalty."
+        },
+        {
+          "id": "behavioral-s1-q14",
+          "stem": "In an interview, you are asked: A weak behavioral answer often fails because it:? Which answer is best?",
+          "options": [
+            "Uses too many metrics",
+            "Stays at 'we' without clarifying your personal contribution",
+            "Mentions a Result",
+            "Is shorter than three minutes"
+          ],
+          "correctIndex": 1,
+          "explanation": "Interviewers need your role clear; pure team 'we' hides ownership."
+        },
+        {
+          "id": "behavioral-s1-q15",
+          "stem": "In an interview, you are asked: Best framing for a missed deadline story? Which answer is best?",
+          "options": [
+            "Blame stakeholders exclusively",
+            "Deny deadlines were real",
+            "Explain early signals, mitigation, communication, and prevention changes",
+            "Say process is always someone else's job"
+          ],
+          "correctIndex": 2,
+          "explanation": "Own signals and recovery; show process learning, not finger-pointing."
+        },
+        {
+          "id": "behavioral-s1-q16",
+          "stem": "For 'give feedback to a peer' stories, interviewers look for:",
+          "options": [
+            "Public shaming for impact",
+            "Avoiding feedback forever to keep peace",
+            "Anonymous rumors to HR first",
+            "Private, specific, behavior-focused feedback and follow-through"
+          ],
+          "correctIndex": 3,
+          "explanation": "Effective feedback is timely, specific, respectful, and actionable."
+        },
+        {
+          "id": "behavioral-s1-q17",
+          "stem": "In an interview, you are asked: When a question asks for a recent example, you should:? Which answer is best?",
+          "options": [
+            "Prefer a recent, relevant example when you have one",
+            "Use a story from 15 years ago if it is more dramatic",
+            "Always invent a same-week story",
+            "Refuse and ask for a coding question instead"
+          ],
+          "correctIndex": 0,
+          "explanation": "Recency improves credibility and relevance to how you work now."
+        },
+        {
+          "id": "behavioral-s1-q18",
+          "stem": "In an interview, you are asked: In Action, avoid:? Which answer is best?",
+          "options": [
+            "First-person verbs describing decisions you made",
+            "Passive 'things happened' with no agency",
+            "Listing trade-offs you considered",
+            "Constraints you navigated"
+          ],
+          "correctIndex": 1,
+          "explanation": "Action must show your agency; passive narratives weaken the story."
+        },
+        {
+          "id": "behavioral-s1-q19",
+          "stem": "Best practice if the interviewer interrupts mid-STAR?",
+          "options": [
+            "Ignore them and finish the scripted monologue",
+            "Start a different unrelated story immediately",
+            "Pause, answer the probe, then resume or tighten the story",
+            "Argue that STAR must be completed uninterrupted"
+          ],
+          "correctIndex": 2,
+          "explanation": "Adapt to the interviewer's cues; conversation beats rigid scripts."
+        },
+        {
+          "id": "behavioral-s1-q20",
+          "stem": "Mapping stories to competencies (ownership, collaboration, etc.) helps because:",
+          "options": [
+            "You can ignore the actual question asked",
+            "One story must cover every competency at once always",
+            "Competencies are illegal to discuss",
+            "You pick the best-fit true story for the competency behind the prompt"
+          ],
+          "correctIndex": 3,
+          "explanation": "Prepare themes, then select the story that matches the question's intent."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "behavioral-s2-q01",
+          "stem": "In an interview, you are asked: When describing conflict resolution, which outcome is strongest? Which answer is best?",
+          "options": [
+            "Shared goal restored; relationship and delivery both improved",
+            "You 'won' and the other person was wrong",
+            "You avoided the person permanently",
+            "HR fired the other person solely based on your complaint"
+          ],
+          "correctIndex": 0,
+          "explanation": "Mature conflict stories end in better collaboration or clearer agreements."
+        },
+        {
+          "id": "behavioral-s2-q02",
+          "stem": "In an interview, you are asked: Cross-functional collaboration stories should highlight:? Which answer is best?",
+          "options": [
+            "That other functions are obstacles to ignore",
+            "Shared goals, translated constraints, and negotiated trade-offs",
+            "Only your team's technical purity",
+            "Skipping stakeholders to ship faster every time"
+          ],
+          "correctIndex": 1,
+          "explanation": "Show how you bridge contexts and align on outcomes across teams."
+        },
+        {
+          "id": "behavioral-s2-q03",
+          "stem": "In an interview, you are asked: For ambiguity / unclear requirements, best practice answer shape is:? Which answer is best?",
+          "options": [
+            "Wait indefinitely until a perfect spec arrives",
+            "Build the largest possible system immediately",
+            "Clarify goals/risks, propose a thin slice, iterate with feedback",
+            "Refuse work until every edge case is documented"
+          ],
+          "correctIndex": 2,
+          "explanation": "Ambiguity answers should show structuring, prioritization, and iteration."
+        },
+        {
+          "id": "behavioral-s2-q04",
+          "stem": "In an interview, you are asked: Mentoring / helping juniors — strongest signal to convey:? Which answer is best?",
+          "options": [
+            "You do their work for them so they never struggle",
+            "Juniors should learn only by failing alone",
+            "Mentoring is not part of engineering work",
+            "You enable growth with scaffolding, feedback, and increasing ownership"
+          ],
+          "correctIndex": 3,
+          "explanation": "Good mentorship builds capability, not dependency."
+        },
+        {
+          "id": "behavioral-s2-q05",
+          "stem": "In an interview, you are asked: When asked about prioritizing under load, emphasize:? Which answer is best?",
+          "options": [
+            "Impact/urgency criteria, stakeholder communication, and explicit deferrals",
+            "Doing every request in arrival order",
+            "Working nights secretly without telling anyone",
+            "Accepting all work and hoping for the best"
+          ],
+          "correctIndex": 0,
+          "explanation": "Prioritization is criteria + transparency, not silent overcommitment."
+        },
+        {
+          "id": "behavioral-s2-q06",
+          "stem": "In an interview, you are asked: A 'time you said no' story should show:? Which answer is best?",
+          "options": [
+            "Rude refusal with no alternative",
+            "Clear trade-offs, risks, and a constructive path or compromise",
+            "That you never say no",
+            "That you say no to every request"
+          ],
+          "correctIndex": 1,
+          "explanation": "Healthy no's protect outcomes and offer options."
+        },
+        {
+          "id": "behavioral-s2-q07",
+          "stem": "In an interview, you are asked: Customer / user impact in behavioral answers matters because:? Which answer is best?",
+          "options": [
+            "Interviewers dislike users",
+            "Metrics are banned in soft rounds",
+            "It connects engineering work to real value, not just activity",
+            "Only sales roles may mention customers"
+          ],
+          "correctIndex": 2,
+          "explanation": "User/business impact shows product sense and outcome orientation."
+        },
+        {
+          "id": "behavioral-s2-q08",
+          "stem": "In an interview, you are asked: If pressed for numbers you no longer remember, best practice is:? Which answer is best?",
+          "options": [
+            "Invent precise metrics on the spot",
+            "Refuse any outcome discussion",
+            "Change the story topic entirely",
+            "Give honest approximate ranges and qualitative outcomes if exacts are gone"
+          ],
+          "correctIndex": 3,
+          "explanation": "Approximate truth beats fabricated precision."
+        },
+        {
+          "id": "behavioral-s2-q09",
+          "stem": "In an interview, you are asked: Handling production incidents in STAR form — key Action elements:? Which answer is best?",
+          "options": [
+            "Stabilize, communicate, diagnose, fix, and drive postmortem prevention",
+            "Hide the outage from stakeholders",
+            "Blame the on-call who was offline",
+            "Only celebrate after the fact with no learning"
+          ],
+          "correctIndex": 0,
+          "explanation": "Incident excellence = mitigate, communicate, learn, prevent."
+        },
+        {
+          "id": "behavioral-s2-q10",
+          "stem": "Diversity of story settings (internship, project, job) is useful when:",
+          "options": [
+            "Stories are all fabricated for variety",
+            "They are still true and show consistent strengths across contexts",
+            "You must never reuse a theme",
+            "Only FAANG stories are allowed"
+          ],
+          "correctIndex": 1,
+          "explanation": "Varied true contexts demonstrate transferable behaviors."
+        },
+        {
+          "id": "behavioral-s2-q11",
+          "stem": "When the interviewer asks 'What would you do differently?', good answers:",
+          "options": [
+            "Insist the past choice was perfect with zero change",
+            "Blame teammates for everything",
+            "Name a specific improvement without rewriting history dishonestly",
+            "Say you never reflect on past work"
+          ],
+          "correctIndex": 2,
+          "explanation": "Reflection without denial is a core seniority signal."
+        },
+        {
+          "id": "behavioral-s2-q12",
+          "stem": "In an interview, you are asked: Team vs individual credit — best practice:? Which answer is best?",
+          "options": [
+            "Take all credit and erase the team",
+            "Refuse to discuss your role",
+            "Only discuss the team's failures",
+            "Credit the team while clearly stating your slice of ownership"
+          ],
+          "correctIndex": 3,
+          "explanation": "Both humility and personal clarity are expected."
+        },
+        {
+          "id": "behavioral-s2-q13",
+          "stem": "In an interview, you are asked: For ethical gray-area prompts (pressure to cut corners), aim for:? Which answer is best?",
+          "options": [
+            "Name risks, propose safer paths, escalate when needed",
+            "Blind compliance to ship at any cost",
+            "Quit on the spot in every story",
+            "Publicly shame leadership on social media"
+          ],
+          "correctIndex": 0,
+          "explanation": "Integrity + constructive escalation is the interview-safe pattern."
+        },
+        {
+          "id": "behavioral-s2-q14",
+          "stem": "In an interview, you are asked: Remote / hybrid collaboration challenges — strong answers show:? Which answer is best?",
+          "options": [
+            "That async is impossible",
+            "Explicit communication norms, documentation, and timezone respect",
+            "Only working when others are offline",
+            "Avoiding written updates entirely"
+          ],
+          "correctIndex": 1,
+          "explanation": "Distributed work succeeds with intentional communication practices."
+        },
+        {
+          "id": "behavioral-s2-q15",
+          "stem": "In an interview, you are asked: If two STAR stories could fit, choose the one that:? Which answer is best?",
+          "options": [
+            "Is longest and most dramatic",
+            "Features the most famous company name",
+            "Best matches the competency and shows clear personal impact",
+            "Has the most characters blamed"
+          ],
+          "correctIndex": 2,
+          "explanation": "Fit and clarity beat spectacle."
+        },
+        {
+          "id": "behavioral-s2-q16",
+          "stem": "In an interview, you are asked: Follow-up probes like 'What did YOU specifically do?' mean:? Which answer is best?",
+          "options": [
+            "You should invent more actions",
+            "The interviewer dislikes STAR",
+            "You should restart with Situation only",
+            "Your answer was too team-blurry; clarify personal actions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Probes request sharper ownership — tighten Action."
+        },
+        {
+          "id": "behavioral-s2-q17",
+          "stem": "In an interview, you are asked: Discussing trade-offs in Action strengthens answers because:? Which answer is best?",
+          "options": [
+            "It shows judgment under constraints, not just busywork",
+            "Interviewers dislike options",
+            "Trade-offs prove you delayed forever",
+            "Only PMs may discuss trade-offs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Trade-offs reveal senior decision-making."
+        },
+        {
+          "id": "behavioral-s2-q18",
+          "stem": "In an interview, you are asked: A 'difficult stakeholder' story should avoid:? Which answer is best?",
+          "options": [
+            "Empathy for their constraints",
+            "Caricature and personal insults",
+            "Finding shared success metrics",
+            "Structured communication cadence"
+          ],
+          "correctIndex": 1,
+          "explanation": "Stay professional; attack problems, not people."
+        },
+        {
+          "id": "behavioral-s2-q19",
+          "stem": "In an interview, you are asked: Preparing for behavioral rounds with a peer mock helps most when you:? Which answer is best?",
+          "options": [
+            "Read answers from a page without eye contact",
+            "Only type answers in chat and never speak",
+            "Practice out loud and cut fluff based on feedback",
+            "Memorize word-for-word scripts with zero flexibility"
+          ],
+          "correctIndex": 2,
+          "explanation": "Spoken practice exposes length and clarity issues."
+        },
+        {
+          "id": "behavioral-s2-q20",
+          "stem": "In an interview, you are asked: Ending a STAR answer well often means:? Which answer is best?",
+          "options": [
+            "Trailing off mid-sentence",
+            "Asking if you got the job immediately",
+            "Restarting Situation for a second pass",
+            "A crisp Result (and optional learning) then stop"
+          ],
+          "correctIndex": 3,
+          "explanation": "Land the Result cleanly; do not ramble past the point."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "behavioral-s3-q01",
+          "stem": "Using 'I' vs 'we' — best interview practice?",
+          "options": [
+            "Use 'I' for your actions; 'we' for team context — keep ownership clear",
+            "Only 'I' and erase collaborators",
+            "Only 'we' for every sentence",
+            "Avoid pronouns entirely"
+          ],
+          "correctIndex": 0,
+          "explanation": "Balance team context with personal ownership."
+        },
+        {
+          "id": "behavioral-s3-q02",
+          "stem": "In an interview, you are asked: When a story involves confidential details, you should:? Which answer is best?",
+          "options": [
+            "Share secrets to prove authenticity",
+            "Anonymize clients/data and speak at a safe level of abstraction",
+            "Refuse all work stories",
+            "Post NDAs in the chat"
+          ],
+          "correctIndex": 1,
+          "explanation": "Professional discretion is part of judgment."
+        },
+        {
+          "id": "behavioral-s3-q03",
+          "stem": "Behavioral vs technical interviews — STAR still helps because:",
+          "options": [
+            "It replaces all coding",
+            "STAR is banned in eng interviews",
+            "It structures how you explain past technical decisions and incidents",
+            "Only HR may use STAR"
+          ],
+          "correctIndex": 2,
+          "explanation": "Structure helps any experience narrative, including technical ones."
+        },
+        {
+          "id": "behavioral-s3-q04",
+          "stem": "In an interview, you are asked: Signs your answer is too Situation-heavy:? Which answer is best?",
+          "options": [
+            "You included one metric",
+            "You used first person",
+            "You finished under two minutes",
+            "You spent most time on context and little on your Action/Result"
+          ],
+          "correctIndex": 3,
+          "explanation": "Trim setup; expand what you did and what changed."
+        },
+        {
+          "id": "behavioral-s3-q05",
+          "stem": "In an interview, you are asked: For leadership of a project, Result should preferably include:? Which answer is best?",
+          "options": [
+            "Delivery outcomes, quality, and team health where relevant",
+            "Only that meetings happened",
+            "Your promotion desire",
+            "How many slides you made"
+          ],
+          "correctIndex": 0,
+          "explanation": "Leadership impact includes outcomes and how the team functioned."
+        },
+        {
+          "id": "behavioral-s3-q06",
+          "stem": "In an interview, you are asked: If asked the same theme twice with different wording:? Which answer is best?",
+          "options": [
+            "Repeat the identical monologue robotically",
+            "Pick another true story or a different angle of the same event",
+            "Say you already answered and stop",
+            "Invent a contradictory story"
+          ],
+          "correctIndex": 1,
+          "explanation": "Variety shows breadth; consistency of values still matters."
+        },
+        {
+          "id": "behavioral-s3-q07",
+          "stem": "In an interview, you are asked: A common anti-pattern in conflict stories is:? Which answer is best?",
+          "options": [
+            "Describing de-escalation steps",
+            "Naming a compromise",
+            "Portraying yourself as flawless and the other party as cartoonishly wrong",
+            "Sharing a learning"
+          ],
+          "correctIndex": 2,
+          "explanation": "One-sided villain stories signal low self-awareness."
+        },
+        {
+          "id": "behavioral-s3-q08",
+          "stem": "In an interview, you are asked: Quantifying soft skills impact can look like:? Which answer is best?",
+          "options": [
+            "Fake NPS to three decimals",
+            "Claiming you 'increased culture by 400%'",
+            "Refusing any evidence",
+            "Cycle time cut, fewer incidents, faster reviews, clearer handoffs — with honesty"
+          ],
+          "correctIndex": 3,
+          "explanation": "Concrete operational improvements beat vague fluff."
+        },
+        {
+          "id": "behavioral-s3-q09",
+          "stem": "In an interview, you are asked: When culture-fit behavioral questions appear, aim to:? Which answer is best?",
+          "options": [
+            "Share true working style and check mutual fit honestly",
+            "Mirror whatever you guess they want, even if false",
+            "Attack the company's values",
+            "Avoid answering"
+          ],
+          "correctIndex": 0,
+          "explanation": "Honest fit protects both sides; performative mirroring backfires."
+        },
+        {
+          "id": "behavioral-s3-q10",
+          "stem": "After the interview, best practice for story quality is:",
+          "options": [
+            "Never reflect",
+            "Note which stories landed or dragged and refine for next rounds",
+            "Delete all prep notes immediately without review",
+            "Post full interview questions with your private stories publicly"
+          ],
+          "correctIndex": 1,
+          "explanation": "Iterate on delivery and story selection between rounds."
+        }
+      ]
+    }
+  ]
+}

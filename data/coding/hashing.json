@@ -1,0 +1,277 @@
+{
+  "slug": "hashing",
+  "title": "Hashing",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Easy",
+      "level": "easy",
+      "problems": [
+        {
+          "id": "hashing-easy-01",
+          "title": "Two Sum Indices",
+          "prompt": "Given an array of integers nums and an integer target, return the indices of the two numbers that add up to target. You may assume exactly one solution exists, and you may not use the same element twice. Return the indices in any order.",
+          "examples": [
+            {
+              "input": "nums = [2, 7, 11, 15], target = 9",
+              "output": "[0, 1]"
+            }
+          ],
+          "constraints": [
+            "2 <= nums.length <= 10^4",
+            "-10^9 <= nums[i] <= 10^9",
+            "-10^9 <= target <= 10^9",
+            "Exactly one valid answer exists"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // write your code\n        return new int[]{};\n    }\n}\n",
+            "python": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> indexByValue = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int need = target - nums[i];\n            if (indexByValue.containsKey(need)) {\n                return new int[]{indexByValue.get(need), i};\n            }\n            indexByValue.put(nums[i], i);\n        }\n        return new int[]{};\n    }\n}\n",
+            "python": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        index_by_value: dict[int, int] = {}\n        for i, num in enumerate(nums):\n            need = target - num\n            if need in index_by_value:\n                return [index_by_value[need], i]\n            index_by_value[num] = i\n        return []\n"
+          },
+          "samples": [
+            {
+              "input": "[2,7,11,15], 9",
+              "output": "[0,1]"
+            }
+          ]
+        },
+        {
+          "id": "hashing-easy-02",
+          "title": "Contains Duplicate",
+          "prompt": "Given an integer array nums, return true if any value appears at least twice, and false if every element is distinct.",
+          "examples": [
+            {
+              "input": "nums = [1, 2, 3, 1]",
+              "output": "true"
+            },
+            {
+              "input": "nums = [1, 2, 3, 4]",
+              "output": "false"
+            }
+          ],
+          "constraints": [
+            "1 <= nums.length <= 10^5",
+            "-10^9 <= nums[i] <= 10^9"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public boolean containsDuplicate(int[] nums) {\n        // write your code\n        return false;\n    }\n}\n",
+            "python": "class Solution:\n    def containsDuplicate(self, nums: list[int]) -> bool:\n        # write your code\n        return False\n"
+          },
+          "solution": {
+            "java": "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public boolean containsDuplicate(int[] nums) {\n        Set<Integer> seen = new HashSet<>();\n        for (int num : nums) {\n            if (!seen.add(num)) {\n                return true;\n            }\n        }\n        return false;\n    }\n}\n",
+            "python": "class Solution:\n    def containsDuplicate(self, nums: list[int]) -> bool:\n        return len(nums) != len(set(nums))\n"
+          },
+          "samples": [
+            {
+              "input": "[1,2,3,1]",
+              "output": "true"
+            }
+          ]
+        },
+        {
+          "id": "hashing-easy-03",
+          "title": "Isomorphic Strings",
+          "prompt": "Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if characters in s can be replaced to get t. Each character must map to exactly one character, and no two characters may map to the same character (while preserving order).",
+          "examples": [
+            {
+              "input": "s = \"egg\", t = \"add\"",
+              "output": "true"
+            },
+            {
+              "input": "s = \"foo\", t = \"bar\"",
+              "output": "false"
+            }
+          ],
+          "constraints": [
+            "1 <= s.length <= 5 * 10^4",
+            "t.length == s.length",
+            "s and t consist of any valid ASCII character"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public boolean isIsomorphic(String s, String t) {\n        // write your code\n        return false;\n    }\n}\n",
+            "python": "class Solution:\n    def isIsomorphic(self, s: str, t: str) -> bool:\n        # write your code\n        return False\n"
+          },
+          "solution": {
+            "java": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public boolean isIsomorphic(String s, String t) {\n        Map<Character, Character> sToT = new HashMap<>();\n        Map<Character, Character> tToS = new HashMap<>();\n        for (int i = 0; i < s.length(); i++) {\n            char sc = s.charAt(i);\n            char tc = t.charAt(i);\n            if (sToT.containsKey(sc) && sToT.get(sc) != tc) {\n                return false;\n            }\n            if (tToS.containsKey(tc) && tToS.get(tc) != sc) {\n                return false;\n            }\n            sToT.put(sc, tc);\n            tToS.put(tc, sc);\n        }\n        return true;\n    }\n}\n",
+            "python": "class Solution:\n    def isIsomorphic(self, s: str, t: str) -> bool:\n        s_to_t: dict[str, str] = {}\n        t_to_s: dict[str, str] = {}\n        for sc, tc in zip(s, t):\n            if s_to_t.get(sc, tc) != tc or t_to_s.get(tc, sc) != sc:\n                return False\n            s_to_t[sc] = tc\n            t_to_s[tc] = sc\n        return True\n"
+          },
+          "samples": [
+            {
+              "input": "\"egg\", \"add\"",
+              "output": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Intermediate",
+      "level": "intermediate",
+      "problems": [
+        {
+          "id": "hashing-intermediate-01",
+          "title": "Subarray Sum Equals K",
+          "prompt": "Given an integer array nums and an integer k, return the total number of contiguous subarrays whose sum equals k.",
+          "examples": [
+            {
+              "input": "nums = [1, 1, 1], k = 2",
+              "output": "2"
+            },
+            {
+              "input": "nums = [1, 2, 3], k = 3",
+              "output": "2"
+            }
+          ],
+          "constraints": [
+            "1 <= nums.length <= 2 * 10^4",
+            "-1000 <= nums[i] <= 1000",
+            "-10^7 <= k <= 10^7"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int subarraySum(int[] nums, int k) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def subarraySum(self, nums: list[int], k: int) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int subarraySum(int[] nums, int k) {\n        Map<Integer, Integer> prefixCount = new HashMap<>();\n        prefixCount.put(0, 1);\n        int sum = 0;\n        int answer = 0;\n        for (int num : nums) {\n            sum += num;\n            answer += prefixCount.getOrDefault(sum - k, 0);\n            prefixCount.put(sum, prefixCount.getOrDefault(sum, 0) + 1);\n        }\n        return answer;\n    }\n}\n",
+            "python": "from collections import defaultdict\n\nclass Solution:\n    def subarraySum(self, nums: list[int], k: int) -> int:\n        prefix_count: dict[int, int] = defaultdict(int)\n        prefix_count[0] = 1\n        total = answer = 0\n        for num in nums:\n            total += num\n            answer += prefix_count[total - k]\n            prefix_count[total] += 1\n        return answer\n"
+          },
+          "samples": [
+            {
+              "input": "[1,1,1], 2",
+              "output": "2"
+            }
+          ]
+        },
+        {
+          "id": "hashing-intermediate-02",
+          "title": "Top K Frequent",
+          "prompt": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+          "examples": [
+            {
+              "input": "nums = [1, 1, 1, 2, 2, 3], k = 2",
+              "output": "[1, 2]"
+            }
+          ],
+          "constraints": [
+            "1 <= nums.length <= 10^5",
+            "-10^4 <= nums[i] <= 10^4",
+            "k is in the range [1, number of unique elements]",
+            "The answer is guaranteed to be unique"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        // write your code\n        return new int[]{};\n    }\n}\n",
+            "python": "class Solution:\n    def topKFrequent(self, nums: list[int], k: int) -> list[int]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nclass Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> freq = new HashMap<>();\n        for (int num : nums) {\n            freq.put(num, freq.getOrDefault(num, 0) + 1);\n        }\n        @SuppressWarnings(\"unchecked\")\n        List<Integer>[] buckets = new List[nums.length + 1];\n        for (Map.Entry<Integer, Integer> entry : freq.entrySet()) {\n            int count = entry.getValue();\n            if (buckets[count] == null) {\n                buckets[count] = new ArrayList<>();\n            }\n            buckets[count].add(entry.getKey());\n        }\n        int[] answer = new int[k];\n        int index = 0;\n        for (int i = buckets.length - 1; i >= 0 && index < k; i--) {\n            if (buckets[i] == null) {\n                continue;\n            }\n            for (int value : buckets[i]) {\n                answer[index++] = value;\n                if (index == k) {\n                    break;\n                }\n            }\n        }\n        return answer;\n    }\n}\n",
+            "python": "from collections import Counter\n\nclass Solution:\n    def topKFrequent(self, nums: list[int], k: int) -> list[int]:\n        freq = Counter(nums)\n        buckets: list[list[int]] = [[] for _ in range(len(nums) + 1)]\n        for value, count in freq.items():\n            buckets[count].append(value)\n        answer: list[int] = []\n        for i in range(len(buckets) - 1, -1, -1):\n            for value in buckets[i]:\n                answer.append(value)\n                if len(answer) == k:\n                    return answer\n        return answer\n"
+          },
+          "samples": [
+            {
+              "input": "[1,1,1,2,2,3], 2",
+              "output": "[1,2]"
+            }
+          ]
+        },
+        {
+          "id": "hashing-intermediate-03",
+          "title": "Longest Consecutive",
+          "prompt": "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+          "examples": [
+            {
+              "input": "nums = [100, 4, 200, 1, 3, 2]",
+              "output": "4"
+            }
+          ],
+          "constraints": [
+            "0 <= nums.length <= 10^5",
+            "-10^9 <= nums[i] <= 10^9"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def longestConsecutive(self, nums: list[int]) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "import java.util.HashSet;\nimport java.util.Set;\n\nclass Solution {\n    public int longestConsecutive(int[] nums) {\n        Set<Integer> values = new HashSet<>();\n        for (int num : nums) {\n            values.add(num);\n        }\n        int best = 0;\n        for (int num : values) {\n            if (!values.contains(num - 1)) {\n                int length = 1;\n                while (values.contains(num + length)) {\n                    length++;\n                }\n                best = Math.max(best, length);\n            }\n        }\n        return best;\n    }\n}\n",
+            "python": "class Solution:\n    def longestConsecutive(self, nums: list[int]) -> int:\n        values = set(nums)\n        best = 0\n        for num in values:\n            if num - 1 not in values:\n                length = 1\n                while num + length in values:\n                    length += 1\n                best = max(best, length)\n        return best\n"
+          },
+          "samples": [
+            {
+              "input": "[100,4,200,1,3,2]",
+              "output": "4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Hard",
+      "level": "hard",
+      "problems": [
+        {
+          "id": "hashing-hard-01",
+          "title": "Design HashMap Lite",
+          "prompt": "Design a HashMap without using built-in hash-table libraries. Implement MyHashMap with put(key, value), get(key) (return -1 if absent), and remove(key). Keys and values are non-negative integers.",
+          "examples": [
+            {
+              "input": "[\"MyHashMap\", \"put\", \"put\", \"get\", \"get\", \"put\", \"get\", \"remove\", \"get\"]\n[[], [1, 1], [2, 2], [1], [3], [2, 1], [2], [2], [2]]",
+              "output": "[null, null, null, 1, -1, null, 1, null, -1]"
+            }
+          ],
+          "constraints": [
+            "0 <= key, value <= 10^6",
+            "At most 10^4 calls to put, get, and remove"
+          ],
+          "starter": {
+            "java": "class MyHashMap {\n    public MyHashMap() {\n        // write your code\n    }\n\n    public void put(int key, int value) {\n        // write your code\n    }\n\n    public int get(int key) {\n        // write your code\n        return -1;\n    }\n\n    public void remove(int key) {\n        // write your code\n    }\n}\n",
+            "python": "class MyHashMap:\n    def __init__(self):\n        # write your code\n        pass\n\n    def put(self, key: int, value: int) -> None:\n        # write your code\n        pass\n\n    def get(self, key: int) -> int:\n        # write your code\n        return -1\n\n    def remove(self, key: int) -> None:\n        # write your code\n        pass\n"
+          },
+          "solution": {
+            "java": "import java.util.ArrayList;\nimport java.util.List;\n\nclass MyHashMap {\n    private static class Entry {\n        int key;\n        int value;\n\n        Entry(int key, int value) {\n            this.key = key;\n            this.value = value;\n        }\n    }\n\n    private final List<Entry>[] buckets;\n\n    @SuppressWarnings(\"unchecked\")\n    public MyHashMap() {\n        buckets = new List[1009];\n        for (int i = 0; i < buckets.length; i++) {\n            buckets[i] = new ArrayList<>();\n        }\n    }\n\n    private int index(int key) {\n        return key % buckets.length;\n    }\n\n    public void put(int key, int value) {\n        List<Entry> bucket = buckets[index(key)];\n        for (Entry entry : bucket) {\n            if (entry.key == key) {\n                entry.value = value;\n                return;\n            }\n        }\n        bucket.add(new Entry(key, value));\n    }\n\n    public int get(int key) {\n        for (Entry entry : buckets[index(key)]) {\n            if (entry.key == key) {\n                return entry.value;\n            }\n        }\n        return -1;\n    }\n\n    public void remove(int key) {\n        List<Entry> bucket = buckets[index(key)];\n        for (int i = 0; i < bucket.size(); i++) {\n            if (bucket.get(i).key == key) {\n                bucket.remove(i);\n                return;\n            }\n        }\n    }\n}\n",
+            "python": "class MyHashMap:\n    def __init__(self):\n        self.size = 1009\n        self.buckets: list[list[list[int]]] = [[] for _ in range(self.size)]\n\n    def _index(self, key: int) -> int:\n        return key % self.size\n\n    def put(self, key: int, value: int) -> None:\n        bucket = self.buckets[self._index(key)]\n        for entry in bucket:\n            if entry[0] == key:\n                entry[1] = value\n                return\n        bucket.append([key, value])\n\n    def get(self, key: int) -> int:\n        for entry in self.buckets[self._index(key)]:\n            if entry[0] == key:\n                return entry[1]\n        return -1\n\n    def remove(self, key: int) -> None:\n        bucket = self.buckets[self._index(key)]\n        for i, entry in enumerate(bucket):\n            if entry[0] == key:\n                bucket.pop(i)\n                return\n"
+          },
+          "samples": [
+            {
+              "input": "put(1,1); put(2,2); get(1); get(3); put(2,1); get(2); remove(2); get(2)",
+              "output": "1, -1, 1, -1"
+            }
+          ]
+        },
+        {
+          "id": "hashing-hard-02",
+          "title": "Find All Anagrams",
+          "prompt": "Given two strings s and p, return an array of all starting indices of p's anagrams in s. You may return the answer in any order. An anagram is a permutation of all characters.",
+          "examples": [
+            {
+              "input": "s = \"cbaebabacd\", p = \"abc\"",
+              "output": "[0, 6]"
+            }
+          ],
+          "constraints": [
+            "1 <= s.length, p.length <= 3 * 10^4",
+            "s and p consist of lowercase English letters"
+          ],
+          "starter": {
+            "java": "import java.util.List;\n\nclass Solution {\n    public List<Integer> findAnagrams(String s, String p) {\n        // write your code\n        return List.of();\n    }\n}\n",
+            "python": "class Solution:\n    def findAnagrams(self, s: str, p: str) -> list[int]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "import java.util.ArrayList;\nimport java.util.Arrays;\nimport java.util.List;\n\nclass Solution {\n    public List<Integer> findAnagrams(String s, String p) {\n        List<Integer> result = new ArrayList<>();\n        if (s.length() < p.length()) {\n            return result;\n        }\n        int[] need = new int[26];\n        int[] window = new int[26];\n        for (int i = 0; i < p.length(); i++) {\n            need[p.charAt(i) - 'a']++;\n            window[s.charAt(i) - 'a']++;\n        }\n        if (Arrays.equals(need, window)) {\n            result.add(0);\n        }\n        for (int i = p.length(); i < s.length(); i++) {\n            window[s.charAt(i) - 'a']++;\n            window[s.charAt(i - p.length()) - 'a']--;\n            if (Arrays.equals(need, window)) {\n                result.add(i - p.length() + 1);\n            }\n        }\n        return result;\n    }\n}\n",
+            "python": "class Solution:\n    def findAnagrams(self, s: str, p: str) -> list[int]:\n        if len(s) < len(p):\n            return []\n        need = [0] * 26\n        window = [0] * 26\n        for ch in p:\n            need[ord(ch) - ord('a')] += 1\n        for i in range(len(p)):\n            window[ord(s[i]) - ord('a')] += 1\n        result: list[int] = []\n        if window == need:\n            result.append(0)\n        for i in range(len(p), len(s)):\n            window[ord(s[i]) - ord('a')] += 1\n            window[ord(s[i - len(p)]) - ord('a')] -= 1\n            if window == need:\n                result.append(i - len(p) + 1)\n        return result\n"
+          },
+          "samples": [
+            {
+              "input": "\"cbaebabacd\", \"abc\"",
+              "output": "[0,6]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

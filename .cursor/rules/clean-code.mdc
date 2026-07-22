@@ -1,0 +1,97 @@
+---
+description: Clean Code (Robert C. Martin) — global craftsmanship standards for all code changes
+alwaysApply: true
+---
+
+# Clean Code Standards
+
+Follow *Clean Code: A Handbook of Agile Software Craftsmanship* (Robert C. Martin) for every task: reviews, refactors, new features, fixes, and docs that describe code behavior.
+
+**Priority when rules conflict:** correctness and security first, then existing project conventions, then these rules.
+
+## Names
+
+- Use names that reveal intent; avoid abbreviations unless they are domain-standard.
+- Prefer searchable, pronounceable names over clever or encoded ones (`m`, `data2`, `temp`).
+- One word per concept across the codebase (e.g. don’t mix `fetch`, `retrieve`, `get` for the same idea).
+- Classes/nouns, methods/verbs; booleans read as questions (`isVisible`, `hasPermission`).
+- Keep names at the right level of abstraction; don’t leak implementation (`getUserIdsFromRedis` → `getActiveUserIds` at call sites).
+
+## Functions
+
+- Small, do one thing, at one level of abstraction.
+- Prefer ≤3 parameters; use objects/options when more are needed.
+- No hidden side effects; name must match behavior.
+- Prefer exceptions over error codes for exceptional flow; don’t use exceptions for normal control flow.
+- Avoid flag arguments (`render(true)`); split into named functions.
+- Extract until names read like prose; delete dead code immediately.
+
+## Comments
+
+- Prefer expressive code over comments.
+- Good comments: legal, intent, warning, public API docs — not apologies or commented-out code.
+- Don’t let comments rot; update or remove when code changes.
+
+## Formatting & Structure
+
+- Be consistent with the file and project (indent, quotes, imports).
+- Related code stays close; variables declared near first use.
+- Vertical openness: separate concepts with blank lines; keep dense logic readable.
+- Files and modules should feel like one cohesive idea.
+
+## Objects, Data & Boundaries
+
+- Hide implementation; expose behavior, not raw data shapes when a type can enforce invariants.
+- Law of Demeter: don’t chain through strangers (`a.b().c().d()`).
+- Wrap third-party APIs behind thin adapters the app owns.
+- Learn and test at integration boundaries.
+
+## Error Handling
+
+- Use `try/catch` around operations that can fail; keep catch blocks focused.
+- Don’t return `null`/`undefined` when a clearer pattern exists (empty result, `Option`, typed error).
+- Provide context in errors/messages; fail fast at boundaries.
+- Never swallow errors silently.
+
+## Classes & Modules (SRP)
+
+- Single Responsibility: one reason to change per module/class.
+- High cohesion, low coupling; depend on abstractions where the project already does.
+- Prefer composition over inheritance unless the framework requires otherwise.
+
+## Tests
+
+- F.I.R.S.T.: Fast, Independent, Repeatable, Self-validating, Timely.
+- One logical behavior per test; descriptive names (`shouldRejectExpiredToken`).
+- Arrange–Act–Assert; minimal setup; test public behavior, not implementation details.
+- Tests are documentation — keep them as clean as production code.
+
+## Code Smells — Refactor When You See
+
+- Duplication, long functions/files, large classes, long parameter lists.
+- Feature envy, inappropriate intimacy, switch statements duplicating across types.
+- Dead code, speculative generality, magic numbers/strings (name constants).
+- Comments explaining *what* instead of *why* the code can’t say itself.
+
+## Craftsmanship (How to Work)
+
+- Leave code cleaner than you found it (boy scout rule).
+- Minimize diff scope: only change what the task needs.
+- Match existing naming, types, folder layout, and patterns in the repo.
+- No drive-by refactors unrelated to the request.
+- When adding features, extend tests that prove behavior; don’t add trivial tests unless asked.
+
+## TypeScript / React (this repo)
+
+- Prefer explicit types at boundaries; infer locally when obvious.
+- Components: presentational vs logic split when complexity grows; extract hooks for reusable behavior.
+- Avoid `any`; use narrow types and guards at API edges.
+- Side effects in effects/handlers only where needed; keep render paths pure.
+
+## Review Checklist (before finishing)
+
+- [ ] Names and functions read clearly without comments?
+- [ ] Functions small, single-purpose, no surprise side effects?
+- [ ] Errors handled with context, not swallowed?
+- [ ] Duplication removed or justified?
+- [ ] Change matches project style and smallest necessary scope?

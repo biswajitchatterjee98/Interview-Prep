@@ -1,0 +1,624 @@
+{
+  "slug": "strings",
+  "title": "Strings",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "strings-s1-q01",
+          "stem": "Java interview: why is String immutable, and what's one practical consequence?",
+          "options": [
+            "Thread-safety/sharing, hashCode caching, and safe use as HashMap keys; concatenating in a loop builds many objects",
+            "Immutability is only a style guide with no runtime effect",
+            "Immutable means you cannot read characters",
+            "It makes substring always O(1) forever in all JDKs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immutability enables sharing and safe hashing; naive + in loops is costly → StringBuilder."
+        },
+        {
+          "id": "strings-s1-q02",
+          "stem": "In a coding interview, you are asked: Char vs code point — what do you say about emoji / UTF-16? Which response is most accurate?",
+          "options": [
+            "Every Unicode character is exactly one 16-bit char in Java",
+            "UTF-16 may use surrogate pairs; length() counts chars, not always user-perceived characters",
+            "UTF-8 and UTF-16 are identical on disk",
+            "ASCII is required for all interview string problems"
+          ],
+          "correctIndex": 1,
+          "explanation": "Be aware of encoding: char length ≠ grapheme/code-point length."
+        },
+        {
+          "id": "strings-s1-q03",
+          "stem": "In a coding interview, you are asked: Best structure to reverse a mutable character buffer in place? Which response is most accurate?",
+          "options": [
+            "Immutable String concatenation",
+            "Hash map of positions",
+            "Two pointers swapping chars toward the center",
+            "Sort descending"
+          ],
+          "correctIndex": 2,
+          "explanation": "Same pattern as array reverse on a char array / StringBuilder."
+        },
+        {
+          "id": "strings-s1-q04",
+          "stem": "In a coding interview, you are asked: Anagram check screening answer? Which response is most accurate?",
+          "options": [
+            "Only check equal lengths",
+            "Hash the concatenation in reverse",
+            "Binary search both strings",
+            "Compare sorted versions, or count character frequencies"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sort O(n log n) or count O(n+σ) — both are standard."
+        },
+        {
+          "id": "strings-s1-q05",
+          "stem": "In a coding interview, you are asked: Why prefer StringBuilder over repeated String + in a loop (Java)? Which response is most accurate?",
+          "options": [
+            "Each + may allocate a new String; StringBuilder mutates a buffer amortized efficiently",
+            "StringBuilder is always slower but clearer",
+            "+ is forbidden by the language",
+            "StringBuilder cannot append"
+          ],
+          "correctIndex": 0,
+          "explanation": "Avoid quadratic allocation from immutable concatenation."
+        },
+        {
+          "id": "strings-s1-q06",
+          "stem": "In a coding interview, you are asked: Palindrome check for a string — first approach you'd mention? Which response is most accurate?",
+          "options": [
+            "Sort then compare",
+            "Two pointers from ends comparing characters (optionally skipping non-alphanumeric)",
+            "KMP always",
+            "Build a suffix array"
+          ],
+          "correctIndex": 1,
+          "explanation": "Two pointers is the screening default."
+        },
+        {
+          "id": "strings-s1-q07",
+          "stem": "In a coding interview, you are asked: What does RLE (run-length encoding) do at a high level? Which response is most accurate?",
+          "options": [
+            "Encrypts strings with RSA",
+            "Sorts characters by frequency",
+            "Replaces consecutive repeats with a count+value encoding (e.g. aabbb → a2b3)",
+            "Removes all vowels"
+          ],
+          "correctIndex": 2,
+          "explanation": "Compresses runs; interviewers ask encode/decode variants."
+        },
+        {
+          "id": "strings-s1-q08",
+          "stem": "In a coding interview, you are asked: Case-insensitive compare — pitfall to mention? Which response is most accurate?",
+          "options": [
+            "ASCII upper/lower never matter",
+            "Hashing ignores case automatically",
+            "UTF-8 forbids case folding",
+            "toLowerCase is locale-sensitive and can surprise (e.g. Turkish i)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Locale and Unicode case folding are real footguns."
+        },
+        {
+          "id": "strings-s1-q09",
+          "stem": "In a coding interview, you are asked: null vs empty string in APIs — screening clarity? Which response is most accurate?",
+          "options": [
+            "Empty is a valid zero-length string; null means absence — handle explicitly at boundaries",
+            "They are identical in all languages",
+            "null has length 0 safely in Java without checks",
+            "Empty strings cannot be HashMap keys"
+          ],
+          "correctIndex": 0,
+          "explanation": "Distinguish missing vs present-but-empty."
+        },
+        {
+          "id": "strings-s1-q10",
+          "stem": "In a coding interview, you are asked: Substring search naive complexity you should state? Which response is most accurate?",
+          "options": [
+            "Always O(n+m)",
+            "O((n−m+1)·m) worst case for naive scan",
+            "O(1) with XOR",
+            "O(log n) binary search on characters"
+          ],
+          "correctIndex": 1,
+          "explanation": "Naive can be quadratic; mention KMP/Rabin–Karp as upgrades."
+        },
+        {
+          "id": "strings-s1-q11",
+          "stem": "In a coding interview, you are asked: Valid parentheses with multiple bracket types — structure? Which response is most accurate?",
+          "options": [
+            "Queue only",
+            "Hash set of all brackets",
+            "Stack: push openers, pop on matching closers",
+            "Sorting the string"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic stack matching problem."
+        },
+        {
+          "id": "strings-s1-q12",
+          "stem": "In a coding interview you build a frequency array for lowercase English letters only. What size should that array be, and why?",
+          "options": [
+            "Size n — one slot per character in the input string",
+            "Size 2^32 — to cover every possible Unicode code point",
+            "Size log n — enough for binary encoding of counts",
+            "Size 26 (or 128/256 for ASCII) — fixed alphabet, independent of string length"
+          ],
+          "correctIndex": 3,
+          "explanation": "A fixed alphabet gives O(1) extra space relative to alphabet size; for a–z that is 26 buckets."
+        },
+        {
+          "id": "strings-s1-q13",
+          "stem": "In a coding interview, you are asked: Trim spaces / normalize whitespace — interview expectation? Which response is most accurate?",
+          "options": [
+            "Two pointers or StringBuilder skipping runs of spaces is fine and shows control",
+            "Regex only; manual two pointers are unacceptable",
+            "Sorting characters removes spaces",
+            "Hashing spaces away"
+          ],
+          "correctIndex": 0,
+          "explanation": "Manual scan shows you understand indices and runs."
+        },
+        {
+          "id": "strings-s1-q14",
+          "stem": "In a coding interview, you are asked: Why can hashing a string be O(n)? Which response is most accurate?",
+          "options": [
+            "HashCode ignores content",
+            "You typically read all characters to compute the digest/hash",
+            "String length is logarithmic",
+            "Hashing is always O(1) including long strings"
+          ],
+          "correctIndex": 1,
+          "explanation": "Content length dominates hash computation."
+        },
+        {
+          "id": "strings-s1-q15",
+          "stem": "In a coding interview, you are asked: Immutable string as map key — why is that desirable? Which response is most accurate?",
+          "options": [
+            "Keys should mutate often",
+            "Only mutable keys are allowed in Java HashMap",
+            "Hash stays stable; mutation would corrupt bucket placement",
+            "Immutability slows equals"
+          ],
+          "correctIndex": 2,
+          "explanation": "Stable hashCode/equals over the key's lifetime."
+        },
+        {
+          "id": "strings-s1-q16",
+          "stem": "In a coding interview, you are asked: First unique character in a stream/string — basic tool? Which response is most accurate?",
+          "options": [
+            "Binary heap of indices only",
+            "Sort characters",
+            "Two stacks",
+            "Frequency count (array/map) then second pass for first count==1"
+          ],
+          "correctIndex": 3,
+          "explanation": "Count then scan for first unique."
+        },
+        {
+          "id": "strings-s1-q17",
+          "stem": "In a coding interview, you are asked: Byte string vs Unicode string — why interviewers ask? Which response is most accurate?",
+          "options": [
+            "Encoding boundaries (UTF-8 bytes vs characters) affect length, slicing, and I/O",
+            "They are the same in every system",
+            "Bytes cannot represent ASCII",
+            "Unicode forbids English letters"
+          ],
+          "correctIndex": 0,
+          "explanation": "Clarify whether the problem is about bytes or characters."
+        },
+        {
+          "id": "strings-s1-q18",
+          "stem": "In a coding interview, you are asked: Check if one string is rotation of another — slick test? Which response is most accurate?",
+          "options": [
+            "Sort both",
+            "s2 in (s1+s1) and same length",
+            "XOR all chars",
+            "KMP on reversed s1 only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic doubling trick plus substring search."
+        },
+        {
+          "id": "strings-s1-q19",
+          "stem": "In a coding interview, you are asked: Character frequency map vs sorted string for anagrams — tradeoff? Which response is most accurate?",
+          "options": [
+            "Sorting always uses less memory than a 26-count",
+            "Counting cannot handle Unicode",
+            "Counting is O(n) time with O(σ) space; sorting is O(n log n) and simple",
+            "Sorting is O(n) comparison-based"
+          ],
+          "correctIndex": 2,
+          "explanation": "State both; pick based on alphabet and constraints."
+        },
+        {
+          "id": "strings-s1-q20",
+          "stem": "In a coding interview, you are asked: Screening: access i-th character of a contiguous string/char array? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "O(log n)",
+            "Option claiming: O(i²)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Same as array indexing for typical string representations."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "strings-s2-q01",
+          "stem": "In a coding interview, you are asked: Longest substring without repeating characters — pattern? Which response is most accurate?",
+          "options": [
+            "Sliding window + last-seen index / set of chars in window",
+            "Kadane on ASCII codes",
+            "Manacher only",
+            "Suffix automaton required"
+          ],
+          "correctIndex": 0,
+          "explanation": "Shrink left when a duplicate enters; track max window length."
+        },
+        {
+          "id": "strings-s2-q02",
+          "stem": "In a coding interview, you are asked: Minimum window substring containing all chars of t — approach? Which response is most accurate?",
+          "options": [
+            "Sort s and t",
+            "Sliding window with need/have counters; shrink when window is valid",
+            "Two stacks of characters",
+            "Binary search each character of t independently"
+          ],
+          "correctIndex": 1,
+          "explanation": "Classic hard sliding-window with frequency deficits."
+        },
+        {
+          "id": "strings-s2-q03",
+          "stem": "In a coding interview, you are asked: Group anagrams — map key you propose? Which response is most accurate?",
+          "options": [
+            "The original string",
+            "Word length only",
+            "Sorted char signature or 26-count tuple as key → list of words",
+            "HashCode of the first character"
+          ],
+          "correctIndex": 2,
+          "explanation": "Canonical key buckets anagrams together."
+        },
+        {
+          "id": "strings-s2-q04",
+          "stem": "In a coding interview, you are asked: Longest palindromic substring — expandable approach? Which response is most accurate?",
+          "options": [
+            "Only DP n² table is allowed",
+            "Two pointers from ends of the whole string only once",
+            "RLE then reverse",
+            "Expand around centers (2n−1 centers) for O(n²) time O(1) space"
+          ],
+          "correctIndex": 3,
+          "explanation": "Center expansion is a common interview solution; Manacher is advanced."
+        },
+        {
+          "id": "strings-s2-q05",
+          "stem": "In a coding interview, you are asked: Edit distance (Levenshtein) — DP meaning of dp[i][j]? Which response is most accurate?",
+          "options": [
+            "Min edits to transform first i chars of s into first j of t",
+            "Whether s[i]==t[j] only",
+            "LCS length only",
+            "Hamming distance of suffixes"
+          ],
+          "correctIndex": 0,
+          "explanation": "Standard definition for insert/delete/replace DP."
+        },
+        {
+          "id": "strings-s2-q06",
+          "stem": "In a coding interview, you are asked: KMP at high level — what precomputation helps? Which response is most accurate?",
+          "options": [
+            "Suffix array of the text",
+            "Longest proper prefix that is also suffix (LPS/π) for the pattern to avoid re-checking",
+            "Huffman codes of pattern chars",
+            "Bloom filter of all pattern rotations"
+          ],
+          "correctIndex": 1,
+          "explanation": "Failure function lets the search continue without full backup."
+        },
+        {
+          "id": "strings-s2-q07",
+          "stem": "In a coding interview, you are asked: Word break (dictionary) — typical technique? Which response is most accurate?",
+          "options": [
+            "Greedy take longest word always correct",
+            "Sort the sentence",
+            "DP/BFS: reachable split positions given dict membership",
+            "Two pointers on vowels"
+          ],
+          "correctIndex": 2,
+          "explanation": "Reachability over prefixes with dictionary lookups."
+        },
+        {
+          "id": "strings-s2-q08",
+          "stem": "In a coding interview, you are asked: Decode ways ('12' → AB or L) — pitfall? Which response is most accurate?",
+          "options": [
+            "Leading zeros are always valid decodings",
+            "Only count length/2",
+            "Always 2^(n−1) ways",
+            "Handle '0' carefully; invalid singles/pairs; DP on prior one/two digit validity"
+          ],
+          "correctIndex": 3,
+          "explanation": "Zeros and valid 10–26 pairs make naive recursion wrong."
+        },
+        {
+          "id": "strings-s2-q09",
+          "stem": "In a coding interview, you are asked: Compare version numbers '1.01' vs '1.001' — approach? Which response is most accurate?",
+          "options": [
+            "Split on '.', parse segments as integers (or bigints), compare pairwise",
+            "String compare lexicographically",
+            "Hash both full strings",
+            "Reverse and compare"
+          ],
+          "correctIndex": 0,
+          "explanation": "Numeric segment compare, not raw lexicographic."
+        },
+        {
+          "id": "strings-s2-q10",
+          "stem": "In a coding interview, you are asked: Simplify Unix path — tool? Which response is most accurate?",
+          "options": [
+            "Regex replace only",
+            "Stack of path parts: push dirs, pop on '..', ignore '.' and empties",
+            "Queue of characters",
+            "Sort segments alphabetically"
+          ],
+          "correctIndex": 1,
+          "explanation": "Stack models directory navigation."
+        },
+        {
+          "id": "strings-s2-q11",
+          "stem": "String compression in-place (LeetCode-style) with counts — what do you watch?",
+          "options": [
+            "Always use float counts",
+            "Unicode normalization first always",
+            "Multi-digit counts, write pointer, and not overflowing read ahead incorrectly",
+            "Sorting runs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Digit length of counts and two-pointer write are the hard parts."
+        },
+        {
+          "id": "strings-s2-q12",
+          "stem": "In a coding interview, you are asked: Is subsequence (s in t) — clean check? Which response is most accurate?",
+          "options": [
+            "Sort both",
+            "KMP on reversed t",
+            "Anagram counts",
+            "Two pointers: advance in t, advance in s on matches"
+          ],
+          "correctIndex": 3,
+          "explanation": "Greedy scan preserves order without contiguity."
+        },
+        {
+          "id": "strings-s2-q13",
+          "stem": "In a coding interview, you are asked: Longest common prefix of string array — strategies? Which response is most accurate?",
+          "options": [
+            "Vertical scan / horizontal shrink / sort and compare first-last",
+            "Only suffix automaton",
+            "XOR all strings",
+            "RLE each string then intersect"
+          ],
+          "correctIndex": 0,
+          "explanation": "Several O(total length) approaches; sorting trick is neat."
+        },
+        {
+          "id": "strings-s2-q14",
+          "stem": "In a coding interview, you are asked: Rabin–Karp idea in one line? Which response is most accurate?",
+          "options": [
+            "Build KMP π on the text",
+            "Rolling hash of windows equals pattern hash, then verify to dodge collisions",
+            "Count sort the pattern",
+            "Aho–Corasick for one pattern only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Rolling hash enables O(n+m) expected search with verification."
+        },
+        {
+          "id": "strings-s2-q15",
+          "stem": "In a coding interview, you are asked: Palindrome via removing at most one char — technique? Which response is most accurate?",
+          "options": [
+            "Count frequencies only",
+            "Manacher mandatory",
+            "Two pointers; on mismatch try skip left or skip right once",
+            "Sort then check"
+          ],
+          "correctIndex": 2,
+          "explanation": "Greedy recover with one deletion attempt."
+        },
+        {
+          "id": "strings-s2-q16",
+          "stem": "In a coding interview, you are asked: Multiply two big integers given as strings — outline? Which response is most accurate?",
+          "options": [
+            "Parse to 64-bit long always",
+            "XOR digit by digit",
+            "KMP the digits",
+            "Grade-school multiply into an int array of size n+m, then convert to string"
+          ],
+          "correctIndex": 3,
+          "explanation": "Simulate multiplication; watch carry and leading zeros."
+        },
+        {
+          "id": "strings-s2-q17",
+          "stem": "In a coding interview, you are asked: Find all anagrams of p in s — pattern? Which response is most accurate?",
+          "options": [
+            "Fixed sliding window of len(p) with frequency match counters",
+            "Sort s entirely",
+            "Trie of all permutations of p (n!)",
+            "Binary search each window"
+          ],
+          "correctIndex": 0,
+          "explanation": "Window frequency equality is the mid-level standard."
+        },
+        {
+          "id": "strings-s2-q18",
+          "stem": "In a coding interview, you are asked: Z-algorithm high-level purpose? Which response is most accurate?",
+          "options": [
+            "Compress strings with Huffman",
+            "For each i, longest substring starting at i that matches a prefix — aids pattern matching",
+            "Compute edit distance",
+            "Build a balanced BST of chars"
+          ],
+          "correctIndex": 1,
+          "explanation": "Z-box / Z-array is another linear pattern tool."
+        },
+        {
+          "id": "strings-s2-q19",
+          "stem": "In a coding interview, you are asked: Interleaving string DP — question shape? Which response is most accurate?",
+          "options": [
+            "Whether s3 is an anagram of s1+s2 only",
+            "Whether s1 is rotation of s2",
+            "Whether s3 merges s1 and s2 preserving order",
+            "Whether edit distance is zero"
+          ],
+          "correctIndex": 2,
+          "explanation": "Order-preserving merge; DP on prefixes of s1/s2."
+        },
+        {
+          "id": "strings-s2-q20",
+          "stem": "In a coding interview, you are asked: Count-and-say sequence — how do you generate the next term? Which response is most accurate?",
+          "options": [
+            "Increment every digit",
+            "Sort digits ascending",
+            "Reverse the previous term",
+            "Apply RLE to the previous term's digit runs"
+          ],
+          "correctIndex": 3,
+          "explanation": "Next = run-length description of current."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "strings-s3-q01",
+          "stem": "In a coding interview, you are asked: Senior Java: String.substring historically shared backing array — risk? Which answer is best?",
+          "options": [
+            "Retaining a tiny substring could pin a huge backing char[] (memory leak pattern); newer JDKs copy",
+            "Faster GC always",
+            "It made strings mutable",
+            "It broke equals"
+          ],
+          "correctIndex": 0,
+          "explanation": "Know historical sharing vs copy-on-substring behavior."
+        },
+        {
+          "id": "strings-s3-q02",
+          "stem": "In a coding interview, you are asked: Rolling hash pitfalls in interviews? Which response is most accurate?",
+          "options": [
+            "Hashes never collide",
+            "Mod overflow, base choice, and false positives — always verify on hash match",
+            "Rolling hash is O(n²) update",
+            "Cannot hash ASCII"
+          ],
+          "correctIndex": 1,
+          "explanation": "Probabilistic match needs confirmation; watch modular arithmetic."
+        },
+        {
+          "id": "strings-s3-q03",
+          "stem": "In a coding interview, you are asked: UTF-8 validation / slicing mid-sequence — why dangerous? Which response is most accurate?",
+          "options": [
+            "UTF-8 bytes are randomly ordered",
+            "UTF-8 is fixed 4 bytes per char always",
+            "Cutting inside a multi-byte code point yields invalid sequences / wrong characters",
+            "Validation is unnecessary for network I/O"
+          ],
+          "correctIndex": 2,
+          "explanation": "Respect code-point boundaries when slicing bytes."
+        },
+        {
+          "id": "strings-s3-q04",
+          "stem": "In a coding interview, you are asked: When is KMP overkill vs naive in an interview? Which response is most accurate?",
+          "options": [
+            "Never; always implement KMP",
+            "KMP is simpler than naive",
+            "Naive is always O(n+m)",
+            "Small n·m or one-off search: naive/clarified library search may be enough; discuss complexity"
+          ],
+          "correctIndex": 3,
+          "explanation": "Match algorithm to constraints; show you know when quadratic is fine."
+        },
+        {
+          "id": "strings-s3-q05",
+          "stem": "In a coding interview, you are asked: Interning strings — tradeoff? Which response is most accurate?",
+          "options": [
+            "Saves memory on duplicates / speeds == sometimes, but uses a global pool and can increase GC/perm pressure",
+            "Always intern everything for speed",
+            "Intern mutates char content",
+            "Intern guarantees O(1) substring"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pool benefits vs lifetime and contention costs."
+        },
+        {
+          "id": "strings-s3-q06",
+          "stem": "In a coding interview, you are asked: Surrogate pairs and charAt loops — bug pattern? Which response is most accurate?",
+          "options": [
+            "charAt always returns full code points",
+            "Iterating by char can split emoji; use codePointAt / offsetByCodePoints when required",
+            "Surrogates only appear in ASCII",
+            "length() counts grapheme clusters"
+          ],
+          "correctIndex": 1,
+          "explanation": "UTF-16 indexing ≠ user-perceived characters."
+        },
+        {
+          "id": "strings-s3-q07",
+          "stem": "In a coding interview, you are asked: Rope / gap buffer vs flat string for editors — why? Which response is most accurate?",
+          "options": [
+            "Flat arrays always win for insert-middle",
+            "Ropes cannot index",
+            "Split/concat-friendly structures make middle edits cheaper than O(n) array shifts",
+            "Gap buffers forbid cursors"
+          ],
+          "correctIndex": 2,
+          "explanation": "Editable text needs structures beyond immutable flat strings."
+        },
+        {
+          "id": "strings-s3-q08",
+          "stem": "In a coding interview, you are asked: Security: using user strings as format patterns / SQL — lesson? Which response is most accurate?",
+          "options": [
+            "String concatenation is always parameterized",
+            "Immutability prevents injection",
+            "Hashing the query removes injection",
+            "Never treat untrusted input as format/query structure; use parameterization and safe APIs"
+          ],
+          "correctIndex": 3,
+          "explanation": "Injection is about interpretation, not mutability."
+        },
+        {
+          "id": "strings-s3-q09",
+          "stem": "In a coding interview, you are asked: Comparing large strings for equality — micro tradeoff? Which response is most accurate?",
+          "options": [
+            "Early exit on first mismatch; hash equality can short-circuit but collisions still need equals",
+            "Always compute full hash first then skip equals",
+            "length check is useless",
+            "== on contents works in Java without equals"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cheap filters first; equals remains source of truth."
+        },
+        {
+          "id": "strings-s3-q10",
+          "stem": "In a coding interview, you are asked: Manacher's algorithm — when do you mention it? Which response is most accurate?",
+          "options": [
+            "As the only way to check a palindrome",
+            "When you need all longest palindromic substrings in linear time; otherwise center expand may suffice",
+            "It replaces KMP for pattern search",
+            "It only works on even-length strings"
+          ],
+          "correctIndex": 1,
+          "explanation": "Know it exists; justify when O(n) palindromic radius is needed."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,624 @@
+{
+  "slug": "backend-development",
+  "title": "Backend Development",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "backend-development-s1-q01",
+          "stem": "In a backend interview, what does a reverse proxy typically provide in front of app servers?",
+          "options": [
+            "TLS termination, load balancing, routing, and buffering for upstream services",
+            "Compiling application source code on every HTTP request",
+            "Storing only client cookies inside the CPU L1 cache",
+            "Replacing relational databases with spreadsheet files"
+          ],
+          "correctIndex": 0,
+          "explanation": "Reverse proxies sit at the edge and forward traffic to application instances."
+        },
+        {
+          "id": "backend-development-s1-q02",
+          "stem": "Stateless application servers behind a load balancer — why prefer them?",
+          "options": [
+            "Sessions must live only in process memory forever",
+            "Any instance can handle any request, simplifying horizontal scale and failover",
+            "Sticky sessions become mandatory for every endpoint",
+            "You cannot use JWT or external session stores at all"
+          ],
+          "correctIndex": 1,
+          "explanation": "Statelessness lets the balancer route freely without affinity constraints."
+        },
+        {
+          "id": "backend-development-s1-q03",
+          "stem": "In an interview, you are asked: When explaining vertical vs horizontal scaling, what's accurate? Which answer is best?",
+          "options": [
+            "Horizontal always means increasing CPU clock on one box",
+            "Vertical means adding more microservices only",
+            "Vertical: bigger machine; horizontal: more machines sharing the load",
+            "They are identical terms in cloud architecture docs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Scale up vs scale out is the classic vertical/horizontal distinction."
+        },
+        {
+          "id": "backend-development-s1-q04",
+          "stem": "Connection pooling for databases — interview rationale?",
+          "options": [
+            "Each query must open and close a fresh TCP connection always",
+            "Pools eliminate the need for indexes on hot tables",
+            "Pooling replaces transactions with eventual consistency",
+            "Reusing open connections avoids expensive handshake/setup per query"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pools amortize connection cost and bound concurrent DB load."
+        },
+        {
+          "id": "backend-development-s1-q05",
+          "stem": "In an interview, you are asked: Idempotent PUT/DELETE in APIs — why does backend care? Which answer is best?",
+          "options": [
+            "Safe retries after timeouts won't double-apply side effects",
+            "Idempotency means responses can never include bodies",
+            "Only GET may ever be retried by clients or proxies",
+            "Databases forbid unique constraints when APIs are idempotent"
+          ],
+          "correctIndex": 0,
+          "explanation": "Retries are common; idempotent writes prevent duplicate mutations."
+        },
+        {
+          "id": "backend-development-s1-q06",
+          "stem": "ACID — which expansion is correct for interviews?",
+          "options": [
+            "Availability, Consistency, Integrity, Distribution for CAP only",
+            "Atomicity, Consistency, Isolation, Durability for transaction guarantees",
+            "Async, Cached, Indexed, Durable as storage engine modes",
+            "Append, Compact, Isolate, Delete as log policies"
+          ],
+          "correctIndex": 1,
+          "explanation": "ACID describes relational transaction properties clients rely on."
+        },
+        {
+          "id": "backend-development-s1-q07",
+          "stem": "In an interview, you are asked: BASE in eventual-consistency systems stands for? Which answer is best?",
+          "options": [
+            "Binary Atomic Strong Execution as a SQL mode",
+            "Buffered Append Streaming Engine for Kafka only",
+            "Basically Available, Soft state, Eventual consistency",
+            "Blocking ACID Serial Execution for all NoSQL"
+          ],
+          "correctIndex": 2,
+          "explanation": "BASE describes availability-first designs that converge later."
+        },
+        {
+          "id": "backend-development-s1-q08",
+          "stem": "In an interview setting, consider this question: CAP theorem interview-safe statement?? Pick the strongest answer.",
+          "options": [
+            "You can always have perfect C, A, and P simultaneously in practice",
+            "CAP only applies to single-node embedded databases",
+            "Partition tolerance is optional on the public internet",
+            "In a network partition, a distributed system must trade off consistency vs availability"
+          ],
+          "correctIndex": 3,
+          "explanation": "Partitions happen; choose CP or AP behavior for that window."
+        },
+        {
+          "id": "backend-development-s1-q09",
+          "stem": "In an interview, you are asked: Optimistic locking typical mechanism? Which answer is best?",
+          "options": [
+            "Version/etag columns; update fails if the version changed concurrently",
+            "SELECT ... FOR UPDATE on every read without exception",
+            "Disabling concurrent writers at the load balancer forever",
+            "Storing locks only in the browser localStorage"
+          ],
+          "correctIndex": 0,
+          "explanation": "Optimistic concurrency detects conflicts via versions instead of holding locks long."
+        },
+        {
+          "id": "backend-development-s1-q10",
+          "stem": "In an interview, you are asked: Pessimistic locking when? Which answer is best?",
+          "options": [
+            "Read-only dashboards with no writers ever",
+            "High contention updates where conflicts are likely and costly to retry",
+            "Static asset CDN caching exclusively",
+            "Generating OpenAPI docs from code comments"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pessimistic locks serialize access when conflict rates make optimism wasteful."
+        },
+        {
+          "id": "backend-development-s1-q11",
+          "stem": "In an interview, you are asked: Message queue role in backend architecture? Which answer is best?",
+          "options": [
+            "Replace TLS for all service-to-service traffic",
+            "Guarantee exactly-once delivery in every broker by default",
+            "Decouple producers/consumers, buffer spikes, and enable async work",
+            "Eliminate the need for databases entirely"
+          ],
+          "correctIndex": 2,
+          "explanation": "Queues smooth load and separate write path from slow downstream work."
+        },
+        {
+          "id": "backend-development-s1-q12",
+          "stem": "In an interview, you are asked: At-least-once delivery implies what consumer duty? Which answer is best?",
+          "options": [
+            "Assume each message arrives exactly one time always",
+            "Ack before processing to maximize throughput safely",
+            "Disable retries so duplicates never appear",
+            "Make handlers idempotent because duplicates can be delivered"
+          ],
+          "correctIndex": 3,
+          "explanation": "At-least-once + retries ⇒ design for duplicate-safe processing."
+        },
+        {
+          "id": "backend-development-s1-q13",
+          "stem": "In an interview, you are asked: Cache-aside (lazy loading) pattern steps? Which answer is best?",
+          "options": [
+            "App reads cache; on miss, load DB, populate cache, return value",
+            "DB always writes through cache before acknowledging clients",
+            "Cache invalidates the entire cluster on every SELECT",
+            "Browsers own the only cache; servers never cache"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cache-aside keeps the app responsible for read-through population."
+        },
+        {
+          "id": "backend-development-s1-q14",
+          "stem": "In an interview, you are asked: Write-through cache — key property? Which answer is best?",
+          "options": [
+            "Writes only hit memory and never reach durable storage",
+            "Writes update cache and backing store together before success returns",
+            "Reads always bypass cache to avoid stale data",
+            "TTL must be infinite for write-through to work"
+          ],
+          "correctIndex": 1,
+          "explanation": "Write-through keeps cache and store in sync on each write path."
+        },
+        {
+          "id": "backend-development-s1-q15",
+          "stem": "In an interview, you are asked: Thundering herd / cache stampede mitigation? Which answer is best?",
+          "options": [
+            "Delete all keys whenever any one expires",
+            "Disable caching for popular keys only",
+            "Singleflight/locks, probabilistic early refresh, or staggered TTLs",
+            "Set every TTL to one millisecond globally"
+          ],
+          "correctIndex": 2,
+          "explanation": "Prevent many clients from stampeding the DB on the same miss."
+        },
+        {
+          "id": "backend-development-s1-q16",
+          "stem": "In an interview, you are asked: JWT for API auth — what should you mention carefully? Which answer is best?",
+          "options": [
+            "JWTs are always stored only on the server like classic sessions",
+            "Signatures make payload encryption unnecessary for secrets inside",
+            "Expired tokens must still be accepted for offline apps",
+            "Client holds signed claims; validate signature/exp; revocation needs extra design"
+          ],
+          "correctIndex": 3,
+          "explanation": "JWTs are bearer tokens — validate crypto and plan logout/revocation."
+        },
+        {
+          "id": "backend-development-s1-q17",
+          "stem": "In an interview, you are asked: Session cookies vs JWT — fair trade-off line? Which answer is best?",
+          "options": [
+            "Server sessions are easy to revoke; JWTs scale statelessly but revoke is harder",
+            "Cookies cannot be HttpOnly or Secure in modern browsers",
+            "JWTs eliminate all need for HTTPS on public networks",
+            "Server sessions never require a shared store in multi-instance apps"
+          ],
+          "correctIndex": 0,
+          "explanation": "Revocation and storage location drive the session vs token choice."
+        },
+        {
+          "id": "backend-development-s1-q18",
+          "stem": "In an interview, you are asked: OAuth 2.0 authorization code flow — primary purpose? Which answer is best?",
+          "options": [
+            "Replace TLS certificates with bearer tokens in the clear",
+            "Let a client obtain access tokens for a user without handling their password",
+            "Encrypt database rows using the authorization code as the key",
+            "Authenticate SSH sessions using only refresh tokens"
+          ],
+          "correctIndex": 1,
+          "explanation": "Auth code flow delegates user auth to the IdP and issues tokens to apps."
+        },
+        {
+          "id": "backend-development-s1-q19",
+          "stem": "In an interview, you are asked: Rate limiting at the API gateway — why? Which answer is best?",
+          "options": [
+            "Increase latency artificially to improve perceived performance",
+            "Replace authentication for all public endpoints",
+            "Protect backends from abuse, noisy neighbors, and accidental overload",
+            "Guarantee fairness without any token bucket or counter"
+          ],
+          "correctIndex": 2,
+          "explanation": "Limits defend availability and cost when traffic is uneven or hostile."
+        },
+        {
+          "id": "backend-development-s1-q20",
+          "stem": "In an interview, you are asked: Structured logging best practice for services? Which answer is best?",
+          "options": [
+            "Print only free-form prose without timestamps or levels",
+            "Log plaintext passwords for easier support debugging",
+            "Disable logs in production to save disk always",
+            "Emit JSON/key-value logs with request IDs for correlation across hops"
+          ],
+          "correctIndex": 3,
+          "explanation": "Structured, correlated logs make distributed debugging tractable."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "backend-development-s2-q01",
+          "stem": "In an interview, you are asked: N+1 query problem — how do you describe and fix it? Which answer is best?",
+          "options": [
+            "Looping loads cause one query per child; fix with joins/eager load/batch fetch",
+            "Using one query for an entire report is always an N+1 bug",
+            "Connection pools cause N+1 by multiplexing sockets",
+            "Indexes create N+1 because the planner visits leaves"
+          ],
+          "correctIndex": 0,
+          "explanation": "N+1 is chatty ORM access; batch or join to cut round trips."
+        },
+        {
+          "id": "backend-development-s2-q02",
+          "stem": "Database index trade-off in one interview sentence?",
+          "options": [
+            "Indexes only slow SELECT and never affect INSERT",
+            "Speed reads/lookups at the cost of slower writes and extra storage",
+            "Every column should be indexed without measuring workload",
+            "Hash indexes always beat B-trees for range scans"
+          ],
+          "correctIndex": 1,
+          "explanation": "Indexes are a write/space tax paid for faster targeted reads."
+        },
+        {
+          "id": "backend-development-s2-q03",
+          "stem": "In an interview, you are asked: Read replicas — typical use and caveat? Which answer is best?",
+          "options": [
+            "Replicas always provide stronger consistency than the primary",
+            "Writes should prefer replicas to reduce primary load",
+            "Scale read traffic; replicas may lag so stale reads are possible",
+            "Replication removes the need for backups entirely"
+          ],
+          "correctIndex": 2,
+          "explanation": "Async replicas help reads but introduce replication lag."
+        },
+        {
+          "id": "backend-development-s2-q04",
+          "stem": "In an interview, you are asked: Sharding a database — core idea? Which answer is best?",
+          "options": [
+            "Copy the full dataset to every node for every query",
+            "Store only indexes on shards and rows on one primary forever",
+            "Sharding eliminates the need to choose a primary key",
+            "Partition data across nodes by a shard key to scale storage and write load"
+          ],
+          "correctIndex": 3,
+          "explanation": "Shards split the dataset; key design dominates operational pain."
+        },
+        {
+          "id": "backend-development-s2-q05",
+          "stem": "In an interview, you are asked: Saga pattern for distributed transactions? Which answer is best?",
+          "options": [
+            "Sequence local transactions with compensating actions on failure",
+            "Use a single global XA lock across all microservices always",
+            "Avoid compensations by ignoring partial failures",
+            "Saga requires a shared memory bus between all JVMs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sagas coordinate multi-service workflows without distributed 2PC."
+        },
+        {
+          "id": "backend-development-s2-q06",
+          "stem": "In an interview, you are asked: Two-phase commit downside you'd cite? Which answer is best?",
+          "options": [
+            "It never provides atomicity across multiple resources",
+            "Blocking, coordinator failures, and poor fit for high-latency services",
+            "It only works for eventually consistent document stores",
+            "Participants never need to vote or prepare"
+          ],
+          "correctIndex": 1,
+          "explanation": "2PC is correct but operationally heavy and fragile under partitions."
+        },
+        {
+          "id": "backend-development-s2-q07",
+          "stem": "In an interview, you are asked: Health checks: liveness vs readiness? Which answer is best?",
+          "options": [
+            "They are identical probes with different names only",
+            "Readiness kills the process; liveness only removes from LB",
+            "Liveness: restart if dead; readiness: stop routing until dependencies are OK",
+            "Neither should ever check dependency connectivity"
+          ],
+          "correctIndex": 2,
+          "explanation": "Orchestrators use both probes for different failure modes."
+        },
+        {
+          "id": "backend-development-s2-q08",
+          "stem": "In an interview, you are asked: Graceful shutdown for HTTP services — what do you do? Which answer is best?",
+          "options": [
+            "Kill -9 immediately on SIGTERM for fastest deploys",
+            "Ignore signals and let the LB time out clients",
+            "Drop keep-alives but finish accepting unlimited new connections",
+            "Stop taking new work, drain in-flight requests, then exit cleanly"
+          ],
+          "correctIndex": 3,
+          "explanation": "Drain connections so deploys don't sever active requests."
+        },
+        {
+          "id": "backend-development-s2-q09",
+          "stem": "In an interview, you are asked: Circuit breaker vs retry — complementary roles? Which answer is best?",
+          "options": [
+            "Retries handle transient blips; breakers stop calling a sick dependency",
+            "Breakers replace all retries and timeouts permanently",
+            "Retries should ignore backoff and hammer failing hosts",
+            "Circuit breakers only apply to disk I/O inside one process"
+          ],
+          "correctIndex": 0,
+          "explanation": "Use retries carefully and trip breakers when failure rates spike."
+        },
+        {
+          "id": "backend-development-s2-q10",
+          "stem": "In an interview, you are asked: Bulkhead pattern in backends? Which answer is best?",
+          "options": [
+            "Share one connection pool across every outbound client forever",
+            "Isolate resources (pools/threads) so one dependency failure can't starve all",
+            "Put all traffic on a single thread for easier reasoning",
+            "Disable timeouts so slow calls never free workers"
+          ],
+          "correctIndex": 1,
+          "explanation": "Bulkheads contain blast radius via partitioned resources."
+        },
+        {
+          "id": "backend-development-s2-q11",
+          "stem": "In an interview, you are asked: API gateway responsibilities commonly include? Which answer is best?",
+          "options": [
+            "Owning all business rules and database schemas exclusively",
+            "Replacing service meshes for east-west mTLS always",
+            "Authn/z, routing, rate limits, TLS, and request aggregation at the edge",
+            "Compiling frontend bundles on each API call"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gateways centralize cross-cutting edge concerns for many services."
+        },
+        {
+          "id": "backend-development-s2-q12",
+          "stem": "In an interview, you are asked: Service mesh value proposition? Which answer is best?",
+          "options": [
+            "Replacing application code with Envoy configuration only",
+            "Eliminating the need for observability tooling",
+            "Running only on bare metal without containers",
+            "Transparent mTLS, retries, metrics, and traffic policy for east-west calls"
+          ],
+          "correctIndex": 3,
+          "explanation": "Meshes push network cross-cuts into the data plane sidecars."
+        },
+        {
+          "id": "backend-development-s2-q13",
+          "stem": "In an interview, you are asked: Blue-green deployment — how does it reduce risk? Which answer is best?",
+          "options": [
+            "Switch traffic from old (blue) to new (green) environment atomically",
+            "Deploy randomly to half of canary users without metrics",
+            "Edit production binaries in place during peak traffic",
+            "Require downtime windows for every configuration change"
+          ],
+          "correctIndex": 0,
+          "explanation": "Two environments enable instant cutover and quick rollback."
+        },
+        {
+          "id": "backend-development-s2-q14",
+          "stem": "In an interview, you are asked: Canary release distinguishing idea? Which answer is best?",
+          "options": [
+            "Replace all instances simultaneously with no observation window",
+            "Shift a small % of traffic to the new version and watch error/latency signals",
+            "Only deploy on Fridays to maximize weekend soak time",
+            "Skip metrics because canaries are self-validating"
+          ],
+          "correctIndex": 1,
+          "explanation": "Canaries expose real traffic gradually before full rollout."
+        },
+        {
+          "id": "backend-development-s2-q15",
+          "stem": "In an interview, you are asked: Feature flags help backends how? Which answer is best?",
+          "options": [
+            "Remove the need for automated tests in CI",
+            "Force every change to require a database migration first",
+            "Decouple deploy from release; toggle behavior without new ship cycles",
+            "Guarantee flags never cause configuration complexity"
+          ],
+          "correctIndex": 2,
+          "explanation": "Flags let you ship dark and enable safely for cohorts."
+        },
+        {
+          "id": "backend-development-s2-q16",
+          "stem": "Secrets management — interview expectation?",
+          "options": [
+            "Keep production passwords in the mobile app binary",
+            "Email secrets to the team distribution list monthly",
+            "Hard-code API keys in Docker images for convenience",
+            "Store secrets in a vault/KMS; inject at runtime; never commit to git"
+          ],
+          "correctIndex": 3,
+          "explanation": "Central secret stores with rotation beat checked-in credentials."
+        },
+        {
+          "id": "backend-development-s2-q17",
+          "stem": "In an interview, you are asked: SQL injection defense baseline? Which answer is best?",
+          "options": [
+            "Parameterized queries/prepared statements; never concatenate untrusted input",
+            "Escape only single quotes and ignore other characters",
+            "Disable the database user password for local trust",
+            "Rely on client-side validation alone for safety"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bound parameters keep untrusted data out of the SQL parse tree."
+        },
+        {
+          "id": "backend-development-s2-q18",
+          "stem": "In an interview, you are asked: CORS is enforced where, fundamentally? Which answer is best?",
+          "options": [
+            "By PostgreSQL rejecting foreign schemas automatically",
+            "By browsers on cross-origin frontends; APIs send Access-Control headers",
+            "Only inside mobile native apps using NSURLSession",
+            "By DNS servers blocking cross-zone HTTP entirely"
+          ],
+          "correctIndex": 1,
+          "explanation": "CORS is a browser security gate; servers declare allowed origins."
+        },
+        {
+          "id": "backend-development-s2-q19",
+          "stem": "In an interview, you are asked: Backpressure in streaming/async systems means? Which answer is best?",
+          "options": [
+            "Producers always ignore consumer speed for max throughput",
+            "Queues must be unbounded to avoid ever blocking",
+            "Slow consumers signal producers to slow down or buffer/drop controlledly",
+            "TCP flow control is unrelated to application backpressure"
+          ],
+          "correctIndex": 2,
+          "explanation": "Backpressure prevents overload by propagating slowness upstream."
+        },
+        {
+          "id": "backend-development-s2-q20",
+          "stem": "In an interview, you are asked: Observability triad commonly cited? Which answer is best?",
+          "options": [
+            "Only CPU temperature sensors on bare-metal hosts",
+            "Code coverage percentages from unit test runs",
+            "Marketing analytics dashboards for feature adoption",
+            "Metrics, logs, and traces working together to explain system behavior"
+          ],
+          "correctIndex": 3,
+          "explanation": "Golden signals plus traces/logs form modern observability."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "backend-development-s3-q01",
+          "stem": "Exactly-once processing in practice — honest interview take?",
+          "options": [
+            "Hard end-to-end; usually at-least-once plus idempotent writes/dedupe keys",
+            "Every message broker guarantees exactly-once without app help",
+            "Turning off acks yields exactly-once automatically",
+            "Exactly-once is impossible to approximate in any system"
+          ],
+          "correctIndex": 0,
+          "explanation": "True exactly-once is elusive; idempotency is the pragmatic path."
+        },
+        {
+          "id": "backend-development-s3-q02",
+          "stem": "In an interview, you are asked: Soft delete vs hard delete — trade-off? Which answer is best?",
+          "options": [
+            "Hard delete always keeps full audit history automatically",
+            "Soft delete preserves history/recovery; hard delete reclaims space and simplifies unique keys",
+            "Soft delete never needs indexes on deleted flags",
+            "They are identical for GDPR erasure requests"
+          ],
+          "correctIndex": 1,
+          "explanation": "Choose based on audit, recovery, and compliance erasure needs."
+        },
+        {
+          "id": "backend-development-s3-q03",
+          "stem": "In an interview, you are asked: Pagination: keyset vs offset — scalability point? Which answer is best?",
+          "options": [
+            "OFFSET is always O(1) regardless of page depth",
+            "Keyset cannot paginate sorted results at all",
+            "Keyset/seek uses a stable cursor and scales better than deep OFFSET",
+            "Both strategies require loading the full table into memory"
+          ],
+          "correctIndex": 2,
+          "explanation": "Deep OFFSET scans/skips rows; keyset continues from the last key."
+        },
+        {
+          "id": "backend-development-s3-q04",
+          "stem": "In an interview, you are asked: Multi-tenant data isolation approaches? Which answer is best?",
+          "options": [
+            "Rely on clients to filter other tenants' rows in the UI only",
+            "Use one global admin password shared by all tenants",
+            "Disable row-level checks when using connection pools",
+            "Separate DB/schema, or shared tables with tenant_id and careful authz"
+          ],
+          "correctIndex": 3,
+          "explanation": "Isolation can be physical or logical — leaks are a critical risk."
+        },
+        {
+          "id": "backend-development-s3-q05",
+          "stem": "In an interview, you are asked: Why put timeouts on every outbound call? Which answer is best?",
+          "options": [
+            "Prevent thread/connection exhaustion when dependencies hang",
+            "Timeouts always make systems slower with no upside",
+            "Infinite waits maximize end-user success rates",
+            "Only inbound requests need timeouts, never outbound"
+          ],
+          "correctIndex": 0,
+          "explanation": "Hung dependencies without timeouts cascade into total outages."
+        },
+        {
+          "id": "backend-development-s3-q06",
+          "stem": "In an interview, you are asked: Prepared statements also help performance how? Which answer is best?",
+          "options": [
+            "They disable indexes so sequential scans run faster",
+            "Servers can cache query plans and skip repeated parse/optimize work",
+            "They force full table locks on every execution",
+            "They only work for DDL and never for DML"
+          ],
+          "correctIndex": 1,
+          "explanation": "Plan caching is a side benefit alongside injection safety."
+        },
+        {
+          "id": "backend-development-s3-q07",
+          "stem": "In an interview, you are asked: Event-driven choreography vs orchestration? Which answer is best?",
+          "options": [
+            "Orchestration forbids compensations; choreography requires 2PC",
+            "They are banned together in microservice style guides",
+            "Choreography: services react to events; orchestration: a coordinator drives steps",
+            "Choreography always uses a single shared database transaction"
+          ],
+          "correctIndex": 2,
+          "explanation": "Both coordinate workflows; coupling and visibility differ."
+        },
+        {
+          "id": "backend-development-s3-q08",
+          "stem": "In an interview, you are asked: Connection drain during deploys interacts with what LB feature? Which answer is best?",
+          "options": [
+            "Sticky sessions based on CPU temperature only",
+            "DNS round-robin with five-day TTLs exclusively",
+            "Disabling health checks for faster rollouts",
+            "Removing instance from pool / connection draining before SIGTERM handling"
+          ],
+          "correctIndex": 3,
+          "explanation": "LB drain + graceful shutdown avoids cutting live requests."
+        },
+        {
+          "id": "backend-development-s3-q09",
+          "stem": "In an interview, you are asked: Bloom filters in backend caching/DBs — typical use? Which answer is best?",
+          "options": [
+            "Probabilistic set membership to skip expensive lookups on definite misses",
+            "Exact counting of distinct users with zero error",
+            "Encrypting passwords before bcrypt hashing",
+            "Replacing B-tree indexes for all primary keys"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bloom filters say \"definitely not present\" cheaply with false positives."
+        },
+        {
+          "id": "backend-development-s3-q10",
+          "stem": "In an interview, you are asked: Why separate compute from stateful stores in cloud backends? Which answer is best?",
+          "options": [
+            "Stateful disks cannot be networked in any cloud",
+            "Scale and fail app tiers independently from durable data services",
+            "Stateless stores are required by the CAP theorem",
+            "Compute and storage must share one failure domain always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Decoupling lets you scale web tiers without resizing databases lockstep."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,624 @@
+{
+  "slug": "rest-apis",
+  "title": "REST APIs",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "rest-apis-s1-q01",
+          "stem": "REST interview opener: what does a resource-oriented design emphasize?",
+          "options": [
+            "Nouns as resources identified by URIs; manipulate them with uniform HTTP methods",
+            "RPC procedure names encoded only in JSON-RPC envelopes",
+            "SOAP envelopes required for every public internet API",
+            "Verbs as path segments with no use of HTTP methods"
+          ],
+          "correctIndex": 0,
+          "explanation": "REST centers on resources and a uniform interface over HTTP."
+        },
+        {
+          "id": "rest-apis-s1-q02",
+          "stem": "In an interview, you are asked: Safe HTTP methods — which set is correct? Which answer is best?",
+          "options": [
+            "POST and PUT are always safe by HTTP definition",
+            "GET, HEAD, and OPTIONS should not alter server state as a side effect",
+            "DELETE is safe because it removes ambiguity",
+            "PATCH is safe and idempotent in all RFCs without exception"
+          ],
+          "correctIndex": 1,
+          "explanation": "Safe methods are read-oriented and shouldn't change resources."
+        },
+        {
+          "id": "rest-apis-s1-q03",
+          "stem": "In an interview, you are asked: Idempotent methods among the common verbs? Which answer is best?",
+          "options": [
+            "Only POST is idempotent by specification",
+            "PATCH is guaranteed idempotent in every API",
+            "GET, PUT, DELETE (and usually HEAD/OPTIONS); POST typically is not",
+            "No HTTP method is considered idempotent"
+          ],
+          "correctIndex": 2,
+          "explanation": "Idempotent ⇒ repeating the request yields the same server effect."
+        },
+        {
+          "id": "rest-apis-s1-q04",
+          "stem": "In an interview, you are asked: When is POST the right choice over PUT? Which answer is best?",
+          "options": [
+            "Replacing a known resource at a client-specified URI idempotently",
+            "Fetching a representation without side effects",
+            "Deleting a resource that must vanish on every retry",
+            "Creating a resource when the server assigns the URI/ID, or non-idempotent actions"
+          ],
+          "correctIndex": 3,
+          "explanation": "POST is for create-unknown-URI and non-idempotent processing."
+        },
+        {
+          "id": "rest-apis-s1-q05",
+          "stem": "In an interview, you are asked: PUT semantics for a resource URI? Which answer is best?",
+          "options": [
+            "Replace (or create) the target resource with the request representation",
+            "Always partially update a few fields like PATCH",
+            "Never create resources; only update existing ones",
+            "Ignore the body and only update timestamps"
+          ],
+          "correctIndex": 0,
+          "explanation": "PUT is full replacement at a known URI; repeats stay idempotent."
+        },
+        {
+          "id": "rest-apis-s1-q06",
+          "stem": "In an interview, you are asked: PATCH versus PUT — crisp distinction? Which answer is best?",
+          "options": [
+            "PATCH must always be idempotent; PUT must never be",
+            "PATCH applies a partial modification; PUT replaces the whole representation",
+            "PUT cannot create resources; PATCH always creates collections",
+            "They are identical methods with legacy alias names"
+          ],
+          "correctIndex": 1,
+          "explanation": "PATCH is partial update; PUT swaps the entire document."
+        },
+        {
+          "id": "rest-apis-s1-q07",
+          "stem": "In an interview, you are asked: HTTP 201 Created — when should you return it? Which answer is best?",
+          "options": [
+            "For every successful GET of an existing document",
+            "When validation fails on required fields",
+            "After successfully creating a resource, often with Location of the new URI",
+            "Only when a DELETE removes the last item"
+          ],
+          "correctIndex": 2,
+          "explanation": "201 signals creation; Location commonly points at the new resource."
+        },
+        {
+          "id": "rest-apis-s1-q08",
+          "stem": "In an interview, you are asked: HTTP 204 No Content typical use? Which answer is best?",
+          "options": [
+            "Client error when the Accept header is missing",
+            "Redirect to a canonical HTTPS URL",
+            "Server overload asking clients to retry later",
+            "Success with intentionally empty body, e.g. after DELETE or some PUTs"
+          ],
+          "correctIndex": 3,
+          "explanation": "204 means OK but nothing to return in the body."
+        },
+        {
+          "id": "rest-apis-s1-q09",
+          "stem": "In an interview setting, consider this question: 401 versus 403 — interview distinction?? Pick the strongest answer.",
+          "options": [
+            "401: unauthenticated/missing or bad credentials; 403: authenticated but not allowed",
+            "403 means login form required; 401 means permanently banned",
+            "They are interchangeable status codes in RFC 9110",
+            "401 is only for API keys; 403 only for cookies"
+          ],
+          "correctIndex": 0,
+          "explanation": "401 challenges auth; 403 denies an identified principal."
+        },
+        {
+          "id": "rest-apis-s1-q10",
+          "stem": "In an interview, you are asked: 404 vs 410 for missing resources? Which answer is best?",
+          "options": [
+            "410 means try again; 404 means delete your client cache",
+            "404: not found (maybe temporary); 410: gone permanently and won't return",
+            "Both require a WWW-Authenticate header always",
+            "404 is only for collections; 410 only for items"
+          ],
+          "correctIndex": 1,
+          "explanation": "410 is a stronger permanent removal signal than 404."
+        },
+        {
+          "id": "rest-apis-s1-q11",
+          "stem": "In an interview, you are asked: 409 Conflict — classic REST scenario? Which answer is best?",
+          "options": [
+            "The request used an unsupported media type exclusively",
+            "The client must authenticate before any further calls",
+            "Update collides with current state (version conflict) or business rule clash",
+            "The server is down for scheduled maintenance"
+          ],
+          "correctIndex": 2,
+          "explanation": "409 signals the request conflicts with the resource's current state."
+        },
+        {
+          "id": "rest-apis-s1-q12",
+          "stem": "In an interview, you are asked: 429 Too Many Requests — meaning? Which answer is best?",
+          "options": [
+            "The JSON body failed schema validation",
+            "The resource moved to a new permanent URI",
+            "The gateway could not find an upstream",
+            "Client hit a rate limit; often includes Retry-After guidance"
+          ],
+          "correctIndex": 3,
+          "explanation": "429 tells clients to slow down; respect Retry-After when present."
+        },
+        {
+          "id": "rest-apis-s1-q13",
+          "stem": "In an interview, you are asked: Accept header role in content negotiation? Which answer is best?",
+          "options": [
+            "Client declares preferred response media types; server may choose or 406",
+            "Server tells the client which body format it will ignore",
+            "It replaces Authorization for bearer tokens",
+            "It forces the server to always return application/xml"
+          ],
+          "correctIndex": 0,
+          "explanation": "Accept drives which representation the client can handle."
+        },
+        {
+          "id": "rest-apis-s1-q14",
+          "stem": "In an interview, you are asked: Content-Type on requests means? Which answer is best?",
+          "options": [
+            "Lists every status code the client understands",
+            "Describes the media type of the request body the client is sending",
+            "Selects which database shard should handle the write",
+            "Disables caching for intermediary proxies always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Content-Type labels the entity body format on the wire."
+        },
+        {
+          "id": "rest-apis-s1-q15",
+          "stem": "In an interview, you are asked: HATEOAS — what would you say it adds? Which answer is best?",
+          "options": [
+            "All APIs must abandon JSON for HTML forms only",
+            "Clients hard-code every URI template forever",
+            "Responses include hypermedia links guiding available next actions",
+            "Servers may never change link relations over time"
+          ],
+          "correctIndex": 2,
+          "explanation": "Hypermedia affords discoverable workflows beyond out-of-band docs."
+        },
+        {
+          "id": "rest-apis-s1-q16",
+          "stem": "In an interview setting, consider this question: URI design smell in REST interviews?? Pick the strongest answer.",
+          "options": [
+            "Using plural nouns for collections such as /orders",
+            "Nesting lightly like /users/42/orders for ownership",
+            "Stable resource identifiers that outlive representation changes",
+            "Encoding actions as verbs in paths like /users/123/activateDeleteAll"
+          ],
+          "correctIndex": 3,
+          "explanation": "Prefer resources + methods over RPC-ish verb paths."
+        },
+        {
+          "id": "rest-apis-s1-q17",
+          "stem": "In an interview, you are asked: Collection filtering via query string — good practice? Which answer is best?",
+          "options": [
+            "Use query params for filters/sort/pagination while keeping collection URI stable",
+            "Create a new path segment for every filter combination permanently",
+            "Put filters only in custom headers that caches ignore",
+            "Require POST with empty path for all list operations"
+          ],
+          "correctIndex": 0,
+          "explanation": "Query strings keep the resource identity clear while varying views."
+        },
+        {
+          "id": "rest-apis-s1-q18",
+          "stem": "In an interview, you are asked: ETag / If-None-Match enable what? Which answer is best?",
+          "options": [
+            "Mandatory encryption of all JSON payloads",
+            "Conditional GET caching and optimistic concurrency on updates",
+            "Automatic API versioning via header alone",
+            "Disabling intermediary caches by specification"
+          ],
+          "correctIndex": 1,
+          "explanation": "Validators let clients and caches avoid transferring unchanged bodies."
+        },
+        {
+          "id": "rest-apis-s1-q19",
+          "stem": "In an interview, you are asked: Cache-Control: private vs public? Which answer is best?",
+          "options": [
+            "Public forbids all caching; private forces CDN storage",
+            "They only apply to WebSocket upgrade responses",
+            "Private: browser-only; public: shared caches/CDNs may store the response",
+            "Private means the payload is encrypted at rest"
+          ],
+          "correctIndex": 2,
+          "explanation": "Visibility directives control whether shared caches may reuse responses."
+        },
+        {
+          "id": "rest-apis-s1-q20",
+          "stem": "In an interview, you are asked: Why prefer /v1 in URI or header for API versioning debates? Which answer is best?",
+          "options": [
+            "Versioning is unnecessary if you never add fields",
+            "Only SOAP requires versions; REST forbids them",
+            "Changing field types never counts as a breaking change",
+            "Explicit versions manage breaking changes; headers vs paths are trade-offs"
+          ],
+          "correctIndex": 3,
+          "explanation": "Version strategy matters; communicate breaking changes deliberately."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "rest-apis-s2-q01",
+          "stem": "In an interview, you are asked: REST vs RPC — fair contrast? Which answer is best?",
+          "options": [
+            "REST manipulates resources with uniform methods; RPC invokes named procedures",
+            "RPC cannot use HTTP as a transport ever",
+            "REST requires XML and RPC requires JSON exclusively",
+            "They always produce identical client coupling"
+          ],
+          "correctIndex": 0,
+          "explanation": "Different styles: resource state transfer vs procedure calls."
+        },
+        {
+          "id": "rest-apis-s2-q02",
+          "stem": "In an interview, you are asked: Idempotency-Key header — why do payment APIs use it? Which answer is best?",
+          "options": [
+            "It encrypts card numbers before they leave the browser",
+            "Clients supply a key so retries of POST create/charge only once",
+            "It replaces TLS for PCI-compliant transports",
+            "Servers ignore it unless the method is GET"
+          ],
+          "correctIndex": 1,
+          "explanation": "Idempotency keys make unsafe methods safely retryable."
+        },
+        {
+          "id": "rest-apis-s2-q03",
+          "stem": "In an interview, you are asked: Cursor/keyset pagination response shape often includes? Which answer is best?",
+          "options": [
+            "Only a total count with no way to fetch page two",
+            "Negative offsets to walk backward through SQL",
+            "A next_cursor or next link opaque to clients for the following page",
+            "A full table dump base64-encoded in one field"
+          ],
+          "correctIndex": 2,
+          "explanation": "Opaque cursors avoid leaking storage details and scale better."
+        },
+        {
+          "id": "rest-apis-s2-q04",
+          "stem": "In an interview, you are asked: Link header or _links in body — purpose? Which answer is best?",
+          "options": [
+            "Replace status codes with English prose only",
+            "Force clients to use SOAP envelopes next",
+            "Disable CORS preflight for credentialed calls",
+            "Advertise related resources and pagination without out-of-band knowledge"
+          ],
+          "correctIndex": 3,
+          "explanation": "Links are the hypermedia affordance for navigation."
+        },
+        {
+          "id": "rest-apis-s2-q05",
+          "stem": "In an interview, you are asked: What should a good error body include? Which answer is best?",
+          "options": [
+            "Machine-readable code, human message, and optional field-level details",
+            "Only a stack trace with production secrets",
+            "An empty body for every 4xx and 5xx",
+            "HTML login pages for API clients always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Structured errors help clients branch and display useful feedback."
+        },
+        {
+          "id": "rest-apis-s2-q06",
+          "stem": "In an interview, you are asked: Problem Details (RFC 7807) media type? Which answer is best?",
+          "options": [
+            "text/csv for tabular validation failures only",
+            "application/problem+json for standardized HTTP API error payloads",
+            "multipart/form-data for every error response",
+            "application/octet-stream carrying Java stack dumps"
+          ],
+          "correctIndex": 1,
+          "explanation": "problem+json is the common standard for API error documents."
+        },
+        {
+          "id": "rest-apis-s2-q07",
+          "stem": "In an interview, you are asked: CORS preflight (OPTIONS) happens when? Which answer is best?",
+          "options": [
+            "Every same-origin GET triggers a mandatory preflight",
+            "Preflight replaces the need for Access-Control-Allow-Origin",
+            "Browser sends OPTIONS for non-simple cross-origin requests before the real call",
+            "Mobile native apps always issue CORS preflights"
+          ],
+          "correctIndex": 2,
+          "explanation": "Preflight checks whether the actual cross-origin request is allowed."
+        },
+        {
+          "id": "rest-apis-s2-q08",
+          "stem": "In an interview, you are asked: Same-origin policy impacts REST clients how? Which answer is best?",
+          "options": [
+            "curl and server-side clients are blocked by SOP identically",
+            "SOP encrypts cookies automatically for all sites",
+            "It forbids JSON as a response media type",
+            "Browser JS can only call other origins if CORS headers permit it"
+          ],
+          "correctIndex": 3,
+          "explanation": "SOP is a browser rule; CORS is the opt-in escape hatch."
+        },
+        {
+          "id": "rest-apis-s2-q09",
+          "stem": "In an interview, you are asked: Bearer token in Authorization header form? Which answer is best?",
+          "options": [
+            "Authorization: Bearer <token> for OAuth/JWT style API auth",
+            "Authorization: Basic with the raw JWT as password only",
+            "A custom Cookie forced without HttpOnly for SPAs",
+            "Query string ?access_token= for all confidential clients"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bearer scheme is the standard header form for access tokens."
+        },
+        {
+          "id": "rest-apis-s2-q10",
+          "stem": "In an interview, you are asked: Why avoid tokens in query strings? Which answer is best?",
+          "options": [
+            "Query strings cannot be HTTPS encrypted ever",
+            "They leak via logs, Referer headers, and browser history",
+            "Servers cannot read query parameters in HTTP/1.1",
+            "OAuth specs forbid refresh tokens in POST bodies"
+          ],
+          "correctIndex": 1,
+          "explanation": "Secrets in URLs are sticky in many incidental channels."
+        },
+        {
+          "id": "rest-apis-s2-q11",
+          "stem": "In an interview, you are asked: POST for complex search — when is it defended? Which answer is best?",
+          "options": [
+            "GET is forbidden for any read that returns JSON",
+            "POST is always cached better than GET by CDNs",
+            "Huge/complex filters exceed URL limits or shouldn't be logged in query strings",
+            "Search must never be safe or idempotent conceptually"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pragmatic POST-search exists; document caching/semantics carefully."
+        },
+        {
+          "id": "rest-apis-s2-q12",
+          "stem": "In an interview, you are asked: 307 vs 302 redirect nuance often cited? Which answer is best?",
+          "options": [
+            "302 always preserves POST bodies per modern clients",
+            "307 means permanently moved like 301",
+            "Neither redirect type may include a Location header",
+            "307 preserves method/body; older 302 clients may rewrite to GET"
+          ],
+          "correctIndex": 3,
+          "explanation": "307 is the method-preserving temporary redirect."
+        },
+        {
+          "id": "rest-apis-s2-q13",
+          "stem": "In an interview, you are asked: 301 vs 308 for permanent redirects? Which answer is best?",
+          "options": [
+            "301 may change method historically; 308 keeps method/body on permanent move",
+            "308 is temporary; 301 is method-preserving always",
+            "Both forbid Location headers by specification",
+            "301 only applies to WebSocket endpoints"
+          ],
+          "correctIndex": 0,
+          "explanation": "308 is permanent + method-preserving; prefer it when that matters."
+        },
+        {
+          "id": "rest-apis-s2-q14",
+          "stem": "In an interview, you are asked: What does OPTIONS commonly advertise? Which answer is best?",
+          "options": [
+            "The full database schema for the collection",
+            "Allowed methods and CORS-related headers for a target resource",
+            "OAuth refresh tokens in the response body",
+            "A mandatory JSON Schema for every query param"
+          ],
+          "correctIndex": 1,
+          "explanation": "OPTIONS is discovery for methods and CORS policy."
+        },
+        {
+          "id": "rest-apis-s2-q15",
+          "stem": "In an interview, you are asked: Bulk operations in REST — common patterns? Which answer is best?",
+          "options": [
+            "One TCP connection per field update exclusively",
+            "Only WebSockets can express multi-resource changes",
+            "Batch endpoints, multipart, or async job resources returning 202",
+            "PUT to / with no body updates every row"
+          ],
+          "correctIndex": 2,
+          "explanation": "Batches and jobs keep HTTP semantics workable for bulk work."
+        },
+        {
+          "id": "rest-apis-s2-q16",
+          "stem": "In an interview, you are asked: 202 Accepted signals what? Which answer is best?",
+          "options": [
+            "Resource created and immediately available at Location",
+            "Validation failed on the JSON body",
+            "Client must switch protocols like WebSocket",
+            "Request accepted for async processing; completion happens later"
+          ],
+          "correctIndex": 3,
+          "explanation": "202 acknowledges async work without implying final success."
+        },
+        {
+          "id": "rest-apis-s2-q17",
+          "stem": "In an interview, you are asked: Representation vs resource — precise wording? Which answer is best?",
+          "options": [
+            "A resource is the conceptual entity; representations are formats returned/sent",
+            "They are exact synonyms in Fielding's dissertation",
+            "Representations exist only for XML, not JSON",
+            "Resources cannot have multiple representations"
+          ],
+          "correctIndex": 0,
+          "explanation": "One resource may offer JSON, XML, etc., as representations."
+        },
+        {
+          "id": "rest-apis-s2-q18",
+          "stem": "In an interview, you are asked: Level 3 Richardson Maturity — what's added? Which answer is best?",
+          "options": [
+            "Only POX over HTTP without proper status codes",
+            "Hypermedia controls (HATEOAS) beyond resources and HTTP verbs",
+            "Single URI tunnel for all operations like XML-RPC",
+            "Abandoning media types entirely"
+          ],
+          "correctIndex": 1,
+          "explanation": "RMM level 3 is hypermedia-driven affordances."
+        },
+        {
+          "id": "rest-apis-s2-q19",
+          "stem": "In an interview, you are asked: Optimistic concurrency with If-Match? Which answer is best?",
+          "options": [
+            "Server ignores validators and last-writes-wins always",
+            "If-Match is only valid on GET responses",
+            "Client sends ETag; server applies update only if current tag matches",
+            "ETags cannot be used for write protection"
+          ],
+          "correctIndex": 2,
+          "explanation": "If-Match implements conditional updates from validators."
+        },
+        {
+          "id": "rest-apis-s2-q20",
+          "stem": "In an interview, you are asked: Why map domain errors to proper 4xx/5xx instead of 200+error flag? Which answer is best?",
+          "options": [
+            "HTTP forbids bodies on any non-200 response",
+            "Browsers cannot display JSON unless status is 200",
+            "Load balancers only retry on HTTP 200",
+            "Status codes drive caches, clients, and intermediaries; fake-200 breaks tooling"
+          ],
+          "correctIndex": 3,
+          "explanation": "Honoring status codes keeps the uniform interface useful."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "rest-apis-s3-q01",
+          "stem": "In an interview, you are asked: REST API security checklist item you'd prioritize? Which answer is best?",
+          "options": [
+            "HTTPS everywhere, authn/z, input validation, and least-privilege data access",
+            "Disable TLS to simplify certificate rotation",
+            "Trust all Origin headers without allowlists",
+            "Return stack traces with SQL in production errors"
+          ],
+          "correctIndex": 0,
+          "explanation": "Transport security plus authz and validation are table stakes."
+        },
+        {
+          "id": "rest-apis-s3-q02",
+          "stem": "In an interview, you are asked: Rate-limit headers often include? Which answer is best?",
+          "options": [
+            "Only Set-Cookie values for quota tracking",
+            "X-RateLimit-Limit/Remaining/Reset or RateLimit-* style fields",
+            "WWW-Authenticate for every successful 200",
+            "Content-Range for non-partial JSON lists"
+          ],
+          "correctIndex": 1,
+          "explanation": "Clients need visibility into quota consumption and reset time."
+        },
+        {
+          "id": "rest-apis-s3-q03",
+          "stem": "In an interview, you are asked: Webhooks as REST-ish callbacks — design tip? Which answer is best?",
+          "options": [
+            "Require the provider to poll your DB credentials",
+            "Accept unsigned payloads from any IP blindly",
+            "Sign payloads, verify quickly, and respond 2xx then process async if heavy",
+            "Block all retries so missed events stay lost"
+          ],
+          "correctIndex": 2,
+          "explanation": "Verify authenticity and ack fast; do heavy work out of band."
+        },
+        {
+          "id": "rest-apis-s3-q04",
+          "stem": "GraphQL vs REST — balanced interview line?",
+          "options": [
+            "REST cannot version; GraphQL cannot authenticate",
+            "GraphQL replaces HTTP status codes entirely",
+            "They are identical wire protocols with different logos",
+            "GraphQL flexible queries/one endpoint; REST cacheable resource URIs and uniform methods"
+          ],
+          "correctIndex": 3,
+          "explanation": "Different trade-offs around flexibility, caching, and tooling."
+        },
+        {
+          "id": "rest-apis-s3-q05",
+          "stem": "In an interview, you are asked: gRPC compared to JSON REST — key differences? Which answer is best?",
+          "options": [
+            "HTTP/2 + protobuf, stricter contracts, streaming; less human-debuggable than JSON",
+            "gRPC forbids TLS and only runs on HTTP/1.0",
+            "JSON REST cannot express errors or deadlines",
+            "Protobuf messages cannot version fields safely"
+          ],
+          "correctIndex": 0,
+          "explanation": "gRPC optimizes service-to-service contracts; REST/JSON favors ubiquity."
+        },
+        {
+          "id": "rest-apis-s3-q06",
+          "stem": "In an interview, you are asked: What makes a REST API cacheable effectively? Which answer is best?",
+          "options": [
+            "POST everything so intermediaries never store responses",
+            "GET with explicit Cache-Control/ETag/Vary and stable URIs for representations",
+            "Random query strings on every identical read",
+            "Omit validators so clients re-download always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Cacheability is a REST constraint leveraged via HTTP caching."
+        },
+        {
+          "id": "rest-apis-s3-q07",
+          "stem": "In an interview, you are asked: Partial failure in multi-resource POST batch — options? Which answer is best?",
+          "options": [
+            "Always return 200 with no indication which items failed",
+            "Fail silently and leave clients to re-GET everything",
+            "Document atomic vs best-effort; use 207 Multi-Status or per-item results",
+            "Use 101 Switching Protocols for each failed item"
+          ],
+          "correctIndex": 2,
+          "explanation": "Be explicit about atomicity and per-item outcomes."
+        },
+        {
+          "id": "rest-apis-s3-q08",
+          "stem": "In an interview, you are asked: Why prefer link relations over hard-coded path building? Which answer is best?",
+          "options": [
+            "Hard-coded paths never break across API versions",
+            "Link relations disable content negotiation completely",
+            "Servers must not advertise URIs in responses",
+            "Clients follow server-provided links, surviving URI redesigns better"
+          ],
+          "correctIndex": 3,
+          "explanation": "Hypermedia reduces brittle client assumptions about URI structure."
+        },
+        {
+          "id": "rest-apis-s3-q09",
+          "stem": "In an interview, you are asked: TRACE method — why often disabled? Which answer is best?",
+          "options": [
+            "Can be abused in XST attacks and rarely needed for public APIs",
+            "It is required for all CORS preflight success",
+            "RFC mandates TRACE on every production origin",
+            "TRACE encrypts request bodies end-to-end"
+          ],
+          "correctIndex": 0,
+          "explanation": "TRACE echoes requests and is a security footgun — usually off."
+        },
+        {
+          "id": "rest-apis-s3-q10",
+          "stem": "In an interview, you are asked: OpenAPI/Swagger value for REST teams? Which answer is best?",
+          "options": [
+            "A replacement for HTTP that avoids status codes",
+            "Machine-readable contract for docs, codegen, mocks, and validation",
+            "A database migration tool for sharded Postgres",
+            "An authentication protocol superseding OAuth"
+          ],
+          "correctIndex": 1,
+          "explanation": "OpenAPI is the de facto interface description for HTTP APIs."
+        }
+      ]
+    }
+  ]
+}

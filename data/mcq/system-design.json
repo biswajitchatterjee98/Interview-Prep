@@ -1,0 +1,624 @@
+{
+  "slug": "system-design",
+  "title": "System Design",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "system-design-s1-q01",
+          "stem": "In a system design interview, what is the first clarifying move after hearing 'design Twitter'?",
+          "options": [
+            "Propose microservices and Kubernetes before requirements",
+            "Ask about scale, features in scope, read/write ratio, and latency SLOs",
+            "Refuse until CAP theorem is recited from memory",
+            "Immediately draw a sharded Cassandra cluster with Kafka"
+          ],
+          "correctIndex": 1,
+          "explanation": "Clarify scope and non-functionals first so the design matches real constraints."
+        },
+        {
+          "id": "system-design-s1-q02",
+          "stem": "Which capacity estimate is most useful early when sizing a feed service?",
+          "options": [
+            "Number of microservices before any traffic estimate",
+            "Rough QPS, payload size, storage growth, and peak vs average load",
+            "Exact JVM GC pause times for every pod",
+            "Brand colors for the mobile app"
+          ],
+          "correctIndex": 1,
+          "explanation": "Back-of-envelope QPS/storage/growth drives caching, sharding, and cost choices."
+        },
+        {
+          "id": "system-design-s1-q03",
+          "stem": "Horizontal vs vertical scaling — interview-ready distinction?",
+          "options": [
+            "Vertical always beats horizontal for worldwide latency",
+            "They are identical once you use Docker",
+            "Horizontal only applies to databases; vertical only to CDNs",
+            "Horizontal adds more machines; vertical grows CPU/RAM on one box"
+          ],
+          "correctIndex": 3,
+          "explanation": "Scale-out adds nodes; scale-up upsizes a single node — different failure and cost trade-offs."
+        },
+        {
+          "id": "system-design-s1-q04",
+          "stem": "In an interview, you are asked: Why put a CDN in front of mostly static asset traffic? Which answer is best?",
+          "options": [
+            "Edge caches cut origin load and improve latency for cacheable content",
+            "CDNs encrypt passwords better than bcrypt",
+            "CDNs replace databases for all transactional writes",
+            "CDNs force strong consistency on every API call"
+          ],
+          "correctIndex": 0,
+          "explanation": "CDN edge caches static/cacheable content near users and shields origin."
+        },
+        {
+          "id": "system-design-s1-q05",
+          "stem": "In an interview, you are asked: Load balancer Layer 4 vs Layer 7 — crisp difference? Which answer is best?",
+          "options": [
+            "L7 only does UDP; L4 only does GraphQL",
+            "L4 terminates TLS and rewrites HTML; L7 cannot",
+            "They differ only by cloud vendor logo",
+            "L4 routes on IP/port/TCP; L7 can route on HTTP path/host/headers"
+          ],
+          "correctIndex": 3,
+          "explanation": "L4 is transport-level; L7 understands application protocol for smarter routing."
+        },
+        {
+          "id": "system-design-s1-q06",
+          "stem": "In an interview, you are asked: When is a reverse proxy especially valuable in a web tier design? Which answer is best?",
+          "options": [
+            "Never — clients should always hit app servers directly",
+            "Only for batch MapReduce jobs",
+            "For TLS termination, buffering, compression, and routing before app servers",
+            "Only when you have no TLS or no logging needs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Reverse proxies centralize TLS, routing, and request handling in front of apps."
+        },
+        {
+          "id": "system-design-s1-q07",
+          "stem": "Stateless app servers — why do interviewers prefer them for web tiers?",
+          "options": [
+            "They eliminate the need for databases entirely",
+            "Any instance can serve any request, enabling easy horizontal scale and failover",
+            "They store all user sessions only in process memory forever",
+            "They force sticky sessions for every request"
+          ],
+          "correctIndex": 1,
+          "explanation": "Statelessness lets the LB spray traffic freely and replace instances safely."
+        },
+        {
+          "id": "system-design-s1-q08",
+          "stem": "In an interview, you are asked: Sticky sessions — what trade-off should you call out? Which answer is best?",
+          "options": [
+            "They are required for every REST API by HTTP standard",
+            "They replace the need for auth tokens",
+            "They simplify failover and never pin users to one instance",
+            "They improve cache locality for a user but hurt failover and balanced scale-out"
+          ],
+          "correctIndex": 3,
+          "explanation": "Affinity helps local state/cache but couples users to instances and complicates HA."
+        },
+        {
+          "id": "system-design-s1-q09",
+          "stem": "In an interview, you are asked: Cache-aside vs write-through — which statement is accurate? Which answer is best?",
+          "options": [
+            "Cache-aside: app reads cache then DB on miss; write-through updates cache on writes via cache layer",
+            "Cache-aside only works for writes, never reads",
+            "Write-through never writes to the database",
+            "Both forbid TTLs and invalidation"
+          ],
+          "correctIndex": 0,
+          "explanation": "Cache-aside is app-managed fill; write-through keeps cache updated on write path."
+        },
+        {
+          "id": "system-design-s1-q10",
+          "stem": "When would you choose Redis as a session/cache store over only DB sessions?",
+          "options": [
+            "When you must never lose data even without persistence or replication",
+            "When Redis replaces DNS entirely",
+            "When you need lower latency and shared sessions across many app instances",
+            "When you want permanent ACID transactional storage for all ledger entries"
+          ],
+          "correctIndex": 2,
+          "explanation": "Redis shines for fast shared ephemeral state; durability needs careful config."
+        },
+        {
+          "id": "system-design-s1-q11",
+          "stem": "In an interview, you are asked: Cache stampede / thundering herd — best mitigation to mention? Which answer is best?",
+          "options": [
+            "Never cache anything ever again",
+            "Singleflight/locking, soft TTLs, probabilistic early refresh, or request coalescing",
+            "Use only sticky sessions with no TTLs",
+            "Delete all caches every millisecond"
+          ],
+          "correctIndex": 1,
+          "explanation": "Coalesce refreshes and staggered/soft expiry prevent simultaneous mass rebuilds."
+        },
+        {
+          "id": "system-design-s1-q12",
+          "stem": "In an interview, you are asked: Consistent hashing — why use it for a cache or shard ring? Which answer is best?",
+          "options": [
+            "It sorts results alphabetically for SQL",
+            "It guarantees strong consistency across regions automatically",
+            "It minimizes key remapping when the ring membership changes",
+            "It maximizes remapping when nodes join/leave compared to modulo hashing"
+          ],
+          "correctIndex": 2,
+          "explanation": "Consistent hashing relocates few keys on membership change vs naïve modulo."
+        },
+        {
+          "id": "system-design-s1-q13",
+          "stem": "In an interview, you are asked: Database sharding — primary reason to introduce it? Which answer is best?",
+          "options": [
+            "Because ORMs require sharding by law",
+            "To avoid indexes entirely",
+            "To make SQL joins always faster across all shards",
+            "When a single DB's storage/CPU/write throughput cannot meet growth"
+          ],
+          "correctIndex": 3,
+          "explanation": "Shard when one primary cannot hold data or absorb write/read load."
+        },
+        {
+          "id": "system-design-s1-q14",
+          "stem": "Hot key / hotspot shard — interview mitigation?",
+          "options": [
+            "Ban all secondary indexes",
+            "Salting/key splitting, dedicated cache, read replicas, or redesign the key",
+            "Only use vertical scaling forever",
+            "Ignore it; hashing always perfectly balances skew"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hotspots need key redesign, caching, or special handling beyond plain sharding."
+        },
+        {
+          "id": "system-design-s1-q15",
+          "stem": "In an interview, you are asked: Leader-follower replication — classic read scaling benefit? Which answer is best?",
+          "options": [
+            "Writes go to followers only; leader is read-only",
+            "Reads can fan out to replicas while writes hit the primary",
+            "It provides multi-master conflict-free writes by default",
+            "It eliminates replication lag completely"
+          ],
+          "correctIndex": 1,
+          "explanation": "Replicas absorb read traffic; primary owns writes (with lag caveats)."
+        },
+        {
+          "id": "system-design-s1-q16",
+          "stem": "In an interview, you are asked: Replication lag — what product risk should you flag? Which answer is best?",
+          "options": [
+            "Automatic schema migrations without DBA involvement",
+            "Stale reads shortly after writes if reading a lagging replica",
+            "Impossibility of backups",
+            "Guaranteed loss of all committed writes on the primary"
+          ],
+          "correctIndex": 1,
+          "explanation": "Async replicas may serve stale data after a recent write."
+        },
+        {
+          "id": "system-design-s1-q17",
+          "stem": "In an interview, you are asked: SQL vs NoSQL — when is a relational DB often the better default? Which answer is best?",
+          "options": [
+            "Only when data is completely unstructured blobs",
+            "Only for caching CDN edges",
+            "Never, because NoSQL always scales better for every workload",
+            "When you need flexible joins, strong transactions, and evolving ad-hoc queries"
+          ],
+          "correctIndex": 3,
+          "explanation": "Relational DBs excel at structured data, ACID, and complex queries."
+        },
+        {
+          "id": "system-design-s1-q18",
+          "stem": "In an interview, you are asked: When might a document store be a better fit than rigid SQL schemas? Which answer is best?",
+          "options": [
+            "When you require multi-row serializable joins across arbitrary relations",
+            "When you must run only stored procedures forever",
+            "When you need flexible nested documents and evolving schemas with simple access patterns",
+            "When the only need is POSIX file locking"
+          ],
+          "correctIndex": 2,
+          "explanation": "Document DBs fit flexible documents and known access paths; joins/transactions vary by product."
+        },
+        {
+          "id": "system-design-s1-q19",
+          "stem": "In an interview, you are asked: Message queue vs direct sync RPC — when prefer the queue? Which answer is best?",
+          "options": [
+            "When TCP is unavailable",
+            "When CAP does not apply to distributed systems",
+            "When you need the absolute lowest latency synchronous reply always",
+            "When producers and consumers need decoupling, buffering, and async retry"
+          ],
+          "correctIndex": 3,
+          "explanation": "Queues absorb spikes and decouple services for async work."
+        },
+        {
+          "id": "system-design-s1-q20",
+          "stem": "Idempotency keys on payment APIs — why do interviewers love this topic?",
+          "options": [
+            "They make retries safe so duplicate requests do not double-charge",
+            "They compress JSON payloads by 90%",
+            "They replace TLS for payment traffic",
+            "They force eventual consistency off by default"
+          ],
+          "correctIndex": 0,
+          "explanation": "Clients retry; idempotency prevents duplicate side effects."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "system-design-s2-q01",
+          "stem": "In an interview, you are asked: Designing a URL shortener — what is a core storage key design? Which answer is best?",
+          "options": [
+            "Store only the long URL with no short code mapping",
+            "Use DNS TXT records as the only datastore",
+            "Hash passwords into short codes for security",
+            "Map short code → long URL (and often reverse metadata) with unique code generation"
+          ],
+          "correctIndex": 3,
+          "explanation": "Shorteners need unique short keys mapping to original URLs plus analytics/metadata."
+        },
+        {
+          "id": "system-design-s2-q02",
+          "stem": "Base62 short codes — main benefit cited in interviews?",
+          "options": [
+            "They are URL-safe compact encodings of numeric IDs",
+            "They enforce ACID across regions",
+            "They replace HTTPS",
+            "They guarantee cryptographic unguessability without rate limits"
+          ],
+          "correctIndex": 0,
+          "explanation": "Base62 packs IDs into short URL-safe strings; security still needs other controls."
+        },
+        {
+          "id": "system-design-s2-q03",
+          "stem": "In an interview, you are asked: News feed fan-out on write vs on read — trade-off summary? Which answer is best?",
+          "options": [
+            "Fan-out on write is always cheaper for celebrities with millions of followers",
+            "They are identical at all scales",
+            "Fan-out on read never needs caching",
+            "Fan-out on write precomputes timelines (fast read, heavy write); on read computes at fetch time"
+          ],
+          "correctIndex": 3,
+          "explanation": "Push vs pull fan-out trades write amplification for read latency (hybrid common)."
+        },
+        {
+          "id": "system-design-s2-q04",
+          "stem": "In an interview, you are asked: Rate limiting algorithms — token bucket vs fixed window? Which answer is best?",
+          "options": [
+            "Token bucket cannot refill over time",
+            "Neither can be implemented with Redis",
+            "Token bucket allows bursts up to bucket size; fixed window counts per interval with edge bursts",
+            "Fixed window never has boundary burst issues"
+          ],
+          "correctIndex": 2,
+          "explanation": "Token bucket smooths with burst allowance; fixed windows are simple but edge-bursty."
+        },
+        {
+          "id": "system-design-s2-q05",
+          "stem": "In an interview, you are asked: Where should API rate limits usually be enforced? Which answer is best?",
+          "options": [
+            "Only on the client with no server checks",
+            "Only inside the database trigger layer",
+            "At the edge/gateway or a shared limiter before expensive work",
+            "Never for public APIs"
+          ],
+          "correctIndex": 2,
+          "explanation": "Server-side edge/gateway limits protect backends; clients are not trusted."
+        },
+        {
+          "id": "system-design-s2-q06",
+          "stem": "Designing a chat system — why separate online presence from message storage?",
+          "options": [
+            "Presence must be strongly consistent across continents always",
+            "WebSockets cannot carry chat text",
+            "Presence is high-churn ephemeral state; messages need durable ordered storage",
+            "Messages should live only in browser memory"
+          ],
+          "correctIndex": 2,
+          "explanation": "Presence is ephemeral; chat history needs durable, often partitioned, storage."
+        },
+        {
+          "id": "system-design-s2-q07",
+          "stem": "WebSocket vs long polling for realtime chat — fair interview take?",
+          "options": [
+            "Neither needs auth or heartbeats",
+            "WebSockets work only over UDP",
+            "Long polling is always lower latency than WebSockets",
+            "WebSockets give persistent bidirectional channels; long polling is simpler fallback with higher overhead"
+          ],
+          "correctIndex": 3,
+          "explanation": "WS is efficient bidirectional; long polling is a compatible but chatty alternative."
+        },
+        {
+          "id": "system-design-s2-q08",
+          "stem": "In an interview, you are asked: Object storage for photos vs DB BLOBs — typical recommendation? Which answer is best?",
+          "options": [
+            "Always put multi-GB videos as SQL rows for joins",
+            "Object storage cannot use HTTPS",
+            "Store large binaries in object storage; keep metadata/URLs in the DB",
+            "Never use CDN for images"
+          ],
+          "correctIndex": 2,
+          "explanation": "Blob stores + metadata DB + CDN is the standard media pattern."
+        },
+        {
+          "id": "system-design-s2-q09",
+          "stem": "In an interview, you are asked: Designing a notification system — why use a queue/worker pool? Which answer is best?",
+          "options": [
+            "To avoid logging delivery status",
+            "To make every notification a synchronous DB lock on the user row",
+            "To absorb spikes and retry delivery across email/push/SMS channels asynchronously",
+            "Because HTTP cannot send JSON"
+          ],
+          "correctIndex": 2,
+          "explanation": "Async workers handle channel fan-out, retries, and backpressure."
+        },
+        {
+          "id": "system-design-s2-q10",
+          "stem": "Exactly-once delivery across distributed systems — honest interview stance?",
+          "options": [
+            "End-to-end exactly-once is hard; prefer at-least-once + idempotent consumers",
+            "TCP guarantees exactly-once application semantics always",
+            "Kafka alone makes every business action exactly-once without design",
+            "Exactly-once is free if you use JSON"
+          ],
+          "correctIndex": 0,
+          "explanation": "True exactly-once is rare; design for at-least-once plus idempotency."
+        },
+        {
+          "id": "system-design-s2-q11",
+          "stem": "CAP theorem — practical interview phrasing?",
+          "options": [
+            "CAP only applies to single-node SQLite",
+            "Under partition, a system must trade off between consistency and availability goals",
+            "P means 'performance' not partition tolerance",
+            "You can always have perfect C, A, and P simultaneously in async networks"
+          ],
+          "correctIndex": 1,
+          "explanation": "Partitions force consistency vs availability choices in distributed data systems."
+        },
+        {
+          "id": "system-design-s2-q12",
+          "stem": "In an interview, you are asked: Strong vs eventual consistency — product example framing? Which answer is best?",
+          "options": [
+            "Bank ledger transfers often want strong consistency; social like counts can be eventual",
+            "They differ only by UI font",
+            "Strong consistency means no replication ever",
+            "Eventual consistency is always illegal in finance and social apps"
+          ],
+          "correctIndex": 0,
+          "explanation": "Pick consistency by correctness needs; not every feature needs linearizability."
+        },
+        {
+          "id": "system-design-s2-q13",
+          "stem": "In an interview, you are asked: Quorum reads/writes (N/R/W) — what do they buy you? Which answer is best?",
+          "options": [
+            "Tunable consistency by overlapping read/write majorities across replicas",
+            "Elimination of all network partitions",
+            "Automatic GDPR compliance",
+            "Free global low latency with W=1 R=1 always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Quorums trade latency for stronger consistency across replica sets."
+        },
+        {
+          "id": "system-design-s2-q14",
+          "stem": "In an interview, you are asked: Secondary indexes in a sharded DB — key challenge? Which answer is best?",
+          "options": [
+            "Indexes make sharding unnecessary",
+            "They only work on CSV files",
+            "Global secondary indexes need their own partitioning/consistency strategy",
+            "Secondary indexes forbid primary keys"
+          ],
+          "correctIndex": 2,
+          "explanation": "Non-primary access paths complicate sharding and consistency."
+        },
+        {
+          "id": "system-design-s2-q15",
+          "stem": "In an interview, you are asked: CQRS — when is it worth mentioning? Which answer is best?",
+          "options": [
+            "Whenever you have a single CRUD table with light traffic",
+            "As a replacement for authentication",
+            "When read and write models diverge enough that one schema/path hurts both",
+            "Only for CSS styling"
+          ],
+          "correctIndex": 2,
+          "explanation": "CQRS separates write commands from optimized read models when needed."
+        },
+        {
+          "id": "system-design-s2-q16",
+          "stem": "In an interview, you are asked: Event sourcing — core idea? Which answer is best?",
+          "options": [
+            "Delete all logs nightly for privacy",
+            "Store only the latest row and never history",
+            "Replace HTTP with SMTP",
+            "Persist state as an append-only sequence of domain events, derive views"
+          ],
+          "correctIndex": 3,
+          "explanation": "Event logs are the source of truth; projections rebuild current state."
+        },
+        {
+          "id": "system-design-s2-q17",
+          "stem": "In an interview, you are asked: API gateway responsibilities commonly listed? Which answer is best?",
+          "options": [
+            "Owning all database schemas and migrations",
+            "AuthN/Z, rate limit, routing, request shaping — not core business logic",
+            "Replacing service meshes for east-west only with no edge role",
+            "Compiling mobile apps"
+          ],
+          "correctIndex": 1,
+          "explanation": "Gateways handle cross-cutting edge concerns; domain logic stays in services."
+        },
+        {
+          "id": "system-design-s2-q18",
+          "stem": "In an interview, you are asked: Service discovery — why needed in microservice designs? Which answer is best?",
+          "options": [
+            "Instances come and go; clients/proxies need current healthy endpoints",
+            "Hardcoded IPs never change in cloud",
+            "DNS TTLs are always zero so discovery is unused",
+            "Only monoliths need discovery"
+          ],
+          "correctIndex": 0,
+          "explanation": "Dynamic membership needs discovery or a mesh/proxy control plane."
+        },
+        {
+          "id": "system-design-s2-q19",
+          "stem": "In an interview, you are asked: Circuit breaker pattern — purpose? Which answer is best?",
+          "options": [
+            "Encrypt traffic between services",
+            "Fail fast and shed load when a dependency is unhealthy instead of cascading timeouts",
+            "Compress images on the CDN",
+            "Shard databases automatically"
+          ],
+          "correctIndex": 1,
+          "explanation": "Breakers stop hammering failing deps and allow recovery."
+        },
+        {
+          "id": "system-design-s2-q20",
+          "stem": "In an interview, you are asked: Bulkheads in resilient design — analogy meaning? Which answer is best?",
+          "options": [
+            "Merge all databases into one for joins",
+            "Put all services in one shared thread pool for efficiency",
+            "Disable monitoring to reduce noise",
+            "Isolate failure domains (pools/queues/threads) so one fault does not sink all traffic"
+          ],
+          "correctIndex": 3,
+          "explanation": "Bulkheads limit blast radius via isolation of resources."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "system-design-s3-q01",
+          "stem": "In an interview, you are asked: Designing a distributed lock — what caveat must you mention? Which answer is best?",
+          "options": [
+            "ZooKeeper cannot be used for coordination",
+            "Redis SETNX alone is always perfectly safe for money transfers",
+            "Locks need TTLs/fencing tokens; clocks and GC pauses can cause unsafe dual holders",
+            "Distributed locks are unnecessary if you use JSON"
+          ],
+          "correctIndex": 2,
+          "explanation": "Correct locking needs expiry + fencing; naive locks are footguns."
+        },
+        {
+          "id": "system-design-s3-q02",
+          "stem": "In an interview, you are asked: Gossip protocols — typical use in large clusters? Which answer is best?",
+          "options": [
+            "Compiling SQL queries",
+            "Replacing all consensus algorithms for bank ledgers",
+            "Epidemic-style membership/state dissemination without a single central broadcaster",
+            "Terminating TLS at the load balancer"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gossip spreads membership and metadata scalably with eventual convergence."
+        },
+        {
+          "id": "system-design-s3-q03",
+          "stem": "In an interview, you are asked: Leader election — why do systems need it? Which answer is best?",
+          "options": [
+            "To avoid using any heartbeats or terms",
+            "To elect a CDN POP for static CSS",
+            "To choose JSON over Protobuf",
+            "To pick a single coordinator for writes/coordination when only one active leader is desired"
+          ],
+          "correctIndex": 3,
+          "explanation": "Election establishes a primary for mutually exclusive coordination roles."
+        },
+        {
+          "id": "system-design-s3-q04",
+          "stem": "Two-phase commit — main interview criticism?",
+          "options": [
+            "It is identical to eventual consistency gossip",
+            "Blocking and availability issues if coordinator/participants stall; poor for high-scale cross-service txns",
+            "It only works on a single machine",
+            "It never provides atomic commit semantics"
+          ],
+          "correctIndex": 1,
+          "explanation": "2PC can block and couples availability; sagas/outboxes often preferred across services."
+        },
+        {
+          "id": "system-design-s3-q05",
+          "stem": "In an interview, you are asked: Saga pattern — what problem does it address? Which answer is best?",
+          "options": [
+            "Replacing all message queues",
+            "Long-running cross-service workflows with compensating actions instead of distributed 2PC",
+            "Encrypting disks at rest",
+            "Making CAP irrelevant"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sagas coordinate multi-step business flows with compensations."
+        },
+        {
+          "id": "system-design-s3-q06",
+          "stem": "In an interview, you are asked: Outbox pattern — why pair it with DB transactions? Which answer is best?",
+          "options": [
+            "Avoid idempotent consumers",
+            "Atomically record state change + outbound event, then publish asynchronously for reliable messaging",
+            "Bypass the database for all writes",
+            "Delete events before committing business rows"
+          ],
+          "correctIndex": 1,
+          "explanation": "Outbox keeps DB commit and event intent atomic; a relay publishes later."
+        },
+        {
+          "id": "system-design-s3-q07",
+          "stem": "In an interview, you are asked: Bloom filters — where do they help in large systems? Which answer is best?",
+          "options": [
+            "Strong consistency quorums",
+            "Exact counting with no error",
+            "Encrypting passwords",
+            "Probabilistic set membership tests to skip expensive lookups with possible false positives"
+          ],
+          "correctIndex": 3,
+          "explanation": "Bloom filters cheaply test 'definitely not present' vs 'maybe present'."
+        },
+        {
+          "id": "system-design-s3-q08",
+          "stem": "In an interview, you are asked: Geospatial indexed search (e.g., nearby drivers) — common approach? Which answer is best?",
+          "options": [
+            "Full table scan of all users worldwide on every request only",
+            "Store coordinates as passwords",
+            "Geohash/S2 cells + secondary indexes or specialized geo stores, with radius queries",
+            "Use only CDN cache keys without indexing"
+          ],
+          "correctIndex": 2,
+          "explanation": "Cell/geohash indexes make proximity queries feasible at scale."
+        },
+        {
+          "id": "system-design-s3-q09",
+          "stem": "In an interview, you are asked: Multi-region active-active — hardest problem to call out? Which answer is best?",
+          "options": [
+            "Disabling monitoring",
+            "Conflict resolution and data consistency under concurrent writes across regions",
+            "Buying more domain names",
+            "Choosing logo colors"
+          ],
+          "correctIndex": 1,
+          "explanation": "Concurrent multi-region writes force conflict strategy and consistency design."
+        },
+        {
+          "id": "system-design-s3-q10",
+          "stem": "In an interview, you are asked: Back-pressure in streaming/queue pipelines — why design for it? Which answer is best?",
+          "options": [
+            "It only applies to CSS animations",
+            "It removes the need for monitoring",
+            "It guarantees exactly-once without idempotency",
+            "Slow consumers must signal so producers/buffers do not OOM or drop silently forever"
+          ],
+          "correctIndex": 3,
+          "explanation": "Back-pressure protects system stability when downstream is slower than upstream."
+        }
+      ]
+    }
+  ]
+}

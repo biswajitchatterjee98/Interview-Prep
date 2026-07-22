@@ -1,0 +1,624 @@
+{
+  "slug": "hr",
+  "title": "HR",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "hr-s1-q01",
+          "stem": "In an interview, you are asked: Best practice when stating your notice period? Which answer is best?",
+          "options": [
+            "State the real contractual notice (and any negotiated reality) honestly",
+            "Claim you can join tomorrow regardless of contract",
+            "Hide notice period until offer letter day",
+            "Say 'immediate' to beat other candidates"
+          ],
+          "correctIndex": 0,
+          "explanation": "False join dates break trust and often fail background/HR checks."
+        },
+        {
+          "id": "hr-s1-q02",
+          "stem": "In an interview, you are asked: On current / expected salary discussions, strongest practice is:? Which answer is best?",
+          "options": [
+            "Inflate current CTC heavily to force a higher offer",
+            "Be truthful on current pay and give a researched, defensible expectation range",
+            "Refuse all numbers forever with no alternative framing",
+            "Share colleagues' private payslips without consent"
+          ],
+          "correctIndex": 1,
+          "explanation": "Honesty plus market research beats fabrication."
+        },
+        {
+          "id": "hr-s1-q03",
+          "stem": "In an interview, you are asked: If asked why you are leaving your current role, prefer:? Which answer is best?",
+          "options": [
+            "Detailed personal attacks on your manager",
+            "Saying the company is collapsing as a rumor",
+            "Forward-looking growth, role fit, and learning — without burning bridges",
+            "Listing only compensation as the sole reason every time"
+          ],
+          "correctIndex": 2,
+          "explanation": "Professional, future-focused reasons read as maturity."
+        },
+        {
+          "id": "hr-s1-q04",
+          "stem": "In an interview, you are asked: Best structure for 'Tell me about yourself' in HR rounds? Which answer is best?",
+          "options": [
+            "Full life autobiography from childhood",
+            "Only salary history",
+            "A joke and then silence",
+            "Concise present → past → future pitch tied to the role"
+          ],
+          "correctIndex": 3,
+          "explanation": "Present-past-future keeps it relevant and brief."
+        },
+        {
+          "id": "hr-s1-q05",
+          "stem": "In an interview, you are asked: When you have a resume gap, best practice is:? Which answer is best?",
+          "options": [
+            "Explain briefly and truthfully (study, health, caregiving, job search) and pivot to readiness",
+            "Lie about employment dates",
+            "Refuse to discuss gaps",
+            "Invent freelance clients that did not exist"
+          ],
+          "correctIndex": 0,
+          "explanation": "Honest brief context beats date fraud."
+        },
+        {
+          "id": "hr-s1-q06",
+          "stem": "In an interview, you are asked: If you have multiple offers, ethical practice is:? Which answer is best?",
+          "options": [
+            "Fabricate fake competing offers",
+            "Share real timelines/constraints without inventing offers",
+            "Ghost all recruiters",
+            "Accept every offer simultaneously intending to renege"
+          ],
+          "correctIndex": 1,
+          "explanation": "Real leverage is fine; fabricated offers and serial reneging damage reputation."
+        },
+        {
+          "id": "hr-s1-q07",
+          "stem": "In an interview, you are asked: Background verification (BGV) risk is highest when you:? Which answer is best?",
+          "options": [
+            "Align resume dates with reality",
+            "Provide accurate references",
+            "Misstate titles, dates, degrees, or employment",
+            "Disclose notice period correctly"
+          ],
+          "correctIndex": 2,
+          "explanation": "BGV catches resume fraud; integrity first."
+        },
+        {
+          "id": "hr-s1-q08",
+          "stem": "In an interview, you are asked: On 'What are your strengths?', best practice is:? Which answer is best?",
+          "options": [
+            "List twenty unrelated adjectives",
+            "Say you have no strengths",
+            "Only quote your LinkedIn buzzwords",
+            "Pick 2-3 strengths with short evidence relevant to the role"
+          ],
+          "correctIndex": 3,
+          "explanation": "Evidence-backed, role-relevant strengths beat laundry lists."
+        },
+        {
+          "id": "hr-s1-q09",
+          "stem": "In an interview, you are asked: On weaknesses, strongest framing is:? Which answer is best?",
+          "options": [
+            "A real improvement area plus concrete mitigation steps",
+            "A fake weakness that is actually a brag ('I work too hard')",
+            "A career-ending flaw with no plan",
+            "Attacking your previous teammates as your weakness"
+          ],
+          "correctIndex": 0,
+          "explanation": "Genuine + working on it shows self-awareness."
+        },
+        {
+          "id": "hr-s1-q10",
+          "stem": "In an interview, you are asked: If asked about relocation / hybrid policy, you should:? Which answer is best?",
+          "options": [
+            "Agree to anything then reverse after joining",
+            "State constraints and preferences honestly and ask about flexibility",
+            "Ignore the question",
+            "Demand remote forever without discussion"
+          ],
+          "correctIndex": 1,
+          "explanation": "Misaligned location expectations cause early exits; clarify early."
+        },
+        {
+          "id": "hr-s1-q11",
+          "stem": "In an interview, you are asked: Discussing a bond / service agreement: best practice? Which answer is best?",
+          "options": [
+            "Hide it and sign a conflicting offer",
+            "Advise the new employer to ignore contracts",
+            "Disclose constraints that affect joining and seek lawful options",
+            "Claim bonds are never enforceable so they do not matter"
+          ],
+          "correctIndex": 2,
+          "explanation": "Transparency on joining constraints is required for clean offers."
+        },
+        {
+          "id": "hr-s1-q12",
+          "stem": "In an interview, you are asked: When HR asks 'Why this company?', strong answers:? Which answer is best?",
+          "options": [
+            "Only 'you pay more'",
+            "Generic praise that could apply to any firm",
+            "Criticism of their competitors only",
+            "Specific product/team/mission fit backed by real research"
+          ],
+          "correctIndex": 3,
+          "explanation": "Specific research signals genuine interest."
+        },
+        {
+          "id": "hr-s1-q13",
+          "stem": "In an interview, you are asked: Questions YOU ask at the end of HR rounds should preferably:? Which answer is best?",
+          "options": [
+            "Role expectations, team, growth, process next steps — salary timing as appropriate",
+            "Only salary on the first hello",
+            "Personal questions about the interviewer's family",
+            "Nothing; asking questions looks weak"
+          ],
+          "correctIndex": 0,
+          "explanation": "Thoughtful role/team questions show engagement; salary timing depends on stage."
+        },
+        {
+          "id": "hr-s1-q14",
+          "stem": "In an interview, you are asked: If your expected CTC is far above their band, best practice is:? Which answer is best?",
+          "options": [
+            "Ghost them after the offer",
+            "Discuss band constraints early; explore total rewards or role level honestly",
+            "Accept then renegotiate daily",
+            "Insult their compensation philosophy"
+          ],
+          "correctIndex": 1,
+          "explanation": "Early alignment saves everyone time."
+        },
+        {
+          "id": "hr-s1-q15",
+          "stem": "In an interview, you are asked: On notice buyout / early release, you should:? Which answer is best?",
+          "options": [
+            "Promise early release you cannot obtain",
+            "Ignore serving any notice",
+            "State what is possible after checking with current employer; do not overpromise",
+            "Start the new job while still employed full-time secretly"
+          ],
+          "correctIndex": 2,
+          "explanation": "Only commit to joining dates you can actually meet."
+        },
+        {
+          "id": "hr-s1-q16",
+          "stem": "In an interview, you are asked: Sharing reference contacts: best practice? Which answer is best?",
+          "options": [
+            "List people who never worked with you",
+            "Forge recommendation letters",
+            "Give HR your own alternate email as a 'manager'",
+            "Ask permission, then share accurate managers/peers who can speak to your work"
+          ],
+          "correctIndex": 3,
+          "explanation": "Consenting, real references only."
+        },
+        {
+          "id": "hr-s1-q17",
+          "stem": "In an interview, you are asked: If asked about a past layoff / firing, prefer:? Which answer is best?",
+          "options": [
+            "Brief factual context, your learning, and current readiness — without bitterness",
+            "Lie and claim a promotion",
+            "A long rant naming executives",
+            "Refuse and walk out"
+          ],
+          "correctIndex": 0,
+          "explanation": "Calm ownership and forward motion beat denial or venting."
+        },
+        {
+          "id": "hr-s1-q18",
+          "stem": "Accepting an offer verbally then continuing to interview elsewhere covertly is:",
+          "options": [
+            "Always required",
+            "Risky to reputation; manage timelines transparently or decide cleanly",
+            "Required by all recruiters",
+            "Fine if you never tell anyone ever"
+          ],
+          "correctIndex": 1,
+          "explanation": "Clarity and integrity around acceptances protect your brand."
+        },
+        {
+          "id": "hr-s1-q19",
+          "stem": "In an interview, you are asked: When HR asks about preferred start date, you should:? Which answer is best?",
+          "options": [
+            "Pick a random aggressive date for leverage",
+            "Say yesterday",
+            "Align start date with real notice, relocation, and personal constraints",
+            "Refuse to give any date"
+          ],
+          "correctIndex": 2,
+          "explanation": "Credible start dates build trust."
+        },
+        {
+          "id": "hr-s1-q20",
+          "stem": "In an interview, you are asked: Best practice if you made a resume mistake discovered mid-process? Which answer is best?",
+          "options": [
+            "Hope nobody notices",
+            "Double down on the error",
+            "Blame a friend who 'wrote the resume'",
+            "Proactively correct it with HR/recruiter and provide accurate facts"
+          ],
+          "correctIndex": 3,
+          "explanation": "Self-correction beats being caught in BGV."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "hr-s2-q01",
+          "stem": "In an interview, you are asked: Negotiating salary after an offer — professional approach:? Which answer is best?",
+          "options": [
+            "Thank them, share a reasoned range with market/role data, and stay collaborative",
+            "Ultimatums and insults",
+            "Ignore the offer email for weeks",
+            "Accept immediately then demand more the next day without new info"
+          ],
+          "correctIndex": 0,
+          "explanation": "Grateful, data-backed, collaborative negotiation works best."
+        },
+        {
+          "id": "hr-s2-q02",
+          "stem": "In an interview, you are asked: Total compensation discussions should consider:? Which answer is best?",
+          "options": [
+            "Base only, ignore everything else",
+            "Base, bonus, equity, benefits, and joining constraints holistically",
+            "Only signing bonus memes",
+            "Only free snacks"
+          ],
+          "correctIndex": 1,
+          "explanation": "Compare apples-to-apples on total rewards."
+        },
+        {
+          "id": "hr-s2-q03",
+          "stem": "In an interview, you are asked: If asked about competing process stage, honesty looks like:? Which answer is best?",
+          "options": [
+            "Claiming final rounds everywhere falsely",
+            "Saying you have an exploding offer that does not exist",
+            "Accurate stage and decision timeline without fabrication",
+            "Refusing any timeline discussion"
+          ],
+          "correctIndex": 2,
+          "explanation": "Real timelines help coordination; fake urgency destroys trust."
+        },
+        {
+          "id": "hr-s2-q04",
+          "stem": "In an interview, you are asked: Discussing health / personal constraints that affect work setup:? Which answer is best?",
+          "options": [
+            "Overshare medical details unnecessarily",
+            "Hide constraints that will make the role impossible",
+            "Demand accommodations without any dialogue",
+            "Share only what is needed for accommodations/logistics, professionally"
+          ],
+          "correctIndex": 3,
+          "explanation": "Relevant logistics honesty; privacy still matters."
+        },
+        {
+          "id": "hr-s2-q05",
+          "stem": "In an interview, you are asked: On 'Where do you see yourself in 5 years?', prefer:? Which answer is best?",
+          "options": [
+            "Growth aligned with the role's realistic path and your skills",
+            "Owning their company as CEO next year",
+            "'Nowhere near here'",
+            "Exact job titles at other companies only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Credible ambition tied to the opportunity."
+        },
+        {
+          "id": "hr-s2-q06",
+          "stem": "In an interview, you are asked: If HR asks about willingness to work weekends occasionally:? Which answer is best?",
+          "options": [
+            "Promise unlimited 24/7 always",
+            "Be honest about boundaries while showing flexibility for true emergencies",
+            "Refuse all after-hours forever with hostility",
+            "Say yes then never respond on-call"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sustainable honesty beats empty promises."
+        },
+        {
+          "id": "hr-s2-q07",
+          "stem": "Handling a counter-offer from your current employer — thoughtful practice:",
+          "options": [
+            "Always accept counter-offers blindly",
+            "Accept both jobs",
+            "Revisit why you interviewed; decide on role/growth, not only cash",
+            "Use counter-offers to publicly shame your manager"
+          ],
+          "correctIndex": 2,
+          "explanation": "Counters often do not fix root reasons for leaving."
+        },
+        {
+          "id": "hr-s2-q08",
+          "stem": "In an interview, you are asked: When documents (ID, education, payslips) are requested:? Which answer is best?",
+          "options": [
+            "Submit altered PDFs",
+            "Refuse all verification as invasion",
+            "Send someone else's documents",
+            "Provide authentic documents through official channels"
+          ],
+          "correctIndex": 3,
+          "explanation": "Document fraud is a hard fail."
+        },
+        {
+          "id": "hr-s2-q09",
+          "stem": "In an interview, you are asked: Culture questions ('describe your ideal team') — aim for:? Which answer is best?",
+          "options": [
+            "True preferences that still show adaptability and respect",
+            "Whatever you think they want, even if false",
+            "Demanding only people identical to you",
+            "Saying culture does not matter"
+          ],
+          "correctIndex": 0,
+          "explanation": "Authenticity with collaboration readiness."
+        },
+        {
+          "id": "hr-s2-q10",
+          "stem": "In an interview, you are asked: If you need more time to decide on an offer:? Which answer is best?",
+          "options": [
+            "Ghost until the deadline passes",
+            "Ask for a clear extension with your decision date and reasons",
+            "Accept then revoke without notice as a habit",
+            "Leak the offer online for advice from strangers only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Professional extensions are normal; silence is not."
+        },
+        {
+          "id": "hr-s2-q11",
+          "stem": "In an interview, you are asked: Discussing internship vs full-time conversion expectations:? Which answer is best?",
+          "options": [
+            "Guarantee conversion that was never promised",
+            "Ignore performance criteria",
+            "Clarify what is evaluated and that conversion is not automatic unless stated",
+            "Threaten to leave mid-internship for leverage weekly"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clear expectations prevent disappointment."
+        },
+        {
+          "id": "hr-s2-q12",
+          "stem": "On 'Are you interviewing elsewhere?' a solid approach is:",
+          "options": [
+            "Detailed list of every company and confidential feedback",
+            "Claim exclusivity falsely",
+            "Lie that you are not looking while scheduling five onsites",
+            "High-level honesty that you are exploring options, without oversharing"
+          ],
+          "correctIndex": 3,
+          "explanation": "High-level transparency is enough."
+        },
+        {
+          "id": "hr-s2-q13",
+          "stem": "In an interview, you are asked: Visa / work authorization questions — best practice:? Which answer is best?",
+          "options": [
+            "State authorization/constraints accurately and early",
+            "Misrepresent status to get past screening",
+            "Avoid the topic until day one",
+            "Use someone else's documents"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immigration honesty is non-negotiable."
+        },
+        {
+          "id": "hr-s2-q14",
+          "stem": "In an interview, you are asked: If the role scope differs from the JD in HR chat, you should:? Which answer is best?",
+          "options": [
+            "Ignore mismatch and hope",
+            "Clarify responsibilities, level, and success metrics before accepting",
+            "Accept anything silently",
+            "Argue angrily in the group email"
+          ],
+          "correctIndex": 1,
+          "explanation": "Scope clarity prevents bad hires."
+        },
+        {
+          "id": "hr-s2-q15",
+          "stem": "In an interview, you are asked: Talking about past compensation components (bonus, stocks):? Which answer is best?",
+          "options": [
+            "Mix on-target and actuals confusingly to inflate",
+            "Round everything up aggressively",
+            "Separate base vs variable vs equity clearly and truthfully",
+            "Refuse and invent a single fake number"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clear structure prevents accidental or intentional misrepresentation."
+        },
+        {
+          "id": "hr-s2-q16",
+          "stem": "In an interview, you are asked: When a recruiter asks for your timeline to resign:? Which answer is best?",
+          "options": [
+            "Resign before any written offer 'to show commitment'",
+            "Resign via social media first",
+            "Never resign formally",
+            "Wait for a written offer you accept, then resign per policy"
+          ],
+          "correctIndex": 3,
+          "explanation": "Written acceptance before resignation is standard risk management."
+        },
+        {
+          "id": "hr-s2-q17",
+          "stem": "In an interview, you are asked: Professional follow-up after HR rounds:? Which answer is best?",
+          "options": [
+            "Polite thank-you and one clear check-in on timeline if appropriate",
+            "Daily spam calls",
+            "Demanding an offer within an hour",
+            "No response ever"
+          ],
+          "correctIndex": 0,
+          "explanation": "Courteous, sparse follow-ups are enough."
+        },
+        {
+          "id": "hr-s2-q18",
+          "stem": "In an interview, you are asked: If you disagree with a rejected feedback narrative:? Which answer is best?",
+          "options": [
+            "Harass the interviewer online",
+            "Optionally ask briefly for feedback; stay respectful either way",
+            "Threaten legal action casually",
+            "Apply with a fake identity next week"
+          ],
+          "correctIndex": 1,
+          "explanation": "Grace under rejection is remembered."
+        },
+        {
+          "id": "hr-s2-q19",
+          "stem": "Family / marital status questions (where inappropriate or illegal by locale):",
+          "options": [
+            "Overshare and invent stories",
+            "Lie elaborately",
+            "Redirect politely to role-relevant topics; know local norms/laws",
+            "Walk out cursing"
+          ],
+          "correctIndex": 2,
+          "explanation": "Stay professional; protect privacy; follow local interview law norms."
+        },
+        {
+          "id": "hr-s2-q20",
+          "stem": "In an interview, you are asked: Signing an offer: before you sign, verify:? Which answer is best?",
+          "options": [
+            "Only the logo looks nice",
+            "Nothing — speed matters more than reading",
+            "Only the benefits brochure images",
+            "Role, level, pay, start date, location, and key conditions match what you agreed"
+          ],
+          "correctIndex": 3,
+          "explanation": "Read the contract; mismatches are costly."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "hr-s3-q01",
+          "stem": "In an interview, you are asked: If two companies offer similar pay, decide using:? Which answer is best?",
+          "options": [
+            "Role growth, team, scope, stability, and learning — not pay alone",
+            "Coin flip only",
+            "Whichever emailed first",
+            "Whichever has the flashiest office photos"
+          ],
+          "correctIndex": 0,
+          "explanation": "Holistic fit beats tiny pay deltas."
+        },
+        {
+          "id": "hr-s3-q02",
+          "stem": "In an interview, you are asked: Communicating a declined offer professionally means:? Which answer is best?",
+          "options": [
+            "No reply",
+            "Timely thanks, clear decline, brief reason optional, leave the door respectful",
+            "Accept then no-show",
+            "A long critique of their interviewers by name"
+          ],
+          "correctIndex": 1,
+          "explanation": "Clean declines preserve networks."
+        },
+        {
+          "id": "hr-s3-q03",
+          "stem": "In an interview, you are asked: On 'How soon can you join if we buy out notice?' answer with:? Which answer is best?",
+          "options": [
+            "Whatever number wins the race",
+            "Tomorrow without checking",
+            "Only dates contingent on real buyout approval and written confirmation",
+            "Never; buyouts are mythical so ignore them"
+          ],
+          "correctIndex": 2,
+          "explanation": "Contingent honesty prevents broken start dates."
+        },
+        {
+          "id": "hr-s3-q04",
+          "stem": "Salary history bans exist in some regions; if asked illegally/inappropriately:",
+          "options": [
+            "Invent a number anyway",
+            "Share every past raise drama",
+            "End the call mid-sentence always",
+            "Redirect to expectations/market for the role when appropriate"
+          ],
+          "correctIndex": 3,
+          "explanation": "Pivot to expectations; follow local rules."
+        },
+        {
+          "id": "hr-s3-q05",
+          "stem": "In an interview, you are asked: Gathering HR prep documents early helps because:? Which answer is best?",
+          "options": [
+            "It speeds offer/BGV and reduces last-minute errors",
+            "It wastes time",
+            "Recruiters dislike organized candidates",
+            "You should never share IDs"
+          ],
+          "correctIndex": 0,
+          "explanation": "Ready paperwork signals seriousness."
+        },
+        {
+          "id": "hr-s3-q06",
+          "stem": "In an interview, you are asked: If your LinkedIn title differs from resume, you should:? Which answer is best?",
+          "options": [
+            "Keep conflicting stories",
+            "Align public profiles with truthful, consistent representation",
+            "Make LinkedIn more exaggerated for branding",
+            "Delete LinkedIn during interviews only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Consistency across artifacts matters in screening."
+        },
+        {
+          "id": "hr-s3-q07",
+          "stem": "In an interview, you are asked: Discussing internal referral ethics:? Which answer is best?",
+          "options": [
+            "Ask a stranger to lie that they managed you",
+            "Bribe for referrals secretly as standard advice",
+            "Use real referrers who know your work; do not fabricate relationships",
+            "Ignore referral programs always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Referrals must be authentic. Give the interview-safe rationale clearly."
+        },
+        {
+          "id": "hr-s3-q08",
+          "stem": "In an interview, you are asked: When an offer is below your minimum viable number:? Which answer is best?",
+          "options": [
+            "Accept out of fear then resent the job",
+            "Argue on social media",
+            "Accept three roles 'just in case'",
+            "Negotiate once clearly or decline politely if still misaligned"
+          ],
+          "correctIndex": 3,
+          "explanation": "Clear yes/no after one good-faith negotiation."
+        },
+        {
+          "id": "hr-s3-q09",
+          "stem": "HR asking about team conflict style — align with behavioral best practice by:",
+          "options": [
+            "Describing calm escalation, listening, and issue-focused resolution",
+            "Saying you avoid all conflict permanently",
+            "Boasting you always win arguments",
+            "Refusing soft questions"
+          ],
+          "correctIndex": 0,
+          "explanation": "Same maturity bar as behavioral rounds."
+        },
+        {
+          "id": "hr-s3-q10",
+          "stem": "In an interview setting, consider this question: Overall HR interview north star:? Pick the strongest answer.",
+          "options": [
+            "Win by any means including deception",
+            "Accuracy, professionalism, and mutual fit — sustainable trust",
+            "Maximize offer then ghost",
+            "Minimize preparation"
+          ],
+          "correctIndex": 1,
+          "explanation": "Trust and fit beat short-term tricks."
+        }
+      ]
+    }
+  ]
+}

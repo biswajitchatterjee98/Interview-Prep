@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Hub — Software Engineer Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">Software Engineer Concepts</div>
+      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+    </header>
+
+    <nav class="crumb" aria-label="Breadcrumb">
+      <span aria-current="page">Home</span>
+    </nav>
+
+    <p class="kicker">Welcome</p>
+    <h1>Choose a path</h1>
+    <p class="lede">Study concepts, or practice with interview-style MCQs and coding drills.</p>
+
+    <div class="stats-row">
+      <span><strong>32</strong> MCQ topics</span>
+      <span><strong>13</strong> coding topics</span>
+      <span><strong>Study</strong> bank linked</span>
+    </div>
+
+    <div class="card-grid">
+      <a class="card" href="study.html">
+        <h2>Study</h2>
+        <p>Open the concept question bank by topic. Cover answers, then reveal when ready.</p>
+        <div class="meta">Concepts · existing bank</div>
+      </a>
+      <a class="card" href="test.html">
+        <h2>Test</h2>
+        <p>MCQs (50 per topic) and coding drills with save, submit, and reveal.</p>
+        <div class="meta">Practice · MCQ + Coding</div>
+      </a>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+  <script src="js/topics.js"></script>
+  <script>
+    requireAuth();
+    bindLogout();
+  </script>
+</body>
+</html>

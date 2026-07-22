@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>MCQs — Software Engineer Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">Software Engineer Concepts</div>
+      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+    </header>
+    <nav class="crumb" aria-label="Breadcrumb" id="crumb"></nav>
+    <div id="app"><div class="placeholder">Loading…</div></div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/topics.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/mcq.js"></script>
+  <script>
+    requireAuth();
+    bindLogout();
+
+    const params = new URLSearchParams(location.search);
+    const slug = params.get("topic");
+    const sectionId = Number(params.get("section") || 0);
+    const mode = params.get("mode") || "quiz";
+    const app = document.getElementById("app");
+    const crumb = document.getElementById("crumb");
+    const LETTERS = ["A", "B", "C", "D"];
+
+    function setCrumb(parts) {
+      crumb.innerHTML = parts
+        .map((p, i) => {
+          if (i === parts.length - 1) {
+            return `<span aria-current="page">${escapeHtml(p.label)}</span>`;
+          }
+          return `<a href="${p.href}">${escapeHtml(p.label)}</a><span>/</span>`;
+        })
+        .join("");
+    }
+
+    function collectAnswers(form, questions) {
+      const answers = {};
+      for (const q of questions) {
+        const picked = form.elements.namedItem(q.id);
+        if (picked && picked.value !== "") answers[q.id] = Number(picked.value);
+      }
+      return answers;
+    }
+
+    async function showTopicList(catalog) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "MCQs", href: "mcq.html" },
+      ]);
+      const mcqTopics = catalog.topics.filter((t) => t.hasMcq);
+      const readySlugs = [];
+      for (const t of mcqTopics) {
+        if (await mcqBankExists(t.slug)) readySlugs.push(t.slug);
+      }
+      const readySet = new Set(readySlugs);
+
+      app.innerHTML = `
+        <p class="kicker">MCQs</p>
+        <h1>Topics</h1>
+        <p class="lede">Finish a section, then review. Green dots mark banks that are ready to take.</p>
+        <div class="stats-row">
+          <span><strong>${mcqTopics.length}</strong> topics</span>
+          <span><strong>${readySlugs.length}</strong> banks ready</span>
+          <span><strong>50</strong> Qs when available</span>
+        </div>
+        <div id="topicList"></div>`;
+
+      // Custom render to show ready indicator
+      const list = document.getElementById("topicList");
+      const groups = topicsByBand(mcqTopics, () => true);
+      list.innerHTML = groups
+        .map((group) => {
+          const cards = group.topics
+            .map((t) => {
+              const ready = readySet.has(t.slug);
+              const dot = ready ? `<span class="ready-dot" title="Bank ready"></span>` : "";
+              const meta = ready ? "50 questions ready" : "Coming soon";
+              return `<a class="topic-card" href="mcq.html?topic=${encodeURIComponent(t.slug)}">
+                <span class="topic-card-title">${dot}${escapeHtml(t.title)}</span>
+                <span class="topic-card-meta">${escapeHtml(meta)}</span>
+              </a>`;
+            })
+            .join("");
+          return `<section class="band-block">
+            <h2 class="band-title">${escapeHtml(group.band)}</h2>
+            <div class="topic-grid">${cards}</div>
+          </section>`;
+        })
+        .join("");
+    }
+
+    async function showSections(topicMeta) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "MCQs", href: "mcq.html" },
+        { label: topicMeta.title, href: `mcq.html?topic=${topicMeta.slug}` },
+      ]);
+      document.title = `${topicMeta.title} MCQs — Software Engineer Concepts`;
+
+      let bank = null;
+      try {
+        bank = await loadMcqBank(topicMeta.slug);
+      } catch (_) {}
+
+      if (!bank) {
+        app.innerHTML = `
+          <p class="kicker">MCQs · ${escapeHtml(topicMeta.band)}</p>
+          <h1>${escapeHtml(topicMeta.title)}</h1>
+          <div class="placeholder">MCQ bank missing for this topic. Go back and pick another topic.</div>
+          <p style="margin-top:1.5rem"><a href="mcq.html">← All MCQ topics</a></p>`;
+        return;
+      }
+
+      const doneCount = bank.sections.filter(
+        (s) => mcqSectionStatus(topicMeta.slug, s.id, s.questions.length).state === "done"
+      ).length;
+
+      const cards = bank.sections
+        .map((section) => {
+          const status = mcqSectionStatus(
+            topicMeta.slug,
+            section.id,
+            section.questions.length
+          );
+          const stateClass =
+            status.state === "done" ? "is-done" : status.state === "draft" ? "is-draft" : "";
+          const statusClass =
+            status.state === "done" ? "done" : status.state === "draft" ? "draft" : "";
+          const startLabel =
+            status.state === "done"
+              ? "Retake section"
+              : status.state === "draft"
+                ? "Resume section"
+                : "Start section";
+          const reviewLink =
+            status.state === "done"
+              ? `<a class="section-start" href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}&mode=review">View review →</a>`
+              : "";
+          return `<div class="section-card ${stateClass}">
+            <h3>Section ${section.id}</h3>
+            <p>${section.questions.length} interview-style MCQs. Feedback appears only after you submit the section.</p>
+            <span class="status ${statusClass}">${escapeHtml(status.label)}</span>
+            <div class="actions">
+              <a class="section-start" href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}">${startLabel} →</a>
+              ${reviewLink}
+            </div>
+          </div>`;
+        })
+        .join("");
+
+      app.innerHTML = `
+        <p class="kicker">MCQs · ${escapeHtml(topicMeta.band)}</p>
+        <h1>${escapeHtml(topicMeta.title)}</h1>
+        <p class="lede">Complete each section, then review correct and incorrect answers with explanations.</p>
+        <div class="stats-row">
+          <span><strong>${doneCount}</strong> / ${bank.sections.length} sections completed</span>
+          <span><strong>${bank.sections.reduce((n, s) => n + s.questions.length, 0)}</strong> questions</span>
+        </div>
+        <div class="section-grid">${cards}</div>
+        <p style="margin-top:1.5rem"><a href="mcq.html">← All MCQ topics</a></p>`;
+    }
+
+    function renderQuiz(topicMeta, section) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "MCQs", href: "mcq.html" },
+        { label: topicMeta.title, href: `mcq.html?topic=${topicMeta.slug}` },
+        { label: `Section ${section.id}`, href: `#` },
+      ]);
+      document.title = `${topicMeta.title} · Section ${section.id}`;
+
+      const saved = loadAttempt("mcq", topicMeta.slug, section.id);
+      const prior = (saved && saved.answers) || {};
+      const total = section.questions.length;
+
+      const blocks = section.questions
+        .map((q, index) => {
+          const opts = q.options
+            .map((opt, oi) => {
+              const checked = prior[q.id] === oi ? "checked" : "";
+              return `<label class="quiz-option">
+                <input type="radio" name="${q.id}" value="${oi}" ${checked} />
+                <span><strong>${LETTERS[oi]}.</strong> ${escapeHtml(opt)}</span>
+              </label>`;
+            })
+            .join("");
+          return `<div class="quiz-q" data-qid="${q.id}">
+            <p class="quiz-q-num">Question ${index + 1} of ${total}</p>
+            <h2 class="quiz-q-stem">${escapeHtml(q.stem)}</h2>
+            <div class="quiz-options">${opts}</div>
+          </div>`;
+        })
+        .join("");
+
+      app.innerHTML = `
+        <p class="kicker">${escapeHtml(topicMeta.title)}</p>
+        <h1>Section ${section.id}</h1>
+        <p class="quiz-progress" id="progressText">Answered 0 / ${total}</p>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <form id="quizForm">${blocks}
+          <div class="quiz-toolbar">
+            <span class="hint" id="submitHint">Answers autosave as you select.</span>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+              <button class="btn-ghost" type="button" id="clearDraft">Clear draft</button>
+              <button class="btn-primary" type="submit">Submit section</button>
+            </div>
+          </div>
+        </form>
+        <p style="margin-top:1rem"><a href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}">← Sections</a></p>`;
+
+      const form = document.getElementById("quizForm");
+      const progressText = document.getElementById("progressText");
+      const progressFill = document.getElementById("progressFill");
+      const submitHint = document.getElementById("submitHint");
+
+      function refreshProgress() {
+        const answers = collectAnswers(form, section.questions);
+        const n = countAnswered(answers, section.questions);
+        progressText.textContent = `Answered ${n} / ${total}`;
+        progressFill.style.width = `${Math.round((n / total) * 100)}%`;
+        if (n < total) {
+          submitHint.textContent = `${total - n} unanswered — you can still submit.`;
+          submitHint.classList.add("warn");
+        } else {
+          submitHint.textContent = "All answered. Submit to see the review.";
+          submitHint.classList.remove("warn");
+        }
+        // draft autosave (not marked submitted)
+        saveAttempt("mcq", topicMeta.slug, section.id, {
+          answers,
+          submitted: false,
+        });
+      }
+
+      form.addEventListener("change", refreshProgress);
+      refreshProgress();
+
+      document.getElementById("clearDraft").addEventListener("click", () => {
+        if (!confirm("Clear saved answers for this section?")) return;
+        clearAttempt("mcq", topicMeta.slug, section.id);
+        location.reload();
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const answers = collectAnswers(form, section.questions);
+        const n = countAnswered(answers, section.questions);
+        if (n < total) {
+          const ok = confirm(
+            `You left ${total - n} unanswered. Submit anyway and go to review?`
+          );
+          if (!ok) return;
+        }
+        const results = gradeMcqSection(section.questions, answers);
+        const summary = scoreSummary(results);
+        saveAttempt("mcq", topicMeta.slug, section.id, {
+          answers,
+          submitted: true,
+          scoreCorrect: summary.correct,
+          scoreTotal: summary.total,
+        });
+        location.href = `mcq.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}&mode=review`;
+      });
+    }
+
+    function renderReview(topicMeta, section) {
+      setCrumb([
+        { label: "Home", href: "hub.html" },
+        { label: "Test", href: "test.html" },
+        { label: "MCQs", href: "mcq.html" },
+        { label: topicMeta.title, href: `mcq.html?topic=${topicMeta.slug}` },
+        { label: `Section ${section.id} review`, href: `#` },
+      ]);
+      document.title = `${topicMeta.title} · Section ${section.id} review`;
+
+      const saved = loadAttempt("mcq", topicMeta.slug, section.id);
+      const answers = (saved && saved.answers) || {};
+      const results = gradeMcqSection(section.questions, answers);
+      const summary = scoreSummary(results);
+      const pct = summary.total ? Math.round((summary.correct / summary.total) * 100) : 0;
+
+      const items = results
+        .map((r, index) => {
+          let flag = "skip";
+          let flagText = "Unanswered";
+          let filter = "skip";
+          if (!r.unanswered && r.correct) {
+            flag = "ok";
+            flagText = "Correct";
+            filter = "ok";
+          }
+          if (!r.unanswered && !r.correct) {
+            flag = "bad";
+            flagText = "Incorrect";
+            filter = "bad";
+          }
+
+          const chosenLine = r.unanswered
+            ? `<p class="review-line"><span class="mark">Your answer:</span> —</p>`
+            : `<p class="review-line ${r.correct ? "right" : "wrong"}"><span class="mark">${r.correct ? "✓" : "✗"} Your answer:</span> ${LETTERS[r.chosenIndex]}. ${escapeHtml(r.options[r.chosenIndex])}</p>`;
+
+          return `<article class="review-item" data-filter="${filter}">
+            <span class="review-flag ${flag}">${flagText} · Q${index + 1}</span>
+            <h2 class="review-stem">${escapeHtml(r.stem)}</h2>
+            ${chosenLine}
+            <p class="review-line right"><span class="mark">✓ Correct answer:</span> ${LETTERS[r.correctIndex]}. ${escapeHtml(r.options[r.correctIndex])}</p>
+            <p class="review-explain">${escapeHtml(r.explanation)}</p>
+          </article>`;
+        })
+        .join("");
+
+      app.innerHTML = `
+        <p class="kicker">${escapeHtml(topicMeta.title)} · Section ${section.id}</p>
+        <h1>Section review</h1>
+        <div class="review-score">
+          <strong>${summary.correct}</strong> / ${summary.total} correct
+          <span style="color:var(--faint)"> (${pct}%)</span>
+          · <strong>${summary.wrong}</strong> wrong
+          · <strong>${summary.unanswered}</strong> unanswered
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="review-filters" role="group" aria-label="Filter results">
+          <button type="button" class="chip is-on" data-filter="all">All</button>
+          <button type="button" class="chip" data-filter="bad">Incorrect</button>
+          <button type="button" class="chip" data-filter="ok">Correct</button>
+          <button type="button" class="chip" data-filter="skip">Unanswered</button>
+        </div>
+        <div id="reviewList">${items}</div>
+        <div class="quiz-toolbar" style="position:static;margin-top:1.5rem">
+          <a href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}">← All sections</a>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <a class="btn-ghost" style="text-decoration:none" href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id}">Retake</a>
+            ${
+              section.id < 3
+                ? `<a class="btn-primary" style="text-decoration:none;display:inline-block" href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${section.id + 1}">Next section →</a>`
+                : `<a class="btn-primary" style="text-decoration:none;display:inline-block" href="mcq.html">More topics</a>`
+            }
+          </div>
+        </div>`;
+
+      const chips = app.querySelectorAll(".chip");
+      chips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          chips.forEach((c) => c.classList.remove("is-on"));
+          chip.classList.add("is-on");
+          const filter = chip.getAttribute("data-filter");
+          app.querySelectorAll(".review-item").forEach((item) => {
+            const match = filter === "all" || item.getAttribute("data-filter") === filter;
+            item.classList.toggle("is-hidden", !match);
+          });
+        });
+      });
+    }
+
+    loadTopics()
+      .then(async (catalog) => {
+        if (!slug) return showTopicList(catalog);
+        const topicMeta = catalog.topics.find((t) => t.slug === slug && t.hasMcq);
+        if (!topicMeta) {
+          app.innerHTML = `<div class="placeholder">Unknown topic.</div>`;
+          return;
+        }
+        if (!sectionId) return showSections(topicMeta);
+
+        const bank = await loadMcqBank(topicMeta.slug);
+        const section = bank.sections.find((s) => s.id === sectionId);
+        if (!section) {
+          app.innerHTML = `<div class="placeholder">Unknown section.</div>`;
+          return;
+        }
+        if (mode === "review") renderReview(topicMeta, section);
+        else renderQuiz(topicMeta, section);
+      })
+      .catch((err) => {
+        app.innerHTML = `<div class="placeholder">Failed to load: ${escapeHtml(err.message)}. Use a local server.</div>`;
+      });
+  </script>
+</body>
+</html>

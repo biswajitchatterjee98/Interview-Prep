@@ -1,0 +1,687 @@
+{
+  "slug": "sql",
+  "title": "SQL",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Easy",
+      "level": "easy",
+      "problems": [
+        {
+          "id": "sql-easy-01",
+          "title": "Combine Two Tables",
+          "prompt": "Tables:\nPerson(personId INT PK, lastName VARCHAR, firstName VARCHAR)\nAddress(addressId INT PK, personId INT, city VARCHAR, state VARCHAR)\n\nReport firstName, lastName, city, state for each person. If a person has no address, city and state should be NULL.",
+          "examples": [
+            {
+              "input": "Person has Alice; Address missing for Alice",
+              "output": "Alice, lastName, NULL, NULL"
+            }
+          ],
+          "constraints": [
+            "One row per person",
+            "LEFT JOIN semantics"
+          ],
+          "starter": {
+            "sql": "-- Combine Person with Address (keep people without addresses)\nSELECT\nFROM Person p\n"
+          },
+          "solution": {
+            "sql": "SELECT p.firstName, p.lastName, a.city, a.state\nFROM Person p\nLEFT JOIN Address a ON p.personId = a.personId;"
+          },
+          "samples": [
+            {
+              "input": "Person has Alice; Address missing for Alice",
+              "output": "Alice, lastName, NULL, NULL"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-02",
+          "title": "Second Highest Salary",
+          "prompt": "Table Employee(id INT, salary INT).\nWrite a query to return the second highest distinct salary as SecondHighestSalary.\nIf there is no second highest, return NULL (one row).",
+          "examples": [
+            {
+              "input": "salaries 100,200,200,300",
+              "output": "SecondHighestSalary = 200"
+            }
+          ],
+          "constraints": [
+            "Use DISTINCT salaries",
+            "Return NULL if fewer than 2 distinct values"
+          ],
+          "starter": {
+            "sql": "-- Return second highest distinct salary (NULL if none)\nSELECT\n"
+          },
+          "solution": {
+            "sql": "SELECT (\n  SELECT DISTINCT salary\n  FROM Employee\n  ORDER BY salary DESC\n  LIMIT 1 OFFSET 1\n) AS SecondHighestSalary;"
+          },
+          "samples": [
+            {
+              "input": "salaries 100,200,200,300",
+              "output": "SecondHighestSalary = 200"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-03",
+          "title": "Employees Earning More Than Managers",
+          "prompt": "Table Employee(id INT, name VARCHAR, salary INT, managerId INT).\nmanagerId is NULL for top-level employees.\nFind employees who earn strictly more than their manager. Return the employee name as Employee.",
+          "examples": [
+            {
+              "input": "Emp A salary 4000 manager B(3000)",
+              "output": "A"
+            }
+          ],
+          "constraints": [
+            "Self-join Employee to itself"
+          ],
+          "starter": {
+            "sql": "-- Employees with salary > manager salary\nSELECT\nFROM Employee e\n"
+          },
+          "solution": {
+            "sql": "SELECT e.name AS Employee\nFROM Employee e\nJOIN Employee m ON e.managerId = m.id\nWHERE e.salary > m.salary;"
+          },
+          "samples": [
+            {
+              "input": "Emp A salary 4000 manager B(3000)",
+              "output": "A"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-04",
+          "title": "Duplicate Emails",
+          "prompt": "Table Person(id INT, email VARCHAR).\nWrite a query to find all duplicate emails (emails appearing more than once). Return column Email.",
+          "examples": [
+            {
+              "input": "a@x.com twice, b@x.com once",
+              "output": "a@x.com"
+            }
+          ],
+          "constraints": [
+            "GROUP BY + HAVING"
+          ],
+          "starter": {
+            "sql": "-- Emails that appear more than once\nSELECT\nFROM Person\n"
+          },
+          "solution": {
+            "sql": "SELECT email AS Email\nFROM Person\nGROUP BY email\nHAVING COUNT(*) > 1;"
+          },
+          "samples": [
+            {
+              "input": "a@x.com twice, b@x.com once",
+              "output": "a@x.com"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-05",
+          "title": "Customers Who Never Order",
+          "prompt": "Tables:\nCustomers(id INT, name VARCHAR)\nOrders(id INT, customerId INT)\n\nReturn customers who never placed an order. Output column Customers (the customer name).",
+          "examples": [
+            {
+              "input": "Customer Joe has no Orders rows",
+              "output": "Joe"
+            }
+          ],
+          "constraints": [
+            "NOT IN / LEFT JOIN anti-join / NOT EXISTS"
+          ],
+          "starter": {
+            "sql": "-- Customers with zero orders\nSELECT\n"
+          },
+          "solution": {
+            "sql": "SELECT c.name AS Customers\nFROM Customers c\nLEFT JOIN Orders o ON c.id = o.customerId\nWHERE o.id IS NULL;"
+          },
+          "samples": [
+            {
+              "input": "Customer Joe has no Orders rows",
+              "output": "Joe"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-06",
+          "title": "Rising Temperature",
+          "prompt": "Table Weather(id INT, recordDate DATE, temperature INT).\nFind ids where temperature is higher than the previous calendar day's temperature.\nReturn id.",
+          "examples": [
+            {
+              "input": "Day1 10C, Day2 25C consecutive dates",
+              "output": "id of Day2"
+            }
+          ],
+          "constraints": [
+            "Self-join on date = date - 1 day (or LAG)"
+          ],
+          "starter": {
+            "sql": "-- Ids hotter than yesterday\nSELECT\nFROM Weather w\n"
+          },
+          "solution": {
+            "sql": "SELECT w.id\nFROM Weather w\nJOIN Weather y\n  ON w.recordDate = DATE_ADD(y.recordDate, INTERVAL 1 DAY)\nWHERE w.temperature > y.temperature;\n-- PostgreSQL alternative: w.recordDate = y.recordDate + INTERVAL '1 day'"
+          },
+          "samples": [
+            {
+              "input": "Day1 10C, Day2 25C consecutive dates",
+              "output": "id of Day2"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-07",
+          "title": "Big Countries",
+          "prompt": "Table World(name VARCHAR, continent VARCHAR, area INT, population INT, gdp BIGINT).\nA country is big if area >= 3000000 OR population >= 25000000.\nReturn name, population, area of big countries.",
+          "examples": [
+            {
+              "input": "Country with area 5e6",
+              "output": "that country row"
+            }
+          ],
+          "constraints": [
+            "OR filter on thresholds"
+          ],
+          "starter": {
+            "sql": "-- Big countries by area or population\nSELECT name, population, area\nFROM World\nWHERE\n"
+          },
+          "solution": {
+            "sql": "SELECT name, population, area\nFROM World\nWHERE area >= 3000000 OR population >= 25000000;"
+          },
+          "samples": [
+            {
+              "input": "Country with area 5e6",
+              "output": "that country row"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-08",
+          "title": "Classes More Than 5 Students",
+          "prompt": "Table Courses(student VARCHAR, class VARCHAR).\nEach row means a student is enrolled in a class.\nReturn classes with at least 5 distinct students. Column class.",
+          "examples": [
+            {
+              "input": "Math has 6 students",
+              "output": "Math"
+            }
+          ],
+          "constraints": [
+            "GROUP BY class HAVING COUNT(DISTINCT student) >= 5"
+          ],
+          "starter": {
+            "sql": "-- Classes with >= 5 students\nSELECT class\nFROM Courses\nGROUP BY class\nHAVING\n"
+          },
+          "solution": {
+            "sql": "SELECT class\nFROM Courses\nGROUP BY class\nHAVING COUNT(DISTINCT student) >= 5;"
+          },
+          "samples": [
+            {
+              "input": "Math has 6 students",
+              "output": "Math"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-09",
+          "title": "Employee Bonus Below Threshold",
+          "prompt": "Tables:\nEmployee(empId INT, name VARCHAR, supervisor INT, salary INT)\nBonus(empId INT, bonus INT)\n\nReturn employee name and bonus for employees with bonus < 1000 OR no bonus row.\nColumns: name, bonus.",
+          "examples": [
+            {
+              "input": "Emp with NULL bonus",
+              "output": "name, NULL"
+            }
+          ],
+          "constraints": [
+            "LEFT JOIN Bonus"
+          ],
+          "starter": {
+            "sql": "-- Employees with bonus < 1000 or missing bonus\nSELECT\nFROM Employee e\nLEFT JOIN Bonus b ON e.empId = b.empId\nWHERE\n"
+          },
+          "solution": {
+            "sql": "SELECT e.name, b.bonus\nFROM Employee e\nLEFT JOIN Bonus b ON e.empId = b.empId\nWHERE b.bonus < 1000 OR b.bonus IS NULL;"
+          },
+          "samples": [
+            {
+              "input": "Emp with NULL bonus",
+              "output": "name, NULL"
+            }
+          ]
+        },
+        {
+          "id": "sql-easy-10",
+          "title": "Find Customer Referee",
+          "prompt": "Table Customer(id INT, name VARCHAR, referee_id INT).\nReturn names of customers not referred by customer id 2 (referee_id is not 2), including those with NULL referee_id.",
+          "examples": [
+            {
+              "input": "referee_id NULL or 1",
+              "output": "those names"
+            },
+            {
+              "input": "referee_id 2",
+              "output": "excluded"
+            }
+          ],
+          "constraints": [
+            "Careful with NULL: referee_id != 2 alone drops NULLs"
+          ],
+          "starter": {
+            "sql": "-- Names where referee is not 2 (include NULL)\nSELECT name\nFROM Customer\nWHERE\n"
+          },
+          "solution": {
+            "sql": "SELECT name\nFROM Customer\nWHERE referee_id IS NULL OR referee_id <> 2;"
+          },
+          "samples": [
+            {
+              "input": "referee_id NULL or 1",
+              "output": "those names"
+            },
+            {
+              "input": "referee_id 2",
+              "output": "excluded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Intermediate",
+      "level": "intermediate",
+      "problems": [
+        {
+          "id": "sql-intermediate-01",
+          "title": "Nth Highest Salary",
+          "prompt": "Table Employee(id INT, salary INT).\nWrite a query/function pattern that returns the Nth highest distinct salary.\nFor this bank, assume N = 2 is passed as a literal 2: return the 2nd highest distinct salary as getNthHighestSalary, or NULL if it does not exist.",
+          "examples": [
+            {
+              "input": "salaries 100,200,300; N=2",
+              "output": "200"
+            }
+          ],
+          "constraints": [
+            "DISTINCT + ORDER BY + LIMIT/OFFSET or DENSE_RANK"
+          ],
+          "starter": {
+            "sql": "-- 2nd highest distinct salary\nSELECT\n"
+          },
+          "solution": {
+            "sql": "SELECT (\n  SELECT DISTINCT salary\n  FROM Employee\n  ORDER BY salary DESC\n  LIMIT 1 OFFSET 1\n) AS getNthHighestSalary;"
+          },
+          "samples": [
+            {
+              "input": "salaries 100,200,300; N=2",
+              "output": "200"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-02",
+          "title": "Rank Scores",
+          "prompt": "Table Scores(id INT, score DECIMAL).\nRank scores from highest to lowest with these rules:\n- Same scores share the same rank\n- After a tie, the next rank is the next consecutive integer (no holes) — use DENSE_RANK semantics\nReturn columns score and rank, ordered by score descending.",
+          "examples": [
+            {
+              "input": "scores 3.5, 3.65, 4.0, 3.85, 4.0",
+              "output": "4.0 rank1, 4.0 rank1, 3.85 rank2, ..."
+            }
+          ],
+          "constraints": [
+            "DENSE_RANK() OVER (ORDER BY score DESC)"
+          ],
+          "starter": {
+            "sql": "-- Rank scores (dense, no holes after ties)\nSELECT score,\n       DENSE_RANK() OVER (ORDER BY score DESC) AS `rank`\nFROM Scores\n-- ORDER BY ...\n"
+          },
+          "solution": {
+            "sql": "SELECT score,\n       DENSE_RANK() OVER (ORDER BY score DESC) AS `rank`\nFROM Scores\nORDER BY score DESC;"
+          },
+          "samples": [
+            {
+              "input": "scores 3.5, 3.65, 4.0, 3.85, 4.0",
+              "output": "4.0 rank1, 4.0 rank1, 3.85 rank2, ..."
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-03",
+          "title": "Consecutive Numbers",
+          "prompt": "Table Logs(id INT, num INT) with ids consecutive.\nFind numbers that appear at least three times consecutively (three rows in a row with same num).\nReturn Distinct ConsecutiveNums.",
+          "examples": [
+            {
+              "input": "ids 1..5 nums 1,1,1,2,1",
+              "output": "1"
+            }
+          ],
+          "constraints": [
+            "Self-join id, id+1, id+2 or window"
+          ],
+          "starter": {
+            "sql": "-- Numbers appearing 3 times in a row\nSELECT DISTINCT\nFROM Logs l1\n"
+          },
+          "solution": {
+            "sql": "SELECT DISTINCT l1.num AS ConsecutiveNums\nFROM Logs l1\nJOIN Logs l2 ON l1.id = l2.id - 1 AND l1.num = l2.num\nJOIN Logs l3 ON l1.id = l3.id - 2 AND l1.num = l3.num;"
+          },
+          "samples": [
+            {
+              "input": "ids 1..5 nums 1,1,1,2,1",
+              "output": "1"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-04",
+          "title": "Department Highest Salary",
+          "prompt": "Tables:\nEmployee(id INT, name VARCHAR, salary INT, departmentId INT)\nDepartment(id INT, name VARCHAR)\n\nFind employees with the highest salary in each department.\nReturn Department, Employee, Salary.",
+          "examples": [
+            {
+              "input": "Eng: Joe 70000, Max 90000",
+              "output": "Engineering | Max | 90000"
+            }
+          ],
+          "constraints": [
+            "Join + max salary per department"
+          ],
+          "starter": {
+            "sql": "-- Top salary employee(s) per department\nSELECT\nFROM Employee e\nJOIN Department d ON e.departmentId = d.id\nWHERE\n"
+          },
+          "solution": {
+            "sql": "SELECT d.name AS Department, e.name AS Employee, e.salary AS Salary\nFROM Employee e\nJOIN Department d ON e.departmentId = d.id\nWHERE (e.departmentId, e.salary) IN (\n  SELECT departmentId, MAX(salary)\n  FROM Employee\n  GROUP BY departmentId\n);"
+          },
+          "samples": [
+            {
+              "input": "Eng: Joe 70000, Max 90000",
+              "output": "Engineering | Max | 90000"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-05",
+          "title": "Managers With At Least 5 Reports",
+          "prompt": "Table Employee(id INT, name VARCHAR, department VARCHAR, managerId INT).\nReturn names of managers who have at least 5 direct reports.",
+          "examples": [
+            {
+              "input": "Manager 101 has 5 reports",
+              "output": "that manager name"
+            }
+          ],
+          "constraints": [
+            "GROUP BY managerId HAVING COUNT(*) >= 5 then join names"
+          ],
+          "starter": {
+            "sql": "-- Managers with >= 5 direct reports\nSELECT name\nFROM Employee\nWHERE id IN (\n"
+          },
+          "solution": {
+            "sql": "SELECT name\nFROM Employee\nWHERE id IN (\n  SELECT managerId\n  FROM Employee\n  WHERE managerId IS NOT NULL\n  GROUP BY managerId\n  HAVING COUNT(*) >= 5\n);"
+          },
+          "samples": [
+            {
+              "input": "Manager 101 has 5 reports",
+              "output": "that manager name"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-06",
+          "title": "Game Play Analysis I",
+          "prompt": "Table Activity(player_id INT, device_id INT, event_date DATE, games_played INT).\nReturn each player's first login date as first_login (MIN event_date per player_id).",
+          "examples": [
+            {
+              "input": "player 1 dates 2016-03-01 and 2016-05-02",
+              "output": "2016-03-01"
+            }
+          ],
+          "constraints": [
+            "GROUP BY player_id"
+          ],
+          "starter": {
+            "sql": "-- First login date per player\nSELECT player_id, MIN(event_date) AS first_login\nFROM Activity\nGROUP BY player_id;\n"
+          },
+          "solution": {
+            "sql": "SELECT player_id, MIN(event_date) AS first_login\nFROM Activity\nGROUP BY player_id;"
+          },
+          "samples": [
+            {
+              "input": "player 1 dates 2016-03-01 and 2016-05-02",
+              "output": "2016-03-01"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-07",
+          "title": "Customer Who Bought All Products",
+          "prompt": "Tables:\nCustomer(customer_id INT, product_key INT)\nProduct(product_key INT) — complete product catalog\n\nReport customer_ids who bought every product in Product (distinct product_key coverage).",
+          "examples": [
+            {
+              "input": "2 products; customer bought both",
+              "output": "that customer_id"
+            }
+          ],
+          "constraints": [
+            "COUNT DISTINCT purchased = COUNT products"
+          ],
+          "starter": {
+            "sql": "-- Customers who bought the entire catalog\nSELECT customer_id\nFROM Customer\nGROUP BY customer_id\nHAVING\n"
+          },
+          "solution": {
+            "sql": "SELECT customer_id\nFROM Customer\nGROUP BY customer_id\nHAVING COUNT(DISTINCT product_key) = (SELECT COUNT(*) FROM Product);"
+          },
+          "samples": [
+            {
+              "input": "2 products; customer bought both",
+              "output": "that customer_id"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-08",
+          "title": "Tree Node Type",
+          "prompt": "Table Tree(id INT, p_id INT). Each node has id; root has p_id NULL.\nLabel each node as 'Root', 'Inner', or 'Leaf':\n- Root: p_id IS NULL\n- Leaf: not root and never appears as p_id\n- Inner: otherwise\nReturn id, type.",
+          "examples": [
+            {
+              "input": "1 root, 2 child of 1, no children under 2",
+              "output": "1 Root, 2 Leaf"
+            }
+          ],
+          "constraints": [
+            "CASE expressions"
+          ],
+          "starter": {
+            "sql": "-- Classify tree nodes\nSELECT id,\nCASE\nWHEN p_id IS NULL THEN 'Root'\nWHEN id NOT IN (SELECT p_id FROM Tree WHERE p_id IS NOT NULL) THEN 'Leaf'\nELSE 'Inner'\nEND AS type\nFROM Tree;\n"
+          },
+          "solution": {
+            "sql": "SELECT id,\nCASE\n  WHEN p_id IS NULL THEN 'Root'\n  WHEN id NOT IN (SELECT p_id FROM Tree WHERE p_id IS NOT NULL) THEN 'Leaf'\n  ELSE 'Inner'\nEND AS type\nFROM Tree;"
+          },
+          "samples": [
+            {
+              "input": "1 root, 2 child of 1, no children under 2",
+              "output": "1 Root, 2 Leaf"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-09",
+          "title": "Confirmation Rate",
+          "prompt": "Tables:\nSignups(user_id INT, time_stamp DATETIME)\nConfirmations(user_id INT, time_stamp DATETIME, action ENUM('confirmed','timeout'))\n\nConfirmation rate = confirmed / total confirmation requests (0 if no requests).\nReturn user_id, confirmation_rate rounded to 2 decimals.",
+          "examples": [
+            {
+              "input": "user with 1 confirmed 1 timeout",
+              "output": "0.50"
+            }
+          ],
+          "constraints": [
+            "LEFT JOIN + AVG/CASE"
+          ],
+          "starter": {
+            "sql": "-- Per-user confirmation rate\nSELECT s.user_id,\nROUND(AVG(CASE WHEN c.action = 'confirmed' THEN 1.0 ELSE 0 END), 2) AS confirmation_rate\nFROM Signups s\nLEFT JOIN Confirmations c ON s.user_id = c.user_id\nGROUP BY s.user_id;\n"
+          },
+          "solution": {
+            "sql": "SELECT s.user_id,\nROUND(COALESCE(AVG(CASE WHEN c.action = 'confirmed' THEN 1 ELSE 0 END), 0), 2) AS confirmation_rate\nFROM Signups s\nLEFT JOIN Confirmations c ON s.user_id = c.user_id\nGROUP BY s.user_id;"
+          },
+          "samples": [
+            {
+              "input": "user with 1 confirmed 1 timeout",
+              "output": "0.50"
+            }
+          ]
+        },
+        {
+          "id": "sql-intermediate-10",
+          "title": "Monthly Transactions I",
+          "prompt": "Table Transactions(id INT, country VARCHAR, state ENUM('approved','declined'), amount INT, trans_date DATE).\nFor each month and country, return: month (YYYY-MM), country, trans_count, approved_count, trans_total_amount, approved_total_amount.",
+          "examples": [
+            {
+              "input": "mix of approved/declined in 2018-12 US",
+              "output": "aggregated month/country row"
+            }
+          ],
+          "constraints": [
+            "DATE_FORMAT / TO_CHAR month, conditional aggregates"
+          ],
+          "starter": {
+            "sql": "-- Monthly transaction stats by country\nSELECT\nFROM Transactions\nGROUP BY 1, 2;\n"
+          },
+          "solution": {
+            "sql": "SELECT DATE_FORMAT(trans_date, '%Y-%m') AS month,\n       country,\n       COUNT(*) AS trans_count,\n       SUM(state = 'approved') AS approved_count,\n       SUM(amount) AS trans_total_amount,\n       SUM(IF(state = 'approved', amount, 0)) AS approved_total_amount\nFROM Transactions\nGROUP BY month, country;\n-- PostgreSQL: to_char(trans_date, 'YYYY-MM'), FILTER (WHERE state = 'approved')"
+          },
+          "samples": [
+            {
+              "input": "mix of approved/declined in 2018-12 US",
+              "output": "aggregated month/country row"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Hard",
+      "level": "hard",
+      "problems": [
+        {
+          "id": "sql-hard-01",
+          "title": "Department Top Three Salaries",
+          "prompt": "Tables:\nEmployee(id INT, name VARCHAR, salary INT, departmentId INT)\nDepartment(id INT, name VARCHAR)\n\nA company's executives are interested in the top three unique salaries in each department.\nReturn Department, Employee, Salary for employees who earn among the top three unique salaries in their department.",
+          "examples": [
+            {
+              "input": "Dept A salaries 100,100,90,80",
+              "output": "employees with 100,90,80"
+            }
+          ],
+          "constraints": [
+            "DENSE_RANK per department <= 3"
+          ],
+          "starter": {
+            "sql": "-- Top 3 unique salaries per department\nSELECT\nFROM (\n  SELECT d.name AS Department, e.name AS Employee, e.salary AS Salary,\n         DENSE_RANK() OVER (PARTITION BY e.departmentId ORDER BY e.salary DESC) AS rnk\n  FROM Employee e\n  JOIN Department d ON e.departmentId = d.id\n) t\nWHERE rnk <= 3;\n"
+          },
+          "solution": {
+            "sql": "SELECT Department, Employee, Salary\nFROM (\n  SELECT d.name AS Department,\n         e.name AS Employee,\n         e.salary AS Salary,\n         DENSE_RANK() OVER (\n           PARTITION BY e.departmentId\n           ORDER BY e.salary DESC\n         ) AS rnk\n  FROM Employee e\n  JOIN Department d ON e.departmentId = d.id\n) ranked\nWHERE rnk <= 3;"
+          },
+          "samples": [
+            {
+              "input": "Dept A salaries 100,100,90,80",
+              "output": "employees with 100,90,80"
+            }
+          ]
+        },
+        {
+          "id": "sql-hard-02",
+          "title": "Trips and Users Cancellation",
+          "prompt": "Tables:\nTrips(id INT, client_id INT, driver_id INT, city_id INT, status ENUM('completed','cancelled_by_driver','cancelled_by_client'), request_at DATE)\nUsers(users_id INT, banned VARCHAR('Yes','No'), role ENUM('client','driver','partner'))\n\nCancellation rate = uncompleted trips / total trips for unbanned clients AND unbanned drivers, per day, for dates '2013-10-01' to '2013-10-03'.\nRound to 2 decimals. Return Day, Cancellation Rate.",
+          "examples": [
+            {
+              "input": "day with 1 cancel 1 complete unbanned",
+              "output": "0.50"
+            }
+          ],
+          "constraints": [
+            "Filter banned users, date range, ROUND"
+          ],
+          "starter": {
+            "sql": "-- Daily cancellation rate for unbanned users\nSELECT\nFROM Trips t\n"
+          },
+          "solution": {
+            "sql": "SELECT t.request_at AS Day,\nROUND(\n  SUM(t.status != 'completed') / COUNT(*),\n  2\n) AS `Cancellation Rate`\nFROM Trips t\nJOIN Users c ON t.client_id = c.users_id AND c.banned = 'No' AND c.role = 'client'\nJOIN Users d ON t.driver_id = d.users_id AND d.banned = 'No' AND d.role = 'driver'\nWHERE t.request_at BETWEEN '2013-10-01' AND '2013-10-03'\nGROUP BY t.request_at;"
+          },
+          "samples": [
+            {
+              "input": "day with 1 cancel 1 complete unbanned",
+              "output": "0.50"
+            }
+          ]
+        },
+        {
+          "id": "sql-hard-03",
+          "title": "Human Traffic of Stadium",
+          "prompt": "Table Stadium(id INT, visit_date DATE, people INT) with consecutive ids.\nDisplay records with people >= 100 for three or more consecutive ids/rows.\nReturn id, visit_date, people ordered by visit_date.",
+          "examples": [
+            {
+              "input": "ids 1..7 with people pattern crossing 100 for 3+ streak",
+              "output": "those consecutive rows"
+            }
+          ],
+          "constraints": [
+            "Self-join streaks or gaps-and-islands"
+          ],
+          "starter": {
+            "sql": "-- Rows in streaks of 3+ days with people >= 100\nSELECT DISTINCT s1.id, s1.visit_date, s1.people\nFROM Stadium s1, Stadium s2, Stadium s3\nWHERE s1.people >= 100 AND s2.people >= 100 AND s3.people >= 100\n  AND (\n    (s1.id = s2.id - 1 AND s2.id = s3.id - 1) OR\n    (s1.id = s2.id + 1 AND s2.id = s3.id + 1) OR\n    (s1.id = s2.id - 1 AND s1.id = s3.id + 1)\n  )\nORDER BY s1.visit_date;\n"
+          },
+          "solution": {
+            "sql": "WITH filtered AS (\n  SELECT id, visit_date, people,\n         id - ROW_NUMBER() OVER (ORDER BY id) AS grp\n  FROM Stadium\n  WHERE people >= 100\n), streaks AS (\n  SELECT grp\n  FROM filtered\n  GROUP BY grp\n  HAVING COUNT(*) >= 3\n)\nSELECT f.id, f.visit_date, f.people\nFROM filtered f\nJOIN streaks s ON f.grp = s.grp\nORDER BY f.visit_date;"
+          },
+          "samples": [
+            {
+              "input": "ids 1..7 with people pattern crossing 100 for 3+ streak",
+              "output": "those consecutive rows"
+            }
+          ]
+        },
+        {
+          "id": "sql-hard-04",
+          "title": "Exchange Seats",
+          "prompt": "Table Seat(id INT PK, student VARCHAR) with consecutive ids starting at 1.\nSwap every two consecutive students' seats. If the number of students is odd, the last student is not swapped.\nReturn id, student ordered by id.",
+          "examples": [
+            {
+              "input": "1 Abbot, 2 Doris, 3 Green",
+              "output": "1 Doris, 2 Abbot, 3 Green"
+            }
+          ],
+          "constraints": [
+            "CASE on id % 2, careful with last odd id"
+          ],
+          "starter": {
+            "sql": "-- Swap adjacent seats; last odd stays\nSELECT\nCASE\n  WHEN id % 2 = 1 AND id = (SELECT MAX(id) FROM Seat) THEN id\n  WHEN id % 2 = 1 THEN id + 1\n  ELSE id - 1\nEND AS id,\nstudent\nFROM Seat\nORDER BY id;\n"
+          },
+          "solution": {
+            "sql": "SELECT\n  CASE\n    WHEN id % 2 = 1 AND id = (SELECT MAX(id) FROM Seat) THEN id\n    WHEN id % 2 = 1 THEN id + 1\n    ELSE id - 1\n  END AS id,\n  student\nFROM Seat\nORDER BY id;"
+          },
+          "samples": [
+            {
+              "input": "1 Abbot, 2 Doris, 3 Green",
+              "output": "1 Doris, 2 Abbot, 3 Green"
+            }
+          ]
+        },
+        {
+          "id": "sql-hard-05",
+          "title": "Find Median Given Frequency",
+          "prompt": "Table Numbers(num INT, frequency INT) where frequency is how many times num appears in a multiset.\nFind the median of the multiset. If even count, return average of two middle values (as float).\nReturn median.",
+          "examples": [
+            {
+              "input": "nums expanded by frequency; odd total",
+              "output": "middle value"
+            }
+          ],
+          "constraints": [
+            "Expand frequencies conceptually via windows / cumulative frequency"
+          ],
+          "starter": {
+            "sql": "-- Median from value frequencies\n-- Interview approach: cumulative frequency then pick middle\nWITH ordered AS (\n  SELECT num, frequency,\n         SUM(frequency) OVER (ORDER BY num) AS cum_freq,\n         SUM(frequency) OVER () AS total\n  FROM Numbers\n)\nSELECT AVG(num * 1.0) AS median\nFROM ordered\nWHERE cum_freq >= (total + 1) / 2\n  AND cum_freq - frequency < (total + 2) / 2;\n"
+          },
+          "solution": {
+            "sql": "WITH ordered AS (\n  SELECT num,\n         frequency,\n         SUM(frequency) OVER (ORDER BY num) AS cum_freq,\n         SUM(frequency) OVER () AS total\n  FROM Numbers\n)\nSELECT AVG(num * 1.0) AS median\nFROM ordered\nWHERE cum_freq >= FLOOR((total + 1) / 2)\n  AND cum_freq - frequency < CEIL((total + 1) / 2.0);"
+          },
+          "samples": [
+            {
+              "input": "nums expanded by frequency; odd total",
+              "output": "middle value"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

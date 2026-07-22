@@ -1,0 +1,624 @@
+{
+  "slug": "dynamic-programming",
+  "title": "Dynamic Programming",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "dynamic-programming-s1-q01",
+          "stem": "In a coding interview, how should you answer this: Dynamic programming applies when a problem has:? Choose the strongest option.",
+          "options": [
+            "Only greedy choice property",
+            "Optimal substructure and overlapping subproblems",
+            "No recurrence",
+            "Random access only"
+          ],
+          "correctIndex": 1,
+          "explanation": "DP caches solutions to overlapping subproblems that compose optimally."
+        },
+        {
+          "id": "dynamic-programming-s1-q02",
+          "stem": "In a coding interview, how should you answer this: Memoization is typically:? Choose the strongest option.",
+          "options": [
+            "Top-down recursion with a cache",
+            "Bottom-up loops only",
+            "Greedy sorting",
+            "BFS coloring"
+          ],
+          "correctIndex": 0,
+          "explanation": "Compute as needed; store results to avoid recomputation."
+        },
+        {
+          "id": "dynamic-programming-s1-q03",
+          "stem": "In a coding interview, how should you answer this: Tabulation is typically:? Choose the strongest option.",
+          "options": [
+            "Only recursion without cache",
+            "Hashing keys",
+            "Union-Find",
+            "Bottom-up filling of a DP table"
+          ],
+          "correctIndex": 3,
+          "explanation": "Iterate dependencies in order so each state is ready when needed."
+        },
+        {
+          "id": "dynamic-programming-s1-q04",
+          "stem": "In a coding interview, how should you answer this: 0/1 knapsack differs from unbounded knapsack in that:? Choose the strongest option.",
+          "options": [
+            "Items may be taken unlimited times in 0/1",
+            "Weights must be negative",
+            "Each item may be chosen at most once",
+            "Capacity is infinite"
+          ],
+          "correctIndex": 2,
+          "explanation": "0/1 = at most one of each; unbounded = unlimited copies."
+        },
+        {
+          "id": "dynamic-programming-s1-q05",
+          "stem": "In a coding interview, you are asked: A classic LIS (longest increasing subsequence) patience/DP insight is:? Which answer is best?",
+          "options": [
+            "Always sort the array first destroying order",
+            "Maintain tails of increasing subsequences; binary search length extension",
+            "Use BFS on values",
+            "MST on indices"
+          ],
+          "correctIndex": 1,
+          "explanation": "O(n log n) via tails array; O(n²) DP compares prior smaller elements."
+        },
+        {
+          "id": "dynamic-programming-s1-q06",
+          "stem": "In a coding interview, how should you answer this: Fibonacci with naive recursion is slow because of:? Choose the strongest option.",
+          "options": [
+            "Overlapping subproblems recomputed exponentially",
+            "Optimal substructure failing",
+            "Missing base cases only",
+            "Heap overflow only"
+          ],
+          "correctIndex": 0,
+          "explanation": "F(n) tree recomputes F(k) many times — DP/memo fixes it."
+        },
+        {
+          "id": "dynamic-programming-s1-q07",
+          "stem": "Space-optimizing a 1D DP that only depends on the previous index often uses:",
+          "options": [
+            "A VxV matrix",
+            "DFS stack only",
+            "Adjacency lists",
+            "A few rolling variables instead of a full array"
+          ],
+          "correctIndex": 3,
+          "explanation": "e.g., fib, climbing stairs: keep prev/prev2."
+        },
+        {
+          "id": "dynamic-programming-s1-q08",
+          "stem": "In a coding interview, how should you answer this: Coin change (fewest coins) with unlimited coins is a form of:? Choose the strongest option.",
+          "options": [
+            "0/1 knapsack with one coin type only",
+            "Dijkstra on coins only always",
+            "Unbounded knapsack-style DP",
+            "Greedy always optimal for all systems"
+          ],
+          "correctIndex": 2,
+          "explanation": "dp[x] = min over coins of dp[x-c]+1; greedy fails on some denominations."
+        },
+        {
+          "id": "dynamic-programming-s1-q09",
+          "stem": "In a coding interview, how should you answer this: LCS (longest common subsequence) DP state typically indexes:? Choose the strongest option.",
+          "options": [
+            "Only string lengths sum",
+            "Prefixes of both strings i,j",
+            "Graph SCCs",
+            "Heap positions"
+          ],
+          "correctIndex": 1,
+          "explanation": "dp[i][j] from first i and first j characters."
+        },
+        {
+          "id": "dynamic-programming-s1-q10",
+          "stem": "In a coding interview, how should you answer this: When converting recursion + memo to tabulation, you must:? Choose the strongest option.",
+          "options": [
+            "Order loops so dependencies are computed first",
+            "Use random fill order",
+            "Delete base cases",
+            "Avoid arrays"
+          ],
+          "correctIndex": 0,
+          "explanation": "Topological order of the state DAG."
+        },
+        {
+          "id": "dynamic-programming-s1-q11",
+          "stem": "In a coding interview, how should you answer this: A DP state design mistake is often:? Choose the strongest option.",
+          "options": [
+            "Using too clear names",
+            "Writing base cases",
+            "Drawing a recurrence",
+            "Forgetting a dimension needed to enforce a constraint (e.g., last picked item)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Missing state ⇒ incorrect transitions or illegal reuse."
+        },
+        {
+          "id": "dynamic-programming-s1-q12",
+          "stem": "In a coding interview, how should you answer this: Knapsack DP transition for 0/1 (item i, capacity w) chooses:? Choose the strongest option.",
+          "options": [
+            "Always take item",
+            "Always skip",
+            "max(skip item, take item if w≥wt)",
+            "Sum of both"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic include/exclude. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s1-q13",
+          "stem": "In a coding interview, you are asked: Why iterate capacity descending in 1D 0/1 knapsack? Which response is most accurate?",
+          "options": [
+            "To allow unbounded reuse",
+            "So each item is only used once (uses old values for higher caps)",
+            "To sort items",
+            "To mimic Dijkstra"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ascending would reuse the same item like unbounded."
+        },
+        {
+          "id": "dynamic-programming-s1-q14",
+          "stem": "In a coding interview, how should you answer this: Edit distance DP allows operations:? Choose the strongest option.",
+          "options": [
+            "Insert, delete, replace (typical Levenshtein)",
+            "Only MST merges",
+            "Only heap swaps",
+            "Only BFS rotates"
+          ],
+          "correctIndex": 0,
+          "explanation": "dp[i][j] min cost aligning prefixes."
+        },
+        {
+          "id": "dynamic-programming-s1-q15",
+          "stem": "In a coding interview, how should you answer this: Optimal substructure means:? Choose the strongest option.",
+          "options": [
+            "Subproblems never overlap",
+            "Greedy always works",
+            "Recursion is forbidden",
+            "An optimal solution contains optimal solutions to subproblems"
+          ],
+          "correctIndex": 3,
+          "explanation": "Necessary DP property alongside overlapping work."
+        },
+        {
+          "id": "dynamic-programming-s1-q16",
+          "stem": "In a coding interview, how should you answer this: If subproblems do not overlap, DP cache mainly:? Choose the strongest option.",
+          "options": [
+            "Is still mandatory",
+            "Turns into Dijkstra",
+            "Wastes memory — divide-and-conquer alone may suffice",
+            "Builds an MST"
+          ],
+          "correctIndex": 2,
+          "explanation": "Overlapping is why memo pays off."
+        },
+        {
+          "id": "dynamic-programming-s1-q17",
+          "stem": "In a coding interview, how should you answer this: House robber style DP chooses at each house:? Choose the strongest option.",
+          "options": [
+            "Sum of all houses",
+            "max(rob this + dp[i-2], skip + dp[i-1])",
+            "Greedy every other always",
+            "BFS from house 0"
+          ],
+          "correctIndex": 1,
+          "explanation": "Adjacent constraint encoded in transitions."
+        },
+        {
+          "id": "dynamic-programming-s1-q18",
+          "stem": "In a coding interview, how should you answer this: Matrix chain multiplication DP optimizes:? Choose the strongest option.",
+          "options": [
+            "Parenthesization cost using interval DP",
+            "Shortest paths",
+            "Heap order",
+            "Topo sort"
+          ],
+          "correctIndex": 0,
+          "explanation": "dp[i][j] best split between i and j."
+        },
+        {
+          "id": "dynamic-programming-s1-q19",
+          "stem": "In a coding interview, how should you answer this: Boolean true/false DP for partition equal subset sum reduces to:? Choose the strongest option.",
+          "options": [
+            "Option claiming: LIS",
+            "Option claiming: MST",
+            "Dijkstra",
+            "0/1 knapsack reaching sum/2"
+          ],
+          "correctIndex": 3,
+          "explanation": "Classic subset-sum knapsack. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s1-q20",
+          "stem": "In a coding interview, how should you answer this: Top-down vs bottom-up: top-down may be better when:? Choose the strongest option.",
+          "options": [
+            "All states are always needed",
+            "You cannot write recursion",
+            "Only a sparse subset of states is reachable",
+            "Caches are illegal"
+          ],
+          "correctIndex": 2,
+          "explanation": "Memo computes only needed states; tabulation may fill everything."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "dynamic-programming-s2-q01",
+          "stem": "In a coding interview, how should you answer this: Unbounded knapsack inner loop over capacity usually goes:? Choose the strongest option.",
+          "options": [
+            "Descending to forbid reuse",
+            "Option claiming: Random",
+            "Ascending so the same item can be reused",
+            "Only even capacities"
+          ],
+          "correctIndex": 2,
+          "explanation": "Opposite of 0/1 1D trick. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s2-q02",
+          "stem": "In a coding interview, how should you answer this: Bitmask DP is common when:? Choose the strongest option.",
+          "options": [
+            "n is 10^6",
+            "n is tiny (≤20–22) and state is a subset",
+            "Graphs are dense only",
+            "Strings are empty"
+          ],
+          "correctIndex": 1,
+          "explanation": "2^n states for subsets; TSP Held-Karp style."
+        },
+        {
+          "id": "dynamic-programming-s2-q03",
+          "stem": "In a coding interview, how should you answer this: Digit DP interviews ask you to count numbers ≤ R with properties by:? Choose the strongest option.",
+          "options": [
+            "DP on digit position + tight flag + other constraints",
+            "Sorting digits",
+            "Dijkstra on digits",
+            "MST on place values"
+          ],
+          "correctIndex": 0,
+          "explanation": "Classic digit DP template. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s2-q04",
+          "stem": "In a coding interview, how should you answer this: Interval DP pattern fills by:? Choose the strongest option.",
+          "options": [
+            "Random cells",
+            "Only diagonals forever",
+            "Heap order",
+            "Increasing interval length"
+          ],
+          "correctIndex": 3,
+          "explanation": "Smaller intervals before larger ones."
+        },
+        {
+          "id": "dynamic-programming-s2-q05",
+          "stem": "In a coding interview, how should you answer this: A rolling array for dp[i][j] depending on i-1 row means you can keep:? Choose the strongest option.",
+          "options": [
+            "All n rows mandatory",
+            "No arrays",
+            "Two rows (or one carefully updated row)",
+            "Adjacency matrix only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Space from O(n*m) to O(m) often."
+        },
+        {
+          "id": "dynamic-programming-s2-q06",
+          "stem": "In a coding interview, how should you answer this: LIS O(n²) recurrence is:? Choose the strongest option.",
+          "options": [
+            "dp[i]=dp[i-1]+a[i]",
+            "dp[i] = 1 + max(dp[j]) over j<i with a[j]<a[i] (or 1)",
+            "Option claiming: dp[i]=i",
+            "dp[i]=min(a)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Standard definition. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s2-q07",
+          "stem": "Knapsack where order of items matters (combinations vs permutations) changes:",
+          "options": [
+            "Loop nesting — coins outer vs amount outer affects counting combinations vs permutations",
+            "Option claiming: Nothing",
+            "Only the answer sign",
+            "Heap usage"
+          ],
+          "correctIndex": 0,
+          "explanation": "Coin change number-of-ways pitfalls."
+        },
+        {
+          "id": "dynamic-programming-s2-q08",
+          "stem": "In a coding interview, how should you answer this: DP on trees often roots the tree and defines state as:? Choose the strongest option.",
+          "options": [
+            "Floyd on all pairs only",
+            "Global heap",
+            "Matrix chain on leaves only",
+            "f(u) from children — e.g., include/exclude u"
+          ],
+          "correctIndex": 3,
+          "explanation": "Rerooting / tree DP interview family."
+        },
+        {
+          "id": "dynamic-programming-s2-q09",
+          "stem": "In a coding interview, how should you answer this: When greedy seems right but fails, a DP check is:? Choose the strongest option.",
+          "options": [
+            "Assume greedy always",
+            "Delete the constraint",
+            "Look for overlapping subproblems needing comparison of multiple choices",
+            "Use random"
+          ],
+          "correctIndex": 2,
+          "explanation": "Multiple viable subchoices ⇒ DP."
+        },
+        {
+          "id": "dynamic-programming-s2-q10",
+          "stem": "In a coding interview, how should you answer this: Catalan-number style DP counts:? Choose the strongest option.",
+          "options": [
+            "Shortest paths",
+            "Valid parentheses / BST structures / triangulations via convolution recurrence",
+            "Option claiming: MST",
+            "Inversions only"
+          ],
+          "correctIndex": 1,
+          "explanation": "C_n = sum C_i C_{n-1-i}. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s2-q11",
+          "stem": "In a coding interview, how should you answer this: Probability DP (e.g., dice sums) stores:? Choose the strongest option.",
+          "options": [
+            "Probability or ways to reach each sum/state",
+            "Only the mode",
+            "Dijkstra distances",
+            "Topo levels"
+          ],
+          "correctIndex": 0,
+          "explanation": "Transitions distribute probability mass."
+        },
+        {
+          "id": "dynamic-programming-s2-q12",
+          "stem": "In a coding interview, how should you answer this: Metaprogramming bug: mutating a shared memo key object causes:? Choose the strongest option.",
+          "options": [
+            "Faster AC always",
+            "Automatic correctness",
+            "Immutable JVM guarantees",
+            "Wrong cache hits / corrupted entries"
+          ],
+          "correctIndex": 3,
+          "explanation": "Keys must be immutable/value-based."
+        },
+        {
+          "id": "dynamic-programming-s2-q13",
+          "stem": "In a coding interview, how should you answer this: Shortest path in a DAG via DP/topo is:? Choose the strongest option.",
+          "options": [
+            "Run Bellman-Ford V times always",
+            "Use Kruskal",
+            "Relax edges in topological order once",
+            "Option claiming: 2-color"
+          ],
+          "correctIndex": 2,
+          "explanation": "DAG SP is linear after topo. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s2-q14",
+          "stem": "In a coding interview, how should you answer this: Palindrome partition DP often combines:? Choose the strongest option.",
+          "options": [
+            "Option claiming: MST",
+            "Precomputed isPalindrome[i][j] with cut DP",
+            "Option claiming: Heaps",
+            "BFS only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Min cuts = classic interview DP."
+        },
+        {
+          "id": "dynamic-programming-s2-q15",
+          "stem": "In a coding interview, you are asked: State compression for grid paths with obstacles still usually indexes:? Which answer is best?",
+          "options": [
+            "(r,c) or bitmask of visited if small",
+            "Only Manhattan distance",
+            "Option claiming: SCC id",
+            "Option claiming: Random"
+          ],
+          "correctIndex": 0,
+          "explanation": "Choose minimal state that encodes constraints."
+        },
+        {
+          "id": "dynamic-programming-s2-q16",
+          "stem": "In a coding interview, you are asked: Why reconstruct choice pointers (prev arrays) in DP? Which response is most accurate?",
+          "options": [
+            "To speed asymptotic time always",
+            "To avoid base cases",
+            "To replace recursion",
+            "To recover the actual solution not just the optimal value"
+          ],
+          "correctIndex": 3,
+          "explanation": "Value DP + parent/choice recovery."
+        },
+        {
+          "id": "dynamic-programming-s2-q17",
+          "stem": "In a coding interview, how should you answer this: Floating-point DP for probabilities should watch for:? Choose the strongest option.",
+          "options": [
+            "Integer overflow only",
+            "Heap corruption",
+            "Precision error; sometimes use logs or exact fractions",
+            "Topo cycles"
+          ],
+          "correctIndex": 2,
+          "explanation": "Interview + production numerical care."
+        },
+        {
+          "id": "dynamic-programming-s2-q18",
+          "stem": "In a coding interview, how should you answer this: AtCoder-style 'pick or not with modulo' DP requires:? Choose the strongest option.",
+          "options": [
+            "Sorting inputs always",
+            "Transitions that add ways mod M without double-counting",
+            "Negative capacity",
+            "DFS finish times"
+          ],
+          "correctIndex": 1,
+          "explanation": "Careful include/exclude counting."
+        },
+        {
+          "id": "dynamic-programming-s2-q19",
+          "stem": "In a coding interview, how should you answer this: Comparing memo recursion depth vs tabulation:? Choose the strongest option.",
+          "options": [
+            "Deep recursion may stack-overflow; tabulation/iterative memo avoids call depth",
+            "Tabulation always uses more stack",
+            "Memo forbids base cases",
+            "Both identical in stack"
+          ],
+          "correctIndex": 0,
+          "explanation": "Production risk on large n. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s2-q20",
+          "stem": "In a coding interview, how should you answer this: Optimization: monotone queue / convex hull tricks speed DP when:? Choose the strongest option.",
+          "options": [
+            "Always for LCS",
+            "Only for Fibonacci",
+            "Never in interviews",
+            "Transitions have structure (sliding window min, QI/CHT)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Advanced DP speedups beyond O(n²)."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "dynamic-programming-s3-q01",
+          "stem": "Senior review: your 1D 0/1 knapsack loops capacity ascending. What's wrong?",
+          "options": [
+            "Nothing — ascending is required for 0/1",
+            "It sorts weights",
+            "It disables modulo",
+            "Items can be reused — you accidentally solved unbounded"
+          ],
+          "correctIndex": 3,
+          "explanation": "Ascending + in-place ⇒ unbounded behavior."
+        },
+        {
+          "id": "dynamic-programming-s3-q02",
+          "stem": "In a coding interview, how should you answer this: Proving a DP correct in an interview: you should argue:? Choose the strongest option.",
+          "options": [
+            "Only Big-O",
+            "That recursion looks clean",
+            "Induction on state order: base cases hold; transitions consider all legal choices",
+            "Random tests only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Structure the proof around the DAG of states."
+        },
+        {
+          "id": "dynamic-programming-s3-q03",
+          "stem": "In a coding interview, you are asked: Alias bug: using global mutable dp across test cases without reset causes:? Which answer is best?",
+          "options": [
+            "Faster GC",
+            "Cross-test contamination and wrong answers",
+            "Automatic isolation",
+            "Immutable caches"
+          ],
+          "correctIndex": 1,
+          "explanation": "Clear or reallocate per test. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s3-q04",
+          "stem": "When DP state space is huge but answer is a count modulo prime, generating functions / combinatorics might:",
+          "options": [
+            "Replace heavy DP with closed forms or NTT convolutions",
+            "Always be slower",
+            "Forbid modulo",
+            "Require heaps"
+          ],
+          "correctIndex": 0,
+          "explanation": "Senior alternative when patterns exist."
+        },
+        {
+          "id": "dynamic-programming-s3-q05",
+          "stem": "In a coding interview, how should you answer this: Open vs closed interval DP off-by-one errors usually come from:? Choose the strongest option.",
+          "options": [
+            "Heap indexing",
+            "BFS layers",
+            "Union-Find rank",
+            "Inconsistent inclusive/exclusive bounds in splits"
+          ],
+          "correctIndex": 3,
+          "explanation": "Define clearly: dp[l][r] covers s[l..r] inclusive, etc."
+        },
+        {
+          "id": "dynamic-programming-s3-q06",
+          "stem": "In a coding interview, how should you answer this: Rerooting DP on trees lets you answer f(root)=u for all u in:? Choose the strongest option.",
+          "options": [
+            "O(n²) only always",
+            "O(1) preprocessing only",
+            "Typically O(n) after two DFS passes",
+            "MST time"
+          ],
+          "correctIndex": 2,
+          "explanation": "Contribute/exclude child contributions carefully."
+        },
+        {
+          "id": "dynamic-programming-s3-q07",
+          "stem": "In a coding interview, you are asked: Memory vs time: storing parent pointers for path recovery on huge DP may:? Which answer is best?",
+          "options": [
+            "Always be free",
+            "Blow memory — regenerate path by re-walking transitions instead",
+            "Reduce asymptotics",
+            "Replace modulo"
+          ],
+          "correctIndex": 1,
+          "explanation": "Trade space for recompute. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s3-q08",
+          "stem": "In a coding interview, how should you answer this: SOS DP (sum over subsets) is used when you need:? Choose the strongest option.",
+          "options": [
+            "Fast zeta transforms over subset lattices",
+            "Shortest paths",
+            "Prim MST",
+            "Activity selection"
+          ],
+          "correctIndex": 0,
+          "explanation": "Advanced bit DP technique. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "dynamic-programming-s3-q09",
+          "stem": "A DP that seems to need O(n) state but transitions scan O(n) each may still be improvable if:",
+          "options": [
+            "You add more nested loops",
+            "You switch to Bubble sort",
+            "You ban caching",
+            "You find incremental/sliding structure or convexity"
+          ],
+          "correctIndex": 3,
+          "explanation": "Look for optimization structure before accepting O(n²)."
+        },
+        {
+          "id": "dynamic-programming-s3-q10",
+          "stem": "Interview red flag: 'DP' solution that recomputes without cache and claims O(n) because 'each call is O(1)' — response?",
+          "options": [
+            "Accept the claim",
+            "Rewrite as Dijkstra",
+            "Ask for the recursion tree size / number of distinct states visited",
+            "Use Kruskal"
+          ],
+          "correctIndex": 2,
+          "explanation": "Complexity = states × transition work, counting multiplicity without memo."
+        }
+      ]
+    }
+  ]
+}

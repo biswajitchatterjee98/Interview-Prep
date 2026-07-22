@@ -1,0 +1,624 @@
+{
+  "slug": "devops",
+  "title": "DevOps",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "devops-s1-q01",
+          "stem": "In an interview, you are asked: What does CI primarily automate in a modern delivery pipeline? Which answer is best?",
+          "options": [
+            "Writing product requirements documents",
+            "Only production DNS cutovers at midnight",
+            "Manual USB deploys to each server",
+            "Building and testing every change to catch breakage early"
+          ],
+          "correctIndex": 3,
+          "explanation": "Continuous Integration builds/tests on each change for fast feedback."
+        },
+        {
+          "id": "devops-s1-q02",
+          "stem": "CD (continuous delivery vs deployment) — interview-accurate nuance?",
+          "options": [
+            "They are identical legal terms with no difference",
+            "Deployment forbids automation",
+            "Delivery means only compiling locally without tests",
+            "Delivery keeps main always releasable; deployment may auto-release to prod"
+          ],
+          "correctIndex": 3,
+          "explanation": "Delivery = releasable artifact; continuous deployment automates the prod release step."
+        },
+        {
+          "id": "devops-s1-q03",
+          "stem": "In an interview, you are asked: Infrastructure as Code — core benefit? Which answer is best?",
+          "options": [
+            "Versioned, reviewable, repeatable infra instead of click-ops snowflakes",
+            "Replacing application source control",
+            "Elimination of all cloud bills",
+            "Faster mouse clicks in the cloud console exclusively"
+          ],
+          "correctIndex": 0,
+          "explanation": "IaC makes infra declarative, reviewable, and reproducible."
+        },
+        {
+          "id": "devops-s1-q04",
+          "stem": "In an interview, you are asked: Mutable vs immutable infrastructure — preferred DevOps stance? Which answer is best?",
+          "options": [
+            "Prefer replace-in-place golden images/containers over SSH snowflake edits",
+            "Immutability means never deploying again",
+            "Mutable hosts are required for Kubernetes",
+            "Always SSH and apt-get upgrade prod hosts by hand forever"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immutable deploys replace instances/images rather than long-lived hand edits."
+        },
+        {
+          "id": "devops-s1-q05",
+          "stem": "In an interview, you are asked: Blue-green deployment — what risk does it mainly reduce? Which answer is best?",
+          "options": [
+            "Database schema design",
+            "Long mixed-version rollouts by switching traffic between two full environments",
+            "DNS entirely",
+            "The need for any automated tests"
+          ],
+          "correctIndex": 1,
+          "explanation": "Blue-green swaps traffic between parallel stacks for fast rollback."
+        },
+        {
+          "id": "devops-s1-q06",
+          "stem": "In an interview, you are asked: Canary releases — key idea? Which answer is best?",
+          "options": [
+            "Ship to a small traffic slice first, watch metrics, then promote",
+            "All users get the new build simultaneously always",
+            "Deploy only on Fridays with no metrics",
+            "Canaries replace unit tests"
+          ],
+          "correctIndex": 0,
+          "explanation": "Canaries limit blast radius while validating real production behavior."
+        },
+        {
+          "id": "devops-s1-q07",
+          "stem": "In an interview, you are asked: Rolling updates — characteristic trade-off? Which answer is best?",
+          "options": [
+            "Gradual instance replacement with mixed versions during the rollout window",
+            "Instant atomic cutover with zero mixed versions ever",
+            "No need for health checks",
+            "Only works offline"
+          ],
+          "correctIndex": 0,
+          "explanation": "Rolling updates are incremental; design for compatibility during overlap."
+        },
+        {
+          "id": "devops-s1-q08",
+          "stem": "In an interview, you are asked: Feature flags — DevOps/product value? Which answer is best?",
+          "options": [
+            "Replace source control branching",
+            "Encrypt disks automatically",
+            "Remove the need for monitoring",
+            "Decouple deploy from release; control exposure and kill switches"
+          ],
+          "correctIndex": 3,
+          "explanation": "Flags let you deploy dark and release/rollback features independently."
+        },
+        {
+          "id": "devops-s1-q09",
+          "stem": "In an interview, you are asked: What should a pipeline gate on before prod promote? Which answer is best?",
+          "options": [
+            "Nothing — push straight from laptop",
+            "Manual FTP of node_modules",
+            "Only the CEO's Slack emoji",
+            "Automated tests, security scans, and successful staging/canary signals as policy requires"
+          ],
+          "correctIndex": 3,
+          "explanation": "Quality and security gates protect production promotions."
+        },
+        {
+          "id": "devops-s1-q10",
+          "stem": "In an interview, you are asked: Artifacts and immutability — good practice? Which answer is best?",
+          "options": [
+            "Skip versioning tags",
+            "Build once, promote the same artifact across environments",
+            "Commit secrets into the artifact for convenience",
+            "Rebuild differently per env with unchecked drift"
+          ],
+          "correctIndex": 1,
+          "explanation": "Same artifact through envs avoids 'works in staging' rebuild drift."
+        },
+        {
+          "id": "devops-s1-q11",
+          "stem": "In an interview, you are asked: Docker image layers — why do they matter operationally? Which answer is best?",
+          "options": [
+            "Layers eliminate the need for base OS security patches",
+            "One layer means no filesystem",
+            "Layers replace orchestrators",
+            "Layer caching speeds builds and sharing; order Dockerfile for cache hits"
+          ],
+          "correctIndex": 3,
+          "explanation": "Layered images cache efficiently when Dockerfiles are ordered well."
+        },
+        {
+          "id": "devops-s1-q12",
+          "stem": "In an interview, you are asked: Multi-stage Docker builds — primary win? Which answer is best?",
+          "options": [
+            "Disabling HEALTHCHECK forever",
+            "Mandatory root in production containers",
+            "Smaller final images by leaving build toolchains in earlier stages",
+            "Slower builds with larger attack surface always"
+          ],
+          "correctIndex": 2,
+          "explanation": "Multi-stage keeps compile tools out of the runtime image."
+        },
+        {
+          "id": "devops-s1-q13",
+          "stem": "In an interview, you are asked: Kubernetes Pod vs Deployment — crisp distinction? Which answer is best?",
+          "options": [
+            "Deployment is a single container; Pod manages clusters",
+            "Pods replace Services for load balancing",
+            "Pod is the runnable unit; Deployment manages replica sets and rolling updates",
+            "They are synonyms in the API"
+          ],
+          "correctIndex": 2,
+          "explanation": "Pods run containers; Deployments control desired replica lifecycle."
+        },
+        {
+          "id": "devops-s1-q14",
+          "stem": "In an interview, you are asked: K8s Service — main job? Which answer is best?",
+          "options": [
+            "Stable virtual IP/DNS to reach a dynamic set of Pod endpoints",
+            "Building container images",
+            "Replacing Ingress TLS everywhere without config",
+            "Storing persistent secrets only"
+          ],
+          "correctIndex": 0,
+          "explanation": "Services provide stable networking to changing Pod IPs."
+        },
+        {
+          "id": "devops-s1-q15",
+          "stem": "In an interview, you are asked: ConfigMaps vs Secrets — operational difference? Which answer is best?",
+          "options": [
+            "ConfigMaps cannot mount as files",
+            "Both inject config; Secrets are for sensitive data with extra access controls (still encode carefully)",
+            "Secrets are plain env files committed to git publicly",
+            "ConfigMaps encrypt with HSM by default always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Secrets are the sensitive channel; still protect etcd/RBAC and prefer external secret stores."
+        },
+        {
+          "id": "devops-s1-q16",
+          "stem": "Liveness vs readiness probes — interview distinction?",
+          "options": [
+            "Readiness kills nodes; liveness only affects DNS TTL",
+            "They are identical HTTP checks with same effect",
+            "Liveness restarts unhealthy containers; readiness controls traffic until ready",
+            "Neither should be used in production"
+          ],
+          "correctIndex": 2,
+          "explanation": "Liveness = restart; readiness = in/out of Service endpoints."
+        },
+        {
+          "id": "devops-s1-q17",
+          "stem": "In an interview, you are asked: Horizontal Pod Autoscaler — scales based on what typically? Which answer is best?",
+          "options": [
+            "Git commit message length",
+            "Number of Dockerfiles in the repo",
+            "Metrics like CPU/custom metrics against targets to change replica count",
+            "Manual SSH only"
+          ],
+          "correctIndex": 2,
+          "explanation": "HPA adjusts replicas from resource/custom metrics."
+        },
+        {
+          "id": "devops-s1-q18",
+          "stem": "In an interview, you are asked: Requests vs limits in K8s — why set both thoughtfully? Which answer is best?",
+          "options": [
+            "Both must be zero for Guaranteed QoS",
+            "Limits are ignored; only requests matter for memory",
+            "Requests throttle CPU; limits schedule pods",
+            "Requests drive scheduling/guarantee; limits cap usage and affect throttling/OOM behavior"
+          ],
+          "correctIndex": 3,
+          "explanation": "Requests place pods; limits bound consumption — mis-sets cause noise/OOM."
+        },
+        {
+          "id": "devops-s1-q19",
+          "stem": "In an interview, you are asked: Helm — what problem does it solve? Which answer is best?",
+          "options": [
+            "Packaging and templating Kubernetes manifests as versioned charts",
+            "Terminating TLS at the browser",
+            "Replacing container runtimes",
+            "Building Linux kernels"
+          ],
+          "correctIndex": 0,
+          "explanation": "Helm packages deployable K8s applications with values/templates."
+        },
+        {
+          "id": "devops-s1-q20",
+          "stem": "In an interview, you are asked: GitOps — core operating model? Which answer is best?",
+          "options": [
+            "SSH into nodes and edit YAML live with no history",
+            "Desired cluster state lives in Git; a controller reconciles continuously",
+            "Only apply manifests from Slack bots without review",
+            "Forbid pull requests for infra"
+          ],
+          "correctIndex": 1,
+          "explanation": "Git is the source of truth; operators sync clusters to it."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "devops-s2-q01",
+          "stem": "In an interview, you are asked: Prometheus — primary role in the stack? Which answer is best?",
+          "options": [
+            "Log aggregation replacement for all syslog",
+            "Distributed tracing UI only",
+            "CI artifact registry",
+            "Pull-based metrics collection and time-series storage for alerting/query"
+          ],
+          "correctIndex": 3,
+          "explanation": "Prometheus scrapes metrics and evaluates alert rules."
+        },
+        {
+          "id": "devops-s2-q02",
+          "stem": "In an interview, you are asked: Grafana — typical pairing? Which answer is best?",
+          "options": [
+            "Building container images",
+            "Replacing etcd",
+            "Dashboards and visualization over metrics/logs/traces datasources",
+            "Issuing TLS certs only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Grafana visualizes observability data sources."
+        },
+        {
+          "id": "devops-s2-q03",
+          "stem": "In an interview, you are asked: Four golden signals (Google SRE) — which set? Which answer is best?",
+          "options": [
+            "CPU only, forever",
+            "Disk brand, rack color, PSU wattage, fan RPM only",
+            "Latency, traffic, errors, saturation",
+            "Commits, PRs, tickets, emojis"
+          ],
+          "correctIndex": 2,
+          "explanation": "Golden signals: latency, traffic, errors, saturation."
+        },
+        {
+          "id": "devops-s2-q04",
+          "stem": "In an interview, you are asked: RED metrics for request-driven services? Which answer is best?",
+          "options": [
+            "RPC, ETL, DDL",
+            "Rate, errors, duration",
+            "RAM, EEPROM, DVD",
+            "RAID, ECC, DMA"
+          ],
+          "correctIndex": 1,
+          "explanation": "RED = rate, errors, duration for services."
+        },
+        {
+          "id": "devops-s2-q05",
+          "stem": "In an interview, you are asked: USE method for resources? Which answer is best?",
+          "options": [
+            "Unit, suite, e2e only",
+            "Utilization, saturation, errors",
+            "UUID, SHA, ECDSA",
+            "Upload, stream, encode"
+          ],
+          "correctIndex": 1,
+          "explanation": "USE examines utilization, saturation, and errors of resources."
+        },
+        {
+          "id": "devops-s2-q06",
+          "stem": "In an interview, you are asked: Structured logging — why prefer it? Which answer is best?",
+          "options": [
+            "Disabling timestamps",
+            "Logging secrets in plaintext for debug",
+            "Longer free-text novels without fields",
+            "Machine-parseable fields enable reliable querying and correlation"
+          ],
+          "correctIndex": 3,
+          "explanation": "Structured logs (JSON etc.) power search and analytics."
+        },
+        {
+          "id": "devops-s2-q07",
+          "stem": "In an interview, you are asked: Correlation/trace IDs across microservices — purpose? Which answer is best?",
+          "options": [
+            "Encrypt passwords",
+            "Shard databases",
+            "Replace authentication",
+            "Stitch a request's path across services/logs/traces"
+          ],
+          "correctIndex": 3,
+          "explanation": "IDs correlate distributed request journeys."
+        },
+        {
+          "id": "devops-s2-q08",
+          "stem": "In an interview, you are asked: OpenTelemetry — high-level pitch? Which answer is best?",
+          "options": [
+            "A Kubernetes distro",
+            "A CI SaaS only",
+            "A packet sniffer replacing Wireshark exclusively",
+            "Vendor-neutral instrumentation APIs for traces/metrics/logs export"
+          ],
+          "correctIndex": 3,
+          "explanation": "OTel standardizes telemetry instrumentation and export."
+        },
+        {
+          "id": "devops-s2-q09",
+          "stem": "In an interview, you are asked: SLI vs SLO vs SLA — correct ordering of meaning? Which answer is best?",
+          "options": [
+            "SLI measures; SLO targets; SLA is the business/contract consequence",
+            "SLO is always 100% with no error budget",
+            "SLA is a Prometheus metric type; SLI is a legal contract",
+            "They are interchangeable acronyms"
+          ],
+          "correctIndex": 0,
+          "explanation": "Measure (SLI), target (SLO), agreement (SLA)."
+        },
+        {
+          "id": "devops-s2-q10",
+          "stem": "In an interview, you are asked: Error budgets — how do they guide releases? Which answer is best?",
+          "options": [
+            "They only apply to frontend CSS",
+            "Remaining reliability budget informs how aggressively you can ship vs freeze",
+            "They replace on-call rotations",
+            "They ban all deploys forever"
+          ],
+          "correctIndex": 1,
+          "explanation": "Error budgets balance velocity against reliability spend."
+        },
+        {
+          "id": "devops-s2-q11",
+          "stem": "In an interview, you are asked: On-call alert hygiene — best practice? Which answer is best?",
+          "options": [
+            "No runbooks; tribal knowledge only",
+            "Alert on symptoms/user impact with runbooks; avoid noisy low-value pages",
+            "Disable paging on weekends always",
+            "Page on every DEBUG log line"
+          ],
+          "correctIndex": 1,
+          "explanation": "Actionable, symptom-based alerts with runbooks reduce toil/fatigue."
+        },
+        {
+          "id": "devops-s2-q12",
+          "stem": "In an interview, you are asked: Incident severity — why classify? Which answer is best?",
+          "options": [
+            "Aligns response urgency, comms, and postmortem depth to impact",
+            "To avoid timelines in write-ups",
+            "Only for billing marketing",
+            "So you never need a commander"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sev levels drive process intensity and stakeholder communication."
+        },
+        {
+          "id": "devops-s2-q13",
+          "stem": "In an interview, you are asked: Blameless postmortems — intent? Which answer is best?",
+          "options": [
+            "Learn from systemic causes without punishing individuals for honest mistakes",
+            "Hide timelines from the team",
+            "Find a scapegoat quickly",
+            "Skip action items"
+          ],
+          "correctIndex": 0,
+          "explanation": "Blameless culture improves learning and future prevention."
+        },
+        {
+          "id": "devops-s2-q14",
+          "stem": "In an interview, you are asked: Secrets management — preferred pattern? Which answer is best?",
+          "options": [
+            "Email passwords in Slack forever",
+            "Bake long-lived root keys into all images",
+            "Short-lived credentials from a vault/cloud secret manager; never commit secrets",
+            "Commit .env with prod passwords to public Git"
+          ],
+          "correctIndex": 2,
+          "explanation": "Central secret stores + rotation + least privilege beat repo secrets."
+        },
+        {
+          "id": "devops-s2-q15",
+          "stem": "In an interview, you are asked: Supply chain security — SBOM relevance? Which answer is best?",
+          "options": [
+            "They disable CI",
+            "SBOMs are only for hardware BOM shopping",
+            "Inventory of dependencies helps vulnerability response and provenance",
+            "SBOMs replace code review"
+          ],
+          "correctIndex": 2,
+          "explanation": "SBOMs document components for vuln and compliance workflows."
+        },
+        {
+          "id": "devops-s2-q16",
+          "stem": "In an interview, you are asked: Image scanning in CI — what does it catch? Which answer is best?",
+          "options": [
+            "Logic bugs in business rules always",
+            "Keyboard layout issues",
+            "Known CVEs and misconfigurations in container dependencies/base images",
+            "DNS misconfiguration exclusively"
+          ],
+          "correctIndex": 2,
+          "explanation": "Scanners flag vulnerable packages and common image issues."
+        },
+        {
+          "id": "devops-s2-q17",
+          "stem": "In an interview, you are asked: Least privilege IAM — DevOps angle? Which answer is best?",
+          "options": [
+            "Everyone gets account-admin for speed",
+            "Grant minimal permissions needed; prefer roles over long-lived admin keys",
+            "Share one access key in the wiki",
+            "Disable MFA for CI bots always"
+          ],
+          "correctIndex": 1,
+          "explanation": "Least privilege and short-lived creds reduce blast radius."
+        },
+        {
+          "id": "devops-s2-q18",
+          "stem": "In an interview, you are asked: Network policies / security groups — purpose? Which answer is best?",
+          "options": [
+            "Increase MTU only",
+            "Compile Go binaries",
+            "Replace TLS",
+            "Restrict which workloads can talk on which ports/paths"
+          ],
+          "correctIndex": 3,
+          "explanation": "Network controls enforce allowlists between components."
+        },
+        {
+          "id": "devops-s2-q19",
+          "stem": "In an interview, you are asked: Terraform state — why is it sensitive/important? Which answer is best?",
+          "options": [
+            "State is unused if you use modules",
+            "It should be committed with secrets freely",
+            "It maps real resources; corruption/leaks can break infra or expose data",
+            "It is only a README"
+          ],
+          "correctIndex": 2,
+          "explanation": "Remote locked state is critical; protect and backup it."
+        },
+        {
+          "id": "devops-s2-q20",
+          "stem": "In an interview, you are asked: Drift detection — what problem does it address? Which answer is best?",
+          "options": [
+            "JVM garbage collection",
+            "Manual console changes diverging from IaC desired state",
+            "CSS browser quirks",
+            "Git merge conflicts in application code only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Drift tools/reconcile when reality leaves the declared config."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "devops-s3-q01",
+          "stem": "In an interview, you are asked: Chaos engineering — responsible practice? Which answer is best?",
+          "options": [
+            "Replace backups with chaos",
+            "Run controlled experiments to find weaknesses, with blast radius limits and abort criteria",
+            "Only on Fridays before holidays",
+            "Randomly delete prod with no hypothesis or rollback"
+          ],
+          "correctIndex": 1,
+          "explanation": "Chaos is scientific, scoped, and reversible — not reckless sabotage."
+        },
+        {
+          "id": "devops-s3-q02",
+          "stem": "In an interview, you are asked: Disaster recovery RPO vs RTO? Which answer is best?",
+          "options": [
+            "RTO only applies to CI runners",
+            "They are the same metric",
+            "RPO is uptime percent; RTO is packet loss",
+            "RPO = max data loss tolerance; RTO = max time to restore service"
+          ],
+          "correctIndex": 3,
+          "explanation": "RPO is data-loss window; RTO is recovery time target."
+        },
+        {
+          "id": "devops-s3-q03",
+          "stem": "In an interview, you are asked: Backup 3-2-1 rule — meaning? Which answer is best?",
+          "options": [
+            "3 alerts, 2 dashboards, 1 silence",
+            "3 regions, 2 VPCs, 1 subnet only",
+            "3 copies, 2 media types, 1 offsite/offline",
+            "3 commits, 2 branches, 1 tag"
+          ],
+          "correctIndex": 2,
+          "explanation": "Classic backup diversity: copies, media, offsite."
+        },
+        {
+          "id": "devops-s3-q04",
+          "stem": "In an interview, you are asked: Database migration in zero-downtime deploys — safe pattern? Which answer is best?",
+          "options": [
+            "Expand/contract (compatible multi-step) migrations with backward-compatible app versions",
+            "Rewrite all data in a single locking migration during peak",
+            "Ignore migrations and edit prod by hand",
+            "Drop columns first while old app still reads them"
+          ],
+          "correctIndex": 0,
+          "explanation": "Expand/contract keeps old and new app versions compatible during rollout."
+        },
+        {
+          "id": "devops-s3-q05",
+          "stem": "In an interview, you are asked: Sidecar pattern — common use? Which answer is best?",
+          "options": [
+            "Helper container for proxy/logging/secrets beside the app container",
+            "A Helm repository mirror",
+            "A type of PV storage class only",
+            "Replacing the main business container always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sidecars add cross-cutting capabilities next to the app."
+        },
+        {
+          "id": "devops-s3-q06",
+          "stem": "In an interview, you are asked: Service mesh (e.g. Istio/Linkerd) — value prop? Which answer is best?",
+          "options": [
+            "Replacing CI",
+            "mTLS, traffic policy, and observability for east-west service traffic",
+            "Building mobile apps",
+            "Storing Terraform state"
+          ],
+          "correctIndex": 1,
+          "explanation": "Meshes handle secure service-to-service networking and telemetry."
+        },
+        {
+          "id": "devops-s3-q07",
+          "stem": "In an interview, you are asked: Admission controllers in Kubernetes — role? Which answer is best?",
+          "options": [
+            "Scrape Prometheus metrics",
+            "Build Dockerfiles",
+            "Schedule pods onto nodes exclusively",
+            "Intercept API requests to validate/mutate objects before persistence"
+          ],
+          "correctIndex": 3,
+          "explanation": "Admission webhooks/policies gate what enters the cluster API."
+        },
+        {
+          "id": "devops-s3-q08",
+          "stem": "In an interview, you are asked: PodDisruptionBudget — why set one? Which answer is best?",
+          "options": [
+            "Increase CPU limits automatically",
+            "Store secrets",
+            "Disable rolling updates",
+            "Limit voluntary disruptions so enough replicas stay available during drains"
+          ],
+          "correctIndex": 3,
+          "explanation": "PDBs protect availability during voluntary node/pod disruptions."
+        },
+        {
+          "id": "devops-s3-q09",
+          "stem": "In an interview, you are asked: ephemeral vs persistent volumes — choose when? Which answer is best?",
+          "options": [
+            "Persistent volumes replace object storage CDNs",
+            "Always ephemeral for databases in prod",
+            "Ephemeral for scratch; PVC/PV for data that must survive pod restarts",
+            "PVCs cannot attach to pods"
+          ],
+          "correctIndex": 2,
+          "explanation": "Match volume lifetime to data durability needs."
+        },
+        {
+          "id": "devops-s3-q10",
+          "stem": "In an interview, you are asked: FinOps / cloud cost hygiene — DevOps-relevant habit? Which answer is best?",
+          "options": [
+            "Ignore bills until quarterly surprise",
+            "Leave unused GPUs on 24/7 with no tags",
+            "Disable autoscaling to maximize spend",
+            "Tag resources, right-size, turn off idle, watch unit cost with usage"
+          ],
+          "correctIndex": 3,
+          "explanation": "Cost visibility and rightsizing are part of operational excellence."
+        }
+      ]
+    }
+  ]
+}

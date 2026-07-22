@@ -1,0 +1,267 @@
+{
+  "slug": "graphs",
+  "title": "Graphs",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Easy",
+      "level": "easy",
+      "problems": [
+        {
+          "id": "graphs-easy-01",
+          "title": "Number of Islands",
+          "prompt": "Given an m x n 2D binary grid grid which represents a map of '1' (land) and '0' (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
+          "examples": [
+            {
+              "input": "grid = [[\"1\",\"1\",\"0\"],[\"1\",\"0\",\"0\"],[\"0\",\"0\",\"1\"]]",
+              "output": "2"
+            }
+          ],
+          "constraints": [
+            "1 <= m, n <= 300",
+            "grid[i][j] is '0' or '1'"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def numIslands(self, grid: list[list[str]]) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        int count = 0;\n        for (int r = 0; r < grid.length; r++) {\n            for (int c = 0; c < grid[0].length; c++) {\n                if (grid[r][c] == '1') {\n                    dfs(grid, r, c);\n                    count++;\n                }\n            }\n        }\n        return count;\n    }\n    private void dfs(char[][] grid, int r, int c) {\n        if (r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || grid[r][c] != '1') return;\n        grid[r][c] = '0';\n        dfs(grid, r + 1, c);\n        dfs(grid, r - 1, c);\n        dfs(grid, r, c + 1);\n        dfs(grid, r, c - 1);\n    }\n}\n",
+            "python": "class Solution:\n    def numIslands(self, grid: list[list[str]]) -> int:\n        if not grid:\n            return 0\n        rows, cols = len(grid), len(grid[0])\n\n        def dfs(r: int, c: int) -> None:\n            if r < 0 or c < 0 or r >= rows or c >= cols or grid[r][c] != \"1\":\n                return\n            grid[r][c] = \"0\"\n            dfs(r + 1, c)\n            dfs(r - 1, c)\n            dfs(r, c + 1)\n            dfs(r, c - 1)\n\n        count = 0\n        for r in range(rows):\n            for c in range(cols):\n                if grid[r][c] == \"1\":\n                    dfs(r, c)\n                    count += 1\n        return count\n"
+          },
+          "samples": [
+            {
+              "input": "[[\"1\",\"1\",\"0\"],[\"1\",\"0\",\"0\"],[\"0\",\"0\",\"1\"]]",
+              "output": "2"
+            }
+          ]
+        },
+        {
+          "id": "graphs-easy-02",
+          "title": "Clone Graph Problem",
+          "prompt": "Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains an integer val and a list of neighbors.",
+          "examples": [
+            {
+              "input": "adjList = [[2,4],[1,3],[2,4],[1,3]]",
+              "output": "[[2,4],[1,3],[2,4],[1,3]]"
+            }
+          ],
+          "constraints": [
+            "The number of nodes is in the range [0, 100]",
+            "1 <= Node.val <= 100",
+            "Node.val is unique for each node"
+          ],
+          "starter": {
+            "java": "class Node {\n    public int val;\n    public java.util.List<Node> neighbors;\n    public Node() { val = 0; neighbors = new java.util.ArrayList<>(); }\n    public Node(int _val) { val = _val; neighbors = new java.util.ArrayList<>(); }\n    public Node(int _val, java.util.List<Node> _neighbors) { val = _val; neighbors = _neighbors; }\n}\n\nclass Solution {\n    public Node cloneGraph(Node node) {\n        // write your code\n        return node;\n    }\n}\n",
+            "python": "class Node:\n    def __init__(self, val=0, neighbors=None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n\nclass Solution:\n    def cloneGraph(self, node: \"Node\") -> \"Node\":\n        # write your code\n        return node\n"
+          },
+          "solution": {
+            "java": "class Node {\n    public int val;\n    public java.util.List<Node> neighbors;\n    public Node() { val = 0; neighbors = new java.util.ArrayList<>(); }\n    public Node(int _val) { val = _val; neighbors = new java.util.ArrayList<>(); }\n    public Node(int _val, java.util.List<Node> _neighbors) { val = _val; neighbors = _neighbors; }\n}\n\nclass Solution {\n    private java.util.Map<Node, Node> map = new java.util.HashMap<>();\n    public Node cloneGraph(Node node) {\n        if (node == null) return null;\n        if (map.containsKey(node)) return map.get(node);\n        Node clone = new Node(node.val);\n        map.put(node, clone);\n        for (Node nei : node.neighbors) clone.neighbors.add(cloneGraph(nei));\n        return clone;\n    }\n}\n",
+            "python": "class Node:\n    def __init__(self, val=0, neighbors=None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n\nclass Solution:\n    def cloneGraph(self, node: \"Node\") -> \"Node\":\n        if node is None:\n            return None\n        clones = {}\n\n        def dfs(n: \"Node\") -> \"Node\":\n            if n in clones:\n                return clones[n]\n            clones[n] = Node(n.val)\n            for nei in n.neighbors:\n                clones[n].neighbors.append(dfs(nei))\n            return clones[n]\n\n        return dfs(node)\n"
+          },
+          "samples": [
+            {
+              "input": "[[2,4],[1,3],[2,4],[1,3]]",
+              "output": "[[2,4],[1,3],[2,4],[1,3]]"
+            }
+          ]
+        },
+        {
+          "id": "graphs-easy-03",
+          "title": "Course Schedule",
+          "prompt": "There are numCourses courses labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] means you must take course bi before course ai. Return true if you can finish all courses. Otherwise return false.",
+          "examples": [
+            {
+              "input": "numCourses = 2, prerequisites = [[1,0]]",
+              "output": "true"
+            },
+            {
+              "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+              "output": "false"
+            }
+          ],
+          "constraints": [
+            "1 <= numCourses <= 2000",
+            "0 <= prerequisites.length <= 5000",
+            "prerequisites[i].length == 2"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        // write your code\n        return false;\n    }\n}\n",
+            "python": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:\n        # write your code\n        return False\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        java.util.List<java.util.List<Integer>> g = new java.util.ArrayList<>();\n        for (int i = 0; i < numCourses; i++) g.add(new java.util.ArrayList<>());\n        int[] indeg = new int[numCourses];\n        for (int[] p : prerequisites) {\n            g.get(p[1]).add(p[0]);\n            indeg[p[0]]++;\n        }\n        java.util.ArrayDeque<Integer> q = new java.util.ArrayDeque<>();\n        for (int i = 0; i < numCourses; i++) if (indeg[i] == 0) q.add(i);\n        int taken = 0;\n        while (!q.isEmpty()) {\n            int u = q.poll();\n            taken++;\n            for (int v : g.get(u)) if (--indeg[v] == 0) q.add(v);\n        }\n        return taken == numCourses;\n    }\n}\n",
+            "python": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:\n        g = [[] for _ in range(numCourses)]\n        indeg = [0] * numCourses\n        for a, b in prerequisites:\n            g[b].append(a)\n            indeg[a] += 1\n        q = [i for i in range(numCourses) if indeg[i] == 0]\n        taken = 0\n        while q:\n            u = q.pop()\n            taken += 1\n            for v in g[u]:\n                indeg[v] -= 1\n                if indeg[v] == 0:\n                    q.append(v)\n        return taken == numCourses\n"
+          },
+          "samples": [
+            {
+              "input": "2\\n[[1,0]]",
+              "output": "true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Intermediate",
+      "level": "intermediate",
+      "problems": [
+        {
+          "id": "graphs-intermediate-01",
+          "title": "Pacific Atlantic Water Flow (Lite)",
+          "prompt": "Given an m x n matrix of non-negative integers heights representing the height of each cell, return a list of grid coordinates [r, c] where rain water can flow to both the Pacific and Atlantic oceans. Water can flow to adjacent cells (4 directions) of equal or lower height. Pacific touches the top and left edges; Atlantic touches the bottom and right edges.",
+          "examples": [
+            {
+              "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+              "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"
+            }
+          ],
+          "constraints": [
+            "1 <= m, n <= 50",
+            "0 <= heights[r][c] <= 10^5"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public java.util.List<java.util.List<Integer>> pacificAtlantic(int[][] heights) {\n        // write your code\n        return new java.util.ArrayList<>();\n    }\n}\n",
+            "python": "class Solution:\n    def pacificAtlantic(self, heights: list[list[int]]) -> list[list[int]]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public java.util.List<java.util.List<Integer>> pacificAtlantic(int[][] heights) {\n        int m = heights.length, n = heights[0].length;\n        boolean[][] pac = new boolean[m][n], atl = new boolean[m][n];\n        for (int i = 0; i < m; i++) { dfs(heights, pac, i, 0); dfs(heights, atl, i, n - 1); }\n        for (int j = 0; j < n; j++) { dfs(heights, pac, 0, j); dfs(heights, atl, m - 1, j); }\n        java.util.List<java.util.List<Integer>> res = new java.util.ArrayList<>();\n        for (int i = 0; i < m; i++)\n            for (int j = 0; j < n; j++)\n                if (pac[i][j] && atl[i][j]) res.add(java.util.Arrays.asList(i, j));\n        return res;\n    }\n    private void dfs(int[][] h, boolean[][] vis, int r, int c) {\n        vis[r][c] = true;\n        int[][] d = {{1,0},{-1,0},{0,1},{0,-1}};\n        for (int[] t : d) {\n            int nr = r + t[0], nc = c + t[1];\n            if (nr < 0 || nc < 0 || nr >= h.length || nc >= h[0].length || vis[nr][nc] || h[nr][nc] < h[r][c]) continue;\n            dfs(h, vis, nr, nc);\n        }\n    }\n}\n",
+            "python": "class Solution:\n    def pacificAtlantic(self, heights: list[list[int]]) -> list[list[int]]:\n        m, n = len(heights), len(heights[0])\n        pac = [[False] * n for _ in range(m)]\n        atl = [[False] * n for _ in range(m)]\n\n        def dfs(r: int, c: int, vis: list[list[bool]]) -> None:\n            vis[r][c] = True\n            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n                nr, nc = r + dr, c + dc\n                if 0 <= nr < m and 0 <= nc < n and not vis[nr][nc] and heights[nr][nc] >= heights[r][c]:\n                    dfs(nr, nc, vis)\n\n        for i in range(m):\n            dfs(i, 0, pac)\n            dfs(i, n - 1, atl)\n        for j in range(n):\n            dfs(0, j, pac)\n            dfs(m - 1, j, atl)\n        return [[i, j] for i in range(m) for j in range(n) if pac[i][j] and atl[i][j]]\n"
+          },
+          "samples": [
+            {
+              "input": "[[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+              "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"
+            }
+          ]
+        },
+        {
+          "id": "graphs-intermediate-02",
+          "title": "Word Ladder (Lite)",
+          "prompt": "Given two words beginWord and endWord, and a word list wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists. Each transformed word must exist in wordList (except beginWord). Only one letter can be changed at a time.",
+          "examples": [
+            {
+              "input": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+              "output": "5"
+            }
+          ],
+          "constraints": [
+            "1 <= beginWord.length <= 10",
+            "endWord.length == beginWord.length",
+            "1 <= wordList.length <= 500"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int ladderLength(String beginWord, String endWord, java.util.List<String> wordList) {\n        // write your code\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:\n        # write your code\n        return 0\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int ladderLength(String beginWord, String endWord, java.util.List<String> wordList) {\n        java.util.Set<String> words = new java.util.HashSet<>(wordList);\n        if (!words.contains(endWord)) return 0;\n        java.util.ArrayDeque<String> q = new java.util.ArrayDeque<>();\n        q.add(beginWord);\n        int steps = 1;\n        while (!q.isEmpty()) {\n            for (int sz = q.size(); sz > 0; sz--) {\n                String w = q.poll();\n                if (w.equals(endWord)) return steps;\n                char[] arr = w.toCharArray();\n                for (int i = 0; i < arr.length; i++) {\n                    char old = arr[i];\n                    for (char c = 'a'; c <= 'z'; c++) {\n                        arr[i] = c;\n                        String nxt = new String(arr);\n                        if (words.contains(nxt)) {\n                            words.remove(nxt);\n                            q.add(nxt);\n                        }\n                    }\n                    arr[i] = old;\n                }\n            }\n            steps++;\n        }\n        return 0;\n    }\n}\n",
+            "python": "class Solution:\n    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:\n        words = set(wordList)\n        if endWord not in words:\n            return 0\n        from collections import deque\n        q = deque([beginWord])\n        steps = 1\n        while q:\n            for _ in range(len(q)):\n                w = q.popleft()\n                if w == endWord:\n                    return steps\n                chars = list(w)\n                for i in range(len(chars)):\n                    old = chars[i]\n                    for c in \"abcdefghijklmnopqrstuvwxyz\":\n                        chars[i] = c\n                        nxt = \"\".join(chars)\n                        if nxt in words:\n                            words.remove(nxt)\n                            q.append(nxt)\n                    chars[i] = old\n            steps += 1\n        return 0\n"
+          },
+          "samples": [
+            {
+              "input": "\"hit\"\\n\"cog\"\\n[\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+              "output": "5"
+            }
+          ]
+        },
+        {
+          "id": "graphs-intermediate-03",
+          "title": "Network Delay Time",
+          "prompt": "You are given a network of n nodes labeled from 1 to n. You are given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source, vi is the target, and wi is the time it takes. We send a signal from node k. Return the minimum time it takes for all n nodes to receive the signal. If impossible, return -1.",
+          "examples": [
+            {
+              "input": "times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2",
+              "output": "2"
+            }
+          ],
+          "constraints": [
+            "1 <= k <= n <= 100",
+            "1 <= times.length <= 6000"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        // write your code\n        return -1;\n    }\n}\n",
+            "python": "class Solution:\n    def networkDelayTime(self, times: list[list[int]], n: int, k: int) -> int:\n        # write your code\n        return -1\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        java.util.List<int[]>[] g = new java.util.List[n + 1];\n        for (int i = 1; i <= n; i++) g[i] = new java.util.ArrayList<>();\n        for (int[] t : times) g[t[0]].add(new int[]{t[1], t[2]});\n        int[] dist = new int[n + 1];\n        java.util.Arrays.fill(dist, Integer.MAX_VALUE);\n        dist[k] = 0;\n        java.util.PriorityQueue<int[]> pq = new java.util.PriorityQueue<>((a, b) -> a[0] - b[0]);\n        pq.add(new int[]{0, k});\n        while (!pq.isEmpty()) {\n            int[] cur = pq.poll();\n            int d = cur[0], u = cur[1];\n            if (d > dist[u]) continue;\n            for (int[] e : g[u]) {\n                int v = e[0], w = e[1];\n                if (dist[u] + w < dist[v]) {\n                    dist[v] = dist[u] + w;\n                    pq.add(new int[]{dist[v], v});\n                }\n            }\n        }\n        int ans = 0;\n        for (int i = 1; i <= n; i++) {\n            if (dist[i] == Integer.MAX_VALUE) return -1;\n            ans = Math.max(ans, dist[i]);\n        }\n        return ans;\n    }\n}\n",
+            "python": "class Solution:\n    def networkDelayTime(self, times: list[list[int]], n: int, k: int) -> int:\n        import heapq\n        g = [[] for _ in range(n + 1)]\n        for u, v, w in times:\n            g[u].append((v, w))\n        dist = [float(\"inf\")] * (n + 1)\n        dist[k] = 0\n        pq = [(0, k)]\n        while pq:\n            d, u = heapq.heappop(pq)\n            if d > dist[u]:\n                continue\n            for v, w in g[u]:\n                if dist[u] + w < dist[v]:\n                    dist[v] = dist[u] + w\n                    heapq.heappush(pq, (dist[v], v))\n        ans = max(dist[1:])\n        return -1 if ans == float(\"inf\") else ans\n"
+          },
+          "samples": [
+            {
+              "input": "[[2,1,1],[2,3,1],[3,4,1]]\\n4\\n2",
+              "output": "2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Hard",
+      "level": "hard",
+      "problems": [
+        {
+          "id": "graphs-hard-01",
+          "title": "Cheapest Flights Within K Stops",
+          "prompt": "There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei]. Find the cheapest price from src to dst with at most k stops. If there is no such route, return -1.",
+          "examples": [
+            {
+              "input": "n = 4, flights = [[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]], src = 0, dst = 3, k = 1",
+              "output": "700"
+            }
+          ],
+          "constraints": [
+            "1 <= n <= 100",
+            "0 <= flights.length <= n * (n - 1) / 2",
+            "0 <= k < n"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        // write your code\n        return -1;\n    }\n}\n",
+            "python": "class Solution:\n    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n        # write your code\n        return -1\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {\n        int[] dist = new int[n];\n        java.util.Arrays.fill(dist, Integer.MAX_VALUE);\n        dist[src] = 0;\n        for (int i = 0; i <= k; i++) {\n            int[] next = dist.clone();\n            for (int[] f : flights) {\n                int u = f[0], v = f[1], w = f[2];\n                if (dist[u] != Integer.MAX_VALUE && dist[u] + w < next[v]) next[v] = dist[u] + w;\n            }\n            dist = next;\n        }\n        return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];\n    }\n}\n",
+            "python": "class Solution:\n    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:\n        dist = [float(\"inf\")] * n\n        dist[src] = 0\n        for _ in range(k + 1):\n            nxt = dist[:]\n            for u, v, w in flights:\n                if dist[u] != float(\"inf\") and dist[u] + w < nxt[v]:\n                    nxt[v] = dist[u] + w\n            dist = nxt\n        return -1 if dist[dst] == float(\"inf\") else dist[dst]\n"
+          },
+          "samples": [
+            {
+              "input": "4\\n[[0,1,100],[1,2,100],[2,0,100],[1,3,600],[2,3,200]]\\n0\\n3\\n1",
+              "output": "700"
+            }
+          ]
+        },
+        {
+          "id": "graphs-hard-02",
+          "title": "Critical Connections",
+          "prompt": "There are n servers numbered from 0 to n - 1 connected by undirected server-to-server connections, where connections[i] = [ai, bi] represents a connection between servers ai and bi. A critical connection is a connection whose removal will make some servers unable to reach some other server (a bridge). Return all critical connections in any order.",
+          "examples": [
+            {
+              "input": "n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]",
+              "output": "[[1,3]]"
+            }
+          ],
+          "constraints": [
+            "2 <= n <= 10^4",
+            "n - 1 <= connections.length <= 10^5"
+          ],
+          "starter": {
+            "java": "class Solution {\n    public java.util.List<java.util.List<Integer>> criticalConnections(int n, java.util.List<java.util.List<Integer>> connections) {\n        // write your code\n        return new java.util.ArrayList<>();\n    }\n}\n",
+            "python": "class Solution:\n    def criticalConnections(self, n: int, connections: list[list[int]]) -> list[list[int]]:\n        # write your code\n        return []\n"
+          },
+          "solution": {
+            "java": "class Solution {\n    private int timer = 0;\n    public java.util.List<java.util.List<Integer>> criticalConnections(int n, java.util.List<java.util.List<Integer>> connections) {\n        java.util.List<java.util.List<Integer>> g = new java.util.ArrayList<>();\n        for (int i = 0; i < n; i++) g.add(new java.util.ArrayList<>());\n        for (java.util.List<Integer> e : connections) {\n            g.get(e.get(0)).add(e.get(1));\n            g.get(e.get(1)).add(e.get(0));\n        }\n        int[] disc = new int[n], low = new int[n];\n        java.util.Arrays.fill(disc, -1);\n        java.util.List<java.util.List<Integer>> bridges = new java.util.ArrayList<>();\n        dfs(0, -1, g, disc, low, bridges);\n        return bridges;\n    }\n    private void dfs(int u, int parent, java.util.List<java.util.List<Integer>> g, int[] disc, int[] low, java.util.List<java.util.List<Integer>> bridges) {\n        disc[u] = low[u] = timer++;\n        for (int v : g.get(u)) {\n            if (v == parent) continue;\n            if (disc[v] == -1) {\n                dfs(v, u, g, disc, low, bridges);\n                low[u] = Math.min(low[u], low[v]);\n                if (low[v] > disc[u]) bridges.add(java.util.Arrays.asList(u, v));\n            } else low[u] = Math.min(low[u], disc[v]);\n        }\n    }\n}\n",
+            "python": "class Solution:\n    def criticalConnections(self, n: int, connections: list[list[int]]) -> list[list[int]]:\n        g = [[] for _ in range(n)]\n        for a, b in connections:\n            g[a].append(b)\n            g[b].append(a)\n        disc = [-1] * n\n        low = [0] * n\n        timer = 0\n        bridges = []\n\n        def dfs(u: int, parent: int) -> None:\n            nonlocal timer\n            disc[u] = low[u] = timer\n            timer += 1\n            for v in g[u]:\n                if v == parent:\n                    continue\n                if disc[v] == -1:\n                    dfs(v, u)\n                    low[u] = min(low[u], low[v])\n                    if low[v] > disc[u]:\n                        bridges.append([u, v])\n                else:\n                    low[u] = min(low[u], disc[v])\n\n        dfs(0, -1)\n        return bridges\n"
+          },
+          "samples": [
+            {
+              "input": "4\\n[[0,1],[1,2],[2,0],[1,3]]",
+              "output": "[[1,3]]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

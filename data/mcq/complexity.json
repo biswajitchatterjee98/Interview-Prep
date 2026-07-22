@@ -1,0 +1,624 @@
+{
+  "slug": "complexity",
+  "title": "Complexity",
+  "sections": [
+    {
+      "id": 1,
+      "label": "Section 1",
+      "questions": [
+        {
+          "id": "complexity-s1-q01",
+          "stem": "In a coding interview, you are asked: Big-O vs Theta — what do you say in an interview? Which response is most accurate?",
+          "options": [
+            "O is upper bound; Θ is tight bound (upper and lower); Ω is lower bound",
+            "They mean the same always",
+            "Θ is only for space",
+            "O means average case exclusively"
+          ],
+          "correctIndex": 0,
+          "explanation": "Asymptotic notation family: O / Ω / Θ."
+        },
+        {
+          "id": "complexity-s1-q02",
+          "stem": "In a coding interview, you are asked: Amortized O(1) ArrayList add — meaning? Which response is most accurate?",
+          "options": [
+            "Every single add is ≤ c steps",
+            "Average cost per operation over a sequence is O(1), even if some ops are expensive",
+            "Worst-case of each add is O(1)",
+            "Amortized means randomized"
+          ],
+          "correctIndex": 1,
+          "explanation": "Amortized ≠ worst-case per operation."
+        },
+        {
+          "id": "complexity-s1-q03",
+          "stem": "In a coding interview, you are asked: Binary search time complexity on sorted array? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "O(n log n)",
+            "O(log n)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Halving the search space each step."
+        },
+        {
+          "id": "complexity-s1-q04",
+          "stem": "In a coding interview, you are asked: Two nested loops i=0..n−1, j=0..n−1: time? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(2n)",
+            "O(log n)",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Θ(n²) iterations. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s1-q05",
+          "stem": "In a coding interview, you are asked: for i in 0..n: for j in i..n — complexity? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n²)",
+            "Option claiming: O(n)",
+            "O(n log n)",
+            "Option claiming: O(2^n)"
+          ],
+          "correctIndex": 0,
+          "explanation": "≈ n²/2 iterations → still Θ(n²)."
+        },
+        {
+          "id": "complexity-s1-q06",
+          "stem": "In a coding interview, you are asked: Recursion depth n with O(1) work per frame — stack space? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(1)",
+            "Option claiming: O(n)",
+            "O(log n)",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Call stack grows with depth. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s1-q07",
+          "stem": "In a coding interview, you are asked: Mergesort time — what do you claim? Which response is most accurate?",
+          "options": [
+            "Best O(n), worst O(n²)",
+            "O(n) time in-place always",
+            "Θ(n log n) time typical; O(n) extra space for the usual array merge",
+            "O(n²) average"
+          ],
+          "correctIndex": 2,
+          "explanation": "Divide-and-conquer merge is n log n with linear extra buffer commonly."
+        },
+        {
+          "id": "complexity-s1-q08",
+          "stem": "In a coding interview, you are asked: Hash map expected lookup? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "O(log n)",
+            "O(n log n)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Expected constant under good conditions."
+        },
+        {
+          "id": "complexity-s1-q09",
+          "stem": "In a coding interview, you are asked: When is O(n log n) preferable to O(n²) practically? Which response is most accurate?",
+          "options": [
+            "As soon as n grows — e.g. n=10^5, n² is too slow while n log n is fine",
+            "Never for n=10",
+            "Only when memory is unlimited",
+            "O(n²) is always faster due to smaller constants"
+          ],
+          "correctIndex": 0,
+          "explanation": "Constraints drive which asymptotics matter."
+        },
+        {
+          "id": "complexity-s1-q10",
+          "stem": "In a coding interview, you are asked: log factors: O(n log n) vs O(n) — interview phrasing? Which response is most accurate?",
+          "options": [
+            "log n is negligible so they are identical always",
+            "Same linearithmic vs linear class; for huge n, log n still grows — but often acceptable",
+            "O(n log n) is exponential",
+            "log n means log base 10 only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Be honest: slower than linear, usually OK vs quadratic."
+        },
+        {
+          "id": "complexity-s1-q11",
+          "stem": "In a coding interview, you are asked: Best / average / worst case — why distinguish? Which response is most accurate?",
+          "options": [
+            "Interviewers dislike precision",
+            "Only worst case exists in Big-O",
+            "Same algorithm can differ (e.g. Quicksort); state which you mean",
+            "Average case is illegal to mention"
+          ],
+          "correctIndex": 2,
+          "explanation": "Clarify the case analysis. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s1-q12",
+          "stem": "In a coding interview, you are asked: Dropping constants: is 3n² + 7n O(n²)? Which response is most accurate?",
+          "options": [
+            "No, because of the 3",
+            "Only if n < 3",
+            "No, it is O(n)",
+            "Yes — leading term dominates; constants ignored in Big-O"
+          ],
+          "correctIndex": 3,
+          "explanation": "Asymptotics ignore constant factors and lower terms."
+        },
+        {
+          "id": "complexity-s1-q13",
+          "stem": "In a coding interview, you are asked: Linear search worst-case? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(1)",
+            "O(log n)",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 0,
+          "explanation": "May scan all elements. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s1-q14",
+          "stem": "In a coding interview, you are asked: Space complexity of storing an n×n matrix densely? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(n²)",
+            "O(log n)",
+            "Option claiming: O(1)"
+          ],
+          "correctIndex": 1,
+          "explanation": "n² entries. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s1-q15",
+          "stem": "In a coding interview, you are asked: Tail recursion — complexity angle? Which response is most accurate?",
+          "options": [
+            "Always uses O(n) stack even when optimized",
+            "Makes time O(1)",
+            "Can reuse frames → O(1) stack if language optimizes TCO; Java generally does not",
+            "Forbidden in interviews"
+          ],
+          "correctIndex": 2,
+          "explanation": "Know TCO vs languages that don't do it."
+        },
+        {
+          "id": "complexity-s1-q16",
+          "stem": "In a coding interview, you are asked: Comparing 2^n vs n! growth? Which response is most accurate?",
+          "options": [
+            "2^n grows faster",
+            "They are Θ of each other",
+            "Both are polynomial",
+            "n! grows faster than 2^n for large n"
+          ],
+          "correctIndex": 3,
+          "explanation": "Factorial outpaces exponential base 2."
+        },
+        {
+          "id": "complexity-s1-q17",
+          "stem": "In a coding interview, you are asked: O(1) space meaning? Which response is most accurate?",
+          "options": [
+            "Extra memory independent of n (aside from input); few variables",
+            "Uses no memory",
+            "Output size must be O(1)",
+            "Only registers allowed"
+          ],
+          "correctIndex": 0,
+          "explanation": "Auxiliary space doesn't grow with input size."
+        },
+        {
+          "id": "complexity-s1-q18",
+          "stem": "In a coding interview, you are asked: Why say 'expected O(n)' for Quickselect/hash? Which response is most accurate?",
+          "options": [
+            "Expected means best case",
+            "Randomization / average over inputs or pivots; not a hard worst-case guarantee",
+            "Expected means Ω(n²)",
+            "It is the same as amortized"
+          ],
+          "correctIndex": 1,
+          "explanation": "Probabilistic/average guarantees ≠ worst-case."
+        },
+        {
+          "id": "complexity-s1-q19",
+          "stem": "In a coding interview, you are asked: Nested loop where inner runs 1,2,4,...,n (powers of two)? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n²)",
+            "Option claiming: O(2^n)",
+            "Option claiming: O(n)",
+            "O(log n)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Geometric series of inner work sums to O(n)."
+        },
+        {
+          "id": "complexity-s1-q20",
+          "stem": "In a coding interview, you are asked: Screening: sorting comparison-based lower bound? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "O(log n)",
+            "Option claiming: O(1)",
+            "Ω(n log n) in the algebraic decision-tree model"
+          ],
+          "correctIndex": 3,
+          "explanation": "Information-theoretic lower bound for general comparison sorting."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Section 2",
+      "questions": [
+        {
+          "id": "complexity-s2-q01",
+          "stem": "In a coding interview, you are asked: Master theorem vibe: T(n)=2T(n/2)+O(n) — class? Which response is most accurate?",
+          "options": [
+            "O(n log n)",
+            "Option claiming: O(n)",
+            "Option claiming: O(n²)",
+            "Option claiming: O(2^n)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Same as mergesort recurrence. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q02",
+          "stem": "In a coding interview, you are asked: DFS on a graph adjacency list — time? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(1)",
+            "Option claiming: O(V+E)",
+            "O(V²) always",
+            "O(E log V) mandatory"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each vertex/edge processed constantly often."
+        },
+        {
+          "id": "complexity-s2-q03",
+          "stem": "In a coding interview, you are asked: Binary heap insert complexity? Which response is most accurate?",
+          "options": [
+            "O(1) worst",
+            "Option claiming: O(n)",
+            "O(log n)",
+            "O(n log n)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Bubble up height of tree. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q04",
+          "stem": "In a coding interview, you are asked: Building a heap from n elements via heapify? Which response is most accurate?",
+          "options": [
+            "O(n log n) only method",
+            "Option claiming: O(1)",
+            "Option claiming: O(n²)",
+            "O(n) bottom-up heapify"
+          ],
+          "correctIndex": 3,
+          "explanation": "Linear-time heap construction is a classic result."
+        },
+        {
+          "id": "complexity-s2-q05",
+          "stem": "In a coding interview, you are asked: Two pointers on sorted array for 2-sum — time? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(n²)",
+            "O(log n)",
+            "O(n log n) required"
+          ],
+          "correctIndex": 0,
+          "explanation": "Each pointer moves at most n times."
+        },
+        {
+          "id": "complexity-s2-q06",
+          "stem": "In a coding interview, you are asked: Sliding window maximum with deque — time? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(nk)",
+            "Option claiming: O(n)",
+            "O(n log n)",
+            "Option claiming: O(n²)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each index enters/leaves deque once."
+        },
+        {
+          "id": "complexity-s2-q07",
+          "stem": "In a coding interview, you are asked: Dijkstra with binary heap on adjacency list? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(V+E)",
+            "O(V² log V) always best",
+            "O((V+E) log V) typical",
+            "Option claiming: O(E²)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Heap operations dominate. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q08",
+          "stem": "In a coding interview, you are asked: Why count sort / radix can beat Ω(n log n)? Which response is most accurate?",
+          "options": [
+            "They use comparisons secretly",
+            "Lower bounds are wrong",
+            "They run in O(1)",
+            "They assume integer/digit structure — not pure comparison sorts"
+          ],
+          "correctIndex": 3,
+          "explanation": "Model matters: comparison lower bound doesn't apply."
+        },
+        {
+          "id": "complexity-s2-q09",
+          "stem": "In a coding interview, you are asked: Backtracking complexity talk track? Which response is most accurate?",
+          "options": [
+            "Often exponential in worst case; prune to make practical — state the branching",
+            "Always polynomial",
+            "Always O(n log n)",
+            "Same as DP always"
+          ],
+          "correctIndex": 0,
+          "explanation": "Be explicit about search tree size."
+        },
+        {
+          "id": "complexity-s2-q10",
+          "stem": "In a coding interview, you are asked: DP time for classic LCS lengths n,m? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n+m)",
+            "Option claiming: O(nm)",
+            "O(n log m)",
+            "O(2^{n+m})"
+          ],
+          "correctIndex": 1,
+          "explanation": "Fill n×m table. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q11",
+          "stem": "In a coding interview, you are asked: Amortized analysis example beyond ArrayList? Which response is most accurate?",
+          "options": [
+            "Binary search",
+            "Selection sort",
+            "Splay trees / union-find (almost O(1) α(n)) / dynamic table",
+            "Linear search"
+          ],
+          "correctIndex": 2,
+          "explanation": "Several classic amortized structures."
+        },
+        {
+          "id": "complexity-s2-q12",
+          "stem": "In a coding interview, you are asked: Union-find with path compression + union by rank? Which response is most accurate?",
+          "options": [
+            "O(n) per op",
+            "O(log log log n) worst each without amortize",
+            "Option claiming: O(n²)",
+            "Amortized almost O(1) (inverse Ackermann)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Near-constant amortized. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q13",
+          "stem": "In a coding interview, you are asked: String hashing all substrings naively? Which response is most accurate?",
+          "options": [
+            "O(n²) hashes if each computed from scratch over its span",
+            "O(1) total",
+            "O(n) always",
+            "O(log n)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Unless rolling/prefix hashes, substring hashing blows up."
+        },
+        {
+          "id": "complexity-s2-q14",
+          "stem": "In a coding interview, you are asked: Comparing nested loops: j from 0 to i vs 0 to n? Which response is most accurate?",
+          "options": [
+            "First is O(n), second O(n²)",
+            "Both Θ(n²); constant factors differ (~1/2)",
+            "Both O(n)",
+            "First is O(2^n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Sum of i is quadratic. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q15",
+          "stem": "Memory locality can make O(n²) array code beat O(n log n) pointer-heavy code for moderate n — true?",
+          "options": [
+            "False; asymptotics always predict wall clock",
+            "True and asymptotics never matter",
+            "True — constants and caches matter; still discuss asymptotics for scaling",
+            "False because caches ignore arrays"
+          ],
+          "correctIndex": 2,
+          "explanation": "Practical performance ≠ only Big-O; scaling still matters."
+        },
+        {
+          "id": "complexity-s2-q16",
+          "stem": "In a coding interview, you are asked: BFS shortest path unweighted graph complexity? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(V²E)",
+            "O(E log V) required",
+            "Option claiming: O(V!)",
+            "Option claiming: O(V+E)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Queue processes each vertex/edge constantly."
+        },
+        {
+          "id": "complexity-s2-q17",
+          "stem": "In a coding interview, you are asked: Potentially better: O(n) hash Two Sum vs O(n log n) sort+pointers — catch? Which answer is best?",
+          "options": [
+            "Hash uses extra memory and has worse constants/worst-case; sort is deterministic",
+            "Hash always wins on memory too",
+            "Sort cannot find pairs",
+            "Hash is always worse asymptotically"
+          ],
+          "correctIndex": 0,
+          "explanation": "Trade space, determinism, and constants."
+        },
+        {
+          "id": "complexity-s2-q18",
+          "stem": "In a coding interview, you are asked: Recurrence T(n)=T(n−1)+O(n) — closed form? Which response is most accurate?",
+          "options": [
+            "Option claiming: O(n)",
+            "Option claiming: O(n²)",
+            "O(n log n)",
+            "Option claiming: O(2^n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "1+2+…+n = Θ(n²). State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q19",
+          "stem": "In a coding interview, you are asked: Log base in Big-O for algorithms — does base matter? Which response is most accurate?",
+          "options": [
+            "Yes, log2 vs log10 changes the class",
+            "Only ln is allowed",
+            "No — logs differ by a constant factor, absorbed in Big-O",
+            "Base must match word size"
+          ],
+          "correctIndex": 2,
+          "explanation": "Change-of-base is a constant. State this clearly and mention complexity when relevant."
+        },
+        {
+          "id": "complexity-s2-q20",
+          "stem": "In a coding interview, you are asked: Online vs offline algorithms — complexity relevance? Which response is most accurate?",
+          "options": [
+            "Option claiming: None",
+            "Offline means O(1) space",
+            "Online forbids hash maps",
+            "Online processes input as it arrives (constraints on future knowledge); can change feasible complexity/approach"
+          ],
+          "correctIndex": 3,
+          "explanation": "Problem model affects what algorithms are allowed."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Section 3",
+      "questions": [
+        {
+          "id": "complexity-s3-q01",
+          "stem": "In a coding interview, you are asked: Senior: amortized vs expected — crisp difference? Which response is most accurate?",
+          "options": [
+            "Amortized: average over a sequence of ops (often deterministic accounting); expected: average over random choices/inputs",
+            "Synonyms",
+            "Expected is only for space",
+            "Amortized requires probability"
+          ],
+          "correctIndex": 0,
+          "explanation": "Don't conflate accounting arguments with probability."
+        },
+        {
+          "id": "complexity-s3-q02",
+          "stem": "Cache-oblivious / practical: why Θ(n) sequential scan ≪ Θ(n) random probes?",
+          "options": [
+            "Big-O forbids caches",
+            "Prefetch and cache lines favor sequential access; same asymptotics, different constants/hardware",
+            "Random probes use less RAM",
+            "Sequential scan is O(log n) on CPUs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hardware reality under the asymptotics."
+        },
+        {
+          "id": "complexity-s3-q03",
+          "stem": "In a coding interview, you are asked: Pitfall: claiming O(1) for HashMap with string keys of length m? Which response is most accurate?",
+          "options": [
+            "Correct always",
+            "m never matters",
+            "Hashing/equals may cost O(m); say O(m) expected per op w.r.t. key length",
+            "Only capacity matters"
+          ],
+          "correctIndex": 2,
+          "explanation": "Key size is part of the model."
+        },
+        {
+          "id": "complexity-s3-q04",
+          "stem": "In a coding interview, you are asked: Persistent data structures — complexity tradeoff theme? Which response is most accurate?",
+          "options": [
+            "Free immutability with zero cost",
+            "Always O(1) copy entire structure",
+            "Persistence reduces time below ephemeral structures always",
+            "Structural sharing can make updates O(log n) while preserving old versions"
+          ],
+          "correctIndex": 3,
+          "explanation": "Versioned updates cost logarithmic structure sharing typically."
+        },
+        {
+          "id": "complexity-s3-q05",
+          "stem": "In a coding interview, you are asked: When O(n²) DP is acceptable in interviews? Which response is most accurate?",
+          "options": [
+            "When n≤~300–1000 depending on limits; confirm constraints before optimizing prematurely",
+            "Option claiming: Never",
+            "Only if n≤5",
+            "When interviewer forbids O(n log n)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Match algorithm to constraints."
+        },
+        {
+          "id": "complexity-s3-q06",
+          "stem": "In a coding interview, you are asked: Lower bound arguments — how to use lightly in interview? Which response is most accurate?",
+          "options": [
+            "Prove P=NP quickly",
+            "E.g. must read all input ⇒ Ω(n); comparison sort ⇒ Ω(n log n) — shows your solution is optimal in model",
+            "Lower bounds forbid hash maps",
+            "Only for space"
+          ],
+          "correctIndex": 1,
+          "explanation": "Simple adversary/information arguments impress when accurate."
+        },
+        {
+          "id": "complexity-s3-q07",
+          "stem": "In a coding interview, you are asked: Soft O / ignoring log^* / α(n) — honest senior take? Which response is most accurate?",
+          "options": [
+            "They are huge in practice",
+            "α(n) is exponential",
+            "Some factors grow so slowly they're treated as constant practically, but say so explicitly",
+            "Never mention them"
+          ],
+          "correctIndex": 2,
+          "explanation": "Communicate practical vs theoretical growth."
+        },
+        {
+          "id": "complexity-s3-q08",
+          "stem": "In a coding interview, you are asked: Parallelism: work vs span (depth) — why mention? Which response is most accurate?",
+          "options": [
+            "Only for GPUs",
+            "Span always equals work",
+            "Big-O ignores parallelism entirely forever",
+            "Total operations (work) vs critical-path length (span) describe parallel speedup limits"
+          ],
+          "correctIndex": 3,
+          "explanation": "Modern systems interviews may touch parallel complexity."
+        },
+        {
+          "id": "complexity-s3-q09",
+          "stem": "In a coding interview, you are asked: Integer addition of two n-bit numbers — complexity? Which response is most accurate?",
+          "options": [
+            "O(n) bit operations in multi-tape / bit models; word RAM may treat word ops O(1)",
+            "O(1) always in all models",
+            "O(n²) mandatory",
+            "O(log n) bits"
+          ],
+          "correctIndex": 0,
+          "explanation": "Model (word RAM vs bit) changes the answer."
+        },
+        {
+          "id": "complexity-s3-q10",
+          "stem": "In a coding interview, you are asked: Premature micro-optimization vs Big-O — balance? Which response is most accurate?",
+          "options": [
+            "Always hand-write assembly first",
+            "Pick the right asymptotic class for constraints first; profile constants only when needed",
+            "Big-O is useless in industry",
+            "Constants never matter"
+          ],
+          "correctIndex": 1,
+          "explanation": "Right algorithm first, then measure."
+        }
+      ]
+    }
+  ]
+}
