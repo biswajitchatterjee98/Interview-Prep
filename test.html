@@ -26,24 +26,51 @@
     <h1>Test mode</h1>
     <p class="lede">Choose how you want to practice — full MCQ banks and coding problems are ready.</p>
 
+    <div class="stats-row" id="testStats"></div>
+
     <div class="card-grid">
       <a class="card" href="mcq.html">
         <h2>MCQs</h2>
         <p>Three sections per topic (20 + 20 + 10). Review correct and incorrect answers after each section.</p>
+        <div id="mcqTracker"></div>
         <div class="meta">32 topics · 50 questions each</div>
       </a>
       <a class="card" href="coding.html">
         <h2>Coding</h2>
         <p>Easy / Intermediate / Hard (SQL has a larger set). Submit, save, and reveal Java &amp; Python answers.</p>
+        <div id="codingTracker"></div>
         <div class="meta">12 DSA topics + SQL</div>
       </a>
     </div>
   </div>
   <script src="js/auth.js"></script>
   <script src="js/topics.js"></script>
+  <script src="js/storage.js"></script>
   <script>
     requireAuth();
     bindLogout();
+
+    (async function loadTrackers() {
+      try {
+        const catalog = await loadTopics();
+        const test = summarizeTestSections(catalog);
+        document.getElementById("mcqTracker").innerHTML = renderTracker({
+          done: test.mcq.done,
+          total: test.mcq.total,
+          unit: "sections",
+        });
+        document.getElementById("codingTracker").innerHTML = renderTracker({
+          done: test.coding.done,
+          total: test.coding.total,
+          unit: "sections",
+        });
+        document.getElementById("testStats").innerHTML = `
+          <span><strong>${test.done}</strong> / ${test.total} sections completed</span>
+          <span><strong>${test.left}</strong> left</span>`;
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   </script>
 </body>
 </html>

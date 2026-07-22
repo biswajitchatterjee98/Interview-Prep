@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "total": 1080,
+  "topics": [
+    {
+      "slug": "arrays",
+      "count": 30
+    },
+    {
+      "slug": "strings",
+      "count": 30
+    },
+    {
+      "slug": "hashing",
+      "count": 30
+    },
+    {
+      "slug": "complexity",
+      "count": 20
+    },
+    {
+      "slug": "linked-list",
+      "count": 30
+    },
+    {
+      "slug": "stack",
+      "count": 30
+    },
+    {
+      "slug": "queue",
+      "count": 30
+    },
+    {
+      "slug": "trees",
+      "count": 30
+    },
+    {
+      "slug": "heaps",
+      "count": 30
+    },
+    {
+      "slug": "graphs",
+      "count": 30
+    },
+    {
+      "slug": "dynamic-programming",
+      "count": 30
+    },
+    {
+      "slug": "greedy",
+      "count": 10
+    },
+    {
+      "slug": "recursion",
+      "count": 30
+    },
+    {
+      "slug": "operating-systems",
+      "count": 50
+    },
+    {
+      "slug": "computer-networks",
+      "count": 50
+    },
+    {
+      "slug": "dbms",
+      "count": 50
+    },
+    {
+      "slug": "sql",
+      "count": 50
+    },
+    {
+      "slug": "oops",
+      "count": 50
+    },
+    {
+      "slug": "design-patterns",
+      "count": 30
+    },
+    {
+      "slug": "backend-development",
+      "count": 30
+    },
+    {
+      "slug": "rest-apis",
+      "count": 20
+    },
+    {
+      "slug": "system-design",
+      "count": 20
+    },
+    {
+      "slug": "aiml-fundamentals",
+      "count": 60
+    },
+    {
+      "slug": "deep-learning",
+      "count": 40
+    },
+    {
+      "slug": "large-language-models",
+      "count": 40
+    },
+    {
+      "slug": "rag",
+      "count": 30
+    },
+    {
+      "slug": "ai-agents",
+      "count": 30
+    },
+    {
+      "slug": "cloud",
+      "count": 50
+    },
+    {
+      "slug": "devops",
+      "count": 30
+    },
+    {
+      "slug": "git",
+      "count": 30
+    },
+    {
+      "slug": "behavioral",
+      "count": 50
+    },
+    {
+      "slug": "hr",
+      "count": 10
+    }
+  ]
+}

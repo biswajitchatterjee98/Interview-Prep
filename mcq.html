@@ -68,6 +68,8 @@
       }
       const readySet = new Set(readySlugs);
 
+      const mcqSummary = summarizeMcqSections(catalog);
+
       app.innerHTML = `
         <p class="kicker">MCQs</p>
         <h1>Topics</h1>
@@ -75,11 +77,11 @@
         <div class="stats-row">
           <span><strong>${mcqTopics.length}</strong> topics</span>
           <span><strong>${readySlugs.length}</strong> banks ready</span>
-          <span><strong>50</strong> Qs when available</span>
+          <span><strong>${mcqSummary.done}</strong> / ${mcqSummary.total} sections done</span>
         </div>
+        ${renderTracker({ done: mcqSummary.done, total: mcqSummary.total, unit: "sections" })}
         <div id="topicList"></div>`;
 
-      // Custom render to show ready indicator
       const list = document.getElementById("topicList");
       const groups = topicsByBand(mcqTopics, () => true);
       list.innerHTML = groups
@@ -88,10 +90,15 @@
             .map((t) => {
               const ready = readySet.has(t.slug);
               const dot = ready ? `<span class="ready-dot" title="Bank ready"></span>` : "";
-              const meta = ready ? "50 questions ready" : "Coming soon";
+              const prog = mcqTopicSectionProgress(t.slug, catalog);
+              const meta = !ready
+                ? "Coming soon"
+                : prog.done > 0
+                  ? `<span class="prog">${prog.done}/${prog.total} sections</span>`
+                  : "50 questions · not started";
               return `<a class="topic-card" href="mcq.html?topic=${encodeURIComponent(t.slug)}">
                 <span class="topic-card-title">${dot}${escapeHtml(t.title)}</span>
-                <span class="topic-card-meta">${escapeHtml(meta)}</span>
+                <span class="topic-card-meta">${meta}</span>
               </a>`;
             })
             .join("");
@@ -169,8 +176,10 @@
         <p class="lede">Complete each section, then review correct and incorrect answers with explanations.</p>
         <div class="stats-row">
           <span><strong>${doneCount}</strong> / ${bank.sections.length} sections completed</span>
+          <span><strong>${bank.sections.length - doneCount}</strong> left</span>
           <span><strong>${bank.sections.reduce((n, s) => n + s.questions.length, 0)}</strong> questions</span>
         </div>
+        ${renderTracker({ done: doneCount, total: bank.sections.length, unit: "sections" })}
         <div class="section-grid">${cards}</div>
         <p style="margin-top:1.5rem"><a href="mcq.html">← All MCQ topics</a></p>`;
     }

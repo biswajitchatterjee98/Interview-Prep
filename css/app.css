@@ -93,11 +93,98 @@ h1 {
   line-height: 1.5;
 }
 .card .meta {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--faint);
+}
+
+.ring-tracker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.15rem;
+}
+.ring {
+  position: relative;
+  width: 4.75rem;
+  height: 4.75rem;
+  flex-shrink: 0;
+}
+.ring svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ring-bg {
+  stroke: var(--line);
+  stroke-width: 2.2;
+}
+.ring-fg {
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.35s ease;
+}
+.ring-tracker.is-complete .ring-fg { stroke: var(--accent); }
+.ring-tracker.is-new .ring-fg { stroke: var(--line-strong); }
+.ring-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.ring-value strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.ring-value span {
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: var(--faint);
+  line-height: 1;
+  margin-left: 0.05em;
+  transform: translateY(0.08em);
+}
+.ring-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.ring-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.ring-meta {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+.ring-meta strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.card .ring-tracker {
+  border-top: 1px solid var(--line);
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+}
+.wrap > .ring-tracker {
+  margin: -0.5rem 0 1.75rem;
+}
+.topic-card-meta .prog {
+  color: var(--accent);
 }
 
 .topbar {
@@ -812,7 +899,7 @@ body {
   .topic-grid { grid-template-columns: 1fr; }
 }
 
-/* Study bank back chip (injected on SWE.html) */
+/* Study bank back chip (SWE.html body-level; floats bottom-right on mobile) */
 .study-back {
   position: fixed;
   top: calc(10px + env(safe-area-inset-top));

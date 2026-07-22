@@ -153,13 +153,6 @@ button, select { font-family: inherit; }
 .topic.active {
   background: rgba(255,255,255,0.04);
 }
-.topic.active::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 1px;
-  background: var(--gold);
-}
 .topic-btn {
   width: 100%;
   display: flex;
@@ -190,32 +183,61 @@ button, select { font-family: inherit; }
   letter-spacing: 0.01em;
   line-height: 1.3;
 }
-.topic-count {
-  font-size: 11px;
-  font-weight: 400;
-  color: #666;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  font-variant-numeric: tabular-nums;
+.ring-mini {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
 }
-.topic.active .topic-count { color: var(--gold); }
+.ring-mini svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.ring-mini .ring-bg {
+  stroke: #333;
+  stroke-width: 2.5;
+}
+.ring-mini .ring-fg {
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+.ring-mini.is-new .ring-fg { stroke: #333; }
+.ring-mini.is-complete .ring-fg { stroke: #c4a574; }
+.ring-mini-label {
+  position: relative;
+  z-index: 1;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.topic.active .ring-mini-label,
+.ring-mini.is-active .ring-mini-label,
+.ring-mini.is-complete .ring-mini-label { color: #e8d7b5; }
 
 .subtopics {
   display: none;
-  padding: 0 8px 12px 28px;
+  padding: 4px 10px 14px 22px;
   max-height: 240px;
   overflow-y: auto;
 }
 .topic.open .subtopics { display: block; }
 .subtopic {
+  position: relative;
   display: block;
   width: 100%;
   border: 0;
   background: transparent;
   color: #777;
   text-align: left;
-  padding: 7px 8px;
+  padding: 7px 8px 7px 22px;
   font-size: 12px;
   font-weight: 300;
   line-height: 1.4;
@@ -225,14 +247,53 @@ button, select { font-family: inherit; }
   overflow: hidden;
   text-overflow: ellipsis;
   transition: color 0.15s;
-  border-left: 1px solid #2a2a2a;
-  margin-left: 4px;
-  padding-left: 12px;
 }
+.subtopic::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  border: 1.5px solid #4a4a4a;
+  background: transparent;
+  box-sizing: border-box;
+}
+.subtopic::after {
+  content: "";
+  position: absolute;
+  left: 8.5px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #2a2a2a;
+  z-index: 0;
+}
+.subtopic:first-child::after { top: 50%; }
+.subtopic:last-child::after { bottom: 50%; }
+.subtopic:only-child::after { display: none; }
+.subtopic::before { z-index: 1; background: var(--sidebar); }
 .subtopic:hover { color: #ddd; }
+.subtopic:hover::before { border-color: #888; }
+.subtopic.is-done { color: rgba(255,255,255,0.55); }
+.subtopic.is-done::before {
+  border-color: var(--gold);
+  background: var(--gold);
+  box-shadow: inset 0 0 0 1.5px var(--sidebar);
+}
 .subtopic.active-q {
-  color: var(--gold);
-  border-left-color: var(--gold);
+  color: #fff;
+}
+.subtopic.active-q::before {
+  border-color: var(--gold);
+  background: transparent;
+  box-shadow: 0 0 0 2px rgba(138, 115, 74, 0.35);
+}
+.subtopic.is-done.active-q::before {
+  background: var(--gold);
+  box-shadow: inset 0 0 0 1.5px var(--sidebar), 0 0 0 2px rgba(138, 115, 74, 0.35);
 }
 
 /* ——— Main ——— */
@@ -251,7 +312,7 @@ button, select { font-family: inherit; }
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 0 40px;
+  padding: 0 110px 0 40px; /* room for fixed ← Hub */
   background: rgba(245, 243, 239, 0.88);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
@@ -600,12 +661,82 @@ button, select { font-family: inherit; }
   .menu-toggle { display: inline-flex; }
   .content { padding: 32px 20px 72px; }
   .topbar { padding: 0 20px; }
+  /* ponytail: count lives in topic hero; keep select readable */
+  .top-meta .pill { display: none; }
   .topic-hero h2 { font-size: 36px; }
   .qa-head { grid-template-columns: 40px 1fr; gap: 2px 14px; padding: 22px 0 16px; }
   .qa-badge { font-size: 22px; }
   .qa-title { font-size: 20px; }
   .reveal-btn { width: calc(100% - 54px); margin-left: 54px; }
   .answer { padding: 0 0 28px 54px; font-size: 14.5px; }
+}
+
+.ring-tracker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.1rem;
+}
+.ring {
+  position: relative;
+  width: 4.75rem;
+  height: 4.75rem;
+  flex-shrink: 0;
+}
+.ring svg { width: 100%; height: 100%; display: block; }
+.ring-bg { stroke: var(--line); stroke-width: 2.2; }
+.ring-fg {
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.35s var(--ease);
+}
+.ring-tracker.is-new .ring-fg { stroke: var(--line-strong); }
+.ring-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.ring-value strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+}
+.ring-value span {
+  font-size: 0.62rem;
+  color: var(--faint);
+  font-weight: 400;
+  line-height: 1;
+  margin-left: 0.05em;
+  transform: translateY(0.08em);
+}
+.ring-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.ring-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.ring-meta {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+.ring-meta strong { color: var(--ink); font-weight: 500; }
+.qa.is-studied .qa-badge {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
 .study-back {
@@ -641,6 +772,8 @@ button, select { font-family: inherit; }
 </head>
 <body>
 <script src="js/auth.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/topics.js"></script>
 <script>requireAuth();</script>
 <a class="study-back" href="hub.html">← Hub</a>
 <div class="overlay" id="overlay" hidden></div>
@@ -753,7 +886,8 @@ button, select { font-family: inherit; }
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "topic-btn";
-        btn.innerHTML = `<span class="topic-chevron">▶</span><span class="topic-name">${escapeHtml(t.title)}</span><span class="topic-count">${t.count}</span>`;
+        const topicProg = studyTopicProgress(t.slug, t.count);
+        btn.innerHTML = `<span class="topic-chevron">▶</span><span class="topic-name">${escapeHtml(t.title)}</span>${renderRingMini(topicProg.done, t.count)}`;
         btn.addEventListener("click", (e) => {
           // Chevron toggles expand only when this topic is already active
           if (e.target.closest(".topic-chevron") && activeSlug === t.slug) {
@@ -771,7 +905,10 @@ button, select { font-family: inherit; }
         for (const question of t.questions) {
           const sbtn = document.createElement("button");
           sbtn.type = "button";
-          sbtn.className = "subtopic" + (t.slug === activeSlug && activeQn === question.n ? " active-q" : "");
+          const studied = !!loadStudyProgress(t.slug).revealed[String(question.n)];
+          sbtn.className = "subtopic"
+            + (t.slug === activeSlug && activeQn === question.n ? " active-q" : "")
+            + (studied ? " is-done" : "");
           sbtn.title = question.title;
           sbtn.textContent = `Q${question.n}. ${truncate(question.title, 48)}`;
           sbtn.addEventListener("click", (e) => {
@@ -829,25 +966,27 @@ button, select { font-family: inherit; }
 
   function renderTopic() {
     const t = bySlug[activeSlug];
-    el.activeCount.innerHTML = `Questions<em>${t.count}</em>`;
-    const howTo = `<div class="how-to"><strong>How to use.</strong> Attempt each question aloud before revealing the answer. For coding prompts, write your solution first.</div>`;
+    const prog = studyTopicProgress(t.slug, t.count);
+    const studied = loadStudyProgress(t.slug).revealed;
+    el.activeCount.innerHTML = prog.done > 0
+      ? `Studied<em>${prog.done}/${t.count}</em>`
+      : `Questions<em>${t.count}</em>`;
+    const howTo = `<div class="how-to"><strong>How to use.</strong> Attempt each question aloud before revealing the answer. For coding prompts, write your solution first. Revealing marks a question as studied.</div>`;
     const hero = `
       <div class="topic-hero">
         <p class="eyebrow">${escapeHtml(t.band)}</p>
         <h2>${escapeHtml(t.title)}</h2>
         <p class="lede">A focused set of ${t.count} interview questions. Select any item from the sidebar to move through the topic at your own pace.</p>
-        <div class="stat-row">
-          <span class="stat-chip"><strong>${t.count}</strong> questions</span>
-          <span class="stat-chip">${escapeHtml(t.band)}</span>
-        </div>
+        ${renderTracker({ done: prog.done, total: t.count, unit: "questions" })}
       </div>`;
 
     const cards = t.questions.map(q => {
       const numMatch = q.title.match(/^Q(\d+)\.\s*(.*)$/);
       const num = numMatch ? numMatch[1] : q.n;
       const titleText = numMatch ? numMatch[2] : q.title;
+      const isStudied = !!studied[String(q.n)];
       return `
-      <article class="qa" id="q-${q.n}" data-n="${q.n}">
+      <article class="qa${isStudied ? " is-studied" : ""}" id="q-${q.n}" data-n="${q.n}">
         <div class="qa-head">
           <div class="qa-badge">${num}</div>
           <p class="qa-num">Question ${num}</p>
@@ -869,6 +1008,15 @@ button, select { font-family: inherit; }
         const open = card.classList.toggle("open");
         btn.setAttribute("aria-expanded", open ? "true" : "false");
         btn.querySelector("span").textContent = open ? "Hide answer" : "Reveal answer";
+        if (open) {
+          markStudyRevealed(activeSlug, card.dataset.n);
+          card.classList.add("is-studied");
+          buildNav(el.topicFilter.value);
+          const next = studyTopicProgress(activeSlug, t.count);
+          el.activeCount.innerHTML = `Studied<em>${next.done}/${t.count}</em>`;
+          const track = el.content.querySelector(".topic-hero .ring-tracker");
+          if (track) track.outerHTML = renderTracker({ done: next.done, total: t.count, unit: "questions" });
+        }
       });
     });
   }

@@ -77,6 +77,8 @@
       }
       const readySet = new Set(ready);
 
+      const codingSummary = summarizeCodingSections(catalog);
+
       app.innerHTML = `
         <p class="kicker">Coding</p>
         <h1>Topics</h1>
@@ -84,7 +86,9 @@
         <div class="stats-row">
           <span><strong>${codingTopics.length}</strong> topics</span>
           <span><strong>${ready.length}</strong> banks ready</span>
+          <span><strong>${codingSummary.done}</strong> / ${codingSummary.total} sections done</span>
         </div>
+        ${renderTracker({ done: codingSummary.done, total: codingSummary.total, unit: "sections" })}
         <div id="topicList"></div>`;
 
       const list = document.getElementById("topicList");
@@ -94,14 +98,19 @@
             .map((t) => {
               const isReady = readySet.has(t.slug);
               const dot = isReady ? `<span class="ready-dot"></span>` : "";
-              const meta = isReady
-                ? t.slug === "sql"
-                  ? "25 problems"
-                  : "8 problems"
-                : "Coming soon";
+              const prog = codingTopicProblemProgress(t.slug, catalog);
+              let meta = "Coming soon";
+              if (isReady) {
+                meta =
+                  prog.done > 0
+                    ? `<span class="prog">${prog.sectionsDone}/${prog.sectionsTotal} sections · ${prog.done}/${prog.total} problems</span>`
+                    : t.slug === "sql"
+                      ? "25 problems · not started"
+                      : "8 problems · not started";
+              }
               return `<a class="topic-card" href="coding.html?topic=${encodeURIComponent(t.slug)}">
                 <span class="topic-card-title">${dot}${escapeHtml(t.title)}</span>
-                <span class="topic-card-meta">${escapeHtml(meta)}</span>
+                <span class="topic-card-meta">${meta}</span>
               </a>`;
             })
             .join("");
@@ -157,10 +166,20 @@
         })
         .join("");
 
+      const sectionsDone = bank.sections.filter((sec) => {
+        const prog = codingSectionProgress(topicMeta.slug, sec);
+        return prog.done === prog.total && prog.total > 0;
+      }).length;
+
       app.innerHTML = `
         <p class="kicker">Coding · ${escapeHtml(topicMeta.band)}</p>
         <h1>${escapeHtml(topicMeta.title)}</h1>
         <p class="lede">Choose a difficulty. Solve problems in the editor, submit to save, and reveal answers when stuck.</p>
+        <div class="stats-row">
+          <span><strong>${sectionsDone}</strong> / ${bank.sections.length} sections completed</span>
+          <span><strong>${bank.sections.length - sectionsDone}</strong> left</span>
+        </div>
+        ${renderTracker({ done: sectionsDone, total: bank.sections.length, unit: "sections" })}
         <div class="section-grid">${cards}</div>
         <p style="margin-top:1.5rem"><a href="coding.html">← All coding topics</a></p>`;
     }

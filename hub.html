@@ -24,30 +24,59 @@
     <h1>Choose a path</h1>
     <p class="lede">Study concepts, or practice with interview-style MCQs and coding drills.</p>
 
-    <div class="stats-row">
+    <div class="stats-row" id="hubStats">
       <span><strong>32</strong> MCQ topics</span>
       <span><strong>13</strong> coding topics</span>
       <span><strong>Study</strong> bank linked</span>
     </div>
 
     <div class="card-grid">
-      <a class="card" href="study.html">
+      <a class="card" href="study.html" id="studyCard">
         <h2>Study</h2>
         <p>Open the concept question bank by topic. Cover answers, then reveal when ready.</p>
+        <div id="studyTracker"></div>
         <div class="meta">Concepts · existing bank</div>
       </a>
-      <a class="card" href="test.html">
+      <a class="card" href="test.html" id="testCard">
         <h2>Test</h2>
         <p>MCQs (50 per topic) and coding drills with save, submit, and reveal.</p>
+        <div id="testTracker"></div>
         <div class="meta">Practice · MCQ + Coding</div>
       </a>
     </div>
   </div>
   <script src="js/auth.js"></script>
   <script src="js/topics.js"></script>
+  <script src="js/storage.js"></script>
   <script>
     requireAuth();
     bindLogout();
+
+    (async function loadTrackers() {
+      try {
+        const [catalog, studyMeta] = await Promise.all([loadTopics(), loadStudyMeta()]);
+        const study = summarizeStudyProgress(studyMeta);
+        const test = summarizeTestSections(catalog);
+
+        document.getElementById("studyTracker").innerHTML = renderTracker({
+          done: study.done,
+          total: study.total,
+          unit: "questions",
+        });
+        document.getElementById("testTracker").innerHTML = renderTracker({
+          done: test.done,
+          total: test.total,
+          unit: "sections",
+        });
+
+        document.getElementById("hubStats").innerHTML = `
+          <span><strong>${study.topicsDone}</strong> / ${study.topicsTotal} study topics done</span>
+          <span><strong>${test.mcq.done}</strong> / ${test.mcq.total} MCQ sections</span>
+          <span><strong>${test.coding.done}</strong> / ${test.coding.total} coding sections</span>`;
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   </script>
 </body>
 </html>

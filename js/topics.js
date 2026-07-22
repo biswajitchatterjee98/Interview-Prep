@@ -49,6 +49,63 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
+async function loadStudyMeta() {
+  const response = await fetch("data/study-meta.json");
+  if (!response.ok) throw new Error("Failed to load study-meta.json");
+  return response.json();
+}
+
+function ringDash(pct, radius) {
+  const circumference = 2 * Math.PI * radius;
+  const filled = (Math.max(0, Math.min(100, pct)) / 100) * circumference;
+  return { filled, gap: circumference };
+}
+
+/** Circular progress: done/total in the ring, completed + left beside it. */
+function renderTracker({ done, total, unit }) {
+  const safeTotal = Math.max(0, Number(total) || 0);
+  const safeDone = Math.min(Math.max(0, Number(done) || 0), safeTotal);
+  const left = Math.max(0, safeTotal - safeDone);
+  const pct = safeTotal ? Math.round((safeDone / safeTotal) * 100) : 0;
+  const unitText = unit || "sections";
+  const { filled, gap } = ringDash(pct, 15.5);
+  const state = safeDone <= 0 ? "is-new" : safeDone >= safeTotal ? "is-complete" : "is-active";
+  return `<div class="ring-tracker ${state}" role="img" aria-label="${safeDone} of ${safeTotal} ${unitText} completed, ${left} left">
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 36 36">
+        <circle class="ring-bg" cx="18" cy="18" r="15.5" fill="none" />
+        <circle class="ring-fg" cx="18" cy="18" r="15.5" fill="none"
+          stroke-dasharray="${filled.toFixed(2)} ${gap.toFixed(2)}"
+          transform="rotate(-90 18 18)" />
+      </svg>
+      <div class="ring-value"><strong>${safeDone}</strong><span>/${safeTotal}</span></div>
+    </div>
+    <div class="ring-copy">
+      <span class="ring-label">${escapeHtml(unitText)}</span>
+      <span class="ring-meta"><strong>${safeDone}</strong> done · <strong>${left}</strong> left</span>
+    </div>
+  </div>`;
+}
+
+/** Tiny sidebar ring for topic progress (e.g. 4/10). */
+function renderRingMini(done, total) {
+  const safeTotal = Math.max(0, Number(total) || 0);
+  const safeDone = Math.min(Math.max(0, Number(done) || 0), safeTotal);
+  const pct = safeTotal ? Math.round((safeDone / safeTotal) * 100) : 0;
+  const { filled, gap } = ringDash(pct, 14);
+  const state = safeDone <= 0 ? "is-new" : safeDone >= safeTotal ? "is-complete" : "is-active";
+  const label = safeDone > 0 ? `${safeDone}/${safeTotal}` : String(safeTotal);
+  return `<span class="ring-mini ${state}" title="${safeDone} of ${safeTotal} studied" aria-label="${safeDone} of ${safeTotal} studied">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <circle class="ring-bg" cx="16" cy="16" r="14" fill="none" />
+      <circle class="ring-fg" cx="16" cy="16" r="14" fill="none"
+        stroke-dasharray="${filled.toFixed(2)} ${gap.toFixed(2)}"
+        transform="rotate(-90 16 16)" />
+    </svg>
+    <span class="ring-mini-label">${escapeHtml(label)}</span>
+  </span>`;
+}
+
 function bindLogout(buttonId) {
   const button = document.getElementById(buttonId || "logoutBtn");
   if (!button) return;
