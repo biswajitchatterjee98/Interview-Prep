@@ -67,6 +67,20 @@ async function register(email, password) {
 async function logout() {
   if (!isFirebaseConfigured()) return;
   initFirebaseApp();
+  if (typeof cloudPushTimer !== "undefined") clearTimeout(cloudPushTimer);
+  if (typeof pushCloudProgress === "function") {
+    try {
+      await pushCloudProgress();
+    } catch (err) {
+      console.error("Final cloud push on logout failed", err);
+    }
+  }
+  if (typeof clearLocalProgress === "function") clearLocalProgress();
+  try {
+    localStorage.removeItem("sweProgressUid");
+  } catch {
+    /* ignore */
+  }
   await firebase.auth().signOut();
 }
 

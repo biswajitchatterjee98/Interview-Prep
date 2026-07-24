@@ -42,9 +42,13 @@ const context = {
 
 vm.createContext(context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, "../js/storage.js"), "utf8"), context);
-vm.runInContext(fs.readFileSync(path.join(__dirname, "../js/sync.js"), "utf8"), context);
+vm.runInContext(
+  fs.readFileSync(path.join(__dirname, "../js/sync.js"), "utf8") +
+    "\nthis.mergeProgress=mergeProgress;this.collectLocalProgress=collectLocalProgress;this.applyLocalProgress=applyLocalProgress;this.clearLocalProgress=clearLocalProgress;",
+  context
+);
 
-const { mergeProgress, collectLocalProgress, applyLocalProgress } = context;
+const { mergeProgress, collectLocalProgress, applyLocalProgress, clearLocalProgress } = context;
 const STUDY_PREFIX = "sweStudy:";
 const ATTEMPT_PREFIX = "sweAttempt:";
 
@@ -73,5 +77,9 @@ assert.ok(localStorage.getItem(ATTEMPT_PREFIX + "mcq:arrays:1"));
 const collected = collectLocalProgress();
 assert.ok(collected.study.arrays);
 assert.ok(collected.attempts["mcq:arrays:1"]);
+
+clearLocalProgress();
+assert.strictEqual(localStorage.getItem(STUDY_PREFIX + "arrays"), null);
+assert.strictEqual(localStorage.getItem(ATTEMPT_PREFIX + "mcq:arrays:1"), null);
 
 console.log("check-sync: ok");

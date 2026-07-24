@@ -4,6 +4,7 @@
  */
 
 const CLOUD_PUSH_MS = 700;
+const PROGRESS_UID_KEY = "sweProgressUid";
 let cloudPushTimer = null;
 let cloudPullInFlight = null;
 
@@ -18,6 +19,25 @@ function currentUid() {
 
 function userProgressRef(uid) {
   return firebase.firestore().collection("users").doc(uid);
+}
+
+function clearLocalProgress() {
+  const toRemove = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && (key.startsWith(STUDY_PREFIX) || key.startsWith(ATTEMPT_PREFIX))) {
+      toRemove.push(key);
+    }
+  }
+  for (const key of toRemove) localStorage.removeItem(key);
+}
+
+function bindProgressToUser(uid) {
+  const previous = localStorage.getItem(PROGRESS_UID_KEY);
+  if (previous && previous !== uid) {
+    clearLocalProgress();
+  }
+  localStorage.setItem(PROGRESS_UID_KEY, uid);
 }
 
 function collectLocalProgress() {
@@ -104,12 +124,13 @@ async function pullCloudProgress() {
   if (cloudPullInFlight) return cloudPullInFlight;
 
   cloudPullInFlight = (async () => {
+    bindProgressToUser(uid);
     const ref = userProgressRef(uid);
     const doc = await ref.get();
     const local = collectLocalProgress();
     if (!doc.exists) {
       if (Object.keys(local.study).length || Object.keys(local.attempts).length) {
-        await ref.set(local, { merge: true });
+        await ref.set(local);
       }
       return local;
     }
@@ -120,7 +141,7 @@ async function pullCloudProgress() {
       updatedAt: cloud.updatedAt,
     });
     applyLocalProgress(merged);
-    await ref.set(merged, { merge: true });
+    await ref.set(merged);
     return merged;
   })();
 
@@ -135,7 +156,8 @@ async function pushCloudProgress() {
   const uid = currentUid();
   if (!uid) return null;
   const snap = collectLocalProgress();
-  await userProgressRef(uid).set(snap, { merge: true });
+  // Full replace — merge:true would resurrect deleted attempts.
+  await userProgressRef(uid).set(snap);
   return snap;
 }
 
