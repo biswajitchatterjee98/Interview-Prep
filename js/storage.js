@@ -16,6 +16,7 @@ function saveAttempt(kind, slug, sectionId, payload) {
     ...payload,
   };
   localStorage.setItem(attemptKey(kind, slug, sectionId), JSON.stringify(body));
+  if (typeof notifyProgressChanged === "function") notifyProgressChanged();
   return body;
 }
 
@@ -31,6 +32,7 @@ function loadAttempt(kind, slug, sectionId) {
 
 function clearAttempt(kind, slug, sectionId) {
   localStorage.removeItem(attemptKey(kind, slug, sectionId));
+  if (typeof notifyProgressChanged === "function") notifyProgressChanged();
 }
 
 /** Status for a finished or in-progress MCQ section. */
@@ -86,6 +88,7 @@ function markStudyRevealed(slug, questionNumber) {
     studyKey(slug),
     JSON.stringify({ revealed: current.revealed, updatedAt: new Date().toISOString() })
   );
+  if (typeof notifyProgressChanged === "function") notifyProgressChanged();
   return current;
 }
 

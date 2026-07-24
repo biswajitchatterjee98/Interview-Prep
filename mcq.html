@@ -19,14 +19,16 @@
     <div id="app"><div class="placeholder">Loading…</div></div>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/topics.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/sync.js"></script>
   <script src="js/mcq.js"></script>
   <script>
-    requireAuth();
-    bindLogout();
-
     const params = new URLSearchParams(location.search);
     const slug = params.get("topic");
     const sectionId = Number(params.get("section") || 0);
@@ -384,24 +386,28 @@
       });
     }
 
-    loadTopics()
-      .then(async (catalog) => {
-        if (!slug) return showTopicList(catalog);
-        const topicMeta = catalog.topics.find((t) => t.slug === slug && t.hasMcq);
-        if (!topicMeta) {
-          app.innerHTML = `<div class="placeholder">Unknown topic.</div>`;
-          return;
-        }
-        if (!sectionId) return showSections(topicMeta);
+    requireAuth()
+      .then((user) => {
+        if (!user) return;
+        bindLogout();
+        return loadTopics().then(async (catalog) => {
+          if (!slug) return showTopicList(catalog);
+          const topicMeta = catalog.topics.find((t) => t.slug === slug && t.hasMcq);
+          if (!topicMeta) {
+            app.innerHTML = `<div class="placeholder">Unknown topic.</div>`;
+            return;
+          }
+          if (!sectionId) return showSections(topicMeta);
 
-        const bank = await loadMcqBank(topicMeta.slug);
-        const section = bank.sections.find((s) => s.id === sectionId);
-        if (!section) {
-          app.innerHTML = `<div class="placeholder">Unknown section.</div>`;
-          return;
-        }
-        if (mode === "review") renderReview(topicMeta, section);
-        else renderQuiz(topicMeta, section);
+          const bank = await loadMcqBank(topicMeta.slug);
+          const section = bank.sections.find((s) => s.id === sectionId);
+          if (!section) {
+            app.innerHTML = `<div class="placeholder">Unknown section.</div>`;
+            return;
+          }
+          if (mode === "review") renderReview(topicMeta, section);
+          else renderQuiz(topicMeta, section);
+        });
       })
       .catch((err) => {
         app.innerHTML = `<div class="placeholder">Failed to load: ${escapeHtml(err.message)}. Use a local server.</div>`;

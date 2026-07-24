@@ -43,13 +43,15 @@
       </a>
     </div>
   </div>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/sync.js"></script>
   <script src="js/topics.js"></script>
   <script>
-    requireAuth();
-    bindLogout();
-
     function paintTestTrackers(mcq, coding) {
       document.getElementById("mcqTracker").innerHTML = renderTracker({
         done: mcq.done,
@@ -68,15 +70,16 @@
         <span><strong>${Math.max(0, total - done)}</strong> left</span>`;
     }
 
-    // Visible immediately so cards never look empty while fetch runs.
     paintTestTrackers({ done: 0, total: 96 }, { done: 0, total: 39 });
 
-    loadTopics()
-      .then((catalog) => {
+    requireAuth().then((user) => {
+      if (!user) return;
+      bindLogout();
+      return loadTopics().then((catalog) => {
         const test = summarizeTestSections(catalog);
         paintTestTrackers(test.mcq, test.coding);
-      })
-      .catch((err) => console.error(err));
+      });
+    }).catch((err) => console.error(err));
   </script>
 </body>
 </html>

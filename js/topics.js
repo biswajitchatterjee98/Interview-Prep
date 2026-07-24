@@ -111,7 +111,8 @@ function bindLogout(buttonId) {
   const button = document.getElementById(buttonId || "logoutBtn");
   if (!button) return;
   button.addEventListener("click", () => {
-    logout();
-    location.replace("index.html");
+    Promise.resolve(logout())
+      .catch((err) => console.error(err))
+      .finally(() => location.replace("index.html"));
   });
 }
