@@ -38,6 +38,12 @@ function isAuthenticated() {
   }
 }
 
+/** Basename + query + hash for post-login return (e.g. mcq.html?topic=arrays&section=1). */
+function authReturnTarget() {
+  const file = location.pathname.split("/").pop() || "hub.html";
+  return file + location.search + location.hash;
+}
+
 async function login(email, password) {
   initFirebaseApp();
   if (!isFirebaseConfigured()) {
@@ -45,7 +51,7 @@ async function login(email, password) {
   }
   const cred = await firebase.auth().signInWithEmailAndPassword(String(email).trim(), password);
   if (typeof pullCloudProgress === "function") {
-    await pullCloudProgress();
+    await pullCloudProgress({ force: true });
   }
   return cred.user;
 }
@@ -78,6 +84,7 @@ async function logout() {
   if (typeof clearLocalProgress === "function") clearLocalProgress();
   try {
     localStorage.removeItem("sweProgressUid");
+    sessionStorage.removeItem("sweProgressPulledAt");
   } catch {
     /* ignore */
   }
@@ -87,15 +94,14 @@ async function logout() {
 /** Protect a page: wait for Firebase session, pull cloud progress, else redirect to login. */
 function requireAuth() {
   if (!isFirebaseConfigured()) {
-    const next = encodeURIComponent(location.pathname.split("/").pop() || "hub.html");
+    const next = encodeURIComponent(authReturnTarget());
     location.replace(`index.html?next=${next}&setup=1`);
     return Promise.resolve(null);
   }
   initFirebaseApp();
   return waitForAuthUser().then(async (user) => {
     if (!user) {
-      const next = encodeURIComponent(location.pathname.split("/").pop() || "hub.html");
-      location.replace(`index.html?next=${next}`);
+      location.replace(`index.html?next=${encodeURIComponent(authReturnTarget())}`);
       return null;
     }
     if (typeof pullCloudProgress === "function") {
@@ -111,6 +117,7 @@ function requireAuth() {
 
 function authErrorMessage(err) {
   const code = err && err.code;
+  const message = (err && err.message) || "";
   if (code === "auth/invalid-email") return "Enter a valid email address.";
   if (code === "auth/user-not-found" || code === "auth/wrong-password" || code === "auth/invalid-credential") {
     return "Invalid email or password.";
@@ -118,6 +125,13 @@ function authErrorMessage(err) {
   if (code === "auth/email-already-in-use") return "That email already has an account. Sign in instead.";
   if (code === "auth/weak-password") return "Password should be at least 6 characters.";
   if (code === "auth/too-many-requests") return "Too many attempts. Try again later.";
+  if (
+    String(code || "").toLowerCase().includes("blocked") ||
+    String(message || "").toLowerCase().includes("are-blocked") ||
+    String(message || "").toLowerCase().includes("referer")
+  ) {
+    return "Blocked by API key website restrictions. Use http://127.0.0.1:8080/ (not [::]:8080), or add that site under Google Cloud → Credentials → API key → Websites.";
+  }
   if (err && err.message && err.message.includes("not configured")) return err.message;
   return "Could not sign in. Check your connection and try again.";
 }

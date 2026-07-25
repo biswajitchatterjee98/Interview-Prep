@@ -71,13 +71,17 @@
     function safeNext() {
       const params = new URLSearchParams(location.search);
       const next = params.get("next") || "hub.html";
-      return /^[a-z0-9.-]+\.html$/i.test(next) ? next : "hub.html";
+      const match = String(next).match(/^([a-z0-9.-]+\.html)(\?[^#]*)?(#.*)?$/i);
+      return match ? match[1] + (match[2] || "") + (match[3] || "") : "hub.html";
     }
 
     document.getElementById("loginForm").addEventListener("submit", async (event) => {
       event.preventDefault();
       error.textContent = "";
       submitBtn.disabled = true;
+      const idleLabel = submitBtn.textContent;
+      submitBtn.textContent = mode === "register" ? "Creating…" : "Signing in…";
+      submitBtn.setAttribute("aria-busy", "true");
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       try {
@@ -87,6 +91,8 @@
       } catch (err) {
         error.textContent = authErrorMessage(err);
         submitBtn.disabled = false;
+        submitBtn.textContent = idleLabel;
+        submitBtn.removeAttribute("aria-busy");
       }
     });
   </script>

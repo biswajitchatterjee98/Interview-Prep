@@ -13,7 +13,7 @@
   <div class="wrap">
     <header class="topbar">
       <div class="brand">Software Engineer Concepts</div>
-      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+      <button type="button" class="btn-text" id="logoutBtn" disabled>Sign out</button>
     </header>
     <nav class="crumb" aria-label="Breadcrumb" id="crumb"></nav>
     <div id="app"><div class="placeholder">Loading…</div></div>
@@ -64,10 +64,8 @@
         { label: "MCQs", href: "mcq.html" },
       ]);
       const mcqTopics = catalog.topics.filter((t) => t.hasMcq);
-      const readySlugs = [];
-      for (const t of mcqTopics) {
-        if (await mcqBankExists(t.slug)) readySlugs.push(t.slug);
-      }
+      // Trust topics.json — banks are verified by check scripts; skip sequential HEAD probes.
+      const readySlugs = mcqTopics.map((t) => t.slug);
       const readySet = new Set(readySlugs);
 
       const mcqSummary = summarizeMcqSections(catalog);
@@ -247,7 +245,7 @@
       const progressFill = document.getElementById("progressFill");
       const submitHint = document.getElementById("submitHint");
 
-      function refreshProgress() {
+      function refreshProgress({ save = true } = {}) {
         const answers = collectAnswers(form, section.questions);
         const n = countAnswered(answers, section.questions);
         progressText.textContent = `Answered ${n} / ${total}`;
@@ -259,15 +257,18 @@
           submitHint.textContent = "All answered. Submit to see the review.";
           submitHint.classList.remove("warn");
         }
-        // draft autosave (not marked submitted)
-        saveAttempt("mcq", topicMeta.slug, section.id, {
-          answers,
-          submitted: false,
-        });
+        // Autosave on change only. Keep completed until they submit again (retake).
+        if (save) {
+          const priorAttempt = loadAttempt("mcq", topicMeta.slug, section.id) || {};
+          saveAttempt("mcq", topicMeta.slug, section.id, {
+            answers,
+            submitted: !!priorAttempt.submitted,
+          });
+        }
       }
 
-      form.addEventListener("change", refreshProgress);
-      refreshProgress();
+      form.addEventListener("change", () => refreshProgress());
+      refreshProgress({ save: false });
 
       document.getElementById("clearDraft").addEventListener("click", () => {
         if (!confirm("Clear saved answers for this section?")) return;
@@ -394,7 +395,8 @@
           if (!slug) return showTopicList(catalog);
           const topicMeta = catalog.topics.find((t) => t.slug === slug && t.hasMcq);
           if (!topicMeta) {
-            app.innerHTML = `<div class="placeholder">Unknown topic.</div>`;
+            app.innerHTML = `<div class="placeholder">Unknown topic.</div>
+              <p style="margin-top:1.5rem"><a href="mcq.html">← All MCQ topics</a></p>`;
             return;
           }
           if (!sectionId) return showSections(topicMeta);
@@ -402,7 +404,8 @@
           const bank = await loadMcqBank(topicMeta.slug);
           const section = bank.sections.find((s) => s.id === sectionId);
           if (!section) {
-            app.innerHTML = `<div class="placeholder">Unknown section.</div>`;
+            app.innerHTML = `<div class="placeholder">Unknown section.</div>
+              <p style="margin-top:1.5rem"><a href="mcq.html?topic=${encodeURIComponent(topicMeta.slug)}">← Sections</a></p>`;
             return;
           }
           if (mode === "review") renderReview(topicMeta, section);

@@ -110,7 +110,11 @@ function renderRingMini(done, total, opts) {
 function bindLogout(buttonId) {
   const button = document.getElementById(buttonId || "logoutBtn");
   if (!button) return;
+  button.disabled = false;
   button.addEventListener("click", () => {
+    button.disabled = true;
+    button.textContent = "Signing out…";
+    button.setAttribute("aria-busy", "true");
     Promise.resolve(logout())
       .catch((err) => console.error(err))
       .finally(() => location.replace("index.html"));

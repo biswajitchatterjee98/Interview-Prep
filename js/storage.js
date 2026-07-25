@@ -32,7 +32,8 @@ function loadAttempt(kind, slug, sectionId) {
 
 function clearAttempt(kind, slug, sectionId) {
   localStorage.removeItem(attemptKey(kind, slug, sectionId));
-  if (typeof notifyProgressChanged === "function") notifyProgressChanged();
+  // Immediate push so a quick navigation/pull cannot revive the cleared attempt.
+  if (typeof notifyProgressChanged === "function") notifyProgressChanged({ immediate: true });
 }
 
 /** Status for a finished or in-progress MCQ section. */

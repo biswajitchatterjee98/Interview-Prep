@@ -13,7 +13,7 @@
   <div class="wrap">
     <header class="topbar">
       <div class="brand">Software Engineer Concepts</div>
-      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+      <button type="button" class="btn-text" id="logoutBtn" disabled>Sign out</button>
     </header>
 
     <nav class="crumb" aria-label="Breadcrumb">
@@ -25,9 +25,7 @@
     <p class="lede">Study concepts, or practice with interview-style MCQs and coding drills.</p>
 
     <div class="stats-row" id="hubStats">
-      <span><strong>32</strong> MCQ topics</span>
-      <span><strong>13</strong> coding topics</span>
-      <span><strong>Study</strong> bank linked</span>
+      <span>Checking session…</span>
     </div>
 
     <div class="card-grid">
@@ -84,7 +82,11 @@
           <span><strong>${test.mcq.done}</strong> / ${test.mcq.total} MCQ sections</span>
           <span><strong>${test.coding.done}</strong> / ${test.coding.total} coding sections</span>`;
       });
-    }).catch((err) => console.error(err));
+    }).catch((err) => {
+      console.error(err);
+      document.getElementById("hubStats").innerHTML =
+        `<span>Could not load progress. Refresh and try again.</span>`;
+    });
   </script>
 </body>
 </html>

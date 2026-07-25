@@ -82,4 +82,13 @@ clearLocalProgress();
 assert.strictEqual(localStorage.getItem(STUDY_PREFIX + "arrays"), null);
 assert.strictEqual(localStorage.getItem(ATTEMPT_PREFIX + "mcq:arrays:1"), null);
 
+// Post-login return URL must keep query (and optional hash).
+function safeNext(next) {
+  const match = String(next || "hub.html").match(/^([a-z0-9.-]+\.html)(\?[^#]*)?(#.*)?$/i);
+  return match ? match[1] + (match[2] || "") + (match[3] || "") : "hub.html";
+}
+assert.strictEqual(safeNext("mcq.html?topic=arrays&section=1"), "mcq.html?topic=arrays&section=1");
+assert.strictEqual(safeNext("SWE.html#arrays"), "SWE.html#arrays");
+assert.strictEqual(safeNext("javascript:alert(1)"), "hub.html");
+
 console.log("check-sync: ok");

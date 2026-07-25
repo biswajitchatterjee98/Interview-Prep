@@ -13,7 +13,7 @@
   <div class="wrap wide">
     <header class="topbar">
       <div class="brand">Software Engineer Concepts</div>
-      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+      <button type="button" class="btn-text" id="logoutBtn" disabled>Sign out</button>
     </header>
     <nav class="crumb" aria-label="Breadcrumb" id="crumb"></nav>
     <div id="app"><div class="placeholder">Loading…</div></div>
@@ -73,10 +73,8 @@
         { label: "Coding", href: "coding.html" },
       ]);
       const codingTopics = catalog.topics.filter((t) => t.hasCoding);
-      const ready = [];
-      for (const t of codingTopics) {
-        if (await codingBankExists(t.slug)) ready.push(t.slug);
-      }
+      // Trust topics.json — skip sequential existence probes that block the list.
+      const ready = codingTopics.map((t) => t.slug);
       const readySet = new Set(ready);
 
       const codingSummary = summarizeCodingSections(catalog);
@@ -236,6 +234,7 @@
         ? draft.language
         : defaultLanguage(topicMeta.slug);
       let revealed = !!(draft && draft.revealed);
+      let submitted = !!(draft && draft.submitted);
 
       const idx = section.problems.findIndex((p) => p.id === problem.id);
       const prev = idx > 0 ? section.problems[idx - 1] : null;
@@ -328,8 +327,18 @@
       }
 
       let saveTimer = null;
+      function flushSave(extra) {
+        clearTimeout(saveTimer);
+        persist(extra || { submitted });
+      }
+      window.addEventListener("pagehide", () => flushSave());
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") flushSave();
+      });
+
       editor.addEventListener("input", () => {
         buffers[language] = editor.value;
+        submitted = false;
         saveNote.textContent = "Saving…";
         saveNote.classList.remove("ok");
         clearTimeout(saveTimer);
@@ -337,7 +346,7 @@
           persist({ submitted: false });
           saveNote.textContent = "Draft saved.";
           saveNote.classList.add("ok");
-        }, 350);
+        }, 200);
       });
 
       document.getElementById("langTabs").addEventListener("click", (event) => {
@@ -349,12 +358,13 @@
         document.querySelectorAll(".lang-tab").forEach((t) => {
           t.classList.toggle("is-on", t.getAttribute("data-lang") === language);
         });
-        persist({ submitted: !!(draft && draft.submitted) });
+        flushSave({ submitted });
       });
 
       document.getElementById("submitBtn").addEventListener("click", () => {
         buffers[language] = editor.value;
-        persist({ submitted: true });
+        submitted = true;
+        flushSave({ submitted: true });
         saveNote.textContent = "Submitted and saved for this problem.";
         saveNote.classList.add("ok");
       });
@@ -363,14 +373,15 @@
         revealed = !revealed;
         solutionBox.classList.toggle("is-open", revealed);
         document.getElementById("revealBtn").textContent = revealed ? "Hide answer" : "Show answer";
-        persist({});
+        flushSave({ submitted });
       });
 
       document.getElementById("resetBtn").addEventListener("click", () => {
         if (!confirm("Reset editor to the starter template for this language?")) return;
         editor.value = starterFor(problem, language);
         buffers[language] = editor.value;
-        persist({ submitted: false });
+        submitted = false;
+        flushSave({ submitted: false });
         saveNote.textContent = "Reset to starter.";
       });
     }
@@ -383,7 +394,8 @@
           if (!slug) return showTopicList(catalog);
           const topicMeta = catalog.topics.find((t) => t.slug === slug && t.hasCoding);
           if (!topicMeta) {
-            app.innerHTML = `<div class="placeholder">Unknown coding topic.</div>`;
+            app.innerHTML = `<div class="placeholder">Unknown coding topic.</div>
+              <p style="margin-top:1.5rem"><a href="coding.html">← All coding topics</a></p>`;
             return;
           }
           if (!sectionId) return showSections(topicMeta);
@@ -391,14 +403,16 @@
           const bank = await loadCodingBank(topicMeta.slug);
           const section = findCodingSection(bank, sectionId);
           if (!section) {
-            app.innerHTML = `<div class="placeholder">Unknown section.</div>`;
+            app.innerHTML = `<div class="placeholder">Unknown section.</div>
+              <p style="margin-top:1.5rem"><a href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}">← Sections</a></p>`;
             return;
           }
           if (!problemId) return showProblemList(topicMeta, bank, section);
 
           const problem = findCodingProblem(section, problemId);
           if (!problem) {
-            app.innerHTML = `<div class="placeholder">Unknown problem.</div>`;
+            app.innerHTML = `<div class="placeholder">Unknown problem.</div>
+              <p style="margin-top:1.5rem"><a href="coding.html?topic=${encodeURIComponent(topicMeta.slug)}&section=${sectionId}">← Problems</a></p>`;
             return;
           }
           showEditor(topicMeta, bank, section, problem);

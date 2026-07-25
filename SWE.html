@@ -33,6 +33,18 @@
   --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -789,6 +801,7 @@ button, select { font-family: inherit; }
       <p><span id="totalCount">1080</span> questions · 32 topics</p>
     </div>
     <div class="sidebar-search">
+      <label class="visually-hidden" for="topicFilter">Filter topics</label>
       <input type="search" id="topicFilter" placeholder="Filter topics…" autocomplete="off" />
     </div>
     <nav class="nav-scroll" id="topicNav" aria-label="Topic list"></nav>
@@ -807,7 +820,7 @@ button, select { font-family: inherit; }
     </header>
 
     <main class="content" id="content">
-      <!-- rendered -->
+      <p class="lede" id="contentLoading">Loading study bank…</p>
     </main>
   </div>
 </div>
@@ -1031,18 +1044,28 @@ requireAuth().then(function (user) {
     el.sidebar.classList.add("open");
     el.overlay.hidden = false;
     el.overlay.classList.add("show");
+    el.menuToggle.setAttribute("aria-expanded", "true");
+    el.menuToggle.setAttribute("aria-label", "Close topics");
+    el.topicFilter.focus();
   }
   function closeMobile() {
     el.sidebar.classList.remove("open");
     el.overlay.classList.remove("show");
     el.overlay.hidden = true;
+    el.menuToggle.setAttribute("aria-expanded", "false");
+    el.menuToggle.setAttribute("aria-label", "Open topics");
+    el.menuToggle.focus();
   }
 
+  el.menuToggle.setAttribute("aria-expanded", "false");
   el.menuToggle.addEventListener("click", () => {
     if (el.sidebar.classList.contains("open")) closeMobile();
     else openMobile();
   });
   el.overlay.addEventListener("click", closeMobile);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && el.sidebar.classList.contains("open")) closeMobile();
+  });
 
   el.select.addEventListener("change", () => {
     selectTopic(el.select.value, null, true);

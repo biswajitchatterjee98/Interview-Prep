@@ -3,10 +3,14 @@
  * Doc: users/{uid}  fields: study, attempts, updatedAt
  */
 
-const CLOUD_PUSH_MS = 700;
+const CLOUD_PUSH_MS = 400;
+const PULL_FRESH_MS = 12000;
 const PROGRESS_UID_KEY = "sweProgressUid";
+const PULL_STAMP_KEY = "sweProgressPulledAt";
 let cloudPushTimer = null;
 let cloudPullInFlight = null;
+/** Cloud `updatedAt` from the last successful pull/push — used to detect writes from other devices. */
+let lastSeenCloudUpdatedAt = null;
 
 function currentUid() {
   try {
@@ -30,6 +34,12 @@ function clearLocalProgress() {
     }
   }
   for (const key of toRemove) localStorage.removeItem(key);
+  lastSeenCloudUpdatedAt = null;
+  try {
+    sessionStorage.removeItem(PULL_STAMP_KEY);
+  } catch {
+    /* ignore */
+  }
 }
 
 function bindProgressToUser(uid) {
@@ -118,10 +128,32 @@ function newerIso(a, b) {
   return ta >= tb ? a : b;
 }
 
-async function pullCloudProgress() {
+function markPullFresh(uid) {
+  try {
+    sessionStorage.setItem(PULL_STAMP_KEY, `${uid}:${Date.now()}`);
+  } catch {
+    /* ignore */
+  }
+}
+
+function isPullFresh(uid) {
+  try {
+    const raw = sessionStorage.getItem(PULL_STAMP_KEY) || "";
+    const [stampUid, stamp] = raw.split(":");
+    return stampUid === uid && Date.now() - Number(stamp || 0) < PULL_FRESH_MS;
+  } catch {
+    return false;
+  }
+}
+
+/** Pull cloud progress. Pass `{ force: true }` after login so a new session always refreshes. */
+async function pullCloudProgress(options) {
   const uid = currentUid();
   if (!uid) return null;
   if (cloudPullInFlight) return cloudPullInFlight;
+  const force = options && options.force;
+  // Skip repeat pulls on hub → study → SWE within a few seconds (login already synced).
+  if (!force && isPullFresh(uid)) return collectLocalProgress();
 
   cloudPullInFlight = (async () => {
     bindProgressToUser(uid);
@@ -130,8 +162,14 @@ async function pullCloudProgress() {
     const local = collectLocalProgress();
     if (!doc.exists) {
       if (Object.keys(local.study).length || Object.keys(local.attempts).length) {
-        await ref.set(local);
+        const snap = { ...local, updatedAt: new Date().toISOString() };
+        await ref.set(snap);
+        lastSeenCloudUpdatedAt = snap.updatedAt;
+        markPullFresh(uid);
+        return snap;
       }
+      lastSeenCloudUpdatedAt = null;
+      markPullFresh(uid);
       return local;
     }
     const cloud = doc.data() || {};
@@ -141,8 +179,11 @@ async function pullCloudProgress() {
       updatedAt: cloud.updatedAt,
     });
     applyLocalProgress(merged);
-    await ref.set(merged);
-    return merged;
+    const snap = { ...merged, updatedAt: new Date().toISOString() };
+    await ref.set(snap);
+    lastSeenCloudUpdatedAt = snap.updatedAt;
+    markPullFresh(uid);
+    return snap;
   })();
 
   try {
@@ -155,9 +196,26 @@ async function pullCloudProgress() {
 async function pushCloudProgress() {
   const uid = currentUid();
   if (!uid) return null;
-  const snap = collectLocalProgress();
-  // Full replace — merge:true would resurrect deleted attempts.
-  await userProgressRef(uid).set(snap);
+  const ref = userProgressRef(uid);
+  const doc = await ref.get();
+  if (doc.exists) {
+    const cloud = doc.data() || {};
+    const cloudTs = Date.parse(cloud.updatedAt || 0) || 0;
+    const seenTs = Date.parse(lastSeenCloudUpdatedAt || 0) || 0;
+    // Another device wrote since our last sync — merge before replacing.
+    if (cloudTs > seenTs) {
+      const merged = mergeProgress(collectLocalProgress(), {
+        study: cloud.study || {},
+        attempts: cloud.attempts || {},
+        updatedAt: cloud.updatedAt,
+      });
+      applyLocalProgress(merged);
+    }
+  }
+  // Local is source of truth after optional merge so clears/deletes still stick.
+  const snap = { ...collectLocalProgress(), updatedAt: new Date().toISOString() };
+  await ref.set(snap);
+  lastSeenCloudUpdatedAt = snap.updatedAt;
   return snap;
 }
 
@@ -169,6 +227,13 @@ function scheduleCloudPush() {
   }, CLOUD_PUSH_MS);
 }
 
-function notifyProgressChanged() {
+/** Debounced push by default; pass `{ immediate: true }` for clears/deletes. */
+function notifyProgressChanged(options) {
+  if (options && options.immediate) {
+    clearTimeout(cloudPushTimer);
+    if (!currentUid()) return;
+    pushCloudProgress().catch((err) => console.error("Cloud push failed", err));
+    return;
+  }
   scheduleCloudPush();
 }

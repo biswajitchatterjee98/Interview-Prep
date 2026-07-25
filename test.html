@@ -13,7 +13,7 @@
   <div class="wrap">
     <header class="topbar">
       <div class="brand">Software Engineer Concepts</div>
-      <button type="button" class="btn-text" id="logoutBtn">Sign out</button>
+      <button type="button" class="btn-text" id="logoutBtn" disabled>Sign out</button>
     </header>
 
     <nav class="crumb" aria-label="Breadcrumb">
@@ -26,7 +26,7 @@
     <h1>Test mode</h1>
     <p class="lede">Choose how you want to practice — full MCQ banks and coding problems are ready.</p>
 
-    <div class="stats-row" id="testStats"></div>
+    <div class="stats-row" id="testStats"><span>Checking session…</span></div>
 
     <div class="card-grid">
       <a class="card" href="mcq.html">
@@ -79,7 +79,11 @@
         const test = summarizeTestSections(catalog);
         paintTestTrackers(test.mcq, test.coding);
       });
-    }).catch((err) => console.error(err));
+    }).catch((err) => {
+      console.error(err);
+      document.getElementById("testStats").innerHTML =
+        `<span>Could not load progress. Refresh and try again.</span>`;
+    });
   </script>
 </body>
 </html>
