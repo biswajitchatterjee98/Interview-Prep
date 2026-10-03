@@ -1001,3 +1001,119 @@ body {
     box-shadow: 0 6px 24px rgba(0,0,0,0.25);
   }
 }
+
+/* Role selection */
+.role-shell {
+  max-width: 720px;
+}
+
+.role-lede {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.role-host {
+  margin-top: 0.5rem;
+}
+
+.role-loading {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.role-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 120px;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 2px 12px rgba(20, 20, 20, 0.06);
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  text-align: center;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.role-card:hover:not(:disabled) {
+  border-color: var(--line-strong);
+  box-shadow: 0 8px 28px rgba(20, 20, 20, 0.08);
+  transform: translateY(-2px);
+}
+
+.role-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.role-card:disabled {
+  cursor: wait;
+  opacity: 0.85;
+}
+
+.role-card.is-loading {
+  border-color: var(--accent);
+}
+
+.role-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.role-card-desc {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 32ch;
+}
+
+.role-card-badge {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (min-width: 640px) {
+  .role-grid {
+    max-width: 480px;
+  }
+
+  .role-grid--multi {
+    max-width: 640px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .role-grid--multi .role-card {
+    flex: 1 1 220px;
+    max-width: 280px;
+  }
+
+  .role-card {
+    min-height: 140px;
+    padding: 2rem 2rem;
+  }
+}

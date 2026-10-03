@@ -6,6 +6,7 @@ Status: **locked** for implementation. Change only if you explicitly reopen scop
 
 ```text
 login (index.html)
+  → roles.html
   → hub.html
        → Study → SWE.html
        → Test → test.html

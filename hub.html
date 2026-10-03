@@ -17,7 +17,9 @@
     </header>
 
     <nav class="crumb" aria-label="Breadcrumb">
-      <span aria-current="page">Home</span>
+      <a href="roles.html">Roles</a>
+      <span>/</span>
+      <span aria-current="page">Study &amp; Test</span>
     </nav>
 
     <p class="kicker">Welcome</p>
@@ -29,13 +31,13 @@
     </div>
 
     <div class="card-grid">
-      <a class="card" href="study.html" id="studyCard">
+      <a class="card" href="study.html" id="studyCard" data-hub-link="study">
         <h2>Study</h2>
         <p>Open the concept question bank by topic. Cover answers, then reveal when ready.</p>
         <div id="studyTracker"></div>
         <div class="meta">Concepts · existing bank</div>
       </a>
-      <a class="card" href="test.html" id="testCard">
+      <a class="card" href="test.html" id="testCard" data-hub-link="test">
         <h2>Test</h2>
         <p>MCQs (50 per topic) and coding drills with save, submit, and reveal.</p>
         <div id="testTracker"></div>
@@ -50,8 +52,15 @@
   <script src="js/auth.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/sync.js"></script>
+  <script src="js/roles.js"></script>
   <script src="js/topics.js"></script>
   <script>
+    function applyRoleToHubLinks() {
+      const study = document.getElementById("studyCard");
+      const test = document.getElementById("testCard");
+      if (study) study.href = withRole("study.html");
+      if (test) test.href = withRole("test.html");
+    }
     function paintHubTrackers(study, test) {
       document.getElementById("studyTracker").innerHTML = renderTracker({
         done: study.done,
@@ -70,9 +79,14 @@
       { done: 0, total: 135, mcq: { done: 0, total: 96 }, coding: { done: 0, total: 39 } }
     );
 
-    requireAuth().then((user) => {
+    requireRole().then((user) => {
       if (!user) return;
+      if (getSelectedRole() === "cgl") {
+        location.replace(withRole("cgl/index.html"));
+        return;
+      }
       bindLogout();
+      applyRoleToHubLinks();
       return Promise.all([loadTopics(), loadStudyMeta()]).then(([catalog, studyMeta]) => {
         const study = summarizeStudyProgress(studyMeta);
         const test = summarizeTestSections(catalog);

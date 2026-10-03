@@ -70,9 +70,9 @@
 
     function safeNext() {
       const params = new URLSearchParams(location.search);
-      const next = params.get("next") || "hub.html";
+      const next = params.get("next") || "roles.html";
       const match = String(next).match(/^([a-z0-9.-]+\.html)(\?[^#]*)?(#.*)?$/i);
-      return match ? match[1] + (match[2] || "") + (match[3] || "") : "hub.html";
+      return match ? match[1] + (match[2] || "") + (match[3] || "") : "roles.html";
     }
 
     document.getElementById("loginForm").addEventListener("submit", async (event) => {

@@ -82,6 +82,7 @@ async function logout() {
     }
   }
   if (typeof clearLocalProgress === "function") clearLocalProgress();
+  if (typeof clearSelectedRole === "function") clearSelectedRole();
   try {
     localStorage.removeItem("sweProgressUid");
     sessionStorage.removeItem("sweProgressPulledAt");

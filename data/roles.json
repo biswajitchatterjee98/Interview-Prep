@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "roles": [
+    {
+      "id": "software-engineer",
+      "title": "Software Engineer",
+      "description": "Concept bank, MCQs, and coding drills for software engineering interviews.",
+      "hub": "hub.html"
+    },
+    {
+      "id": "cgl",
+      "title": "CGL",
+      "description": "SSC CGL Tier 1 — eight-day notes, topic MCQs, day tests, and three full mocks.",
+      "hub": "cgl/index.html"
+    }
+  ]
+}
