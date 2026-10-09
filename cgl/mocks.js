@@ -65,7 +65,7 @@ window.CGL_MOCKS = {
     { text: "In a pie chart, a category is 20% of the total. Its angle is", options: ["20°","36°","72°","90°"], answer: 2, why: "20% of 360° is 72°." },
     { text: "A pie chart sector of 90° represents what percent of the total?", options: ["20%","25%","30%","50%"], answer: 1, why: "90/360 = 1/4 = 25%." },
     { text: "A family’s monthly income is ₹36,000 and rent takes a 60° sector. The rent is", options: ["₹4,000","₹6,000","₹9,000","₹12,000"], answer: 1, why: "60/360 = 1/6. Rent = 36000/6 = 6000." },
-    { text: "Which of the following numbers is divisible by 11?", options: ["2806","3072","3146","2987"], answer: 0, why: "Alternate sum 2−8+0−6 = −12, a multiple of 11, so 2806 is divisible by 11. Repeated SSC divisibility item." },
+    { text: "Which of the following numbers is divisible by 11?", options: ["2806","3072","3146","2987"], answer: 2, why: "3146 ÷ 11 = 286. Alternate digit sum 3−1+4−6 = 0, divisible by 11." },
     { text: "The smallest number which when divided by 20, 25, 35 and 40 leaves remainders 14, 19, 29 and 34 respectively is", options: ["1394","1406","1664","1400"], answer: 0, why: "Each remainder is 6 less than the divisor. The number is LCM(20, 25, 35, 40) − 6 = 1400 − 6 = 1394. Standard SSC question." },
     { text: "The value of 8 + 4 ÷ 2 × 3 − 6 is", options: ["8","5","11","14"], answer: 0, why: "Division and multiplication left to right: 4 ÷ 2 = 2, then 2 × 3 = 6. Then 8 + 6 − 6 = 8." },
     { text: "25 − [16 − {4 + (18 ÷ 6 × 2)}] equals", options: ["15","19","21","17"], answer: 1, why: "18 ÷ 6 × 2 = 3 × 2 = 6. Then 4 + 6 = 10. Then 16 − 10 = 6. Then 25 − 6 = 19." },

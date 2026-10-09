@@ -2,8 +2,8 @@ window.CGL_NOTE_EXAMPLES = {
   "Number system": [
     {
       "prompt": "(PYQ 1) Which of the following numbers is divisible by 11?",
-      "work": "<p><strong>Given:</strong> Which of the following numbers is divisible by 11?</p><p><strong>Method:</strong> Alternate sum 2−8+0−6 = −12, a multiple of 11, so 2806 is divisible by 11. Repeated SSC divisibility item. Why not the others: B) 3072; C) 3146; D) 2987 do not satisfy the condition asked in the stem.</p><p><strong>Why other options fail:</strong></p><ul><li><strong>B)</strong> 3072 — ruled out because it does not match the calculation or definition required.</li><li><strong>C)</strong> 3146 — ruled out because it does not match the calculation or definition required.</li><li><strong>D)</strong> 2987 — ruled out because it does not match the calculation or definition required.</li></ul>",
-      "answer": "<strong>Answer: A) 2806</strong> (SSC CGL Tier-1 previous-year pattern.)"
+      "work": "<p><strong>Given:</strong> Which of the following numbers is divisible by 11?</p><p><strong>Method:</strong> SSC CGL Tier-1 pattern. 3146 ÷ 11 = 286 exactly. For 3146, alternate digit sum 3 − 1 + 4 − 6 = 0, which is divisible by 11. 2806, 3072 and 2987 are not divisible by 11.</p><p><strong>Why other options fail:</strong></p><ul><li><strong>A)</strong> 2806 — ruled out because it does not match the calculation or definition required.</li><li><strong>B)</strong> 3072 — ruled out because it does not match the calculation or definition required.</li><li><strong>D)</strong> 2987 — ruled out because it does not match the calculation or definition required.</li></ul>",
+      "answer": "<strong>Answer: C) 3146</strong> (SSC CGL Tier-1 previous-year pattern.)"
     },
     {
       "prompt": "(PYQ 2) The smallest number which when divided by 20, 25, 35 and 40 leaves remainders 14, 19, 29 and 34 respectively is",

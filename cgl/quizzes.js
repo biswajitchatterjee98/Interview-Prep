@@ -9,7 +9,7 @@ function Q(text, options, answer, why) {
 }
 
 add("Number system", [
-  Q("Which of the following numbers is divisible by 11?", ["2806", "3072", "3146", "2987"], 0, "Alternate sum 2−8+0−6 = −12, a multiple of 11, so 2806 is divisible by 11. Repeated SSC divisibility item. Why not the others: B) 3072; C) 3146; D) 2987 do not satisfy the condition asked in the stem."),
+  Q("Which of the following numbers is divisible by 11?", ["2806", "3072", "3146", "2987"], 2, "SSC CGL Tier-1 pattern. 3146 ÷ 11 = 286 exactly. For 3146, alternate digit sum 3 − 1 + 4 − 6 = 0, which is divisible by 11. 2806, 3072 and 2987 are not divisible by 11."),
   Q("The smallest number which when divided by 20, 25, 35 and 40 leaves remainders 14, 19, 29 and 34 respectively is", ["1394", "1406", "1664", "1400"], 0, "Each remainder is 6 less than the divisor. The number is LCM(20, 25, 35, 40) − 6 = 1400 − 6 = 1394. Standard SSC question. Why not the others: B) 1406; C) 1664; D) 1400 do not satisfy the condition asked in the stem."),
   Q("A number when divided by 3 leaves a remainder of 1. The same number divided by 4 leaves a remainder of 2, and divided by 5 leaves a remainder of 3. The number is", ["22", "58", "34", "46"], 1, "Seen in SSC CGL Tier-1 previous papers (PYQ pattern). Remainder is 2 less than each divisor in the usual form of this question. Here remainder = divisor − 2, so the number is LCM(3,4,5) − 2 = 60 − 2 = 58. 58 ÷ 3 = 19 remainder 1."),
   Q("The unit digit of 7^43 is", ["1", "3", "7", "9"], 1, "Seen in SSC CGL Tier-1 previous papers (PYQ pattern). Units of powers of 7 cycle 7, 9, 3, 1 every 4. 43 = 4×10 + 3, so the third place in the cycle, which is 3."),
