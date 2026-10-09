@@ -48,6 +48,8 @@
   <script src="data.js"></script>
   <script src="notes.js"></script>
   <script src="notes-extra.js"></script>
+  <script src="notes-pyq.js"></script>
+  <script src="formulas-extra.js"></script>
   <script src="quizzes.js"></script>
   <script src="quizzes-more.js"></script>
   <script src="day-quizzes.js"></script>
@@ -62,7 +64,17 @@
         return;
       }
       bindLogout();
-      if (typeof bootCglApp === "function") bootCglApp();
+      const boot = function () {
+        if (typeof reloadCglState === "function") reloadCglState();
+        if (typeof bootCglApp === "function") bootCglApp();
+      };
+      if (typeof pullCloudProgress === "function") {
+        pullCloudProgress().then(boot).catch(function () {
+          boot();
+        });
+      } else {
+        boot();
+      }
     });
   </script>
 </body>

@@ -7,6 +7,7 @@ const CLOUD_PUSH_MS = 400;
 const PULL_FRESH_MS = 12000;
 const PROGRESS_UID_KEY = "sweProgressUid";
 const PULL_STAMP_KEY = "sweProgressPulledAt";
+const CGL_PROGRESS_KEY = "cgl-tier1-2026";
 let cloudPushTimer = null;
 let cloudPullInFlight = null;
 /** Cloud `updatedAt` from the last successful pull/push — used to detect writes from other devices. */
@@ -29,7 +30,10 @@ function clearLocalProgress() {
   const toRemove = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key && (key.startsWith(STUDY_PREFIX) || key.startsWith(ATTEMPT_PREFIX))) {
+    if (
+      key &&
+      (key.startsWith(STUDY_PREFIX) || key.startsWith(ATTEMPT_PREFIX) || key === CGL_PROGRESS_KEY)
+    ) {
       toRemove.push(key);
     }
   }
@@ -68,7 +72,14 @@ function collectLocalProgress() {
       /* skip bad JSON */
     }
   }
-  return { study, attempts, updatedAt: new Date().toISOString() };
+  let cglTier1 = null;
+  try {
+    const raw = localStorage.getItem(CGL_PROGRESS_KEY);
+    if (raw) cglTier1 = JSON.parse(raw);
+  } catch {
+    /* ignore */
+  }
+  return { study, attempts, cglTier1, updatedAt: new Date().toISOString() };
 }
 
 function applyLocalProgress(snapshot) {
@@ -80,6 +91,9 @@ function applyLocalProgress(snapshot) {
   }
   for (const [id, data] of Object.entries(attempts)) {
     localStorage.setItem(ATTEMPT_PREFIX + id, JSON.stringify(data));
+  }
+  if (snapshot.cglTier1 && typeof snapshot.cglTier1 === "object") {
+    localStorage.setItem(CGL_PROGRESS_KEY, JSON.stringify(snapshot.cglTier1));
   }
 }
 
@@ -114,11 +128,22 @@ function mergeProgress(localSnap, cloudSnap) {
         ? localData
         : cloudData;
   }
+  const cglTier1 = mergeCglProgress(local.cglTier1, cloud.cglTier1);
   return {
     study,
     attempts,
+    cglTier1,
     updatedAt: newerIso(local.updatedAt, cloud.updatedAt) || new Date().toISOString(),
   };
+}
+
+function mergeCglProgress(localCgl, cloudCgl) {
+  if (!localCgl && !cloudCgl) return null;
+  if (!cloudCgl) return localCgl;
+  if (!localCgl) return cloudCgl;
+  const localTs = Date.parse(localCgl.updatedAt || 0) || 0;
+  const cloudTs = Date.parse(cloudCgl.updatedAt || 0) || 0;
+  return localTs >= cloudTs ? localCgl : cloudCgl;
 }
 
 function newerIso(a, b) {
@@ -176,6 +201,7 @@ async function pullCloudProgress(options) {
     const merged = mergeProgress(local, {
       study: cloud.study || {},
       attempts: cloud.attempts || {},
+      cglTier1: cloud.cglTier1 || null,
       updatedAt: cloud.updatedAt,
     });
     applyLocalProgress(merged);
@@ -207,6 +233,7 @@ async function pushCloudProgress() {
       const merged = mergeProgress(collectLocalProgress(), {
         study: cloud.study || {},
         attempts: cloud.attempts || {},
+        cglTier1: cloud.cglTier1 || null,
         updatedAt: cloud.updatedAt,
       });
       applyLocalProgress(merged);

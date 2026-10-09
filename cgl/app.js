@@ -9,10 +9,16 @@ function load() {
 }
 
 function save(state) {
-  localStorage.setItem(storeKey, JSON.stringify(state));
+  const payload = { ...state, updatedAt: new Date().toISOString() };
+  localStorage.setItem(storeKey, JSON.stringify(payload));
+  if (typeof notifyProgressChanged === "function") notifyProgressChanged();
 }
 
-const state = load();
+let state = load();
+
+function reloadCglState() {
+  state = load();
+}
 let currentId = Number(sessionStorage.getItem("cgl-day")) || 1;
 let mode = "read";
 let qIndex = 0;
@@ -78,14 +84,64 @@ function scoreOf(questions, picked) {
   return { right, wrong, blank, marks };
 }
 
+function topicQuizProgress(dayId, topicTitle) {
+  const dayState = state[dayId];
+  if (!dayState || !dayState.topics || !dayState.topics[topicTitle]) return null;
+  const entry = dayState.topics[topicTitle];
+  const bank = window.CGL_QUIZ && window.CGL_QUIZ[topicTitle];
+  const total = bank ? bank.length : 0;
+  const answered = entry.answers ? entry.answers.filter((a) => a != null).length : 0;
+  return {
+    marks: entry.marks,
+    answered,
+    total,
+    done: total > 0 && answered >= total,
+  };
+}
+
+function dayTrackSummary(day) {
+  const source = (window.CGL_NOTES && window.CGL_NOTES[day.id]) || day.notes || [];
+  const topics = source.filter((n) => n.title && !n.points);
+  let quizzesDone = 0;
+  let quizMarks = 0;
+  topics.forEach((n) => {
+    const p = topicQuizProgress(day.id, n.title);
+    if (p && p.done) quizzesDone += 1;
+    if (p && p.marks != null) quizMarks += p.marks;
+  });
+  const dayTest = state[day.id] && state[day.id].dayTestMarks != null;
+  return { topics: topics.length, quizzesDone, dayTest, quizMarks };
+}
+
 function renderOverall() {
-  const done = window.CGL.days.filter((day) => state[day.id] && state[day.id].marks != null);
-  if (!done.length) {
-    overall.textContent = "Nothing saved yet";
+  let daysWithProgress = 0;
+  let totalMarks = 0;
+  let topicsDone = 0;
+  let topicsTotal = 0;
+  window.CGL.days.forEach((day) => {
+    if (day.mock) return;
+    const track = dayTrackSummary(day);
+    topicsTotal += track.topics;
+    topicsDone += track.quizzesDone;
+    if (track.quizzesDone > 0 || track.dayTest || (state[day.id] && state[day.id].marks != null)) {
+      daysWithProgress += 1;
+      totalMarks += track.quizMarks + (state[day.id] && state[day.id].dayTestMarks ? state[day.id].dayTestMarks : 0);
+    }
+  });
+  if (!daysWithProgress && !topicsDone) {
+    overall.textContent = "Track: start a topic quiz or day test to save progress";
     return;
   }
-  const marks = done.reduce((sum, day) => sum + state[day.id].marks, 0);
-  overall.textContent = done.length + " of 8 done · " + trim(marks) + " marks saved";
+  overall.textContent =
+    "Track: " +
+    topicsDone +
+    "/" +
+    topicsTotal +
+    " topic quizzes · " +
+    daysWithProgress +
+    " days touched · " +
+    trim(totalMarks) +
+    " marks";
 }
 
 function trim(n) {
@@ -98,7 +154,13 @@ function renderNav() {
     const button = document.createElement("button");
     button.className = "day-chip";
     if (day.id === currentId) button.classList.add("active");
-    if (state[day.id] && state[day.id].marks != null) button.classList.add("done");
+    const track = day.mock ? null : dayTrackSummary(day);
+    if (day.mock && state[day.id] && state[day.id].marks != null) button.classList.add("done");
+    else if (track && track.topics > 0 && track.quizzesDone >= track.topics && track.dayTest) {
+      button.classList.add("done");
+    } else if (track && (track.quizzesDone > 0 || track.dayTest)) {
+      button.classList.add("active-partial");
+    }
     button.innerHTML = "<strong>Day " + day.id + "</strong><small>" + day.date + "</small>";
     button.addEventListener("click", () => openDay(day.id));
     nav.appendChild(button);
@@ -180,9 +242,21 @@ function renderRead(day) {
     return;
   }
   const source = (window.CGL_NOTES && window.CGL_NOTES[day.id]) || day.notes;
+  const track = dayTrackSummary(day);
   const notes = source.map(noteHtml).join("");
   main.innerHTML =
     panelStart(day) +
+    "<section class=\"note day-track\"><h3>Your track (Day " +
+    day.id +
+    ")</h3><p>Topic quizzes completed: <strong>" +
+    track.quizzesDone +
+    "</strong> / " +
+    track.topics +
+    ". Day test: <strong>" +
+    (track.dayTest ? "done" : "not yet") +
+    "</strong>. Marks from topic quizzes today: <strong>" +
+    trim(track.quizMarks) +
+    "</strong>.</p></section>" +
     notes +
     "<section class=\"note\"><h3>Day test</h3><p>Thirty questions from the topics of this day. Each one is marked as soon as you answer: green if it is right, red if it is wrong, with the right option shown in green.</p><div class=\"actions\"><button class=\"btn\" id=\"day-test\">Start 30-question day test</button></div></section></article>";
   main.querySelectorAll("[data-topic]").forEach((button) => {
@@ -202,21 +276,35 @@ function noteHtml(note) {
       "</ul></section>"
     );
   }
-  const formulas = (note.formulas || [])
-    .map((line) => "<li>" + line + "</li>")
-    .join("");
-  const examples = (note.examples || [])
+  const extraForm =
+    window.CGL_EXTRA_FORMULAS && window.CGL_EXTRA_FORMULAS[note.title]
+      ? window.CGL_EXTRA_FORMULAS[note.title]
+      : [];
+  const allFormulas = [...(note.formulas || []), ...extraForm];
+  const formulas = allFormulas.map((line) => "<li>" + line + "</li>").join("");
+  const exampleList =
+    (window.CGL_NOTE_EXAMPLES && window.CGL_NOTE_EXAMPLES[note.title]) || note.examples || [];
+  const examples = exampleList
     .map(
-      (example) =>
-        "<div class=\"example\"><h4>Example</h4><p class=\"prompt\">" +
-        escapeHtml(example.prompt) +
-        "</p><p>" +
+      (example, index) =>
+        "<div class=\"example\"><h4>Worked example " +
+        (index + 1) +
+        " (PYQ)</h4><p class=\"prompt\">" +
+        escapeHtml(example.prompt.replace(/^\(PYQ \d+\)\s*/, "")) +
+        "</p><div class=\"example-work\">" +
         example.work +
-        "</p><p class=\"answer\">" +
+        "</div><p class=\"answer\">" +
         example.answer +
         "</p></div>"
     )
     .join("");
+  const progress = topicQuizProgress(currentId, note.title);
+  const trackLine = progress
+    ? "<p class=\"q-meta topic-track\">Quiz track: " +
+      (progress.done ? "Completed" : progress.answered + "/" + progress.total + " answered") +
+      (progress.marks != null ? " · " + trim(progress.marks) + " marks" : "") +
+      "</p>"
+    : "<p class=\"q-meta topic-track\">Quiz track: not started</p>";
   return (
     "<section class=\"note\"><h3>" +
     escapeHtml(note.title) +
@@ -224,6 +312,7 @@ function noteHtml(note) {
     note.body.map((paragraph) => "<p>" + paragraph + "</p>").join("") +
     (formulas ? "<h4>Rules and formulas</h4><ul class=\"formulas\">" + formulas + "</ul>" : "") +
     examples +
+    trackLine +
     topicButton(note) +
     "</section>"
   );
@@ -321,9 +410,18 @@ function renderQuiz(day) {
       const result = scoreOf(quizQuestions, answers);
       if (!state[day.id]) state[day.id] = { topics: {} };
       if (!state[day.id].topics) state[day.id].topics = {};
-      state[day.id].topics[quizTitle] = { answers: answers.slice(), marks: result.marks, at: Date.now() };
+      state[day.id].topics[quizTitle] = {
+        answers: answers.slice(),
+        marks: result.marks,
+        right: result.right,
+        wrong: result.wrong,
+        at: Date.now(),
+      };
       const topicMarks = Object.values(state[day.id].topics).reduce((sum, item) => sum + item.marks, 0);
       state[day.id].marks = topicMarks;
+      if (quizTitle.indexOf("Day ") === 0 && quizTitle.indexOf("test") !== -1) {
+        state[day.id].dayTestMarks = result.marks;
+      }
       save(state);
       mode = "result";
       renderNav();
@@ -350,9 +448,9 @@ function renderResult(day) {
         escapeHtml(item.text) +
         "</p><p>Your answer: " +
         escapeHtml(your) +
-        "</p><p>Answer: " +
-        escapeHtml(item.options[item.answer]) +
-        "</p><p>" +
+        "</p><p><strong>Correct:</strong> " +
+        escapeHtml(["A", "B", "C", "D"][item.answer] + ") " + item.options[item.answer]) +
+        "</p><p><strong>Explanation:</strong> " +
         escapeHtml(item.why) +
         "</p></details>"
       );
@@ -566,6 +664,50 @@ function palette(questions) {
   );
 }
 
+function explanationBlock(item, picked, open) {
+  if (!open) return "";
+  const letters = ["A", "B", "C", "D"];
+  const correct = item.options[item.answer];
+  const correctLine =
+    "<p><strong>Correct answer:</strong> " +
+    letters[item.answer] +
+    ") " +
+    escapeHtml(correct) +
+    "</p>";
+  const your =
+    picked == null
+      ? "<p><strong>Your answer:</strong> Left blank</p>"
+      : "<p><strong>Your answer:</strong> " +
+        letters[picked] +
+        ") " +
+        escapeHtml(item.options[picked]) +
+        (picked === item.answer ? " ✓" : " ✗") +
+        "</p>";
+  const others = item.options
+    .map((opt, i) =>
+      i === item.answer
+        ? null
+        : "<li>" + letters[i] + ") " + escapeHtml(opt) + " — incorrect for this question.</li>"
+    )
+    .filter(Boolean)
+    .join("");
+  return (
+    "<div class=\"why\">" +
+    "<p><strong" +
+    (picked === item.answer ? "" : " class=\"miss\"") +
+    ">" +
+    (picked === item.answer ? "Correct." : "Incorrect.") +
+    "</strong></p>" +
+    your +
+    correctLine +
+    "<p><strong>Explanation:</strong> " +
+    escapeHtml(item.why) +
+    "</p>" +
+    (others ? "<p><strong>Other options:</strong></p><ul class=\"why-opts\">" + others + "</ul>" : "") +
+    "</div>"
+  );
+}
+
 function stemBlock(item, picked) {
   const letters = ["A", "B", "C", "D"];
   const open = locked[qIndex];
@@ -592,16 +734,7 @@ function stemBlock(item, picked) {
     })
     .join("");
   const figure = item.figure ? "<div class=\"figure\">" + item.figure + "</div>" : "";
-  const why = open
-    ? "<div class=\"why\"><strong" +
-      (picked === item.answer ? "" : " class=\"miss\"") +
-      ">" +
-      (picked === item.answer ? "Correct." : "Incorrect.") +
-      "</strong> " +
-      (picked === item.answer ? "" : "The right option is marked in green. ") +
-      escapeHtml(item.why) +
-      "</div>"
-    : "";
+  const why = explanationBlock(item, picked, open);
   return "<h2 class=\"stem\">" + escapeHtml(item.text) + "</h2>" + figure + "<div class=\"options\">" + options + "</div>" + why;
 }
 

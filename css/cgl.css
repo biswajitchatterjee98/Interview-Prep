@@ -194,6 +194,39 @@
   font-family: var(--cgl-display);
 }
 
+.cgl-app .example-work {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--cgl-ink);
+}
+
+.cgl-app .example-work ul {
+  margin: 0.35rem 0 0.5rem;
+  padding-left: 1.2rem;
+}
+
+.cgl-app .day-track {
+  background: #f8f6f2;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.cgl-app .topic-track {
+  margin-top: 0.75rem;
+}
+
+.cgl-app .why-opts {
+  margin: 0.35rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--cgl-muted);
+  font-size: 0.92rem;
+}
+
+.cgl-app .day-chip.active-partial {
+  box-shadow: inset 0 -3px 0 var(--cgl-gold);
+  opacity: 1;
+}
+
 .cgl-app .actions {
   display: flex;
   flex-wrap: wrap;
